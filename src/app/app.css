@@ -1,0 +1,40 @@
+.app-grid {
+  display: grid;
+
+  grid-template-columns: 250px 10px 1fr;
+  grid-template-rows: 250px 10px auto 10px 250px;
+
+  max-width: 1920px;
+  /*
+	100 dvh: 100% of the viewport height, accounting for mobile browser UI.
+	Makes this page vertically scrollable if content exceeds the viewport height.
+	*/
+  min-height: 100dvh;
+  width: 100%;
+
+  /*
+	* Center the grid horizontally, not vertically, within its container.
+	* 0 is the vertical top and bottom margin, auto is the horizontal margin.
+	*/
+  margin: 0 auto;
+}
+
+app-header {
+  grid-column: 1 / span 3;
+  grid-row: 1;
+}
+
+app-footer {
+  grid-column: 1 / span 3;
+  grid-row: 5;
+}
+
+app-sidebar {
+  grid-column: 1;
+  grid-row: 3;
+}
+
+app-body {
+  grid-column: 3;
+  grid-row: 3;
+}
