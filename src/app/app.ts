@@ -1,16 +1,22 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { AppBody } from '@features/app-body/app-body';
-import { AppFooter } from '@features/app-footer/app-footer';
-import { AppHeader } from '@features/app-header/app-header';
-import { AppSidebar } from '@features/app-sidebar/app-sidebar';
+import { AppBodyComponent } from '@features/app-body/app-body';
+import { AppFooterComponent } from '@features/app-footer/app-footer';
+import { AppHeaderComponent } from '@features/app-header/app-header';
+import { AppSidebarComponent } from '@features/app-sidebar/app-sidebar';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, AppHeader, AppBody, AppFooter, AppSidebar],
+  imports: [
+    RouterOutlet,
+    AppHeaderComponent,
+    AppBodyComponent,
+    AppFooterComponent,
+    AppSidebarComponent,
+  ],
   templateUrl: './app.html',
   styleUrl: './app.css',
 })
-export class App {
+export class AppComponent {
   protected readonly title = signal('SimpleShop');
 }

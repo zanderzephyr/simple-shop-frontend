@@ -6,4 +6,4 @@ import { Component } from '@angular/core';
   templateUrl: './app-body.html',
   styleUrl: './app-body.css',
 })
-export class AppBody {}
+export class AppBodyComponent {}
