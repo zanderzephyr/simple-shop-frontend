@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AppSidebarFilters } from './app-sidebar-filters';
+import { MediaTypeSidebarFilter } from './media-type-sidebar-filter';
 
-describe('AppSidebarFilters', () => {
-  let component: AppSidebarFilters;
-  let fixture: ComponentFixture<AppSidebarFilters>;
+describe('MediaTypeSidebarFilter', () => {
+  let component: MediaTypeSidebarFilter;
+  let fixture: ComponentFixture<MediaTypeSidebarFilter>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppSidebarFilters],
+      imports: [MediaTypeSidebarFilter],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(AppSidebarFilters);
+    fixture = TestBed.createComponent(MediaTypeSidebarFilter);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

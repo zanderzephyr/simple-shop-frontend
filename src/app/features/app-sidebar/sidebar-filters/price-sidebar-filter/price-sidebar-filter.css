@@ -1,0 +1,29 @@
+.header {
+  font-size: large;
+}
+
+/*
+	Manual component indexing could be done with the "order" property of
+	the flex elements, but the focus order is the HTML element order.
+*/
+.slider-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+}
+
+.min-input {
+  flex: 4;
+  width: 100%;
+}
+
+.slider {
+  flex: 2;
+  width: 100%;
+}
+
+.max-input {
+  flex: 4;
+  width: 100%;
+}

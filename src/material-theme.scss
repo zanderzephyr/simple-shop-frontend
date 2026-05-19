@@ -5,9 +5,25 @@
 // custom components at https://material.angular.dev/guide/theming
 @use '@angular/material' as mat;
 
+// Layout
 html,
 cdk-overlay-container {
+  /*
+		Block-level HTML elements automatically take up 100% of the available
+		width by default. We don't need a width declaration.
+	*/
+
+  /* cdk-overlay-container "inherits" from html, html "inherits" from the viewport.
+		 cdk-overlay-container needs to spread to the full height of the viewport to
+		 ensure that Angular Material components that are rendered in an overlay
+		 (e.g. dialogs, menus, etc.) are able to position themselves correctly.
+	*/
   height: 100%;
+}
+
+// Angular Material 3 Theme variables configuration
+html,
+cdk-overlay-container {
   @include mat.theme(
     (
       color: (

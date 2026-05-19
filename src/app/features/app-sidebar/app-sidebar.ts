@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { AppSidebarFilters } from '@features/app-sidebar-filters/app-sidebar-filters';
+import { SidebarFilters } from '@app/features/app-sidebar/sidebar-filters/sidebar-filters';
 
 @Component({
   selector: 'app-sidebar',
-  imports: [AppSidebarFilters],
+  imports: [SidebarFilters],
   templateUrl: './app-sidebar.html',
   styleUrl: './app-sidebar.css',
 })
