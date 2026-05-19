@@ -1,7 +1,17 @@
 import { Item, ItemBuilder, MediaType } from '@features/item/model/item';
-import { signal, Signal, Injectable } from '@angular/core';
+import { signal, Signal, Injectable, WritableSignal } from '@angular/core';
 
-@Injectable({ providedIn: 'root' })
+let INSTANCE: ItemService | null = null;
+
+@Injectable({
+  providedIn: 'root',
+  useFactory: () => {
+    if (!INSTANCE) {
+      INSTANCE = new ApiItemService();
+    }
+    return INSTANCE;
+  },
+})
 export abstract class ItemService {
   public abstract addItem(item: Item): void;
 
@@ -14,15 +24,33 @@ export abstract class ItemService {
    * @returns The item with ID itemId or null if such an
    * item doesn't exist.
    */
-  public abstract getItem(itemId: number): Signal<Item> | null;
+  public abstract getItem(itemId: number): Item | null;
 
   public abstract modifyItem(item: Item): void;
 
   public abstract removeItem(item: Item): void;
 }
 
-@Injectable({ providedIn: 'root' })
-export class ApiItemService extends ItemService {
+@Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
+class ApiItemService extends ItemService {
+  #items: WritableSignal<readonly Item[]> = signal(
+    Object.freeze(new ItemGenerator().createItems()),
+  );
+
+  readonly #itemsPublic: Signal<readonly Item[]> = this.#items.asReadonly();
+
+  constructor() {
+    if (INSTANCE) {
+      throw new Error(
+        'Instantiation failed: ' +
+          ApiItemService.name +
+          ' is a singleton managed by the framework. Manual creation or re-providing is forbidden.',
+      );
+    } else {
+      super();
+    }
+  }
+
   public addItem(item: Item): void {
     // TODO
     console.log('Adding items not yet implemented!');
@@ -30,21 +58,11 @@ export class ApiItemService extends ItemService {
 
   // TODO replace with actual request and response processing.
   public getItems(): Signal<readonly Item[]> {
-    let items: Item[] = new ItemGenerator().createItems();
-    // Do not freeze the signal itself
-    return signal(Object.freeze(items)).asReadonly();
+    return this.#itemsPublic;
   }
 
-  // TODO No to that of course, but for now...
-  public getItem(itemId: number): Signal<Item> | null {
-    const items: readonly Item[] = this.getItems()();
-    for (const item of items) {
-      if (item.getId() === itemId) {
-        // Do not freeze the signal itself
-        return signal(item).asReadonly();
-      }
-    }
-    return null;
+  public getItem(itemId: number): Item | null {
+    return this.#itemsPublic().find((item) => item.getId() === itemId) ?? null;
   }
 
   public modifyItem(item: Item): void {
