@@ -14,16 +14,13 @@
 }
 
 .min-input {
-  flex: 4;
-  width: 100%;
+  width: 80px;
 }
 
 .slider {
-  flex: 2;
-  width: 100%;
+  flex: 1;
 }
 
 .max-input {
-  flex: 4;
-  width: 100%;
+  width: 80px;
 }
