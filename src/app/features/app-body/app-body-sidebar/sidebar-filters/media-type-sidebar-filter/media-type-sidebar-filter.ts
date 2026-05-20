@@ -1,7 +1,7 @@
 import { Component, signal, Signal, WritableSignal } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
-import { MediaType } from '@features/item/model/item';
+import { MediaType } from '@app/core/api/item/model/item';
 
 @Component({
   selector: 'app-media-type-sidebar-filter',

@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ItemService } from '@app/core/data-access/item.service';
+import { ItemService } from '@app/core/api/item/item.service';
 import { ItemSearchResults } from '@app/core/item-search-results';
 import { MatButtonModule } from '@angular/material/button';
 

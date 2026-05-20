@@ -1,4 +1,4 @@
-import { Item, ItemBuilder, MediaType } from '@features/item/model/item';
+import { Item, ItemBuilder, MediaType } from '@app/core/api/item/model/item';
 import { signal, Signal, Injectable, WritableSignal } from '@angular/core';
 
 let INSTANCE: ItemService | null = null;
