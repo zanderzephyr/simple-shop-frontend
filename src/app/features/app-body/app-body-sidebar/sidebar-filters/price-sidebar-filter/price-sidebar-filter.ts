@@ -15,8 +15,8 @@ export class PriceSidebarFilter {
   protected readonly minLimit: number = 0;
   protected readonly maxLimit: number = 2000;
 
-  protected minPrice: WritableSignal<number> = signal<number>(20);
-  protected maxPrice: WritableSignal<number> = signal<number>(120);
+  protected readonly minPrice: WritableSignal<number> = signal<number>(20);
+  protected readonly maxPrice: WritableSignal<number> = signal<number>(120);
 
   constructor() {}
 

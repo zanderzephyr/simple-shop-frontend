@@ -5,7 +5,7 @@
     <mat-label>Choose Media Type</mat-label>
     <mat-select
       [value]="selectedMediaType()"
-      (selectionChange)="selectedMediaType.set($event.value)"
+      (selectionChange)="updateSelectedMediaType($event.value)"
     >
       @for (mediaType of mediaTypes(); track mediaType.id) {
         <mat-option [value]="mediaType.id">{{ mediaType.name }}</mat-option>

@@ -15,7 +15,7 @@ let INSTANCE: ItemService | null = null;
 export abstract class ItemService {
   public abstract addItem(item: Item): void;
 
-  public abstract getItems(): Signal<readonly Item[]>;
+  public abstract getItems(): Signal<Readonly<Item[]>>;
 
   /**
    * Retrieves an item with ID of itemId from the item
@@ -33,11 +33,11 @@ export abstract class ItemService {
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
-  #items: WritableSignal<readonly Item[]> = signal(
+  readonly #items: WritableSignal<Readonly<Item[]>> = signal(
     Object.freeze(new ItemGenerator().createItems()),
   );
 
-  readonly #itemsPublic: Signal<readonly Item[]> = this.#items.asReadonly();
+  readonly #itemsPublic: Signal<Readonly<Item[]>> = this.#items.asReadonly();
 
   constructor() {
     if (INSTANCE) {
@@ -57,7 +57,7 @@ class ApiItemService extends ItemService {
   }
 
   // TODO replace with actual request and response processing.
-  public getItems(): Signal<readonly Item[]> {
+  public getItems(): Signal<Readonly<Item[]>> {
     return this.#itemsPublic;
   }
 

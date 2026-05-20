@@ -3,7 +3,7 @@
 <!-- Take care: The order of the HTML elements is the focus order. -->
 <div class="slider-container">
   <mat-form-field class="min-input" appearance="outline">
-    <mat-label>Min ($)</mat-label>
+    <mat-label>Min (EUR)</mat-label>
     <!--
 			matInput: Directive to apply Material Design styles and behavior to an input element
 		-->
@@ -17,6 +17,7 @@
     />
   </mat-form-field>
 
+  <!-- TODO This slider should use cents as unit and the text fields should display the values in euros -->
   <mat-slider class="slider" [min]="minLimit" [max]="maxLimit" step="1" discrete>
     <!--
 			matSliderStartThumb: Directive for the slider to know, this is the start thumb
@@ -33,7 +34,7 @@
   </mat-slider>
 
   <mat-form-field class="max-input" appearance="outline">
-    <mat-label>Max ($)</mat-label>
+    <mat-label>Max (EUR)</mat-label>
     <input
       matInput
       type="number"

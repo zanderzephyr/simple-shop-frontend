@@ -1,1 +1,8 @@
-<p>app-body works!</p>
+<div class="app-body-container" [class.no-sidebar]="!sidebarVisible()">
+  <app-body-sidebar
+    [style.display]="sidebarVisible() ? 'block' : 'none'"
+    (visibilityChange)="sidebarVisible.set($event)"
+  ></app-body-sidebar>
+
+  <app-body-content><router-outlet /></app-body-content>
+</div>

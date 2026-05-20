@@ -1,0 +1,21 @@
+.app-body-container {
+  display: flex;
+  width: 100%;
+}
+
+.app-body-container.no-sidebar body-sidebar {
+  flex: 0 0 0px;
+  width: 0px;
+  overflow: hidden;
+}
+
+body-sidebar {
+  flex: 0 0 300px;
+  width: 300px;
+  transition: all 0.3s ease-in-out;
+}
+
+body-content {
+  flex: 1 1 auto;
+  display: block;
+}

@@ -10,13 +10,23 @@ import { MediaType } from '@features/item/model/item';
   styleUrl: './media-type-sidebar-filter.css',
 })
 export class MediaTypeSidebarFilter {
-  protected static readonly allMediaTypeValue = 'All';
-  protected mediaTypes: Signal<MediaType[]> = signal(Object.values(MediaType));
-  protected selectedMediaType: WritableSignal<string> = signal<string>(
-    MediaTypeSidebarFilter.allMediaTypeValue,
+  readonly #allMediaTypeValue = 'All';
+
+  protected readonly mediaTypes: Signal<Readonly<MediaType[]>> = signal(
+    Object.freeze(Object.values(MediaType)),
+  ).asReadonly();
+
+  protected readonly selectedMediaType: WritableSignal<string> = signal<string>(
+    this.#allMediaTypeValue,
   );
 
+  constructor() {}
+
+  protected updateSelectedMediaType(mediaType: string) {
+    this.selectedMediaType.set(mediaType);
+  }
+
   protected getAllMediaTypesValue() {
-    return MediaTypeSidebarFilter.allMediaTypeValue;
+    return this.#allMediaTypeValue;
   }
 }

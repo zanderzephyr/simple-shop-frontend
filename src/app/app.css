@@ -1,7 +1,7 @@
 .app-grid {
   display: grid;
 
-  grid-template-columns: 300px 10px 1fr;
+  grid-template-columns: 1fr;
   grid-template-rows: 100px 10px auto 10px 100px;
 
   max-width: 1920px;
@@ -20,21 +20,16 @@
 }
 
 app-header {
-  grid-column: 1 / span 3;
+  grid-column: 1;
   grid-row: 1;
 }
 
 app-footer {
-  grid-column: 1 / span 3;
+  grid-column: 1;
   grid-row: 5;
 }
 
-app-sidebar {
-  grid-column: 1;
-  grid-row: 3;
-}
-
 app-body {
-  grid-column: 3;
+  grid-column: 1;
   grid-row: 3;
 }
