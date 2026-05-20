@@ -12,7 +12,7 @@ import { PriceSidebarFilter } from './price-sidebar-filter/price-sidebar-filter'
 import { ItemSearchResults } from '@app/core/item-search-results';
 
 @Component({
-  selector: 'sidebar-filters',
+  selector: 'app-sidebar-filters',
   imports: [MediaTypeSidebarFilter, PriceSidebarFilter],
   templateUrl: './sidebar-filters.html',
   styleUrl: './sidebar-filters.css',

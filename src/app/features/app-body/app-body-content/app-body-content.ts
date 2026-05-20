@@ -14,7 +14,9 @@ export class AppBodyContentComponent {
 
   readonly #itemSearchResults: ItemSearchResults = inject(ItemSearchResults);
 
-  constructor() {}
+  constructor() {
+    // Nothing to do so far
+  }
 
   protected addSearchResults(): void {
     this.#itemSearchResults.addSearchResults(this.#itemService.getItems()());

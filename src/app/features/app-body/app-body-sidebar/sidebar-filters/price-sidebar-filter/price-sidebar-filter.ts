@@ -5,7 +5,7 @@ import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-  selector: 'price-sidebar-filter',
+  selector: 'app-price-sidebar-filter',
   imports: [MatSliderModule, MatFormFieldModule, MatInputModule, FormsModule],
   templateUrl: './price-sidebar-filter.html',
   styleUrl: './price-sidebar-filter.css',
@@ -18,7 +18,9 @@ export class PriceSidebarFilter {
   protected readonly minPrice: WritableSignal<number> = signal<number>(20);
   protected readonly maxPrice: WritableSignal<number> = signal<number>(120);
 
-  constructor() {}
+  constructor() {
+    // Nothing to do so far
+  }
 
   protected updateMinPrice(event: Event): void {
     const numberValue: number | null = this.#extractNumberValue(event);

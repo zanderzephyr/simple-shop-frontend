@@ -1,6 +1,5 @@
 import {
   Component,
-  inject,
   Signal,
   computed,
   signal,

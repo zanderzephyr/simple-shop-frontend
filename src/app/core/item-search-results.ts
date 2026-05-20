@@ -13,9 +13,9 @@ let INSTANCE: ItemSearchResults | null = null;
   },
 })
 export class ItemSearchResults {
-  readonly #itemSearchResults: WritableSignal<Readonly<Item[]>> = signal([]);
+  readonly #itemSearchResults: WritableSignal<readonly Item[]> = signal([]);
 
-  readonly #itemSearchResultPublic: Signal<Readonly<Item[]>> = this.#itemSearchResults.asReadonly();
+  readonly #itemSearchResultPublic: Signal<readonly Item[]> = this.#itemSearchResults.asReadonly();
 
   /*
 	 	We can't use a strict private constructor in JS and we can't use
@@ -31,8 +31,8 @@ export class ItemSearchResults {
     }
   }
 
-  public addSearchResults(items: Readonly<Item[]>): void {
-    const copy: Readonly<Item[]> = Object.freeze([...items]);
+  public addSearchResults(items: readonly Item[]): void {
+    const copy: readonly Item[] = Object.freeze([...items]);
     this.#itemSearchResults.set(copy);
   }
 
@@ -40,7 +40,7 @@ export class ItemSearchResults {
     this.#itemSearchResults.set(Object.freeze([]));
   }
 
-  public getSearchResults(): Signal<Readonly<Item[]>> {
+  public getSearchResults(): Signal<readonly Item[]> {
     return this.#itemSearchResultPublic;
   }
 }

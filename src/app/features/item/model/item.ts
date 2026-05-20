@@ -49,7 +49,9 @@ export class ItemBuilder {
   #price?: number;
   #imageUrl?: string;
 
-  constructor() {}
+  constructor() {
+    // Nothing to do so far
+  }
 
   public getId(): number | undefined {
     return this.#id;

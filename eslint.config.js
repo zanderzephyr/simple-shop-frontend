@@ -32,9 +32,19 @@ module.exports = defineConfig([
         },
       ],
 
+      '@typescript-eslint/no-inferrable-types': 'off',
       '@typescript-eslint/explicit-function-return-type': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      '@typescript-eslint/typedef': [
+        'warn',
+        {
+          variableDeclaration: true,
+          propertyDeclaration: true,
+          parameter: true,
+          memberVariableDeclaration: true,
+        },
+      ],
     },
   },
   {

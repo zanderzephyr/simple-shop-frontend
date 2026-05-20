@@ -15,7 +15,7 @@ let INSTANCE: ItemService | null = null;
 export abstract class ItemService {
   public abstract addItem(item: Item): void;
 
-  public abstract getItems(): Signal<Readonly<Item[]>>;
+  public abstract getItems(): Signal<readonly Item[]>;
 
   /**
    * Retrieves an item with ID of itemId from the item
@@ -33,11 +33,11 @@ export abstract class ItemService {
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
-  readonly #items: WritableSignal<Readonly<Item[]>> = signal(
+  readonly #items: WritableSignal<readonly Item[]> = signal(
     Object.freeze(new ItemGenerator().createItems()),
   );
 
-  readonly #itemsPublic: Signal<Readonly<Item[]>> = this.#items.asReadonly();
+  readonly #itemsPublic: Signal<readonly Item[]> = this.#items.asReadonly();
 
   constructor() {
     if (INSTANCE) {
@@ -57,7 +57,7 @@ class ApiItemService extends ItemService {
   }
 
   // TODO replace with actual request and response processing.
-  public getItems(): Signal<Readonly<Item[]>> {
+  public getItems(): Signal<readonly Item[]> {
     return this.#itemsPublic;
   }
 
@@ -81,7 +81,7 @@ class ItemGenerator {
   static #currentItemId: number = 0;
 
   public createItems(): Item[] {
-    let items: Item[] = [];
+    const items: Item[] = [];
 
     items.push(...this.#createBooks());
     items.push(...this.#createMovies());
@@ -91,7 +91,7 @@ class ItemGenerator {
   }
 
   #createBooks(): Item[] {
-    let books: Item[] = [];
+    const books: Item[] = [];
 
     const hp1: Item = new ItemBuilder()
       .setId(++ItemGenerator.#currentItemId)
@@ -119,7 +119,7 @@ class ItemGenerator {
   }
 
   #createMovies(): Item[] {
-    let movies: Item[] = [];
+    const movies: Item[] = [];
 
     const hpMovie: Item = new ItemBuilder()
       .setId(++ItemGenerator.#currentItemId)
@@ -147,7 +147,7 @@ class ItemGenerator {
   }
 
   #createGames(): Item[] {
-    let games: Item[] = [];
+    const games: Item[] = [];
 
     const stellaris: Item = new ItemBuilder()
       .setId(++ItemGenerator.#currentItemId)

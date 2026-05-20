@@ -4,7 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MediaType } from '@features/item/model/item';
 
 @Component({
-  selector: 'media-type-sidebar-filter',
+  selector: 'app-media-type-sidebar-filter',
   imports: [MatSelectModule, MatFormFieldModule],
   templateUrl: './media-type-sidebar-filter.html',
   styleUrl: './media-type-sidebar-filter.css',
@@ -12,7 +12,7 @@ import { MediaType } from '@features/item/model/item';
 export class MediaTypeSidebarFilter {
   readonly #allMediaTypeValue = 'All';
 
-  protected readonly mediaTypes: Signal<Readonly<MediaType[]>> = signal(
+  protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(
     Object.freeze(Object.values(MediaType)),
   ).asReadonly();
 
@@ -20,13 +20,15 @@ export class MediaTypeSidebarFilter {
     this.#allMediaTypeValue,
   );
 
-  constructor() {}
+  constructor() {
+    // Nothing to do so far
+  }
 
-  protected updateSelectedMediaType(mediaType: string) {
+  protected updateSelectedMediaType(mediaType: string): void {
     this.selectedMediaType.set(mediaType);
   }
 
-  protected getAllMediaTypesValue() {
+  protected getAllMediaTypesValue(): string {
     return this.#allMediaTypeValue;
   }
 }
