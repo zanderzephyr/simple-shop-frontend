@@ -1,8 +1,6 @@
-.header {
-  font-size: xx-large;
-}
-
-.subheader {
-  font-size: medium;
-  font-style: italic;
+.app-header-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
 }
