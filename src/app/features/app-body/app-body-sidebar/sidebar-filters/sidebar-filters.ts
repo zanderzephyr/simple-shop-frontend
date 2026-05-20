@@ -23,7 +23,7 @@ export class SidebarFilters {
 	 We define an output emitter here, that emits booleans. A signal
 	 represents a state, an output represents an event. Parent
 	 components can register to this event by doing
-	 <sidebar-filters (visibilityChange)="parentMethod($event)"></sidebar-filters>.
+	 <app-sidebar-filters (visibilityChange)="parentMethod($event)"></app-sidebar-filters>.
 	 The complete memory management of the event emitter is handled by Angular,
 	 so we don't have to worry about unsubscribing or memory leaks.
 	*/
