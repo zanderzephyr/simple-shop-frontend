@@ -6,3 +6,7 @@ General
 Price filter in app body sidebar
 - min and max text fields should show currency formated decimal numbers
 - slider should probably use cents as unit and the label of the two thumbs should also show the correct currency value
+
+App sidebar
+- Growing visually instantly shows content in the sidebar and increases the sidebar width, shrinking visually immediately
+removes sidebar content. It should be the same for growing and shrinking.
