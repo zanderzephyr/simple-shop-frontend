@@ -1,0 +1,3 @@
+- Localization
+- Different display sizes
+- Old browser versions?
