@@ -1,7 +1,8 @@
-<div class="app-body-container" [class.no-sidebar]="!sidebarVisible()">
+<div class="app-body-container">
   <app-body-sidebar
-    [style.display]="sidebarVisible() ? 'block' : 'none'"
     (visibilityChange)="sidebarVisible.set($event)"
+    [class.sidebar-visible]="sidebarVisible()"
+    [class.sidebar-invisible]="!sidebarVisible()"
   ></app-body-sidebar>
 
   <app-body-content><router-outlet /></app-body-content>

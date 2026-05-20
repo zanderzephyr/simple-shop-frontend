@@ -12,5 +12,7 @@ import { RouterOutlet } from '@angular/router';
 export class AppBodyComponent {
   protected readonly sidebarVisible: WritableSignal<boolean> = signal<boolean>(false);
 
-  constructor() {}
+  constructor() {
+    // nothing to do so far
+  }
 }
