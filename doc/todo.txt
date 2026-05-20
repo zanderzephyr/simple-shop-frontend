@@ -1,3 +1,8 @@
+General
 - Localization
 - Different display sizes
 - Old browser versions?
+
+Price filter in app body sidebar
+- min and max text fields should show currency formated decimal numbers
+- slider should probably use cents as unit and the label of the two thumbs should also show the correct currency value
