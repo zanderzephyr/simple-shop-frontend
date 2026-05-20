@@ -160,7 +160,11 @@ interface ItemData {
   imageUrl: string;
 }
 
-export const MediaType = {
+export const MediaType: {
+  readonly Book: { readonly id: 'book'; readonly name: 'Book' };
+  readonly Game: { readonly id: 'game'; readonly name: 'Game' };
+  readonly Movie: { readonly id: 'movie'; readonly name: 'Movie' };
+} = {
   Book: { id: 'book', name: 'Book' },
   Game: { id: 'game', name: 'Game' },
   Movie: { id: 'movie', name: 'Movie' },

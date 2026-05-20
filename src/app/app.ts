@@ -11,7 +11,7 @@ import { Title } from '@angular/platform-browser';
   styleUrl: './app.css',
 })
 export class AppComponent {
-  readonly #titleService = inject(Title);
+  readonly #titleService: Title = inject(Title);
 
   readonly #title: Signal<string> = signal('Shelf Indulgence').asReadonly();
 

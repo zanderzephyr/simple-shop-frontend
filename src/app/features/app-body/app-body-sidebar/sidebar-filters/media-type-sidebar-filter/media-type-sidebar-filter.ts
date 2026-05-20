@@ -10,7 +10,7 @@ import { MediaType } from '@features/item/model/item';
   styleUrl: './media-type-sidebar-filter.css',
 })
 export class MediaTypeSidebarFilter {
-  readonly #allMediaTypeValue = 'All';
+  readonly #allMediaTypeValue: string = 'All';
 
   protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(
     Object.freeze(Object.values(MediaType)),
