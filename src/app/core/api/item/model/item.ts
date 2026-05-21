@@ -161,13 +161,13 @@ interface ItemData {
 }
 
 export const MediaType: {
-  readonly Book: { readonly id: 'book'; readonly name: 'Book' };
-  readonly Game: { readonly id: 'game'; readonly name: 'Game' };
-  readonly Movie: { readonly id: 'movie'; readonly name: 'Movie' };
+  readonly BOOK: { readonly id: 'BOOK'; readonly name: 'Book' };
+  readonly GAME: { readonly id: 'GAME'; readonly name: 'Game' };
+  readonly MOVIE: { readonly id: 'MOVIE'; readonly name: 'Movie' };
 } = {
-  Book: { id: 'book', name: 'Book' },
-  Game: { id: 'game', name: 'Game' },
-  Movie: { id: 'movie', name: 'Movie' },
+  BOOK: { id: 'BOOK', name: 'Book' },
+  GAME: { id: 'GAME', name: 'Game' },
+  MOVIE: { id: 'MOVIE', name: 'Movie' },
 } as const;
 type ValueOf<T> = T[keyof T];
 export type MediaType = ValueOf<typeof MediaType>;

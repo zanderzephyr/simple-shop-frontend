@@ -95,11 +95,11 @@ interface UserData {
 }
 
 export const UserType: {
-  readonly Admin: { readonly id: 'admin'; readonly name: 'Admin' };
-  readonly Customer: { readonly id: 'customer'; readonly name: 'Customer' };
+  readonly ADMIN: { readonly id: 'ADMIN'; readonly name: 'Admin' };
+  readonly CUSTOMER: { readonly id: 'CUSTOMER'; readonly name: 'Customer' };
 } = {
-  Admin: { id: 'admin', name: 'Admin' },
-  Customer: { id: 'customer', name: 'Customer' },
+  ADMIN: { id: 'ADMIN', name: 'Admin' },
+  CUSTOMER: { id: 'CUSTOMER', name: 'Customer' },
 } as const;
 type ValueOf<T> = T[keyof T];
 export type UserType = ValueOf<typeof UserType>;
