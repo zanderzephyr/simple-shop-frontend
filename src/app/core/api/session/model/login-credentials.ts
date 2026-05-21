@@ -8,6 +8,7 @@ export class LoginCredentials {
 
     Object.freeze(this);
   }
+
   public getUsername(): string {
     return this.#username;
   }

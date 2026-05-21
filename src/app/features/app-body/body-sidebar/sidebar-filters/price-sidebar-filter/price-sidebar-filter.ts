@@ -3,6 +3,7 @@ import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { FormsModule } from '@angular/forms';
+import { extractNumberValue } from '@core/utils/input-field-utils';
 
 @Component({
   selector: 'app-price-sidebar-filter',
@@ -23,7 +24,7 @@ export class PriceSidebarFilterComponent {
   }
 
   protected updateMinPrice(event: Event): void {
-    const numberValue: number | null = this.#extractNumberValue(event);
+    const numberValue: number | null = extractNumberValue(event);
 
     let newMinPrice: number;
 
@@ -43,7 +44,7 @@ export class PriceSidebarFilterComponent {
   }
 
   protected updateMaxPrice(event: Event): void {
-    const numberValue: number | null = this.#extractNumberValue(event);
+    const numberValue: number | null = extractNumberValue(event);
 
     let newMaxPrice: number;
 
@@ -60,27 +61,5 @@ export class PriceSidebarFilterComponent {
     }
 
     this.maxPrice.set(newMaxPrice);
-  }
-
-  #extractNumberValue(event: Event): number | null {
-    if (!event || !event.target || !(event.target instanceof HTMLInputElement)) {
-      return null;
-    }
-
-    const inputElement: HTMLInputElement = event.target as HTMLInputElement;
-    const rawValue: string = inputElement.value;
-
-    let numberValue: number | null = null;
-
-    /*
-			Number() returns NaN for non-numeric strings.
-     	Number.isFinite() returns false for NaN, Infinity, and -Infinity, and true for all other numbers.
-		 	(https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number/isFinite)
-		 */
-    if (rawValue && Number.isFinite(Number(rawValue))) {
-      numberValue = Number(rawValue);
-    }
-
-    return numberValue;
   }
 }

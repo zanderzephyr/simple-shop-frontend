@@ -1,5 +1,5 @@
 import { User, UserBuilder, UserType } from '@app/core/api/user/model/user';
-import { signal, Signal, Injectable, WritableSignal } from '@angular/core';
+import { Injectable } from '@angular/core';
 
 let INSTANCE: UserService | null = null;
 
@@ -13,9 +13,11 @@ let INSTANCE: UserService | null = null;
   },
 })
 export abstract class UserService {
-  public abstract addUser(user: User): void;
+  // TODO Document and reconsider return value
+  public abstract addUser(user: User): Promise<void>;
 
-  public abstract getUsers(): Signal<readonly User[]>;
+  // TODO Document and reconsider return value
+  public abstract getUsers(): Promise<readonly User[]>;
 
   /**
    * Retrieves a user with ID of userId from the user
@@ -24,20 +26,18 @@ export abstract class UserService {
    * @returns The user with ID userId or null if such a
    * user doesn't exist.
    */
-  public abstract getUser(userId: number): User | null;
+  public abstract getUser(userId: number): Promise<User | null>;
 
-  public abstract modifyUser(user: User): void;
+  // TODO Document and reconsider return value
+  public abstract modifyUser(user: User): Promise<void>;
 
-  public abstract removeUser(user: User): void;
+  // TODO Document and reconsider return value
+  public abstract removeUser(user: User): Promise<void>;
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiUserService extends UserService {
-  readonly #items: WritableSignal<readonly User[]> = signal(
-    Object.freeze(new UserGenerator().createUsers()),
-  );
-
-  readonly #itemsPublic: Signal<readonly User[]> = this.#items.asReadonly();
+  readonly #users: readonly User[] = Object.freeze(new UserGenerator().createUsers());
 
   constructor() {
     if (INSTANCE) {
@@ -51,26 +51,26 @@ class ApiUserService extends UserService {
     }
   }
 
-  public addUser(user: User): void {
+  public override async addUser(user: User): Promise<void> {
     // TODO
     console.log('Adding users not yet implemented!');
   }
 
   // TODO replace with actual request and response processing.
-  public getUsers(): Signal<readonly User[]> {
-    return this.#itemsPublic;
+  public override async getUsers(): Promise<readonly User[]> {
+    return this.#users;
   }
 
-  public getUser(userId: number): User | null {
-    return this.#itemsPublic().find((user) => user.getId() === userId) ?? null;
+  public override async getUser(userId: number): Promise<User | null> {
+    return this.#users.find((user) => user.getId() === userId) ?? null;
   }
 
-  public modifyUser(user: User): void {
+  public override async modifyUser(user: User): Promise<void> {
     // TODO
     console.log('Modifying users not yet implemented!');
   }
 
-  public removeUser(user: User): void {
+  public override async removeUser(user: User): Promise<void> {
     // TODO
     console.log('Removing users not yet implemented!');
   }
@@ -83,7 +83,21 @@ class UserGenerator {
   public createUsers(): User[] {
     const users: User[] = [];
 
-    // TODO
+    users.push(
+      new UserBuilder()
+        .setId(UserGenerator.#currentUserId++)
+        .setUsername('Horst')
+        .setUserType(UserType.ADMIN)
+        .build(),
+    );
+
+    users.push(
+      new UserBuilder()
+        .setId(UserGenerator.#currentUserId++)
+        .setUsername('Hannes')
+        .setUserType(UserType.CUSTOMER)
+        .build(),
+    );
 
     return users;
   }

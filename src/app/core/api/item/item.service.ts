@@ -13,9 +13,11 @@ let INSTANCE: ItemService | null = null;
   },
 })
 export abstract class ItemService {
-  public abstract addItem(item: Item): void;
+  // TODO Document and reconsider return value
+  public abstract addItem(item: Item): Promise<void>;
 
-  public abstract getItems(): Signal<readonly Item[]>;
+  // TODO Document and reconsider return value
+  public abstract getItems(): Promise<readonly Item[]>;
 
   /**
    * Retrieves an item with ID of itemId from the item
@@ -24,20 +26,19 @@ export abstract class ItemService {
    * @returns The item with ID itemId or null if such an
    * item doesn't exist.
    */
-  public abstract getItem(itemId: number): Item | null;
+  public abstract getItem(itemId: number): Promise<Item | null>;
 
-  public abstract modifyItem(item: Item): void;
+  // TODO Document and reconsider return value
+  public abstract modifyItem(item: Item): Promise<void>;
 
-  public abstract removeItem(item: Item): void;
+  // TODO Document and reconsider return value
+  public abstract removeItem(item: Item): Promise<void>;
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
-  readonly #items: WritableSignal<readonly Item[]> = signal(
-    Object.freeze(new ItemGenerator().createItems()),
-  );
-
-  readonly #itemsPublic: Signal<readonly Item[]> = this.#items.asReadonly();
+  // TODO Just for the prototype, replace with actual request and response processing.
+  readonly #items: readonly Item[] = Object.freeze(new ItemGenerator().createItems());
 
   constructor() {
     if (INSTANCE) {
@@ -51,26 +52,26 @@ class ApiItemService extends ItemService {
     }
   }
 
-  public addItem(item: Item): void {
+  public override async addItem(item: Item): Promise<void> {
     // TODO
     console.log('Adding items not yet implemented!');
   }
 
   // TODO replace with actual request and response processing.
-  public getItems(): Signal<readonly Item[]> {
-    return this.#itemsPublic;
+  public override async getItems(): Promise<readonly Item[]> {
+    return this.#items;
   }
 
-  public getItem(itemId: number): Item | null {
-    return this.#itemsPublic().find((item) => item.getId() === itemId) ?? null;
+  public override async getItem(itemId: number): Promise<Item | null> {
+    return this.#items.find((item) => item.getId() === itemId) ?? null;
   }
 
-  public modifyItem(item: Item): void {
+  public override async modifyItem(item: Item): Promise<void> {
     // TODO
     console.log('Modifying items not yet implemented!');
   }
 
-  public removeItem(item: Item): void {
+  public override async removeItem(item: Item): Promise<void> {
     // TODO
     console.log('Removing items not yet implemented!');
   }

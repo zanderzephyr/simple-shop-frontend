@@ -43,8 +43,8 @@ export class HeaderSessionComponent {
     this.#router.navigate(['/login']);
   }
 
-  protected onLogoutClick(): void {
-    this.#sessionService.logout();
+  protected async onLogoutClick(): Promise<void> {
+    await this.#sessionService.logout();
 
     this.#router.navigate(['/logout']);
   }
