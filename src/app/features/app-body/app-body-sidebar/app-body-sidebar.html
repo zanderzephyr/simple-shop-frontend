@@ -6,5 +6,9 @@
   >
   </app-sidebar-filters>
 
-  <!-- TODO Show admin content when admin is logged in. -->
+  <app-sidebar-admin
+    [style.display]="adminVisible() ? 'block' : 'none'"
+    (visibilityChange)="adminVisible.set($event)"
+  >
+  </app-sidebar-admin>
 </div>
