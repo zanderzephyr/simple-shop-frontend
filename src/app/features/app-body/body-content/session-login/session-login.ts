@@ -6,7 +6,7 @@ import { FormsModule } from '@angular/forms';
 import { extractStringValue } from '@core/utils/input-field-utils';
 import { SessionService } from '@core/api/session/session.service';
 import { LoginCredentials } from '@core/api/session/model/login-credentials';
-import { IllegalArgumentError } from '@core/utils/common-errors';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-session-login',
@@ -15,6 +15,7 @@ import { IllegalArgumentError } from '@core/utils/common-errors';
   styleUrl: './session-login.css',
 })
 export class SessionLoginComponent {
+  readonly #router: Router = inject(Router);
   readonly #sessionService: SessionService = inject(SessionService);
   readonly #defaultValue: string = '';
   protected username: WritableSignal<string> = signal('');
@@ -44,19 +45,10 @@ export class SessionLoginComponent {
     const password: string = this.password();
 
     const loginCredentials: LoginCredentials = new LoginCredentials(username, password);
+
+    // TODO Catch error and show validation results at the input fields
     await this.#sessionService.login(loginCredentials);
 
-    try {
-      throw new IllegalArgumentError('bla');
-    } catch (e) {
-      // In the if block, the compiler automatically knows the corret type now - no cast necessary.
-      if (e instanceof IllegalArgumentError) {
-        console.log(e.name);
-        console.log(e.message);
-        console.log(e.stack);
-      }
-    }
-
-    // TODO What now? Redirect again?
+    this.#router.navigate(['/welcome']);
   }
 }
