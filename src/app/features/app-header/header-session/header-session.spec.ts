@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { HeaderSession } from './header-session';
+import { HeaderSessionComponent } from './header-session';
 
 describe('HeaderSession', () => {
-  let component: HeaderSession;
-  let fixture: ComponentFixture<HeaderSession>;
+  let component: HeaderSessionComponent;
+  let fixture: ComponentFixture<HeaderSessionComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [HeaderSession],
+      imports: [HeaderSessionComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(HeaderSession);
+    fixture = TestBed.createComponent(HeaderSessionComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

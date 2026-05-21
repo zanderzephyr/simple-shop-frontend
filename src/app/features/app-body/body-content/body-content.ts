@@ -6,10 +6,10 @@ import { MatButtonModule } from '@angular/material/button';
 @Component({
   selector: 'app-body-content',
   imports: [MatButtonModule],
-  templateUrl: './app-body-content.html',
-  styleUrl: './app-body-content.css',
+  templateUrl: './body-content.html',
+  styleUrl: './body-content.css',
 })
-export class AppBodyContentComponent {
+export class BodyContentComponent {
   readonly #itemService: ItemService = inject(ItemService);
 
   readonly #itemSearchResults: ItemSearchResults = inject(ItemSearchResults);

@@ -1,1 +1,7 @@
-<div class="header-session-container"></div>
+<div class="header-session-container">
+  @if (isLoggedIn()) {
+    <button mat-button (click)="onLogoutClick()">Logout</button>
+  } @else {
+    <button mat-button (click)="onLoginClick()">Login</button>
+  }
+</div>

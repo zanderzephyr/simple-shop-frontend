@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   templateUrl: './header-search-bar.html',
   styleUrl: './header-search-bar.css',
 })
-export class HeaderSearchBar {
+export class HeaderSearchBarComponent {
   constructor() {
     // Nothing to do so far
   }

@@ -8,16 +8,16 @@ import {
   OutputEmitterRef,
   effect,
 } from '@angular/core';
-import { SidebarAdmin } from './sidebar-admin/sidebar-admin';
-import { SidebarFilters } from './sidebar-filters/sidebar-filters';
+import { SidebarAdminComponent } from './sidebar-admin/sidebar-admin';
+import { SidebarFiltersComponent } from './sidebar-filters/sidebar-filters';
 
 @Component({
   selector: 'app-body-sidebar',
-  imports: [SidebarFilters, SidebarAdmin],
-  templateUrl: './app-body-sidebar.html',
-  styleUrl: './app-body-sidebar.css',
+  imports: [SidebarFiltersComponent, SidebarAdminComponent],
+  templateUrl: './body-sidebar.html',
+  styleUrl: './body-sidebar.css',
 })
-export class AppBodySidebarComponent {
+export class BodySidebarComponent {
   public readonly visibilityChange: OutputEmitterRef<boolean> = output<boolean>();
 
   protected readonly adminVisible: WritableSignal<boolean> = signal<boolean>(false);

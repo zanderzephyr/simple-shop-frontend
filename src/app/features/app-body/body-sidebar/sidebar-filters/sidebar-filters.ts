@@ -7,17 +7,17 @@ import {
   OutputEmitterRef,
   effect,
 } from '@angular/core';
-import { MediaTypeSidebarFilter } from './media-type-sidebar-filter/media-type-sidebar-filter';
-import { PriceSidebarFilter } from './price-sidebar-filter/price-sidebar-filter';
+import { MediaTypeSidebarFilterComponent } from './media-type-sidebar-filter/media-type-sidebar-filter';
+import { PriceSidebarFilterComponent } from './price-sidebar-filter/price-sidebar-filter';
 import { ItemSearchResults } from '@app/core/item-search-results';
 
 @Component({
   selector: 'app-sidebar-filters',
-  imports: [MediaTypeSidebarFilter, PriceSidebarFilter],
+  imports: [MediaTypeSidebarFilterComponent, PriceSidebarFilterComponent],
   templateUrl: './sidebar-filters.html',
   styleUrl: './sidebar-filters.css',
 })
-export class SidebarFilters {
+export class SidebarFiltersComponent {
   /*
 	 This is the Angular way of implementing an obversable pattern.
 	 We define an output emitter here, that emits booleans. A signal

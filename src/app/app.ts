@@ -2,6 +2,7 @@ import { Component, effect, inject, Signal, signal } from '@angular/core';
 import { AppBodyComponent } from '@features/app-body/app-body';
 import { AppFooterComponent } from '@features/app-footer/app-footer';
 import { AppHeaderComponent } from '@features/app-header/app-header';
+
 import { Title } from '@angular/platform-browser';
 
 @Component({

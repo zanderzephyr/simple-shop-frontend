@@ -9,7 +9,7 @@ import { MediaType } from '@app/core/api/item/model/item';
   templateUrl: './media-type-sidebar-filter.html',
   styleUrl: './media-type-sidebar-filter.css',
 })
-export class MediaTypeSidebarFilter {
+export class MediaTypeSidebarFilterComponent {
   readonly #allMediaTypeValue: string = 'All';
 
   protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(

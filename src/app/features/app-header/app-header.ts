@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
-import { HeaderSearchBar } from './header-search-bar/header-search-bar';
-import { HeaderCompanyLogo } from './header-company-logo/header-company-logo';
-import { HeaderSession } from './header-session/header-session';
+import { HeaderSearchBarComponent } from './header-search-bar/header-search-bar';
+import { HeaderCompanyLogoComponent } from './header-company-logo/header-company-logo';
+import { HeaderSessionComponent } from './header-session/header-session';
 
 @Component({
   selector: 'app-header',
-  imports: [HeaderSession, HeaderCompanyLogo, HeaderSearchBar],
+  imports: [HeaderSessionComponent, HeaderCompanyLogoComponent, HeaderSearchBarComponent],
   templateUrl: './app-header.html',
   styleUrl: './app-header.css',
 })

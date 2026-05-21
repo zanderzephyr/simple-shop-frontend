@@ -1,11 +1,11 @@
-import { AppBodySidebarComponent } from './app-body-sidebar/app-body-sidebar';
-import { AppBodyContentComponent } from './app-body-content/app-body-content';
+import { BodySidebarComponent } from './body-sidebar/body-sidebar';
+import { BodyContentComponent } from './body-content/body-content';
 import { Component, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
   selector: 'app-body',
-  imports: [RouterOutlet, AppBodySidebarComponent, AppBodyContentComponent],
+  imports: [BodySidebarComponent, BodyContentComponent, RouterOutlet],
   templateUrl: './app-body.html',
   styleUrl: './app-body.css',
 })

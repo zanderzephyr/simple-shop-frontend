@@ -16,7 +16,7 @@ import { UserType } from '@app/core/api/user/model/user';
   templateUrl: './sidebar-admin.html',
   styleUrl: './sidebar-admin.css',
 })
-export class SidebarAdmin {
+export class SidebarAdminComponent {
   public readonly visibilityChange: OutputEmitterRef<boolean> = output<boolean>();
 
   readonly #session: Session = inject(Session);

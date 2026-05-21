@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
   templateUrl: './price-sidebar-filter.html',
   styleUrl: './price-sidebar-filter.css',
 })
-export class PriceSidebarFilter {
+export class PriceSidebarFilterComponent {
   // TODO This must be taken from the available items set later.
   protected readonly minLimit: number = 0;
   protected readonly maxLimit: number = 2000;
