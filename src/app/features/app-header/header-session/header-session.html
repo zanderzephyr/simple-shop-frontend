@@ -1,7 +1,7 @@
 <div class="header-session-container">
   @if (isLoggedIn()) {
-    <button mat-button (click)="onLogoutClick()">Logout</button>
+    <button mat-flat-button (click)="onLogoutClick()">Logout</button>
   } @else {
-    <button mat-button (click)="onLoginClick()">Login</button>
+    <button mat-flat-button (click)="onLoginClick()">Login</button>
   }
 </div>
