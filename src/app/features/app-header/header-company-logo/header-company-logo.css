@@ -1,8 +1,18 @@
+.header-company-logo-container {
+  /* Changes the mouse cursor to a pointer hand when hovering */
+  cursor: pointer;
+
+  /*  Prevents text from highlighting if a user double-clicks the header */
+  user-select: none;
+}
+
 .header {
   font-size: xx-large;
+  padding: 10px 10px;
 }
 
 .subheader {
   font-size: medium;
   font-style: italic;
+  padding: 10px 10px;
 }
