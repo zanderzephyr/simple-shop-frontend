@@ -1,6 +1,11 @@
 <div class="header-session-container">
   @if (isLoggedIn()) {
-    <button mat-flat-button (click)="onLogoutClick()">Logout</button>
+    <button mat-flat-button [matMenuTriggerFor]="sessionMenu">Session</button>
+    <mat-menu #sessionMenu="matMenu">
+      <button mat-menu-item (click)="onLogoutClick()">
+        <span>Logout</span>
+      </button>
+    </mat-menu>
   } @else {
     <button mat-flat-button (click)="onLoginClick()">Login</button>
   }
