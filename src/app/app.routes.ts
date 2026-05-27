@@ -39,10 +39,10 @@ export const routes: Routes = [
       import('@app/features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent),
   },
   {
-    path: 'transactions',
+    path: 'user-transactions',
     loadComponent: () =>
-      import('@app/features/app-body/body-content/transactions/transactions').then(
-        (m) => m.TransactionsComponent,
+      import('@app/features/app-body/body-content/user-transactions/user-transactions').then(
+        (m) => m.UserTransactionsComponent,
       ),
   },
 ];

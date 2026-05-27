@@ -56,7 +56,7 @@ export class HeaderSessionComponent {
   }
 
   protected onTransactionsClick(): void {
-    this.#router.navigate(['/transactions']);
+    this.#router.navigate(['/user-transactions']);
   }
 
   protected onShoppingCartClick(): void {
