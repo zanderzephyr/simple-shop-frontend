@@ -2,8 +2,7 @@
   display: grid;
 
   grid-template-columns: 1fr;
-  grid-template-rows: 100px gap auto gap 100px;
-  gap: 10px;
+  grid-template-rows: 100px 10px auto 10px 100px;
 
   max-width: 1920px;
   /*

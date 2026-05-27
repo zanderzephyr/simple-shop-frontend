@@ -3,4 +3,12 @@
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
+
+  padding: 10px 10px;
+
+  /*
+		Drags the padding into this component, rather than having it applied to the outside
+		of this component. This prevents components from growing out of their parents.
+	*/
+  box-sizing: border-box;
 }

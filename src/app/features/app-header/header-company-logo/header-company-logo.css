@@ -1,4 +1,7 @@
 .header-company-logo-container {
+  display: flex;
+  flex-direction: column;
+
   /* Changes the mouse cursor to a pointer hand when hovering */
   cursor: pointer;
 
@@ -6,13 +9,16 @@
   user-select: none;
 }
 
-.header {
+.company-logo-header {
+  flex: 0 0 auto;
   font-size: xx-large;
-  padding: 10px 10px;
+}
+.company-logo-gap {
+  flex: 0 0 10px;
 }
 
-.subheader {
+.company-logo-subheader {
+  flex: 0 0 auto;
   font-size: medium;
   font-style: italic;
-  padding: 10px 10px;
 }
