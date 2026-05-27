@@ -1,20 +1,35 @@
 <div class="header-session-container">
+  <button
+    class="header-session-shopping-cart"
+    mat-icon-button
+    aria-label="Shopping Cart"
+    (click)="onShoppingCartClick()"
+  >
+    <mat-icon>shopping_cart</mat-icon>
+  </button>
+
   @if (isLoggedIn()) {
-    <button mat-flat-button [matMenuTriggerFor]="sessionMenu">Session</button>
+    <button class="header-session-menu-button" mat-flat-button [matMenuTriggerFor]="sessionMenu">
+      Session
+    </button>
     <mat-menu #sessionMenu="matMenu">
-      <button mat-menu-item (click)="onTransactionsClick()">
+      <button
+        class="header-session-menu-transactions"
+        mat-menu-item
+        (click)="onTransactionsClick()"
+      >
         <span>Transactions</span>
       </button>
 
-      <button mat-menu-item (click)="onProfileClick()">
+      <button class="header-session-menu-profile" mat-menu-item (click)="onProfileClick()">
         <span>Profile</span>
       </button>
 
-      <button mat-menu-item (click)="onLogoutClick()">
+      <button class="header-session-menu-logout" mat-menu-item (click)="onLogoutClick()">
         <span>Logout</span>
       </button>
     </mat-menu>
   } @else {
-    <button mat-flat-button (click)="onLoginClick()">Login</button>
+    <button class="header-session-login" mat-flat-button (click)="onLoginClick()">Login</button>
   }
 </div>

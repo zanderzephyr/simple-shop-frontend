@@ -27,9 +27,11 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'basket',
+    path: 'shopping-cart',
     loadComponent: () =>
-      import('@app/features/app-body/body-content/basket/basket').then((m) => m.BasketComponent),
+      import('@app/features/app-body/body-content/shopping-cart/shopping-cart').then(
+        (m) => m.ShoppingCartComponent,
+      ),
   },
   {
     path: 'profile',

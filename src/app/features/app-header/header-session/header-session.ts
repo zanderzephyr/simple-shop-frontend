@@ -2,13 +2,14 @@ import { Component, computed, inject, Signal } from '@angular/core';
 import { UserType } from '@app/core/api/user/model/user';
 import { Session, SessionData } from '@app/core/session';
 import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { SessionService } from '@app/core/api/session/session.service';
 
 @Component({
   selector: 'app-header-session',
-  imports: [MatButtonModule, MatMenuModule],
+  imports: [MatButtonModule, MatIconModule, MatMenuModule],
   templateUrl: './header-session.html',
   styleUrl: './header-session.css',
 })
@@ -58,7 +59,7 @@ export class HeaderSessionComponent {
     this.#router.navigate(['/transactions']);
   }
 
-  protected onBasketClick(): void {
-    this.#router.navigate(['/basket']);
+  protected onShoppingCartClick(): void {
+    this.#router.navigate(['/shopping-cart']);
   }
 }
