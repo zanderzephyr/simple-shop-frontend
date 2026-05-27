@@ -49,4 +49,16 @@ export class HeaderSessionComponent {
 
     this.#router.navigate(['/logout']);
   }
+
+  protected onProfileClick(): void {
+    this.#router.navigate(['/profile']);
+  }
+
+  protected onTransactionsClick(): void {
+    this.#router.navigate(['/transactions']);
+  }
+
+  protected onBasketClick(): void {
+    this.#router.navigate(['/basket']);
+  }
 }

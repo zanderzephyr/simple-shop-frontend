@@ -26,4 +26,21 @@ export const routes: Routes = [
         (m) => m.SessionLogoutComponent,
       ),
   },
+  {
+    path: 'basket',
+    loadComponent: () =>
+      import('@app/features/app-body/body-content/basket/basket').then((m) => m.BasketComponent),
+  },
+  {
+    path: 'profile',
+    loadComponent: () =>
+      import('@app/features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent),
+  },
+  {
+    path: 'transactions',
+    loadComponent: () =>
+      import('@app/features/app-body/body-content/transactions/transactions').then(
+        (m) => m.TransactionsComponent,
+      ),
+  },
 ];

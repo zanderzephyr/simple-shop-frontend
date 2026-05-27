@@ -2,6 +2,14 @@
   @if (isLoggedIn()) {
     <button mat-flat-button [matMenuTriggerFor]="sessionMenu">Session</button>
     <mat-menu #sessionMenu="matMenu">
+      <button mat-menu-item (click)="onTransactionsClick()">
+        <span>Transactions</span>
+      </button>
+
+      <button mat-menu-item (click)="onProfileClick()">
+        <span>Profile</span>
+      </button>
+
       <button mat-menu-item (click)="onLogoutClick()">
         <span>Logout</span>
       </button>
