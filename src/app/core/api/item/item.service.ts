@@ -1,5 +1,6 @@
 import { Item, ItemBuilder, MediaType } from '@app/core/api/item/model/item';
 import { signal, Signal, Injectable, WritableSignal } from '@angular/core';
+import { Predicate } from '@core/utils/functional-interfaces';
 
 let INSTANCE: ItemService | null = null;
 
@@ -13,25 +14,50 @@ let INSTANCE: ItemService | null = null;
   },
 })
 export abstract class ItemService {
-  // TODO Document and reconsider return value
-  public abstract addItem(item: Item): Promise<void>;
-
-  // TODO Document and reconsider return value
-  public abstract getItems(): Promise<readonly Item[]>;
+  /**
+   * Adds a new item and returns the created item.
+   *
+   * The technical properties of the passed in item (e.g. the ID field)
+   * will be ignored by the backend, as the backend sets them.
+   *
+   * @returns The item created by the backend.
+   */
+  // TODO Document
+  public abstract addItem(item: Item): Promise<Item>;
 
   /**
-   * Retrieves an item with ID of itemId from the item
-   * service if such an item exists.
+   * Requests all items from the backend, that match the filter.
    *
-   * @returns The item with ID itemId or null if such an
-   * item doesn't exist.
+   * @returns The requested items.
    */
-  public abstract getItem(itemId: number): Promise<Item | null>;
+  public abstract getItems(filter?: Predicate<Item>): Promise<readonly Item[]>;
 
-  // TODO Document and reconsider return value
-  public abstract modifyItem(item: Item): Promise<void>;
+  /**
+   * Requests the previous versions of an item.
+   *
+   * The service returns the list of previous item versions in historic order
+   * (earliest first). If the item ID is unknown in the backend, the returned list is empty.
+   *
+   * @returns The item history or an empty list if the item ID is unknown in the backend.
+   */
+  // TODO Document
+  public abstract getItemHistory(itemId: number): Promise<readonly Item[]>;
 
-  // TODO Document and reconsider return value
+  /**
+   * Changes an item.
+   *
+   * The technical properties of the passed in item (e.g. the ID field)
+   * will be ignored by the backend, as the backend sets them.
+   *
+   * @returns The modified item.
+   */
+  // TODO Document
+  public abstract modifyItem(item: Item): Promise<Item>;
+
+  /**
+   * Removes the item in the backend.
+   */
+  // TODO Document
   public abstract removeItem(item: Item): Promise<void>;
 }
 
@@ -52,23 +78,27 @@ class ApiItemService extends ItemService {
     }
   }
 
-  public override async addItem(item: Item): Promise<void> {
+  public override async addItem(item: Item): Promise<Item> {
     // TODO
     console.log('Adding items not yet implemented!');
+
+    return item;
   }
 
   // TODO replace with actual request and response processing.
-  public override async getItems(): Promise<readonly Item[]> {
-    return this.#items;
+  public override async getItems(filter?: Predicate<Item>): Promise<readonly Item[]> {
+    return Object.freeze(filter ? this.#items.filter(filter) : this.#items);
   }
 
-  public override async getItem(itemId: number): Promise<Item | null> {
-    return this.#items.find((item) => item.getId() === itemId) ?? null;
+  public override async getItemHistory(itemId: number): Promise<readonly Item[]> {
+    return Object.freeze([]);
   }
 
-  public override async modifyItem(item: Item): Promise<void> {
+  public override async modifyItem(item: Item): Promise<Item> {
     // TODO
     console.log('Modifying items not yet implemented!');
+
+    return item;
   }
 
   public override async removeItem(item: Item): Promise<void> {

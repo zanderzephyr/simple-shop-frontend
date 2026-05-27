@@ -5,6 +5,8 @@ export class Item {
   readonly #remaining: number;
   readonly #price: number;
   readonly #imageUrl: string;
+  // TODO Use a proper date time type for that
+  readonly #lastModificationTimestamp: string;
 
   constructor(itemData: ItemData) {
     this.#id = itemData.id;
@@ -13,6 +15,7 @@ export class Item {
     this.#remaining = itemData.remaining;
     this.#price = itemData.price;
     this.#imageUrl = itemData.imageUrl;
+    this.#lastModificationTimestamp = itemData.lastModificationTimestamp;
 
     Object.freeze(this);
   }
@@ -39,15 +42,26 @@ export class Item {
   public getImageUrl(): string {
     return this.#imageUrl;
   }
+
+  public getLastModificationTimestamp(): string {
+    return this.#lastModificationTimestamp;
+  }
 }
 
 export class ItemBuilder {
+  /**
+   * Is only to be set by the item service.
+   */
   #id?: number;
   #title?: string;
   #mediaType?: MediaType;
   #remaining?: number;
   #price?: number;
   #imageUrl?: string;
+  /**
+   * Is only to be set by the item service.
+   */
+  #lastModificationTimestamp?: string;
 
   constructor() {
     // Nothing to do so far
@@ -105,6 +119,15 @@ export class ItemBuilder {
     return this;
   }
 
+  public getLastModificationTimestamp(): string | undefined {
+    return this.#lastModificationTimestamp;
+  }
+
+  public setLastModificationTimestamp(lastModificationTimestamp: string): this {
+    this.#lastModificationTimestamp = lastModificationTimestamp;
+    return this;
+  }
+
   public getItemData(): ItemData {
     this.#validate();
 
@@ -116,6 +139,7 @@ export class ItemBuilder {
       remaining: this.#remaining!,
       price: this.#price!,
       imageUrl: this.#imageUrl!,
+      lastModificationTimestamp: this.#lastModificationTimestamp!,
     };
   }
 
@@ -158,6 +182,7 @@ interface ItemData {
   remaining: number;
   price: number;
   imageUrl: string;
+  lastModificationTimestamp: string;
 }
 
 export const MediaType: {
