@@ -15,9 +15,9 @@
     </button>
     <mat-menu #sessionMenu="matMenu">
       <button
-        class="header-session-menu-transactions"
+        class="header-session-menu-user-transactions"
         mat-menu-item
-        (click)="onTransactionsClick()"
+        (click)="onUserTransactionsClick()"
       >
         <span>Transactions</span>
       </button>
@@ -26,6 +26,40 @@
         <span>Profile</span>
       </button>
 
+      @if (isAdmin()) {
+        <mat-divider></mat-divider>
+        <div class="header-session-menu-admin-actions">Admin actions</div>
+
+        <button
+          class="header-session-menu-global-transactions"
+          mat-menu-item
+          (click)="onGlobalTransactionsClick()"
+        >
+          <span>Global transactions</span>
+        </button>
+
+        <button
+          class="header-session-menu-book-keeping"
+          mat-menu-item
+          (click)="onBookKeepingClick()"
+        >
+          <span>Book keeping</span>
+        </button>
+
+        <button class="header-session-menu-inventory" mat-menu-item (click)="onInventoryClick()">
+          <span>Inventory</span>
+        </button>
+
+        <button
+          class="header-session-menu-user-management"
+          mat-menu-item
+          (click)="onUserManagementClick()"
+        >
+          <span>User management</span>
+        </button>
+      }
+
+      <mat-divider></mat-divider>
       <button class="header-session-menu-logout" mat-menu-item (click)="onLogoutClick()">
         <span>Logout</span>
       </button>
