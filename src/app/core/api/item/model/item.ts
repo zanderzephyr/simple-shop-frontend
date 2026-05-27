@@ -7,6 +7,7 @@ export class Item {
   readonly #imageUrl: string;
   // TODO Use a proper date time type for that
   readonly #lastModificationTimestamp: string;
+  readonly #lastModifyingUserId: number;
 
   constructor(itemData: ItemData) {
     this.#id = itemData.id;
@@ -16,6 +17,7 @@ export class Item {
     this.#price = itemData.price;
     this.#imageUrl = itemData.imageUrl;
     this.#lastModificationTimestamp = itemData.lastModificationTimestamp;
+    this.#lastModifyingUserId = itemData.lastModifyingUserId;
 
     Object.freeze(this);
   }
@@ -46,8 +48,15 @@ export class Item {
   public getLastModificationTimestamp(): string {
     return this.#lastModificationTimestamp;
   }
+
+  public getLastModifyingUserId(): number {
+    return this.#lastModifyingUserId;
+  }
 }
 
+/**
+ * Only to be used by the item service.
+ */
 export class ItemBuilder {
   /**
    * Is only to be set by the item service.
@@ -62,6 +71,7 @@ export class ItemBuilder {
    * Is only to be set by the item service.
    */
   #lastModificationTimestamp?: string;
+  #lastModifyingUserId?: number;
 
   constructor() {
     // Nothing to do so far
@@ -128,6 +138,15 @@ export class ItemBuilder {
     return this;
   }
 
+  public getLastModifyingUserId(): number | undefined {
+    return this.#lastModifyingUserId;
+  }
+
+  public setLastModifyingUserId(lastModifyingUserId: number): this {
+    this.#lastModifyingUserId = lastModifyingUserId;
+    return this;
+  }
+
   public getItemData(): ItemData {
     this.#validate();
 
@@ -140,6 +159,7 @@ export class ItemBuilder {
       price: this.#price!,
       imageUrl: this.#imageUrl!,
       lastModificationTimestamp: this.#lastModificationTimestamp!,
+      lastModifyingUserId: this.#lastModifyingUserId!,
     };
   }
 
@@ -163,6 +183,14 @@ export class ItemBuilder {
     if (this.#imageUrl === undefined) {
       throw new Error('No item image URL!');
     }
+
+    if (this.#lastModificationTimestamp === undefined) {
+      throw new Error('No last modification timestamp!');
+    }
+
+    if (this.#lastModifyingUserId === undefined) {
+      throw new Error('No last modification user ID!');
+    }
   }
 
   public build(): Item {
@@ -183,6 +211,7 @@ interface ItemData {
   price: number;
   imageUrl: string;
   lastModificationTimestamp: string;
+  lastModifyingUserId: number;
 }
 
 export const MediaType: {
