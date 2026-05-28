@@ -3,7 +3,7 @@ import { IllegalArgumentError, IndexOutOfBoundsError } from '@core/utils/common-
 import { TableColumnDescription } from './table-column-description';
 
 export class DefaultTableModel implements TableModel {
-  #tableData: unknown[][] = [[]];
+  #tableData: unknown[][] = [];
 
   public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
     for (const columnDescription of columnDescriptions) {
@@ -11,11 +11,11 @@ export class DefaultTableModel implements TableModel {
     }
   }
 
-  getColumnCount(): number {
+  public getColumnCount(): number {
     return this.#tableData.length;
   }
 
-  getRowCount(): number {
+  public getRowCount(): number {
     if (this.#tableData.length > 0) {
       return this.#tableData[0].length;
     }
@@ -24,7 +24,9 @@ export class DefaultTableModel implements TableModel {
 
   public addRow(row: unknown[]): this {
     if (this.#tableData.length === row.length) {
-      this.#tableData.push(row);
+      for (let i: number = 0; i < row.length; i++) {
+        this.#tableData[i].push(row[i]);
+      }
     } else {
       throw new IllegalArgumentError(
         'The number of columns of a row to be added has to be equal to the number of columns of this table!',
@@ -33,7 +35,7 @@ export class DefaultTableModel implements TableModel {
     return this;
   }
 
-  getValueAt(columnIndex: number, rowIndex: number): unknown {
+  public getValueAt(columnIndex: number, rowIndex: number): unknown {
     if (this.#tableData.length > columnIndex) {
       const column: unknown[] = this.#tableData[columnIndex];
       if (column.length > rowIndex) {
@@ -44,7 +46,7 @@ export class DefaultTableModel implements TableModel {
     return null; // doesn't happen
   }
 
-  setValueAt(value: unknown, columnIndex: number, rowIndex: number): this {
+  public setValueAt(value: unknown, columnIndex: number, rowIndex: number): this {
     if (this.#tableData.length > columnIndex) {
       const column: unknown[] = this.#tableData[columnIndex];
       if (column.length > rowIndex) {
@@ -56,7 +58,7 @@ export class DefaultTableModel implements TableModel {
     return this; // doesn't happen
   }
 
-  isCellEditable(columnIndex: number, rowIndex: number): boolean {
+  public isCellEditable(columnIndex: number, rowIndex: number): boolean {
     if (this.#tableData.length > columnIndex) {
       const column: unknown[] = this.#tableData[columnIndex];
       if (column.length > rowIndex) {

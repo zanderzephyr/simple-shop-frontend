@@ -3,6 +3,8 @@ export interface TableModel {
 
   getRowCount(): number;
 
+  addRow(row: unknown[]): this;
+
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    */
