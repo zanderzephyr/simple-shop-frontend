@@ -133,6 +133,8 @@ class ItemGenerator {
       .setImageUrl(
         'https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
       )
+      .setLastModificationTimestamp('bla')
+      .setLastModifyingUserId(123456)
       .build();
     books.push(hp1);
 
@@ -143,6 +145,8 @@ class ItemGenerator {
       .setRemaining(3)
       .setPrice(12.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setLastModificationTimestamp('bla')
+      .setLastModifyingUserId(123456)
       .build();
     books.push(lotr1);
 
@@ -161,6 +165,8 @@ class ItemGenerator {
       .setImageUrl(
         'https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
       )
+      .setLastModificationTimestamp('bla')
+      .setLastModifyingUserId(123456)
       .build();
     movies.push(hpMovie);
 
@@ -171,6 +177,8 @@ class ItemGenerator {
       .setRemaining(1)
       .setPrice(24.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setLastModificationTimestamp('bla')
+      .setLastModifyingUserId(123456)
       .build();
     movies.push(lotrMovie);
 
@@ -187,6 +195,8 @@ class ItemGenerator {
       .setRemaining(1)
       .setPrice(29.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setLastModificationTimestamp('bla')
+      .setLastModifyingUserId(123456)
       .build();
     games.push(stellaris);
 
@@ -197,6 +207,8 @@ class ItemGenerator {
       .setRemaining(1)
       .setPrice(29.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setLastModificationTimestamp('bla')
+      .setLastModifyingUserId(123456)
       .build();
     games.push(skyrim);
 

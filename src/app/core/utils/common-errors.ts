@@ -26,3 +26,9 @@ export class IllegalArgumentError extends BaseError {
     super(message);
   }
 }
+
+export class IndexOutOfBoundsError extends BaseError {
+  constructor(message: string) {
+    super(message);
+  }
+}
