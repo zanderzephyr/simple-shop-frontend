@@ -1,7 +1,7 @@
 // TODO Move to common utils library
 
 export abstract class BaseError extends Error {
-  constructor(message: string) {
+  constructor(message?: string) {
     super(message);
 
     // Assign the exact descendant's class name (e.g., "IllegalArgumentError")
@@ -22,13 +22,19 @@ export abstract class BaseError extends Error {
 }
 
 export class IllegalArgumentError extends BaseError {
-  constructor(message: string) {
+  constructor(message?: string) {
     super(message);
   }
 }
 
 export class IndexOutOfBoundsError extends BaseError {
-  constructor(message: string) {
+  constructor(message?: string) {
+    super(message);
+  }
+}
+
+export class InvalidStateError extends BaseError {
+  constructor(message?: string) {
     super(message);
   }
 }

@@ -1,14 +1,16 @@
-export interface TableModel {
-  getColumnCount(): number;
+import { Signal } from '@angular/core';
 
-  getRowCount(): number;
+export interface TableModel {
+  getColumnCount(): Signal<number>;
+
+  getRowCount(): Signal<number>;
 
   addRow(row: unknown[]): this;
 
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    */
-  getValueAt(columnIndex: number, rowIndex: number): unknown;
+  getValueAt(columnIndex: number, rowIndex: number): Signal<unknown>;
 
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
@@ -19,4 +21,6 @@ export interface TableModel {
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    */
   isCellEditable(columnIndex: number, rowIndex: number): boolean;
+
+  clear(): void;
 }

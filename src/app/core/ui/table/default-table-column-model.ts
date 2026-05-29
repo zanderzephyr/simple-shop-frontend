@@ -8,7 +8,7 @@ export class DefaultTableColumnModel implements TableColumnModel {
   #tableColumns: Signal<readonly TableColumn<unknown>[]>;
 
   public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
-    this.#tableColumns = signal(this.#createTableColumns(columnDescriptions));
+    this.#tableColumns = signal(this.#createTableColumns(columnDescriptions)).asReadonly();
   }
 
   #createTableColumns(

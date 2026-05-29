@@ -5,6 +5,7 @@ import { TableModel } from '@core/ui/table/table-model';
 import { DefaultTableModel } from '@core/ui/table/default-table-model';
 import { TableColumnModel } from '@core/ui/table/table-column-model';
 import { DefaultTableColumnModel } from '@core/ui/table/default-table-column-model';
+import { Table } from '@core/ui/table/table';
 
 @Component({
   selector: 'app-inventory',
@@ -13,21 +14,14 @@ import { DefaultTableColumnModel } from '@core/ui/table/default-table-column-mod
   styleUrl: './inventory.css',
 })
 export class InventoryComponent {
-  readonly #tableModel: TableModel = new DefaultTableModel(inventoryColumnDescriptions);
-
-  readonly #tableColumnModel: TableColumnModel = new DefaultTableColumnModel(
-    inventoryColumnDescriptions,
+  protected readonly table: Table = new Table(
+    new DefaultTableModel(inventoryColumnDescriptions),
+    new DefaultTableColumnModel(inventoryColumnDescriptions),
   );
 
   public constructor() {
     // Nothing to do so far
-  }
 
-  protected getTableModel(): TableModel {
-    return this.#tableModel;
-  }
-
-  protected getTableColumnModel(): TableColumnModel {
-    return this.#tableColumnModel;
+    this.table.getTableModel().addRow(['HP1', 'Book', 5, 19.99, 'bla.com']);
   }
 }

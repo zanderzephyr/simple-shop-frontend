@@ -5,31 +5,12 @@ import { Table } from '@core/ui/table/table';
 
 @Directive()
 export abstract class CommonTableComponent {
-  public readonly tableModel: InputSignal<TableModel> = input.required<TableModel>();
+  public readonly table: InputSignal<Table> = input.required<Table>();
 
-  public readonly tableColumnModel: InputSignal<TableColumnModel> =
-    input.required<TableColumnModel>();
+  protected readonly tableModel: Signal<TableModel> = computed(() => this.table().getTableModel());
 
-  protected readonly table: Signal<Table> = computed(() => {
-    const tableModel: TableModel = this.tableModel();
-    const tableColumnModel: TableColumnModel = this.tableColumnModel();
-    return new Table(tableModel, tableColumnModel);
-  });
-
-  protected readonly tableColumnTitles: Signal<readonly string[]> = computed(() =>
-    Object.freeze(
-      this.tableColumnModel()
-        .getTableColumns()()
-        .map((c) => c.getTitle()()),
-    ),
-  );
-
-  protected readonly tableColumnIds: Signal<readonly string[]> = computed(() =>
-    Object.freeze(
-      this.tableColumnModel()
-        .getTableColumns()()
-        .map((c) => c.getModelIndex() + ''),
-    ),
+  protected readonly tableColumnModel: Signal<TableColumnModel> = computed(() =>
+    this.table().getTableColumnModel(),
   );
 
   public constructor() {
