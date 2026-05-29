@@ -128,7 +128,7 @@ class ItemGenerator {
       .setId(++ItemGenerator.#currentItemId)
       .setTitle("Harry Potter and the Sorcerer's Stone")
       .setMediaType(MediaType.BOOK)
-      .setRemaining(5)
+      .setStock(5)
       .setPrice(9.99)
       .setImageUrl(
         'https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
@@ -142,7 +142,7 @@ class ItemGenerator {
       .setId(++ItemGenerator.#currentItemId)
       .setTitle('The Lord of the Rings: The Fellowship of the Ring')
       .setMediaType(MediaType.BOOK)
-      .setRemaining(3)
+      .setStock(3)
       .setPrice(12.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
       .setLastModificationTimestamp('bla')
@@ -160,7 +160,7 @@ class ItemGenerator {
       .setId(++ItemGenerator.#currentItemId)
       .setTitle('Harry Potter and the Sorcerer’s Stone (Movie)')
       .setMediaType(MediaType.MOVIE)
-      .setRemaining(2)
+      .setStock(2)
       .setPrice(19.99)
       .setImageUrl(
         'https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
@@ -174,7 +174,7 @@ class ItemGenerator {
       .setId(++ItemGenerator.#currentItemId)
       .setTitle('The Lord of the Rings: The Fellowship of the Ring (Movie)')
       .setMediaType(MediaType.MOVIE)
-      .setRemaining(1)
+      .setStock(1)
       .setPrice(24.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
       .setLastModificationTimestamp('bla')
@@ -192,7 +192,7 @@ class ItemGenerator {
       .setId(++ItemGenerator.#currentItemId)
       .setTitle('Stellaris')
       .setMediaType(MediaType.GAME)
-      .setRemaining(1)
+      .setStock(1)
       .setPrice(29.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
       .setLastModificationTimestamp('bla')
@@ -204,7 +204,7 @@ class ItemGenerator {
       .setId(++ItemGenerator.#currentItemId)
       .setTitle('The Elder Scrolls V: Skyrim')
       .setMediaType(MediaType.GAME)
-      .setRemaining(1)
+      .setStock(1)
       .setPrice(29.99)
       .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
       .setLastModificationTimestamp('bla')

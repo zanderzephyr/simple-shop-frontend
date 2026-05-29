@@ -2,7 +2,7 @@ export class Item {
   readonly #id: number;
   readonly #title: string;
   readonly #mediaType: MediaType;
-  readonly #remaining: number;
+  readonly #stock: number;
   readonly #price: number;
   readonly #imageUrl: string;
   // TODO Use a proper date time type for that
@@ -13,7 +13,7 @@ export class Item {
     this.#id = itemData.id;
     this.#title = itemData.title;
     this.#mediaType = itemData.mediaType;
-    this.#remaining = itemData.remaining;
+    this.#stock = itemData.stock;
     this.#price = itemData.price;
     this.#imageUrl = itemData.imageUrl;
     this.#lastModificationTimestamp = itemData.lastModificationTimestamp;
@@ -33,8 +33,8 @@ export class Item {
     return this.#mediaType;
   }
 
-  public getRemaining(): number {
-    return this.#remaining;
+  public getStock(): number {
+    return this.#stock;
   }
 
   public getPrice(): number {
@@ -64,7 +64,7 @@ export class ItemBuilder {
   #id?: number;
   #title?: string;
   #mediaType?: MediaType;
-  #remaining?: number;
+  #stock?: number;
   #price?: number;
   #imageUrl?: string;
   /**
@@ -103,12 +103,12 @@ export class ItemBuilder {
     return this;
   }
 
-  public getRemaining(): number | undefined {
-    return this.#remaining;
+  public getStock(): number | undefined {
+    return this.#stock;
   }
 
-  public setRemaining(remaining: number): this {
-    this.#remaining = remaining;
+  public setStock(stock: number): this {
+    this.#stock = stock;
     return this;
   }
 
@@ -155,7 +155,7 @@ export class ItemBuilder {
       id: this.#id!,
       title: this.#title!,
       mediaType: this.#mediaType!,
-      remaining: this.#remaining!,
+      stock: this.#stock!,
       price: this.#price!,
       imageUrl: this.#imageUrl!,
       lastModificationTimestamp: this.#lastModificationTimestamp!,
@@ -172,8 +172,8 @@ export class ItemBuilder {
       throw new Error('No item title!');
     }
 
-    if (this.#remaining === undefined) {
-      throw new Error('No item remaining!');
+    if (this.#stock === undefined) {
+      throw new Error('No stock!');
     }
 
     if (this.#price === undefined) {
@@ -207,7 +207,7 @@ interface ItemData {
   id: number;
   title: string;
   mediaType: MediaType;
-  remaining: number;
+  stock: number;
   price: number;
   imageUrl: string;
   lastModificationTimestamp: string;
