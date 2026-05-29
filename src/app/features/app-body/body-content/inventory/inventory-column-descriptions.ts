@@ -41,7 +41,7 @@ export const IMAGE_URL: TableColumnDescription<string> = new TableColumnDescript
 
 export const ACTIONS: TableColumnDescription<ItemAction[]> = new TableColumnDescription<
   ItemAction[]
->(modelIndex++, 'Actions', new ItemActionFormatter());
+>(modelIndex++, 'Actions', undefined);
 
 export const inventoryColumnDescriptions: readonly TableColumnDescription<unknown>[] =
   createColumnDescriptions();

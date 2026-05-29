@@ -5,9 +5,9 @@ export class TableColumnDescription<TYPE> {
 
   readonly #title: string;
 
-  readonly #formatter: Formatter<TYPE>;
+  readonly #formatter: Formatter<TYPE> | undefined;
 
-  public constructor(modelIndex: number, title: string, formatter: Formatter<TYPE>) {
+  public constructor(modelIndex: number, title: string, formatter: Formatter<TYPE> | undefined) {
     this.#modelIndex = modelIndex;
     this.#title = title;
     this.#formatter = formatter;
@@ -21,7 +21,7 @@ export class TableColumnDescription<TYPE> {
     return this.#title;
   }
 
-  public getFormatter(): Formatter<TYPE> {
+  public getFormatter(): Formatter<TYPE> | undefined {
     return this.#formatter;
   }
 }

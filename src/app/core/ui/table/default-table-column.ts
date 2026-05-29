@@ -12,7 +12,7 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
   readonly #title: WritableSignal<string>;
   readonly #hidden: WritableSignal<boolean>;
   readonly #modelIndex: number;
-  readonly #formatter: Formatter<TYPE>;
+  readonly #formatter: Formatter<TYPE> | undefined;
 
   // TODO Renderer and editor on basis of the formatter I assume
 
@@ -27,15 +27,15 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
     return this.#modelIndex;
   }
 
-  getFormatter(): Formatter<TYPE> {
+  public getFormatter(): Formatter<TYPE> | undefined {
     return this.#formatter;
   }
 
-  getHidden(): WritableSignal<boolean> {
+  public getHidden(): WritableSignal<boolean> {
     return this.#hidden;
   }
 
-  getTitle(): WritableSignal<string> {
+  public getTitle(): WritableSignal<string> {
     return this.#title;
   }
 }

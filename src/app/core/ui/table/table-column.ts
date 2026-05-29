@@ -13,7 +13,7 @@ import { Formatter } from '@core/utils/formatter';
 export interface TableColumn<TYPE> {
   getModelIndex(): number;
 
-  getFormatter(): Formatter<TYPE>;
+  getFormatter(): Formatter<TYPE> | undefined;
 
   getHidden(): WritableSignal<boolean>;
 
