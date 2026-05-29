@@ -1,10 +1,15 @@
 <div class="ng-mat-table-container">
+  <!--
+		dataSource: Tells Angular where to get the table data, i.e. the rows. 
+	 	We can pass pretty much everything in here and just have to adapt accordingly
+		in how we use it.
+	-->
   <table mat-table [dataSource]="tableRowIds()" class="ng-mat-table">
     @for (tableColumn of tableColumns(); track tableColumn.getModelIndex()) {
       <ng-container [matColumnDef]="tableColumn.getModelIndex() + ''">
         <th mat-header-cell *matHeaderCellDef>{{ tableColumn.getTitle()() }}</th>
         <td mat-cell *matCellDef="let row">
-          {{ table().getTableModel().getValueAt(tableColumn.getModelIndex(), row)() }}
+          {{ table().getValueAt($index, row)() }}
         </td>
       </ng-container>
     }

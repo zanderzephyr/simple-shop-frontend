@@ -17,11 +17,7 @@ export class NgMatTableComponent extends CommonTableComponent {
   );
 
   protected readonly tableColumnIds: Signal<readonly string[]> = computed(() =>
-    Object.freeze(
-      this.tableColumnModel()
-        .getTableColumns()()
-        .map((c) => c.getModelIndex() + ''),
-    ),
+    Object.freeze(this.tableColumns().map((c) => c.getModelIndex() + '')),
   );
 
   protected readonly tableRowIds: Signal<readonly number[]> = computed(() => {

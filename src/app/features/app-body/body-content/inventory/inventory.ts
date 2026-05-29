@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
 import { inventoryColumnDescriptions } from './inventory-column-descriptions';
 import { NgMatTableComponent } from '@core/ui/table/ng-mat-table/ng-mat-table';
-import { TableModel } from '@core/ui/table/table-model';
 import { DefaultTableModel } from '@core/ui/table/default-table-model';
-import { TableColumnModel } from '@core/ui/table/table-column-model';
 import { DefaultTableColumnModel } from '@core/ui/table/default-table-column-model';
 import { Table } from '@core/ui/table/table';
+import { DefaultTable } from '@core/ui/table/default-table';
 
 @Component({
   selector: 'app-inventory',
@@ -14,7 +13,7 @@ import { Table } from '@core/ui/table/table';
   styleUrl: './inventory.css',
 })
 export class InventoryComponent {
-  protected readonly table: Table = new Table(
+  protected readonly table: Table = new DefaultTable(
     new DefaultTableModel(inventoryColumnDescriptions),
     new DefaultTableColumnModel(inventoryColumnDescriptions),
   );
@@ -22,6 +21,7 @@ export class InventoryComponent {
   public constructor() {
     // Nothing to do so far
 
+    // Just for testing
     this.table.getTableModel().addRow(['HP1', 'Book', 5, 19.99, 'bla.com']);
   }
 }

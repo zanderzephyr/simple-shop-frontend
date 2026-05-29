@@ -48,34 +48,34 @@ export class DefaultTableModel implements TableModel {
     return this;
   }
 
-  public getValueAt(columnIndex: number, rowIndex: number): Signal<unknown> {
-    this.#validateCoordinates(columnIndex, rowIndex);
+  public getValueAt(columnModelIndex: number, rowModelIndex: number): Signal<unknown> {
+    this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
-    return this.#tableData()[columnIndex][rowIndex];
+    return this.#tableData()[columnModelIndex][rowModelIndex];
   }
 
-  public setValueAt(value: unknown, columnIndex: number, rowIndex: number): this {
-    this.#validateCoordinates(columnIndex, rowIndex);
+  public setValueAt(value: unknown, columnModelIndex: number, rowModelIndex: number): this {
+    this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
-    this.#tableData()[columnIndex][rowIndex].update(() => value);
+    this.#tableData()[columnModelIndex][rowModelIndex].update(() => value);
 
     return this;
   }
 
   // TODO Implement
-  public isCellEditable(columnIndex: number, rowIndex: number): boolean {
-    this.#validateCoordinates(columnIndex, rowIndex);
+  public isCellEditable(columnModelIndex: number, rowModelIndex: number): boolean {
+    this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
     return false;
   }
 
-  #validateCoordinates(columnIndex: number, rowIndex: number): void {
-    if (columnIndex < 0 || columnIndex >= this.#columnCount()) {
-      throw new IndexOutOfBoundsError('Invalid column index ' + columnIndex + '!');
+  #validateCoordinates(columnModelIndex: number, rowModelIndex: number): void {
+    if (columnModelIndex < 0 || columnModelIndex >= this.#columnCount()) {
+      throw new IndexOutOfBoundsError('Invalid column index ' + columnModelIndex + '!');
     }
 
-    if (rowIndex < 0 || rowIndex >= this.#rowCount()) {
-      throw new IndexOutOfBoundsError('Invalid row index ' + rowIndex + '!');
+    if (rowModelIndex < 0 || rowModelIndex >= this.#rowCount()) {
+      throw new IndexOutOfBoundsError('Invalid row index ' + rowModelIndex + '!');
     }
   }
 

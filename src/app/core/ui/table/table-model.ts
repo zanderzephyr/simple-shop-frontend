@@ -10,17 +10,17 @@ export interface TableModel {
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    */
-  getValueAt(columnIndex: number, rowIndex: number): Signal<unknown>;
+  getValueAt(columnModelIndex: number, rowModelIndex: number): Signal<unknown>;
 
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    */
-  setValueAt(value: unknown, columnIndex: number, rowIndex: number): this;
+  setValueAt(value: unknown, columnModelIndex: number, rowModelIndex: number): this;
 
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    */
-  isCellEditable(columnIndex: number, rowIndex: number): boolean;
+  isCellEditable(columnModelIndex: number, rowModelIndex: number): boolean;
 
   clear(): void;
 }

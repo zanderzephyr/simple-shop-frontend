@@ -1,21 +1,11 @@
+import { Signal } from '@angular/core';
 import { TableColumnModel } from './table-column-model';
 import { TableModel } from './table-model';
 
-// TODO Abstraction? Any sense in that class at all?
-export class Table {
-  readonly #tableModel: TableModel;
-  readonly #tableColumnModel: TableColumnModel;
+export interface Table {
+  getTableModel(): TableModel;
 
-  public constructor(tableModel: TableModel, tableColumnModel: TableColumnModel) {
-    this.#tableModel = tableModel;
-    this.#tableColumnModel = tableColumnModel;
-  }
+  getTableColumnModel(): TableColumnModel;
 
-  public getTableModel(): TableModel {
-    return this.#tableModel;
-  }
-
-  public getTableColumnModel(): TableColumnModel {
-    return this.#tableColumnModel;
-  }
+  getValueAt(columnViewIndex: number, rowViewIndex: number): Signal<unknown>;
 }
