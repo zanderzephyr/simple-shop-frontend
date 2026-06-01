@@ -1,47 +1,46 @@
 import { TableColumnDescription } from '@app/core/ui/table/table-column-description';
-import { StringFormatter } from '@app/core/utils/formatter';
 import { Function } from '@core/utils/functional-interfaces';
 import { Item } from '@core/api/item/model/item';
-import { ItemAction } from './item-actions';
+import { InventoryTableActionComponent } from './inventory-table-action/inventory-table-action';
 
 let modelIndex: number = 0;
 
 export const TITLE: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Title',
-  new StringFormatter(),
+  'string',
 );
 
-// TODO Some kind of enum formatter
 export const MEDIA_TYPE: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Media Type',
-  new StringFormatter(),
+  'string',
 );
 
-// TODO Number formatter
 export const STOCK: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Stock',
-  new StringFormatter(),
+  'string',
 );
 
-// TODO Number formatter
 export const PRICE: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Price',
-  new StringFormatter(),
+  'string',
 );
 
 export const IMAGE_URL: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Image URL',
-  new StringFormatter(),
+  'string',
 );
 
-export const ACTIONS: TableColumnDescription<ItemAction[]> = new TableColumnDescription<
-  ItemAction[]
->(modelIndex++, 'Actions', undefined);
+export const ACTIONS: TableColumnDescription<InventoryTableActionComponent> =
+  new TableColumnDescription<InventoryTableActionComponent>(
+    modelIndex++,
+    'Actions',
+    InventoryTableActionComponent,
+  );
 
 export const inventoryColumnDescriptions: readonly TableColumnDescription<unknown>[] =
   createColumnDescriptions();
@@ -54,7 +53,7 @@ function createColumnDescriptions(): readonly TableColumnDescription<unknown>[] 
   columnDescriptions.push(STOCK);
   columnDescriptions.push(PRICE);
   columnDescriptions.push(IMAGE_URL);
-
+  columnDescriptions.push(ACTIONS);
   return Object.freeze(columnDescriptions);
 }
 
@@ -84,6 +83,8 @@ function createColumnDescriptionToItemValueExtractorMap(): Map<
 export function extractItemValue(
   item: Item,
   columnDescription: TableColumnDescription<unknown>,
-): unknown {
-  return columnDescriptionToItemValueExtractor.get(columnDescription)!(item);
+): unknown | undefined {
+  const itemValueExtractor: Function<Item, unknown> | undefined =
+    columnDescriptionToItemValueExtractor.get(columnDescription);
+  return itemValueExtractor ? itemValueExtractor(item) : undefined;
 }

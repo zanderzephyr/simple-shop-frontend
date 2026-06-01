@@ -1,4 +1,4 @@
-import { WritableSignal, signal } from '@angular/core';
+import { Type, WritableSignal, signal } from '@angular/core';
 import { TableColumnDescription } from './table-column-description';
 import { TableColumn } from '@core/ui/table/table-column';
 import { Formatter } from '@core/utils/formatter';
@@ -12,14 +12,14 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
   readonly #title: WritableSignal<string>;
   readonly #hidden: WritableSignal<boolean>;
   readonly #modelIndex: number;
-  readonly #formatter: Formatter<TYPE> | undefined;
+  readonly #type: Type<TYPE> | string;
 
   // TODO Renderer and editor on basis of the formatter I assume
 
   public constructor(columnDescription: TableColumnDescription<TYPE>) {
     this.#modelIndex = columnDescription.getModelIndex();
     this.#title = signal(columnDescription.getTitle());
-    this.#formatter = columnDescription.getFormatter();
+    this.#type = columnDescription.getType();
     this.#hidden = signal(false);
   }
 
@@ -27,8 +27,8 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
     return this.#modelIndex;
   }
 
-  public getFormatter(): Formatter<TYPE> | undefined {
-    return this.#formatter;
+  public getType(): Type<TYPE> | string {
+    return this.#type;
   }
 
   public getHidden(): WritableSignal<boolean> {

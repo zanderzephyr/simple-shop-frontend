@@ -1,5 +1,4 @@
-import { WritableSignal } from '@angular/core';
-import { Formatter } from '@core/utils/formatter';
+import { Type, WritableSignal } from '@angular/core';
 
 /*
 	TODO Add a persistence source, from which user specific configurations like
@@ -13,7 +12,7 @@ import { Formatter } from '@core/utils/formatter';
 export interface TableColumn<TYPE> {
   getModelIndex(): number;
 
-  getFormatter(): Formatter<TYPE> | undefined;
+  getType(): Type<TYPE> | string;
 
   getHidden(): WritableSignal<boolean>;
 

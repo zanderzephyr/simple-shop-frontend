@@ -1,16 +1,16 @@
-import { Formatter } from '@app/core/utils/formatter';
+import { Type } from '@angular/core';
 
 export class TableColumnDescription<TYPE> {
   readonly #modelIndex: number;
 
   readonly #title: string;
 
-  readonly #formatter: Formatter<TYPE> | undefined;
+  readonly #type: string | Type<TYPE>;
 
-  public constructor(modelIndex: number, title: string, formatter: Formatter<TYPE> | undefined) {
+  public constructor(modelIndex: number, title: string, type: string | Type<TYPE>) {
     this.#modelIndex = modelIndex;
     this.#title = title;
-    this.#formatter = formatter;
+    this.#type = type;
   }
 
   public getModelIndex(): number {
@@ -21,7 +21,7 @@ export class TableColumnDescription<TYPE> {
     return this.#title;
   }
 
-  public getFormatter(): Formatter<TYPE> | undefined {
-    return this.#formatter;
+  public getType(): string | Type<TYPE> {
+    return this.#type;
   }
 }
