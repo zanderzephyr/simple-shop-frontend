@@ -1,5 +1,6 @@
 import { Signal } from '@angular/core';
 
+// TODO Add removeRow
 export interface TableModel {
   getColumnCount(): Signal<number>;
 
