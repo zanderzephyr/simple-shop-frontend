@@ -1,3 +1,34 @@
+const secretKey: symbol = Symbol('secretKey');
+
+/*
+ Not exported, just as an internal part of the contract.
+ Nobody can call the Item constructor without this interface
+ being exported.
+ */
+interface ItemData {
+  [secretKey]: true; // Marker to prevent external construction
+  id: number;
+  title: string;
+  mediaType: MediaType;
+  stock: number;
+  price: number;
+  imageUrl: string;
+  lastModificationTimestamp: string;
+  lastModifyingUserId: number;
+}
+
+export const MediaType: {
+  readonly BOOK: { readonly id: 'BOOK'; readonly name: 'Book' };
+  readonly GAME: { readonly id: 'GAME'; readonly name: 'Game' };
+  readonly MOVIE: { readonly id: 'MOVIE'; readonly name: 'Movie' };
+} = {
+  BOOK: { id: 'BOOK', name: 'Book' },
+  GAME: { id: 'GAME', name: 'Game' },
+  MOVIE: { id: 'MOVIE', name: 'Movie' },
+} as const;
+type ValueOf<T> = T[keyof T];
+export type MediaType = ValueOf<typeof MediaType>;
+
 export class Item {
   readonly #id: number;
   readonly #title: string;
@@ -9,7 +40,7 @@ export class Item {
   readonly #lastModificationTimestamp: string;
   readonly #lastModifyingUserId: number;
 
-  constructor(itemData: ItemData) {
+  public constructor(itemData: ItemData) {
     this.#id = itemData.id;
     this.#title = itemData.title;
     this.#mediaType = itemData.mediaType;
@@ -73,7 +104,7 @@ export class ItemBuilder {
   #lastModificationTimestamp?: string;
   #lastModifyingUserId?: number;
 
-  constructor() {
+  public constructor() {
     // Nothing to do so far
   }
 
@@ -147,10 +178,11 @@ export class ItemBuilder {
     return this;
   }
 
-  public getItemData(): ItemData {
+  #createItemData(): ItemData {
     this.#validate();
 
     return {
+      [secretKey]: true,
       // ! tells the compiler, these values can't be null or undefined.
       id: this.#id!,
       title: this.#title!,
@@ -194,34 +226,6 @@ export class ItemBuilder {
   }
 
   public build(): Item {
-    return new Item(this.getItemData());
+    return new Item(this.#createItemData());
   }
 }
-
-/*
- Not exported, just as an internal part of the contract.
- Nobody can call the Item constructor without this interface
- being exported.
- */
-interface ItemData {
-  id: number;
-  title: string;
-  mediaType: MediaType;
-  stock: number;
-  price: number;
-  imageUrl: string;
-  lastModificationTimestamp: string;
-  lastModifyingUserId: number;
-}
-
-export const MediaType: {
-  readonly BOOK: { readonly id: 'BOOK'; readonly name: 'Book' };
-  readonly GAME: { readonly id: 'GAME'; readonly name: 'Game' };
-  readonly MOVIE: { readonly id: 'MOVIE'; readonly name: 'Movie' };
-} = {
-  BOOK: { id: 'BOOK', name: 'Book' },
-  GAME: { id: 'GAME', name: 'Game' },
-  MOVIE: { id: 'MOVIE', name: 'Movie' },
-} as const;
-type ValueOf<T> = T[keyof T];
-export type MediaType = ValueOf<typeof MediaType>;

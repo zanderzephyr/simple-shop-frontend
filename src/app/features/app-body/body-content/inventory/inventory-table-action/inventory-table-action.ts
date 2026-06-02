@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NgMatTableCellComponent } from '@app/core/ui/table/ng-mat-table/ng-mat-table-cell/ng-mat-table-cell';
+import { CommonTableCellComponent } from '@app/core/ui/table/common-table-cell-component';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -9,7 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
   templateUrl: './inventory-table-action.html',
   styleUrl: './inventory-table-action.css',
 })
-export class InventoryTableActionComponent extends NgMatTableCellComponent {
+export class InventoryTableActionComponent extends CommonTableCellComponent {
   public constructor() {
     super();
   }
@@ -17,8 +17,6 @@ export class InventoryTableActionComponent extends NgMatTableCellComponent {
   protected edit(): void {
     // TODO Implement edit functionality
     console.log('Edit action triggered');
-    console.log(this.columnViewIndex());
-    console.log(this.rowViewIndex());
   }
 
   protected delete(): void {

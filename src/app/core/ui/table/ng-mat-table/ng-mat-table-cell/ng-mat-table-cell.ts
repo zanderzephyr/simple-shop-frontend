@@ -6,8 +6,14 @@ import {
   Signal,
   viewChild,
   ViewContainerRef,
+  input,
+  InputSignal,
 } from '@angular/core';
-import { CommonTableCellComponent } from '../../common-table-cell-component';
+import { Table } from '../../table';
+import {
+  CommonTableCellContext,
+  CommonTableCellContextBuilder,
+} from '@core/ui/table/common-table-cell-context';
 
 @Component({
   selector: 'app-ng-mat-table-cell',
@@ -15,7 +21,13 @@ import { CommonTableCellComponent } from '../../common-table-cell-component';
   templateUrl: './ng-mat-table-cell.html',
   styleUrl: './ng-mat-table-cell.css',
 })
-export class NgMatTableCellComponent extends CommonTableCellComponent {
+export class NgMatTableCellComponent {
+  public readonly table: InputSignal<Table> = input.required<Table>();
+
+  public readonly columnViewIndex: InputSignal<number> = input.required<number>();
+
+  public readonly rowViewIndex: InputSignal<number> = input.required<number>();
+
   readonly content: Signal<ViewContainerRef | undefined> = viewChild('content', {
     read: ViewContainerRef,
   });
@@ -24,8 +36,6 @@ export class NgMatTableCellComponent extends CommonTableCellComponent {
   #currentComponentRef: ComponentRef<unknown> | null = null;
 
   public constructor() {
-    super();
-
     effect(() => {
       // Immediately execute the signals to register the effect properly.
       const type: Type<unknown> | string = this.table()
@@ -48,9 +58,12 @@ export class NgMatTableCellComponent extends CommonTableCellComponent {
         this.#currentComponentRef = viewContainer.createComponent(type as Type<unknown>);
       }
 
-      this.#currentComponentRef.setInput('table', this.table());
-      this.#currentComponentRef.setInput('columnViewIndex', this.columnViewIndex());
-      this.#currentComponentRef.setInput('rowViewIndex', this.rowViewIndex());
+      const cellContext: CommonTableCellContext = new CommonTableCellContextBuilder()
+        .setTable(this.table())
+        .setColumnViewIndex(this.columnViewIndex())
+        .setRowViewIndex(this.rowViewIndex())
+        .build();
+      this.#currentComponentRef.setInput('context', cellContext);
     });
   }
 
