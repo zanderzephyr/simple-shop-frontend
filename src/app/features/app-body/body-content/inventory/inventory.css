@@ -1,0 +1,4 @@
+.inventory-container-add-button {
+  display: flex;
+  flex-direction: row;
+}

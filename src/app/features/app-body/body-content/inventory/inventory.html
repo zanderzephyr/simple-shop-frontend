@@ -1,3 +1,8 @@
 <div class="inventory-container">
+  <button class="inventory-container-add-button" mat-raised-button (click)="add()">
+    <mat-icon>add</mat-icon>
+    <span>Create Item</span>
+  </button>
+
   <app-ng-mat-table class="inventory-container-table" [table]="table"> </app-ng-mat-table>
 </div>

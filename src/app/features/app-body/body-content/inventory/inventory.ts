@@ -7,10 +7,12 @@ import { Table } from '@core/ui/table/table';
 import { DefaultTable } from '@core/ui/table/default-table';
 import { ItemService } from '@app/core/api/item/item-service';
 import { Item } from '@app/core/api/item/model/item';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-inventory',
-  imports: [NgMatTableComponent],
+  imports: [NgMatTableComponent, MatButtonModule, MatIconModule],
   templateUrl: './inventory.html',
   styleUrl: './inventory.css',
 })
@@ -47,5 +49,10 @@ export class InventoryComponent {
 
       this.table.getTableModel().addRow(row);
     }
+  }
+
+  protected add(): void {
+    // TODO Implement add functionality
+    console.log('Add action triggered');
   }
 }
