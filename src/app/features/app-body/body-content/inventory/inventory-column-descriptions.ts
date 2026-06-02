@@ -1,7 +1,13 @@
 import { TableColumnDescription } from '@app/core/ui/table/table-column-description';
-import { Function } from '@core/utils/functional-interfaces';
+import { Function, BiConsumer } from '@core/utils/functional-interfaces';
 import { Item } from '@core/api/item/model/item';
-import { InventoryTableActionComponent } from './inventory-table-action/inventory-table-action';
+import { StringEditorComponent } from '@app/core/ui/editor/string-editor/string-editor';
+import { StringRendererComponent } from '@app/core/ui/renderer/string-renderer/string-renderer';
+import { NumberEditorComponent } from '@app/core/ui/editor/number-editor/number-editor';
+import { NumberRendererComponent } from '@app/core/ui/renderer/number-renderer/number-renderer';
+import { InventoryTableAction } from './inventory-table-action';
+import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
+import { InventoryTableActionRendererComponent } from './inventory-table-action-renderer/inventory-table-action-renderer';
 
 let modelIndex: number = 0;
 
@@ -9,38 +15,51 @@ export const TITLE: TableColumnDescription<string> = new TableColumnDescription<
   modelIndex++,
   'Title',
   'string',
+  StringRendererComponent,
+  StringEditorComponent,
 );
 
 export const MEDIA_TYPE: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Media Type',
   'string',
+  StringRendererComponent,
+  StringEditorComponent,
 );
 
-export const STOCK: TableColumnDescription<string> = new TableColumnDescription<string>(
+export const STOCK: TableColumnDescription<number> = new TableColumnDescription<number>(
   modelIndex++,
   'Stock',
-  'string',
+  'number',
+  NumberRendererComponent,
+  NumberEditorComponent,
 );
 
-export const PRICE: TableColumnDescription<string> = new TableColumnDescription<string>(
+export const PRICE: TableColumnDescription<number> = new TableColumnDescription<number>(
   modelIndex++,
   'Price',
-  'string',
+  'number',
+  NumberRendererComponent,
+  NumberEditorComponent,
 );
 
 export const IMAGE_URL: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Image URL',
   'string',
+  StringRendererComponent,
+  StringEditorComponent,
 );
 
-export const ACTIONS: TableColumnDescription<InventoryTableActionComponent> =
-  new TableColumnDescription<InventoryTableActionComponent>(
-    modelIndex++,
-    'Actions',
-    InventoryTableActionComponent,
-  );
+export const ACTIONS: TableColumnDescription<
+  Map<InventoryTableAction, BiConsumer<number, number>>
+> = new TableColumnDescription<Map<InventoryTableAction, BiConsumer<number, number>>>(
+  modelIndex++,
+  'Actions',
+  Map<InventoryTableAction, BiConsumer<number, number>>,
+  InventoryTableActionRendererComponent,
+  InventoryTableActionEditorComponent,
+);
 
 export const inventoryColumnDescriptions: readonly TableColumnDescription<unknown>[] =
   createColumnDescriptions();

@@ -30,15 +30,11 @@
 				-->
         <td mat-cell *matCellDef="let row">
           <!-- TODO Is it necessary to sort of track the component and prevent it from being created too often? -->
-          @if (isTableCellComponent(tableColumn.getType())) {
-            <app-ng-mat-table-cell
-              [table]="table()"
-              [columnViewIndex]="columnIndex"
-              [rowViewIndex]="row"
-            />
-          } @else {
-            {{ table().getValueAt(columnIndex, row)() }}
-          }
+          <app-ng-mat-table-cell
+            [table]="table()"
+            [columnViewIndex]="columnIndex"
+            [rowViewIndex]="row"
+          />
         </td>
       </ng-container>
     }

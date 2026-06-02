@@ -1,4 +1,7 @@
 import { Type, WritableSignal } from '@angular/core';
+import { ColumnType } from './table-column-description';
+import { Editor } from '@core/ui/editor/editor';
+import { Renderer } from '@core/ui/renderer/renderer';
 
 /*
 	TODO Add a persistence source, from which user specific configurations like
@@ -12,9 +15,13 @@ import { Type, WritableSignal } from '@angular/core';
 export interface TableColumn<TYPE> {
   getModelIndex(): number;
 
-  getType(): Type<TYPE> | string;
+  getType(): ColumnType<TYPE>;
 
   getHidden(): WritableSignal<boolean>;
 
   getTitle(): WritableSignal<string>;
+
+  getRendererType(): Type<Renderer<TYPE>>;
+
+  getEditorType(): Type<Editor<TYPE>>;
 }

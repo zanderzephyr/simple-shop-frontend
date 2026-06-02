@@ -1,0 +1,17 @@
+import { Component } from '@angular/core';
+import { InventoryTableAction } from '../inventory-table-action';
+import { TableCellEditor } from '@app/core/ui/table/table-cell-editor';
+
+@Component({
+  selector: 'app-inventory-table-action-editor',
+  imports: [],
+  templateUrl: './inventory-table-action-editor.html',
+  styleUrl: './inventory-table-action-editor.css',
+})
+export class InventoryTableActionEditorComponent extends TableCellEditor<
+  Map<InventoryTableAction, (columnViewIndex: number, rowViewIndex: number) => void>
+> {
+  public constructor() {
+    super();
+  }
+}

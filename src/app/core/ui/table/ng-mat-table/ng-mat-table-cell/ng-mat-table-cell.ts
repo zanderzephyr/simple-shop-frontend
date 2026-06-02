@@ -14,6 +14,14 @@ import {
   CommonTableCellContext,
   CommonTableCellContextBuilder,
 } from '@core/ui/table/common-table-cell-context';
+import { TableColumn } from '@core/ui/table/table-column';
+import { TableCellRenderer } from '@core/ui/table/table-cell-renderer';
+import { TableCellEditor } from '@core/ui/table/table-cell-editor';
+import { Renderer } from '@app/core/ui/renderer/renderer';
+
+/*
+ TODO On click, replace renderer by editor.
+*/
 
 @Component({
   selector: 'app-ng-mat-table-cell',
@@ -33,49 +41,53 @@ export class NgMatTableCellComponent {
   });
 
   // Keep a local reference to the active dynamic component instance
-  #currentComponentRef: ComponentRef<unknown> | null = null;
+  #currentComponentRef: ComponentRef<unknown> | undefined = undefined;
 
   public constructor() {
     effect(() => {
       // Immediately execute the signals to register the effect properly.
-      const type: Type<unknown> | string = this.table()
-        .getTableColumnModel()
-        .getTableColumns()()
-        [this.columnViewIndex()].getType();
+      const column: TableColumn<unknown> = this.table().getTableColumnModel().getTableColumns()()[
+        this.columnViewIndex()
+      ];
 
       let viewContainer: ViewContainerRef | undefined = this.content();
       if (!viewContainer) {
         return; // Template isn't built yet; bail early safely
       }
 
-      if (!this.#isTableCellComponent(type)) {
-        this.#clearComponent();
-        return;
-      }
+      // TODO Properly recognize if we should choose the renderer or the editor.
 
+      const type: Type<Renderer<unknown>> = column.getRendererType();
       if (!this.#currentComponentRef || this.#currentComponentRef.componentType !== type) {
         this.#clearComponent();
-        this.#currentComponentRef = viewContainer.createComponent(type as Type<unknown>);
+        this.#currentComponentRef = viewContainer.createComponent(type);
       }
 
-      const cellContext: CommonTableCellContext = new CommonTableCellContextBuilder()
-        .setTable(this.table())
-        .setColumnViewIndex(this.columnViewIndex())
-        .setRowViewIndex(this.rowViewIndex())
-        .build();
-      this.#currentComponentRef.setInput('context', cellContext);
+      if (
+        this.#currentComponentRef.instance instanceof TableCellRenderer ||
+        this.#currentComponentRef.instance instanceof TableCellEditor
+      ) {
+        const cellContext: CommonTableCellContext = new CommonTableCellContextBuilder()
+          .setTable(this.table())
+          .setColumnViewIndex(this.columnViewIndex())
+          .setRowViewIndex(this.rowViewIndex())
+          .build();
+        this.#currentComponentRef.setInput('context', cellContext);
+      } else {
+        const value: unknown = this.table().getValueAt(
+          this.columnViewIndex(),
+          this.rowViewIndex(),
+        )();
+        this.#currentComponentRef.setInput('value', value);
+      }
     });
   }
 
   #clearComponent(): void {
     if (this.#currentComponentRef) {
       this.#currentComponentRef.destroy();
-      this.#currentComponentRef = null;
+      this.#currentComponentRef = undefined;
       this.content()!.clear();
     }
-  }
-
-  #isTableCellComponent(value: string | Type<unknown>): boolean {
-    return typeof value !== 'string';
   }
 }

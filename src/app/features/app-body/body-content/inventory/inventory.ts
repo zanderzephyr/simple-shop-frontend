@@ -1,5 +1,9 @@
 import { inject, Component } from '@angular/core';
-import { inventoryColumnDescriptions, extractItemValue } from './inventory-column-descriptions';
+import {
+  inventoryColumnDescriptions,
+  extractItemValue,
+  ACTIONS,
+} from './inventory-column-descriptions';
 import { NgMatTableComponent } from '@core/ui/table/ng-mat-table/ng-mat-table';
 import { DefaultTableModel } from '@core/ui/table/default-table-model';
 import { DefaultTableColumnModel } from '@core/ui/table/default-table-column-model';
@@ -9,6 +13,8 @@ import { ItemService } from '@app/core/api/item/item-service';
 import { Item } from '@app/core/api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { InventoryTableAction } from './inventory-table-action';
+import { BiConsumer } from '@core/utils/functional-interfaces';
 
 @Component({
   selector: 'app-inventory',
@@ -22,8 +28,29 @@ export class InventoryComponent {
     new DefaultTableColumnModel(inventoryColumnDescriptions),
   );
 
+  readonly #actionCallbackMap: Map<InventoryTableAction, BiConsumer<number, number>> =
+    this.#createActionCallbackMap();
+
   public constructor() {
     this.#initTableContent();
+  }
+
+  #createActionCallbackMap(): Map<InventoryTableAction, BiConsumer<number, number>> {
+    const map: Map<InventoryTableAction, BiConsumer<number, number>> = new Map<
+      InventoryTableAction,
+      BiConsumer<number, number>
+    >();
+
+    map.set(InventoryTableAction.MODIFY, (columnViewIndex: number, rowViewIndex: number) =>
+      this.#modify(columnViewIndex, rowViewIndex),
+    );
+    map.set(InventoryTableAction.DELETE, (columnViewIndex: number, rowViewIndex: number) =>
+      this.#delete(columnViewIndex, rowViewIndex),
+    );
+
+    // TODO Add more actions here as needed
+
+    return map;
   }
 
   /*
@@ -47,6 +74,8 @@ export class InventoryComponent {
         row.push(extractItemValue(item, columnDescription));
       }
 
+      row[ACTIONS.getModelIndex()] = this.#actionCallbackMap;
+
       this.table.getTableModel().addRow(row);
     }
   }
@@ -54,5 +83,15 @@ export class InventoryComponent {
   protected add(): void {
     // TODO Implement add functionality
     console.log('Add action triggered');
+  }
+
+  #modify(columnViewIndex: number, rowViewIndex: number): void {
+    // TODO Implement modify functionality
+    console.log('Modify action triggered');
+  }
+
+  #delete(columnViewIndex: number, rowViewIndex: number): void {
+    // TODO Implement delete functionality
+    console.log('Delete action triggered');
   }
 }

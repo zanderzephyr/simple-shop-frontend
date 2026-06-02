@@ -1,7 +1,8 @@
 import { Type, WritableSignal, signal } from '@angular/core';
-import { TableColumnDescription } from './table-column-description';
+import { ColumnType, TableColumnDescription } from './table-column-description';
 import { TableColumn } from '@core/ui/table/table-column';
-import { Formatter } from '@core/utils/formatter';
+import { Editor } from '../editor/editor';
+import { Renderer } from '../renderer/renderer';
 
 /*
 	TODO Add a persistence source, from which user specific configurations like
@@ -12,22 +13,24 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
   readonly #title: WritableSignal<string>;
   readonly #hidden: WritableSignal<boolean>;
   readonly #modelIndex: number;
-  readonly #type: Type<TYPE> | string;
-
-  // TODO Renderer and editor on basis of the formatter I assume
+  readonly #type: ColumnType<TYPE>;
+  readonly #rendererType: Type<Renderer<TYPE>>;
+  readonly #editorType: Type<Editor<TYPE>>;
 
   public constructor(columnDescription: TableColumnDescription<TYPE>) {
     this.#modelIndex = columnDescription.getModelIndex();
     this.#title = signal(columnDescription.getTitle());
     this.#type = columnDescription.getType();
     this.#hidden = signal(false);
+    this.#rendererType = columnDescription.getRendererType();
+    this.#editorType = columnDescription.getEditorType();
   }
 
   public getModelIndex(): number {
     return this.#modelIndex;
   }
 
-  public getType(): Type<TYPE> | string {
+  public getType(): ColumnType<TYPE> {
     return this.#type;
   }
 
@@ -37,5 +40,13 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
 
   public getTitle(): WritableSignal<string> {
     return this.#title;
+  }
+
+  public getRendererType(): Type<Renderer<TYPE>> {
+    return this.#rendererType;
+  }
+
+  public getEditorType(): Type<Editor<TYPE>> {
+    return this.#editorType;
   }
 }
