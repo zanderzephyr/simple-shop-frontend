@@ -1,4 +1,4 @@
-import { Directive, input, InputSignal } from '@angular/core';
+import { Signal, computed, Directive, input, InputSignal } from '@angular/core';
 import { Editor } from './editor';
 
 @Directive()
@@ -6,7 +6,9 @@ import { Editor } from './editor';
 export abstract class DefaultEditor<TYPE> implements Editor<TYPE> {
   readonly interfaceTag: 'editor' = 'editor';
 
-  protected readonly value: InputSignal<TYPE> = input.required<TYPE>();
+  protected readonly valueInput: InputSignal<Signal<TYPE>> = input.required<Signal<TYPE>>();
+
+  protected readonly value: Signal<TYPE> = computed(() => this.valueInput()());
 
   public constructor() {}
 }

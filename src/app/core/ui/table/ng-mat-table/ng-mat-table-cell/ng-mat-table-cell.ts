@@ -74,11 +74,8 @@ export class NgMatTableCellComponent {
           .build();
         this.#currentComponentRef.setInput('context', cellContext);
       } else {
-        const value: unknown = this.table().getValueAt(
-          this.columnViewIndex(),
-          this.rowViewIndex(),
-        )();
-        this.#currentComponentRef.setInput('value', value);
+        const value: unknown = this.table().getValueAt(this.columnViewIndex(), this.rowViewIndex());
+        this.#currentComponentRef.setInput('valueInput', value);
       }
     });
   }
