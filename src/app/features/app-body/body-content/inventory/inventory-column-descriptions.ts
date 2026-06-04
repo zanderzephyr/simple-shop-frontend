@@ -44,9 +44,9 @@ export const PRICE: TableColumnDescription<number> = new TableColumnDescription<
   NumberEditorComponent,
 );
 
-export const IMAGE_URL: TableColumnDescription<string> = new TableColumnDescription<string>(
+export const COVER: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
-  'Image URL',
+  'Cover',
   z.string(),
   StringRendererComponent,
   StringEditorComponent,
@@ -72,7 +72,7 @@ function createColumnDescriptions(): readonly TableColumnDescription<unknown>[] 
   columnDescriptions.push(MEDIA_TYPE);
   columnDescriptions.push(STOCK);
   columnDescriptions.push(PRICE);
-  columnDescriptions.push(IMAGE_URL);
+  columnDescriptions.push(COVER);
   columnDescriptions.push(ACTIONS);
   return Object.freeze(columnDescriptions);
 }
@@ -91,7 +91,7 @@ function createColumnDescriptionToItemValueExtractorMap(): Map<
     Function<Item, unknown>
   >();
 
-  map.set(IMAGE_URL, (item) => item.getImageUrl());
+  map.set(COVER, (item) => item.getImageUrl());
   map.set(MEDIA_TYPE, (item) => item.getMediaType().name);
   map.set(PRICE, (item) => item.getPrice());
   map.set(STOCK, (item) => item.getStock());
