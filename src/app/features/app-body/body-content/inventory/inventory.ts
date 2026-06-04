@@ -14,7 +14,7 @@ import { Item } from '@app/core/api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
-import { BiConsumer } from '@core/utils/functional-interfaces';
+import { BiConsumer } from '@utils/functional-interfaces';
 
 @Component({
   selector: 'app-inventory',

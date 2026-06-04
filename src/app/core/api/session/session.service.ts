@@ -2,7 +2,6 @@ import { Injectable, inject } from '@angular/core';
 import { LoginCredentials } from './model/login-credentials';
 import { Session, SessionData } from '@core/session';
 import { UserType } from '@core/api/user/model/user';
-import { IllegalArgumentError } from '@core/utils/common-errors';
 
 let INSTANCE: SessionService | null = null;
 

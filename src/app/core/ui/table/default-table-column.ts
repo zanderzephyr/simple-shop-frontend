@@ -1,8 +1,9 @@
 import { Type, WritableSignal, signal } from '@angular/core';
-import { ColumnType, TableColumnDescription } from './table-column-description';
+import { TableColumnDescription } from './table-column-description';
 import { TableColumn } from '@core/ui/table/table-column';
 import { Editor } from '../editor/editor';
 import { Renderer } from '../renderer/renderer';
+import { ZodType } from 'zod';
 
 /*
 	TODO Add a persistence source, from which user specific configurations like
@@ -13,7 +14,7 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
   readonly #title: WritableSignal<string>;
   readonly #hidden: WritableSignal<boolean>;
   readonly #modelIndex: number;
-  readonly #type: ColumnType<TYPE>;
+  readonly #type: ZodType<TYPE>;
   readonly #rendererType: Type<Renderer<TYPE>>;
   readonly #editorType: Type<Editor<TYPE>>;
 
@@ -30,7 +31,7 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
     return this.#modelIndex;
   }
 
-  public getType(): ColumnType<TYPE> {
+  public getType(): ZodType<TYPE> {
     return this.#type;
   }
 

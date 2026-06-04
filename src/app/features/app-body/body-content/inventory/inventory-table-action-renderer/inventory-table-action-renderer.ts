@@ -3,7 +3,7 @@ import { InventoryTableAction } from '../inventory-table-action';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableCellRenderer } from '@app/core/ui/table/table-cell-renderer';
-import { BiConsumer } from '@core/utils/functional-interfaces';
+import { BiConsumer } from '@utils/functional-interfaces';
 
 @Component({
   selector: 'app-inventory-table-action-renderer',

@@ -20,7 +20,7 @@
       "@core/*": ["./src/app/core/*"],
       "@features/*": ["./src/app/features/*"],
       "@shared/*": ["./src/app/shared/*"],
-      "@utils/*": ["./src/app/utils/*"]
+      "@utils/*": ["./src/app/core/utils/*"]
     }
   },
   "angularCompilerOptions": {

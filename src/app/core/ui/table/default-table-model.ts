@@ -1,6 +1,6 @@
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
 import { TableModel } from './table-model';
-import { IllegalArgumentError, IndexOutOfBoundsError } from '@core/utils/common-errors';
+import { IllegalArgumentError, IndexOutOfBoundsError } from '@utils/common-errors';
 import { TableColumnDescription } from './table-column-description';
 
 export class DefaultTableModel implements TableModel {

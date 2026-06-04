@@ -1,3 +1,6 @@
+import { ZodType } from 'zod';
+import { createEnumSchema } from '@utils/type-utils';
+
 export const InventoryTableAction: {
   readonly ADD: { readonly id: 'ADD' };
   readonly DELETE: { readonly id: 'DELETE' };
@@ -9,3 +12,7 @@ export const InventoryTableAction: {
 } as const;
 type ValueOf<T> = T[keyof T];
 export type InventoryTableAction = ValueOf<typeof InventoryTableAction>;
+
+export function zodInventoryTableAction(): ZodType<InventoryTableAction> {
+  return createEnumSchema(InventoryTableAction);
+}

@@ -1,7 +1,7 @@
 import { Type, WritableSignal } from '@angular/core';
-import { ColumnType } from './table-column-description';
 import { Editor } from '@core/ui/editor/editor';
 import { Renderer } from '@core/ui/renderer/renderer';
+import { ZodType } from 'zod';
 
 /*
 	TODO Add a persistence source, from which user specific configurations like
@@ -15,7 +15,7 @@ import { Renderer } from '@core/ui/renderer/renderer';
 export interface TableColumn<TYPE> {
   getModelIndex(): number;
 
-  getType(): ColumnType<TYPE>;
+  getType(): ZodType<TYPE>;
 
   getHidden(): WritableSignal<boolean>;
 

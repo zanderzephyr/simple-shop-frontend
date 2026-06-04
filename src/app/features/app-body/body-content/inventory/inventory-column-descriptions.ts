@@ -1,20 +1,21 @@
 import { TableColumnDescription } from '@app/core/ui/table/table-column-description';
-import { Function, BiConsumer } from '@core/utils/functional-interfaces';
+import { Function, BiConsumer, zodBiConsumer } from '@utils/functional-interfaces';
 import { Item } from '@core/api/item/model/item';
 import { StringEditorComponent } from '@app/core/ui/editor/string-editor/string-editor';
 import { StringRendererComponent } from '@app/core/ui/renderer/string-renderer/string-renderer';
 import { NumberEditorComponent } from '@app/core/ui/editor/number-editor/number-editor';
 import { NumberRendererComponent } from '@app/core/ui/renderer/number-renderer/number-renderer';
-import { InventoryTableAction } from './inventory-table-action';
+import { InventoryTableAction, zodInventoryTableAction } from './inventory-table-action';
 import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
 import { InventoryTableActionRendererComponent } from './inventory-table-action-renderer/inventory-table-action-renderer';
+import { z } from 'zod';
 
 let modelIndex: number = 0;
 
 export const TITLE: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Title',
-  'string',
+  z.string(),
   StringRendererComponent,
   StringEditorComponent,
 );
@@ -22,7 +23,7 @@ export const TITLE: TableColumnDescription<string> = new TableColumnDescription<
 export const MEDIA_TYPE: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Media Type',
-  'string',
+  z.string(),
   StringRendererComponent,
   StringEditorComponent,
 );
@@ -30,7 +31,7 @@ export const MEDIA_TYPE: TableColumnDescription<string> = new TableColumnDescrip
 export const STOCK: TableColumnDescription<number> = new TableColumnDescription<number>(
   modelIndex++,
   'Stock',
-  'number',
+  z.number(),
   NumberRendererComponent,
   NumberEditorComponent,
 );
@@ -38,7 +39,7 @@ export const STOCK: TableColumnDescription<number> = new TableColumnDescription<
 export const PRICE: TableColumnDescription<number> = new TableColumnDescription<number>(
   modelIndex++,
   'Price',
-  'number',
+  z.number(),
   NumberRendererComponent,
   NumberEditorComponent,
 );
@@ -46,7 +47,7 @@ export const PRICE: TableColumnDescription<number> = new TableColumnDescription<
 export const IMAGE_URL: TableColumnDescription<string> = new TableColumnDescription<string>(
   modelIndex++,
   'Image URL',
-  'string',
+  z.string(),
   StringRendererComponent,
   StringEditorComponent,
 );
@@ -56,7 +57,7 @@ export const ACTIONS: TableColumnDescription<
 > = new TableColumnDescription<Map<InventoryTableAction, BiConsumer<number, number>>>(
   modelIndex++,
   'Actions',
-  Map<InventoryTableAction, BiConsumer<number, number>>,
+  z.map(zodInventoryTableAction(), zodBiConsumer<number, number>()),
   InventoryTableActionRendererComponent,
   InventoryTableActionEditorComponent,
 );

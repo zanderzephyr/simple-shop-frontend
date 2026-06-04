@@ -1,6 +1,6 @@
 import { Item, ItemBuilder, MediaType } from '@app/core/api/item/model/item';
-import { signal, Signal, Injectable, WritableSignal } from '@angular/core';
-import { Predicate } from '@core/utils/functional-interfaces';
+import { Injectable } from '@angular/core';
+import { Predicate } from '@utils/functional-interfaces';
 
 let INSTANCE: ItemService | null = null;
 

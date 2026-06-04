@@ -1,23 +1,14 @@
 import { Type } from '@angular/core';
 import { Editor } from '@core/ui//editor/editor';
 import { Renderer } from '@core/ui/renderer/renderer';
-
-export type ColumnType<TYPE> = TYPE extends string
-  ? 'string'
-  : TYPE extends number
-    ? 'number'
-    : TYPE extends boolean
-      ? 'boolean'
-      : TYPE extends Date
-        ? 'date'
-        : Type<TYPE>; // Fallback to class type for custom objects
+import { z, ZodType } from 'zod';
 
 export class TableColumnDescription<TYPE> {
   readonly #modelIndex: number;
 
   readonly #title: string;
 
-  readonly #type: ColumnType<TYPE>;
+  readonly #type: ZodType<TYPE>;
 
   readonly #rendererType: Type<Renderer<TYPE>>;
 
@@ -26,7 +17,7 @@ export class TableColumnDescription<TYPE> {
   public constructor(
     modelIndex: number,
     title: string,
-    type: ColumnType<TYPE>,
+    type: ZodType<TYPE>,
     rendererType: Type<Renderer<TYPE>>,
     editorType: Type<Editor<TYPE>>,
   ) {
@@ -45,7 +36,7 @@ export class TableColumnDescription<TYPE> {
     return this.#title;
   }
 
-  public getType(): ColumnType<TYPE> {
+  public getType(): z.ZodType<TYPE> {
     return this.#type;
   }
 
