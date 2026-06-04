@@ -14,14 +14,14 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
   readonly #title: WritableSignal<string>;
   readonly #hidden: WritableSignal<boolean>;
   readonly #modelIndex: number;
-  readonly #type: ZodType<TYPE>;
+  readonly #typeSchema: ZodType<TYPE>;
   readonly #rendererType: Type<Renderer<TYPE>>;
   readonly #editorType: Type<Editor<TYPE>>;
 
   public constructor(columnDescription: TableColumnDescription<TYPE>) {
     this.#modelIndex = columnDescription.getModelIndex();
     this.#title = signal(columnDescription.getTitle());
-    this.#type = columnDescription.getType();
+    this.#typeSchema = columnDescription.getTypeSchema();
     this.#hidden = signal(false);
     this.#rendererType = columnDescription.getRendererType();
     this.#editorType = columnDescription.getEditorType();
@@ -31,8 +31,8 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
     return this.#modelIndex;
   }
 
-  public getType(): ZodType<TYPE> {
-    return this.#type;
+  public getTypeSchema(): ZodType<TYPE> {
+    return this.#typeSchema;
   }
 
   public getHidden(): WritableSignal<boolean> {

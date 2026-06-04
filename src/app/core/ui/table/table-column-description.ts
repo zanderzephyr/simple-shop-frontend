@@ -8,7 +8,7 @@ export class TableColumnDescription<TYPE> {
 
   readonly #title: string;
 
-  readonly #type: ZodType<TYPE>;
+  readonly #typeSchema: ZodType<TYPE>;
 
   readonly #rendererType: Type<Renderer<TYPE>>;
 
@@ -17,13 +17,13 @@ export class TableColumnDescription<TYPE> {
   public constructor(
     modelIndex: number,
     title: string,
-    type: ZodType<TYPE>,
+    typeSchema: ZodType<TYPE>,
     rendererType: Type<Renderer<TYPE>>,
     editorType: Type<Editor<TYPE>>,
   ) {
     this.#modelIndex = modelIndex;
     this.#title = title;
-    this.#type = type;
+    this.#typeSchema = typeSchema;
     this.#rendererType = rendererType;
     this.#editorType = editorType;
   }
@@ -36,8 +36,8 @@ export class TableColumnDescription<TYPE> {
     return this.#title;
   }
 
-  public getType(): z.ZodType<TYPE> {
-    return this.#type;
+  public getTypeSchema(): z.ZodType<TYPE> {
+    return this.#typeSchema;
   }
 
   public getRendererType(): Type<Renderer<TYPE>> {

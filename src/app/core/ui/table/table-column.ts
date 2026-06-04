@@ -15,7 +15,7 @@ import { ZodType } from 'zod';
 export interface TableColumn<TYPE> {
   getModelIndex(): number;
 
-  getType(): ZodType<TYPE>;
+  getTypeSchema(): ZodType<TYPE>;
 
   getHidden(): WritableSignal<boolean>;
 
