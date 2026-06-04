@@ -28,7 +28,6 @@ type ValueOf<T> = T[keyof T];
 export function createEnumSchema<T extends GenericEnumObject>(enumObject: T): ZodType<ValueOf<T>> {
   // Extract the underlying full objects (e.g., { id: 'BOOK', name: 'Book' })
   const enumValues: ValueOf<T>[] = Object.values(enumObject) as ValueOf<T>[];
-
   if (enumValues.length === 0) {
     throw new IllegalArgumentError('No enum constants!');
   }
@@ -48,12 +47,10 @@ export function createEnumSchema<T extends GenericEnumObject>(enumObject: T): Zo
     },
   );
 
+  // Enforces a fixed minimum of 2 items to completely protect Zod's internal signatures
   if (objectSchemas.length === 1) {
     return objectSchemas[0] as unknown as ZodType<ValueOf<T>>;
   }
-
-  // Enforces a fixed minimum of 2 items to completely protect Zod's internal signatures
   type ObjectTuple = [ZodObject<ZodRawShape>, ZodObject<ZodRawShape>, ...ZodObject<ZodRawShape>[]];
-
   return z.union(objectSchemas as ObjectTuple) as unknown as ZodType<ValueOf<T>>;
 }
