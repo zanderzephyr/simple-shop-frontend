@@ -23,5 +23,5 @@ export interface TableColumn<TYPE> {
 
   getRendererType(): Type<Renderer<TYPE>>;
 
-  getEditorType(): Type<Editor<TYPE>>;
+  getEditorType(): Type<Editor<TYPE>> | undefined;
 }

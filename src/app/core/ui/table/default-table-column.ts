@@ -16,7 +16,7 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
   readonly #modelIndex: number;
   readonly #typeSchema: ZodType<TYPE>;
   readonly #rendererType: Type<Renderer<TYPE>>;
-  readonly #editorType: Type<Editor<TYPE>>;
+  readonly #editorType: Type<Editor<TYPE>> | undefined;
 
   public constructor(columnDescription: TableColumnDescription<TYPE>) {
     this.#modelIndex = columnDescription.getModelIndex();
@@ -47,7 +47,7 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
     return this.#rendererType;
   }
 
-  public getEditorType(): Type<Editor<TYPE>> {
+  public getEditorType(): Type<Editor<TYPE>> | undefined {
     return this.#editorType;
   }
 }

@@ -130,9 +130,7 @@ class ItemGenerator {
       .setMediaType(MediaType.BOOK)
       .setStock(5)
       .setPrice(9.99)
-      .setImageUrl(
-        'https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
-      )
+      .setImageUrl('https://hp1-link.com')
       .setLastModificationTimestamp('bla')
       .setLastModifyingUserId(123456)
       .build();
@@ -144,7 +142,7 @@ class ItemGenerator {
       .setMediaType(MediaType.BOOK)
       .setStock(3)
       .setPrice(12.99)
-      .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setImageUrl('https://lotr1-link.com')
       .setLastModificationTimestamp('bla')
       .setLastModifyingUserId(123456)
       .build();
@@ -162,9 +160,7 @@ class ItemGenerator {
       .setMediaType(MediaType.MOVIE)
       .setStock(2)
       .setPrice(19.99)
-      .setImageUrl(
-        'https://upload.wikimedia.org/wikipedia/en/6/6b/Harry_Potter_and_the_Philosopher%27s_Stone_Book_Cover.jpg',
-      )
+      .setImageUrl('https://hp1-movie-link.com')
       .setLastModificationTimestamp('bla')
       .setLastModifyingUserId(123456)
       .build();
@@ -176,7 +172,7 @@ class ItemGenerator {
       .setMediaType(MediaType.MOVIE)
       .setStock(1)
       .setPrice(24.99)
-      .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setImageUrl('https://lotr-movie-link.com')
       .setLastModificationTimestamp('bla')
       .setLastModifyingUserId(123456)
       .build();
@@ -194,7 +190,7 @@ class ItemGenerator {
       .setMediaType(MediaType.GAME)
       .setStock(1)
       .setPrice(29.99)
-      .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setImageUrl('https://stellaris-link.com')
       .setLastModificationTimestamp('bla')
       .setLastModifyingUserId(123456)
       .build();
@@ -206,7 +202,7 @@ class ItemGenerator {
       .setMediaType(MediaType.GAME)
       .setStock(1)
       .setPrice(29.99)
-      .setImageUrl('https://upload.wikimedia.org/wikipedia/en/8/8c/The_Lord_of_the_Rings_cover.gif')
+      .setImageUrl('https://skyrim-link.com')
       .setLastModificationTimestamp('bla')
       .setLastModifyingUserId(123456)
       .build();

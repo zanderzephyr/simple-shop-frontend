@@ -5,6 +5,11 @@ import { StringEditorComponent } from '@app/core/ui/editor/string-editor/string-
 import { StringRendererComponent } from '@app/core/ui/renderer/string-renderer/string-renderer';
 import { NumberEditorComponent } from '@app/core/ui/editor/number-editor/number-editor';
 import { NumberRendererComponent } from '@app/core/ui/renderer/number-renderer/number-renderer';
+import { ImageRendererComponent } from '@app/core/ui/renderer/image-renderer/image-renderer';
+import {
+  ImageRendererConfiguration,
+  zodImageRendererConfiguration,
+} from '@app/core/ui/renderer/image-renderer/image-renderer-configuration';
 import { InventoryTableAction, zodInventoryTableAction } from './inventory-table-action';
 import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
 import { InventoryTableActionRendererComponent } from './inventory-table-action-renderer/inventory-table-action-renderer';
@@ -44,13 +49,14 @@ export const PRICE: TableColumnDescription<number> = new TableColumnDescription<
   NumberEditorComponent,
 );
 
-export const COVER: TableColumnDescription<string> = new TableColumnDescription<string>(
-  modelIndex++,
-  'Cover',
-  z.string(),
-  StringRendererComponent,
-  StringEditorComponent,
-);
+export const COVER: TableColumnDescription<ImageRendererConfiguration> =
+  new TableColumnDescription<ImageRendererConfiguration>(
+    modelIndex++,
+    'Cover',
+    zodImageRendererConfiguration(),
+    ImageRendererComponent,
+    undefined,
+  );
 
 export const ACTIONS: TableColumnDescription<
   Map<InventoryTableAction, BiConsumer<number, number>>

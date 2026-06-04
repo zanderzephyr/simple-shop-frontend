@@ -12,14 +12,14 @@ export class TableColumnDescription<TYPE> {
 
   readonly #rendererType: Type<Renderer<TYPE>>;
 
-  readonly #editorType: Type<Editor<TYPE>>;
+  readonly #editorType: Type<Editor<TYPE>> | undefined;
 
   public constructor(
     modelIndex: number,
     title: string,
     typeSchema: ZodType<TYPE>,
     rendererType: Type<Renderer<TYPE>>,
-    editorType: Type<Editor<TYPE>>,
+    editorType: Type<Editor<TYPE>> | undefined,
   ) {
     this.#modelIndex = modelIndex;
     this.#title = title;
@@ -44,7 +44,7 @@ export class TableColumnDescription<TYPE> {
     return this.#rendererType;
   }
 
-  public getEditorType(): Type<Editor<TYPE>> {
+  public getEditorType(): Type<Editor<TYPE>> | undefined {
     return this.#editorType;
   }
 }

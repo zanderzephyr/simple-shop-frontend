@@ -3,6 +3,7 @@ import {
   inventoryColumnDescriptions,
   extractItemValue,
   ACTIONS,
+  COVER,
 } from './inventory-column-descriptions';
 import { NgMatTableComponent } from '@core/ui/table/ng-mat-table/ng-mat-table';
 import { DefaultTableModel } from '@core/ui/table/default-table-model';
@@ -15,6 +16,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
 import { BiConsumer } from '@utils/functional-interfaces';
+import { ImageRendererConfiguration } from '@core/ui/renderer/image-renderer/image-renderer-configuration';
 
 @Component({
   selector: 'app-inventory',
@@ -70,11 +72,14 @@ export class InventoryComponent {
       const row: unknown[] = [];
 
       for (const columnDescription of inventoryColumnDescriptions) {
-        // Column description iteration order is table model order
-        row.push(extractItemValue(item, columnDescription));
+        if (columnDescription === ACTIONS) {
+          row.push(this.#actionCallbackMap);
+        } else if (columnDescription === COVER) {
+          row.push(new ImageRendererConfiguration(item.getImageUrl()));
+        } else {
+          row.push(extractItemValue(item, columnDescription));
+        }
       }
-
-      row[ACTIONS.getModelIndex()] = this.#actionCallbackMap;
 
       this.table.getTableModel().addRow(row);
     }
