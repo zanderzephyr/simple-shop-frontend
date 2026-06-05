@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultRenderer } from '../default-renderer';
+import { DefaultRenderer } from '@core/ui/renderer/default-renderer';
 
 @Component({
   selector: 'app-number-renderer',

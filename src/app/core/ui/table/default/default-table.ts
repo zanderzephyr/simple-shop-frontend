@@ -1,6 +1,6 @@
-import { TableColumnModel } from './table-column-model';
-import { TableModel } from './table-model';
-import { Table } from './table';
+import { TableColumnModel } from '@core/ui/table/interface/table-column-model';
+import { TableModel } from '@core/ui/table/interface/table-model';
+import { Table } from '@core/ui/table/interface/table';
 import { Signal } from '@angular/core';
 
 export class DefaultTable implements Table {

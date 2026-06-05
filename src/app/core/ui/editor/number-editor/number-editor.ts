@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultEditor } from '../default-editor';
+import { DefaultEditor } from '@core/ui/editor/default-editor';
 
 @Component({
   selector: 'app-number-editor',

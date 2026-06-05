@@ -1,4 +1,4 @@
-import { TableColumnDescription } from '@app/core/ui/table/table-column-description';
+import { TableColumnDescription } from '@app/core/ui/table/interface/table-column-description';
 import { Function, BiConsumer, zodBiConsumer } from '@utils/functional-interfaces';
 import { Item } from '@core/api/item/model/item';
 import { StringEditorComponent } from '@app/core/ui/editor/string-editor/string-editor';

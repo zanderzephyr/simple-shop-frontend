@@ -9,14 +9,14 @@ import {
   input,
   InputSignal,
 } from '@angular/core';
-import { Table } from '../../table';
+import { Table } from '@core/ui/table/interface/table';
 import {
   CommonTableCellContext,
   CommonTableCellContextBuilder,
-} from '@core/ui/table/common-table-cell-context';
-import { TableColumn } from '@core/ui/table/table-column';
-import { TableCellRenderer } from '@core/ui/table/table-cell-renderer';
-import { TableCellEditor } from '@core/ui/table/table-cell-editor';
+} from '@core/ui/table/interface/common-table-cell-context';
+import { TableColumn } from '@app/core/ui/table/interface/table-column';
+import { TableCellRenderer } from '@app/core/ui/table/interface/table-cell-renderer';
+import { TableCellEditor } from '@app/core/ui/table/interface/table-cell-editor';
 import { Renderer } from '@app/core/ui/renderer/renderer';
 
 /*

@@ -1,8 +1,8 @@
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
-import { TableModel } from './table-model';
+import { TableModel } from '@core/ui/table/interface/table-model';
 import { IllegalArgumentError, IndexOutOfBoundsError } from '@utils/common-errors';
-import { TableColumnDescription } from './table-column-description';
-import { ZodType, ZodSafeParseResult, ZodSafeParseSuccess } from 'zod';
+import { TableColumnDescription } from '@core/ui/table/interface/table-column-description';
+import { ZodType, ZodSafeParseResult } from 'zod';
 
 export class DefaultTableModel implements TableModel {
   readonly #tableData: WritableSignal<WritableSignal<unknown>[][]> = signal([]);

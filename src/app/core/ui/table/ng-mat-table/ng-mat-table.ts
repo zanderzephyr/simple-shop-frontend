@@ -1,7 +1,7 @@
-import { computed, Signal, Component, Type } from '@angular/core';
+import { computed, Signal, Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { CommonTableComponent } from '@core/ui/table/common-table-component';
-import { TableColumn } from '@core/ui/table/table-column';
+import { CommonTableComponent } from '@core/ui/table/interface/common-table-component';
+import { TableColumn } from '@app/core/ui/table/interface/table-column';
 import { createRange } from '@utils/array-utils';
 import { NgMatTableCellComponent } from '@core/ui/table/ng-mat-table/ng-mat-table-cell/ng-mat-table-cell';
 

@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { InventoryTableAction } from '../inventory-table-action';
+import { InventoryTableAction } from '@features/app-body/body-content/inventory/inventory-table-action';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TableCellRenderer } from '@app/core/ui/table/table-cell-renderer';
+import { TableCellRenderer } from '@app/core/ui/table/interface/table-cell-renderer';
 import { BiConsumer } from '@utils/functional-interfaces';
 
 @Component({

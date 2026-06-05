@@ -6,10 +6,10 @@ import {
   COVER,
 } from './inventory-column-descriptions';
 import { NgMatTableComponent } from '@core/ui/table/ng-mat-table/ng-mat-table';
-import { DefaultTableModel } from '@core/ui/table/default-table-model';
-import { DefaultTableColumnModel } from '@core/ui/table/default-table-column-model';
-import { Table } from '@core/ui/table/table';
-import { DefaultTable } from '@core/ui/table/default-table';
+import { DefaultTableModel } from '@app/core/ui/table/default/default-table-model';
+import { DefaultTableColumnModel } from '@app/core/ui/table/default/default-table-column-model';
+import { Table } from '@app/core/ui/table/interface/table';
+import { DefaultTable } from '@app/core/ui/table/default/default-table';
 import { ItemService } from '@app/core/api/item/item-service';
 import { Item } from '@app/core/api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
