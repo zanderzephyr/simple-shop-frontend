@@ -52,6 +52,7 @@ export class Item {
 
     Object.freeze(this);
   }
+
   public getId(): number {
     return this.#id;
   }

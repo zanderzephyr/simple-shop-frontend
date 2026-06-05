@@ -65,9 +65,11 @@ export class InventoryComponent {
 		table pages?
 	*/
   async #initTableContent(): Promise<void> {
+    // TODO Request items properly.
     const itemService: ItemService = inject(ItemService);
     const items: readonly Item[] = await itemService.getItems();
 
+    // TODO Make item list reactive i guess
     for (const item of items) {
       const row: unknown[] = [];
 
@@ -95,8 +97,17 @@ export class InventoryComponent {
     console.log('Modify action triggered');
   }
 
-  #delete(columnViewIndex: number, rowViewIndex: number): void {
-    // TODO Implement delete functionality
-    console.log('Delete action triggered');
+  async #delete(columnViewIndex: number, rowViewIndex: number): Promise<void> {
+    // TODO Request items properly.
+    const itemService: ItemService = inject(ItemService);
+    const items: readonly Item[] = await itemService.getItems();
+
+    /*
+			TODO Match items properly. Maybe with an own table model,
+		 	that stores the actual items as well or instead of the default
+		 	table model matrix?
+		 */
+
+    // TODO Remove item from item service and table model, if item service is not reactive with our frontend.
   }
 }

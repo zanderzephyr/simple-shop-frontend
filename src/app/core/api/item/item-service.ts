@@ -1,6 +1,7 @@
 import { Item, ItemBuilder, MediaType } from '@app/core/api/item/model/item';
 import { Injectable } from '@angular/core';
 import { Predicate } from '@utils/functional-interfaces';
+import { IllegalArgumentError } from '@utils/common-errors';
 
 let INSTANCE: ItemService | null = null;
 
@@ -64,7 +65,7 @@ export abstract class ItemService {
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
   // TODO Just for the prototype, replace with actual request and response processing.
-  readonly #items: readonly Item[] = Object.freeze(new ItemGenerator().createItems());
+  readonly #items: Item[] = new ItemGenerator().createItems();
 
   constructor() {
     if (INSTANCE) {
@@ -78,32 +79,40 @@ class ApiItemService extends ItemService {
     }
   }
 
+  // TODO Implement
   public override async addItem(item: Item): Promise<Item> {
-    // TODO
     console.log('Adding items not yet implemented!');
 
     return item;
   }
 
-  // TODO replace with actual request and response processing.
+  // TODO Replace with non-dummy logic
   public override async getItems(filter?: Predicate<Item>): Promise<readonly Item[]> {
     return Object.freeze(filter ? this.#items.filter(filter) : this.#items);
   }
 
+  // TODO Implement
   public override async getItemHistory(itemId: number): Promise<readonly Item[]> {
     return Object.freeze([]);
   }
 
+  // TODO Implement
   public override async modifyItem(item: Item): Promise<Item> {
-    // TODO
     console.log('Modifying items not yet implemented!');
 
     return item;
   }
 
+  /*
+		Do not throw in that method, if the item doesn't exist anymore.
+   	The current client might try to delete an item, that another client already removed.
+	 */
+  // TODO Replace with non-dummy logic
   public override async removeItem(item: Item): Promise<void> {
-    // TODO
-    console.log('Removing items not yet implemented!');
+    const index: number = this.#items.indexOf(item);
+    if (index >= 0) {
+      this.#items.splice(index, 1);
+    }
   }
 }
 
