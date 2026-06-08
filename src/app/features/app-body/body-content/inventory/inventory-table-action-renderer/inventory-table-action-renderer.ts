@@ -3,7 +3,7 @@ import { InventoryTableAction } from '@features/app-body/body-content/inventory/
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { TableCellRenderer } from '@app/core/ui/table/interface/table-cell-renderer';
-import { BiConsumer } from '@utils/functional-interfaces';
+import { InventoryTableActionCallback } from '@features/app-body/body-content/inventory/inventory-table-action-callback';
 
 @Component({
   selector: 'app-inventory-table-action-renderer',
@@ -12,7 +12,7 @@ import { BiConsumer } from '@utils/functional-interfaces';
   styleUrl: './inventory-table-action-renderer.css',
 })
 export class InventoryTableActionRendererComponent extends TableCellRenderer<
-  Map<InventoryTableAction, BiConsumer<number, number>>
+  Map<InventoryTableAction, InventoryTableActionCallback>
 > {
   protected readonly InventoryTableAction = InventoryTableAction;
 
@@ -21,13 +21,11 @@ export class InventoryTableActionRendererComponent extends TableCellRenderer<
   }
 
   protected onActionButtonClick(action: InventoryTableAction): void {
-    const map: Map<InventoryTableAction, BiConsumer<number, number>> = this.value();
-    console.log(map);
-    console.log(typeof map);
+    const map: Map<InventoryTableAction, InventoryTableActionCallback> = this.value();
 
-    const callback: BiConsumer<number, number> | undefined = map.get(action);
+    const callback: InventoryTableActionCallback | undefined = map.get(action);
     if (callback) {
-      callback(this.context().getColumnViewIndex(), this.context().getRowViewIndex());
+      callback.execute();
     } else {
       console.warn(`No callback found for action ${action}`);
     }

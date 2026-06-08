@@ -1,5 +1,5 @@
 import { TableColumnDescription } from '@app/core/ui/table/interface/table-column-description';
-import { Function, BiConsumer, zodBiConsumer } from '@utils/functional-interfaces';
+import { Function } from '@utils/functional-interfaces';
 import { Item } from '@core/api/item/model/item';
 import { StringEditorComponent } from '@app/core/ui/editor/string-editor/string-editor';
 import { StringRendererComponent } from '@app/core/ui/renderer/string-renderer/string-renderer';
@@ -13,6 +13,10 @@ import {
 import { InventoryTableAction, zodInventoryTableAction } from './inventory-table-action';
 import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
 import { InventoryTableActionRendererComponent } from './inventory-table-action-renderer/inventory-table-action-renderer';
+import {
+  InventoryTableActionCallback,
+  zodInventoryTableActionCallback,
+} from './inventory-table-action-callback';
 import { z } from 'zod';
 
 let modelIndex: number = 0;
@@ -59,11 +63,11 @@ export const COVER: TableColumnDescription<ImageRendererConfiguration> =
   );
 
 export const ACTIONS: TableColumnDescription<
-  Map<InventoryTableAction, BiConsumer<number, number>>
-> = new TableColumnDescription<Map<InventoryTableAction, BiConsumer<number, number>>>(
+  Map<InventoryTableAction, InventoryTableActionCallback>
+> = new TableColumnDescription<Map<InventoryTableAction, InventoryTableActionCallback>>(
   modelIndex++,
   'Actions',
-  z.map(zodInventoryTableAction(), zodBiConsumer<number, number>()),
+  z.map(zodInventoryTableAction(), zodInventoryTableActionCallback()),
   InventoryTableActionRendererComponent,
   InventoryTableActionEditorComponent,
 );
