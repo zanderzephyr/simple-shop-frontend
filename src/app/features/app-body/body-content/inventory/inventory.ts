@@ -42,6 +42,7 @@ export class InventoryComponent {
 		would probably be less efficient.
 	*/
   readonly #itemService: ItemService = inject(ItemService);
+  #items: readonly Item[] | undefined;
 
   protected readonly table: Table = new DefaultTable(
     /*
@@ -57,8 +58,12 @@ export class InventoryComponent {
   }
 
   async #initTableContent(): Promise<void> {
-    const items: readonly Item[] = await this.#itemService.getItems();
-    for (const item of items) {
+    if (this.#items === undefined) {
+      console.log('Init inventory items');
+      this.#items = await this.#itemService.getItems();
+    }
+
+    for (const item of this.#items) {
       const row: unknown[] = [];
 
       for (const columnDescription of inventoryColumnDescriptions) {
@@ -102,12 +107,6 @@ export class InventoryComponent {
 
   // TODO Remove via item service. Either directly or indirectly via item service update the table model.
   #delete(tableCellContext: TableCellContext, item: Item): void {
-    console.log('Delete action triggered');
-    /*
-			TODO Match items properly. Maybe with an own table model,
-		 	that stores the actual items as well or instead of the default
-		 	table model matrix?
-		 */
-    // TODO Remove item from item service and table model, if item service is not reactive with our frontend.
+    this.table.getTableModel().removeRow(tableCellContext.getRowViewIndex());
   }
 }

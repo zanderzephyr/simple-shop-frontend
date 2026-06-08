@@ -10,8 +10,9 @@ export class DefaultTableModel implements TableModel {
   readonly #columnCount: Signal<number> = computed(() => this.#tableData().length);
 
   readonly #rowCount: Signal<number> = computed(() => {
-    if (this.#columnCount() > 0) {
-      return this.#tableData()[0].length;
+    const tableData: WritableSignal<unknown>[][] = this.#tableData();
+    if (this.#columnCount() > 0 && tableData[0] !== undefined) {
+      return tableData[0].length;
     }
     return 0;
   });
@@ -19,14 +20,17 @@ export class DefaultTableModel implements TableModel {
   readonly #columnTypeSchemas: ZodType<unknown>[] = [];
 
   public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
+    this.#initColumns(columnDescriptions);
+  }
+
+  #initColumns(columnDescriptions: readonly TableColumnDescription<unknown>[]): void {
+    const columns: WritableSignal<unknown>[][] = [];
     for (const columnDescription of columnDescriptions) {
       this.#columnTypeSchemas.push(columnDescription.getTypeSchema());
 
-      this.#tableData.update((d) => {
-        d.push([]);
-        return d;
-      });
+      columns.push([]);
     }
+    this.#tableData.set(columns);
   }
 
   public getColumnCount(): Signal<number> {
@@ -42,10 +46,11 @@ export class DefaultTableModel implements TableModel {
     this.#validateRow(row);
 
     this.#tableData.update((tableData) => {
-      for (let i: number = 0; i < row.length; i++) {
-        tableData[i].push(signal(row[i]));
+      const newTableData: WritableSignal<unknown>[][] = [];
+      for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
+        newTableData.push([...tableData[columnIndex], signal(row[columnIndex])]);
       }
-      return tableData;
+      return newTableData;
     });
 
     return this;
@@ -55,11 +60,13 @@ export class DefaultTableModel implements TableModel {
     this.#validateRowIndex(rowModelIndex);
 
     this.#tableData.update((tableData) => {
+      const newTableData: WritableSignal<unknown>[][] = [];
       for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
-        const column: unknown[] = tableData[columnIndex];
+        const column: WritableSignal<unknown>[] = [...tableData[columnIndex]];
         column.splice(rowModelIndex, 1);
+        newTableData.push(column);
       }
-      return tableData;
+      return newTableData;
     });
 
     return this;
@@ -73,9 +80,7 @@ export class DefaultTableModel implements TableModel {
     this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
     const rawValue: Signal<unknown> = this.#tableData()[columnModelIndex][rowModelIndex];
-    const parsingResult: ZodSafeParseResult<T> = this.#parseValue(rawValue(), columnTypeSchema);
-    this.#validateParsingResult(parsingResult);
-    return rawValue as Signal<T>;
+    return rawValue as unknown as Signal<T>;
   }
 
   public setValueAt(value: unknown, columnModelIndex: number, rowModelIndex: number): this {
@@ -85,7 +90,7 @@ export class DefaultTableModel implements TableModel {
     const parsingResult: ZodSafeParseResult<unknown> = this.#parseValue(value, columnTypeSchema);
     this.#validateParsingResult(parsingResult);
 
-    this.#tableData()[columnModelIndex][rowModelIndex].update(() => value);
+    this.#tableData()[columnModelIndex][rowModelIndex].set(value);
 
     return this;
   }
@@ -97,8 +102,14 @@ export class DefaultTableModel implements TableModel {
     return false;
   }
 
-  clear(): void {
-    this.#tableData.update(() => []);
+  removeAllRows(): void {
+    this.#tableData.update((tableData) => {
+      const newTableData: WritableSignal<unknown>[][] = [];
+      for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
+        newTableData.push([]);
+      }
+      return newTableData;
+    });
   }
 
   #validateRow(row: unknown[]): void {

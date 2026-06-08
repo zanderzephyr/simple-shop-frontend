@@ -28,5 +28,5 @@ export interface TableModel {
    */
   isCellEditable(columnModelIndex: number, rowModelIndex: number): boolean;
 
-  clear(): void;
+  removeAllRows(): void;
 }
