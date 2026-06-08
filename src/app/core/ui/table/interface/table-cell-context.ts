@@ -9,7 +9,7 @@ interface ContextData {
   rowViewIndex: number;
 }
 
-export class CommonTableCellContext {
+export class TableCellContext {
   readonly #table: Table;
   readonly #columnViewIndex: number;
   readonly #rowViewIndex: number;
@@ -35,7 +35,7 @@ export class CommonTableCellContext {
   }
 }
 
-export class CommonTableCellContextBuilder {
+export class TableCellContextBuilder {
   #table?: Table;
   #columnViewIndex?: number;
   #rowViewIndex?: number;
@@ -96,7 +96,7 @@ export class CommonTableCellContextBuilder {
     }
   }
 
-  public build(): CommonTableCellContext {
-    return new CommonTableCellContext(this.#createContextDataOrThrow());
+  public build(): TableCellContext {
+    return new TableCellContext(this.#createContextDataOrThrow());
   }
 }

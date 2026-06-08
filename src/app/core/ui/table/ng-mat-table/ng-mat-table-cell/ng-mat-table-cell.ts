@@ -11,9 +11,9 @@ import {
 } from '@angular/core';
 import { Table } from '@core/ui/table/interface/table';
 import {
-  CommonTableCellContext,
-  CommonTableCellContextBuilder,
-} from '@core/ui/table/interface/common-table-cell-context';
+  TableCellContext,
+  TableCellContextBuilder,
+} from '@core/ui/table/interface/table-cell-context';
 import { TableColumn } from '@app/core/ui/table/interface/table-column';
 import { TableCellRenderer } from '@app/core/ui/table/interface/table-cell-renderer';
 import { TableCellEditor } from '@app/core/ui/table/interface/table-cell-editor';
@@ -67,7 +67,7 @@ export class NgMatTableCellComponent {
         this.#currentComponentRef.instance instanceof TableCellRenderer ||
         this.#currentComponentRef.instance instanceof TableCellEditor
       ) {
-        const cellContext: CommonTableCellContext = new CommonTableCellContextBuilder()
+        const cellContext: TableCellContext = new TableCellContextBuilder()
           .setTable(this.table())
           .setColumnViewIndex(this.columnViewIndex())
           .setRowViewIndex(this.rowViewIndex())
