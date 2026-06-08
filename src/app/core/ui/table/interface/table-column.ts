@@ -1,6 +1,6 @@
 import { Type, WritableSignal } from '@angular/core';
-import { Editor } from '@core/ui/editor/editor';
-import { Renderer } from '@core/ui/renderer/renderer';
+import { Editor } from '@ui/editor/editor';
+import { Renderer } from '@ui/renderer/renderer';
 import { ZodType } from 'zod';
 
 /*

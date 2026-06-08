@@ -1,6 +1,6 @@
 import { Type } from '@angular/core';
-import { Editor } from '@core/ui//editor/editor';
-import { Renderer } from '@core/ui/renderer/renderer';
+import { Editor } from '@ui//editor/editor';
+import { Renderer } from '@ui/renderer/renderer';
 import { z, ZodType } from 'zod';
 
 export class TableColumnDescription<TYPE> {

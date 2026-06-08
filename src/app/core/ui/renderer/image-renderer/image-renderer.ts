@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultRenderer } from '@core/ui/renderer/default-renderer';
+import { DefaultRenderer } from '@ui/renderer/default-renderer';
 import { ImageRendererConfiguration } from './image-renderer-configuration';
 import { MatTooltipModule } from '@angular/material/tooltip';
 

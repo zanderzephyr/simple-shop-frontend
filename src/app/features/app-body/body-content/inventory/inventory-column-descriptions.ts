@@ -1,16 +1,16 @@
-import { TableColumnDescription } from '@core/ui/table/interface/table-column-description';
-import { TableCellContext } from '@core/ui/table/interface/table-cell-context';
+import { TableColumnDescription } from '@ui/table/interface/table-column-description';
+import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { Function, Consumer, zodConsumer } from '@utils/functional-interfaces';
-import { Item } from '@core/api/item/model/item';
-import { StringEditorComponent } from '@core/ui/editor/string-editor/string-editor';
-import { StringRendererComponent } from '@core/ui/renderer/string-renderer/string-renderer';
-import { NumberEditorComponent } from '@core/ui/editor/number-editor/number-editor';
-import { NumberRendererComponent } from '@core/ui/renderer/number-renderer/number-renderer';
-import { ImageRendererComponent } from '@core/ui/renderer/image-renderer/image-renderer';
+import { Item } from '@api/item/model/item';
+import { StringEditorComponent } from '@ui/editor/string-editor/string-editor';
+import { StringRendererComponent } from '@ui/renderer/string-renderer/string-renderer';
+import { NumberEditorComponent } from '@ui/editor/number-editor/number-editor';
+import { NumberRendererComponent } from '@ui/renderer/number-renderer/number-renderer';
+import { ImageRendererComponent } from '@ui/renderer/image-renderer/image-renderer';
 import {
   ImageRendererConfiguration,
   zodImageRendererConfiguration,
-} from '@core/ui/renderer/image-renderer/image-renderer-configuration';
+} from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { InventoryTableAction, zodInventoryTableAction } from './inventory-table-action';
 import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
 import { InventoryTableActionRendererComponent } from './inventory-table-action-renderer/inventory-table-action-renderer';

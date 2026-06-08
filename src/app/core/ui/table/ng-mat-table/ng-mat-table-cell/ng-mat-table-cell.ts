@@ -9,15 +9,12 @@ import {
   input,
   InputSignal,
 } from '@angular/core';
-import { Table } from '@core/ui/table/interface/table';
-import {
-  TableCellContext,
-  TableCellContextBuilder,
-} from '@core/ui/table/interface/table-cell-context';
-import { TableColumn } from '@core/ui/table/interface/table-column';
-import { TableCellRenderer } from '@core/ui/table/interface/table-cell-renderer';
-import { TableCellEditor } from '@core/ui/table/interface/table-cell-editor';
-import { Renderer } from '@core/ui/renderer/renderer';
+import { Table } from '@ui/table/interface/table';
+import { TableCellContext, TableCellContextBuilder } from '@ui/table/interface/table-cell-context';
+import { TableColumn } from '@ui/table/interface/table-column';
+import { TableCellRenderer } from '@ui/table/interface/table-cell-renderer';
+import { TableCellEditor } from '@ui/table/interface/table-cell-editor';
+import { Renderer } from '@ui/renderer/renderer';
 
 /*
  TODO On click, replace renderer by editor.

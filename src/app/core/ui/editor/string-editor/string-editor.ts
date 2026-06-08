@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultEditor } from '@core/ui/editor/default-editor';
+import { DefaultEditor } from '@ui/editor/default-editor';
 
 @Component({
   selector: 'app-string-editor',

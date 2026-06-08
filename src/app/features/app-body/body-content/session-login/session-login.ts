@@ -12,8 +12,8 @@ import {
   FormGroupDirective,
   AbstractControl,
 } from '@angular/forms';
-import { SessionService } from '@core/api/session/session.service';
-import { LoginCredentials } from '@core/api/session/model/login-credentials';
+import { SessionService } from '@api/session/session.service';
+import { LoginCredentials } from '@api/session/model/login-credentials';
 import { Router } from '@angular/router';
 
 interface LoginFormShape {

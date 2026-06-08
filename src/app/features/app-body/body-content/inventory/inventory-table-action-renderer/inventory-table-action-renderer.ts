@@ -3,8 +3,8 @@ import { InventoryTableAction } from '@features/app-body/body-content/inventory/
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Consumer } from '@utils/functional-interfaces';
-import { TableCellRenderer } from '@core/ui/table/interface/table-cell-renderer';
-import { TableCellContext } from '@core/ui/table/interface/table-cell-context';
+import { TableCellRenderer } from '@ui/table/interface/table-cell-renderer';
+import { TableCellContext } from '@ui/table/interface/table-cell-context';
 
 @Component({
   selector: 'app-inventory-table-action-renderer',

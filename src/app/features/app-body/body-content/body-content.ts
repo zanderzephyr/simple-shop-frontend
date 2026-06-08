@@ -1,8 +1,8 @@
 import { Component, inject } from '@angular/core';
-import { ItemService } from '@core/api/item/item-service';
+import { ItemService } from '@api/item/item-service';
 import { ItemSearchResults } from '@core/item-search-results';
 import { MatButtonModule } from '@angular/material/button';
-import { Item } from '@core/api/item/model/item';
+import { Item } from '@api/item/model/item';
 
 @Component({
   selector: 'app-body-content',

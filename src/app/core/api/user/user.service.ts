@@ -1,4 +1,4 @@
-import { User, UserBuilder, UserType } from '@core/api/user/model/user';
+import { User, UserBuilder, UserType } from '@api/user/model/user';
 import { Injectable } from '@angular/core';
 
 let INSTANCE: UserService | null = null;

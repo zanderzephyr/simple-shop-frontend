@@ -5,18 +5,18 @@ import {
   ACTIONS,
   COVER,
 } from './inventory-column-descriptions';
-import { NgMatTableComponent } from '@core/ui/table/ng-mat-table/ng-mat-table';
-import { DefaultTableModel } from '@core/ui/table/default/default-table-model';
-import { DefaultTableColumnModel } from '@core/ui/table/default/default-table-column-model';
-import { Table } from '@core/ui/table/interface/table';
-import { TableCellContext } from '@core/ui/table/interface/table-cell-context';
-import { DefaultTable } from '@core/ui/table/default/default-table';
-import { ItemService } from '@core/api/item/item-service';
-import { Item } from '@core/api/item/model/item';
+import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
+import { DefaultTableModel } from '@ui/table/default/default-table-model';
+import { DefaultTableColumnModel } from '@ui/table/default/default-table-column-model';
+import { Table } from '@ui/table/interface/table';
+import { TableCellContext } from '@ui/table/interface/table-cell-context';
+import { DefaultTable } from '@ui/table/default/default-table';
+import { ItemService } from '@api/item/item-service';
+import { Item } from '@api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
-import { ImageRendererConfiguration } from '@core/ui/renderer/image-renderer/image-renderer-configuration';
+import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { Consumer } from '@utils/functional-interfaces';
 
 @Component({

@@ -1,9 +1,9 @@
 import { computed, Signal, Component } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
-import { CommonTableComponent } from '@core/ui/table/interface/common-table-component';
-import { TableColumn } from '@core/ui/table/interface/table-column';
+import { CommonTableComponent } from '@ui/table/interface/common-table-component';
+import { TableColumn } from '@ui/table/interface/table-column';
 import { createRange } from '@utils/array-utils';
-import { NgMatTableCellComponent } from '@core/ui/table/ng-mat-table/ng-mat-table-cell/ng-mat-table-cell';
+import { NgMatTableCellComponent } from '@ui/table/ng-mat-table/ng-mat-table-cell/ng-mat-table-cell';
 
 @Component({
   selector: 'app-ng-mat-table',

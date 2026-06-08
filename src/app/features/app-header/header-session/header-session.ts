@@ -1,12 +1,12 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { UserType } from '@core/api/user/model/user';
+import { UserType } from '@api/user/model/user';
 import { Session, SessionData } from '@core/session';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
-import { SessionService } from '@core/api/session/session.service';
+import { SessionService } from '@api/session/session.service';
 
 @Component({
   selector: 'app-header-session',

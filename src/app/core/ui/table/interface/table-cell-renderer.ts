@@ -1,5 +1,5 @@
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
-import { Renderer } from '@core/ui/renderer/renderer';
+import { Renderer } from '@ui/renderer/renderer';
 import { TableCellContext } from './table-cell-context';
 
 @Directive()

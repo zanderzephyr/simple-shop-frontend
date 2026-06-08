@@ -1,6 +1,6 @@
-import { TableColumnModel } from '@core/ui/table/interface/table-column-model';
-import { TableColumnDescription } from '@core/ui/table/interface/table-column-description';
-import { TableColumn } from '@core/ui/table/interface/table-column';
+import { TableColumnModel } from '@ui/table/interface/table-column-model';
+import { TableColumnDescription } from '@ui/table/interface/table-column-description';
+import { TableColumn } from '@ui/table/interface/table-column';
 import { DefaultTableColumn } from './default-table-column';
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
 import { IllegalArgumentError, InvalidStateError } from '@utils/common-errors';

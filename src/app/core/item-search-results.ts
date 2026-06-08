@@ -1,5 +1,5 @@
 import { Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { Item } from '@core/api/item/model/item';
+import { Item } from '@api/item/model/item';
 
 let INSTANCE: ItemSearchResults | null = null;
 
