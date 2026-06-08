@@ -1,22 +1,19 @@
-import { TableColumnDescription } from '@app/core/ui/table/interface/table-column-description';
-import { Function } from '@utils/functional-interfaces';
+import { TableColumnDescription } from '@core/ui/table/interface/table-column-description';
+import { TableCellContext } from '@core/ui/table/interface/table-cell-context';
+import { Function, Consumer, zodConsumer } from '@utils/functional-interfaces';
 import { Item } from '@core/api/item/model/item';
-import { StringEditorComponent } from '@app/core/ui/editor/string-editor/string-editor';
-import { StringRendererComponent } from '@app/core/ui/renderer/string-renderer/string-renderer';
-import { NumberEditorComponent } from '@app/core/ui/editor/number-editor/number-editor';
-import { NumberRendererComponent } from '@app/core/ui/renderer/number-renderer/number-renderer';
-import { ImageRendererComponent } from '@app/core/ui/renderer/image-renderer/image-renderer';
+import { StringEditorComponent } from '@core/ui/editor/string-editor/string-editor';
+import { StringRendererComponent } from '@core/ui/renderer/string-renderer/string-renderer';
+import { NumberEditorComponent } from '@core/ui/editor/number-editor/number-editor';
+import { NumberRendererComponent } from '@core/ui/renderer/number-renderer/number-renderer';
+import { ImageRendererComponent } from '@core/ui/renderer/image-renderer/image-renderer';
 import {
   ImageRendererConfiguration,
   zodImageRendererConfiguration,
-} from '@app/core/ui/renderer/image-renderer/image-renderer-configuration';
+} from '@core/ui/renderer/image-renderer/image-renderer-configuration';
 import { InventoryTableAction, zodInventoryTableAction } from './inventory-table-action';
 import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
 import { InventoryTableActionRendererComponent } from './inventory-table-action-renderer/inventory-table-action-renderer';
-import {
-  InventoryTableActionCallback,
-  zodInventoryTableActionCallback,
-} from './inventory-table-action-callback';
 import { z } from 'zod';
 
 let modelIndex: number = 0;
@@ -63,11 +60,11 @@ export const COVER: TableColumnDescription<ImageRendererConfiguration> =
   );
 
 export const ACTIONS: TableColumnDescription<
-  Map<InventoryTableAction, InventoryTableActionCallback>
-> = new TableColumnDescription<Map<InventoryTableAction, InventoryTableActionCallback>>(
+  Map<InventoryTableAction, Consumer<TableCellContext>>
+> = new TableColumnDescription<Map<InventoryTableAction, Consumer<TableCellContext>>>(
   modelIndex++,
   'Actions',
-  z.map(zodInventoryTableAction(), zodInventoryTableActionCallback()),
+  z.map(zodInventoryTableAction(), zodConsumer()),
   InventoryTableActionRendererComponent,
   InventoryTableActionEditorComponent,
 );

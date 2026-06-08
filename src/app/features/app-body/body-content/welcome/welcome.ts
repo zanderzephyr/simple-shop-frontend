@@ -1,5 +1,5 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { Session } from '@app/core/session';
+import { Session } from '@core/session';
 
 @Component({
   selector: 'app-welcome',

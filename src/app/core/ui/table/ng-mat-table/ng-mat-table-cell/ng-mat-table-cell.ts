@@ -14,10 +14,10 @@ import {
   TableCellContext,
   TableCellContextBuilder,
 } from '@core/ui/table/interface/table-cell-context';
-import { TableColumn } from '@app/core/ui/table/interface/table-column';
-import { TableCellRenderer } from '@app/core/ui/table/interface/table-cell-renderer';
-import { TableCellEditor } from '@app/core/ui/table/interface/table-cell-editor';
-import { Renderer } from '@app/core/ui/renderer/renderer';
+import { TableColumn } from '@core/ui/table/interface/table-column';
+import { TableCellRenderer } from '@core/ui/table/interface/table-cell-renderer';
+import { TableCellEditor } from '@core/ui/table/interface/table-cell-editor';
+import { Renderer } from '@core/ui/renderer/renderer';
 
 /*
  TODO On click, replace renderer by editor.

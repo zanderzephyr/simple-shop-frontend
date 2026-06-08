@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { InventoryTableAction } from '@features/app-body/body-content/inventory/inventory-table-action';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { TableCellRenderer } from '@app/core/ui/table/interface/table-cell-renderer';
-import { InventoryTableActionCallback } from '@features/app-body/body-content/inventory/inventory-table-action-callback';
+import { Consumer } from '@utils/functional-interfaces';
+import { TableCellRenderer } from '@core/ui/table/interface/table-cell-renderer';
+import { TableCellContext } from '@core/ui/table/interface/table-cell-context';
 
 @Component({
   selector: 'app-inventory-table-action-renderer',
@@ -12,7 +13,7 @@ import { InventoryTableActionCallback } from '@features/app-body/body-content/in
   styleUrl: './inventory-table-action-renderer.css',
 })
 export class InventoryTableActionRendererComponent extends TableCellRenderer<
-  Map<InventoryTableAction, InventoryTableActionCallback>
+  Map<InventoryTableAction, Consumer<TableCellContext>>
 > {
   protected readonly InventoryTableAction = InventoryTableAction;
 
@@ -21,11 +22,11 @@ export class InventoryTableActionRendererComponent extends TableCellRenderer<
   }
 
   protected onActionButtonClick(action: InventoryTableAction): void {
-    const map: Map<InventoryTableAction, InventoryTableActionCallback> = this.value();
+    const map: Map<InventoryTableAction, Consumer<TableCellContext>> = this.value();
 
-    const callback: InventoryTableActionCallback | undefined = map.get(action);
+    const callback: Consumer<TableCellContext> | undefined = map.get(action);
     if (callback) {
-      callback.execute();
+      callback(this.context());
     } else {
       console.warn(`No callback found for action ${action}`);
     }

@@ -1,4 +1,4 @@
-import { signal, WritableSignal, inject, Component } from '@angular/core';
+import { inject, Component } from '@angular/core';
 import {
   inventoryColumnDescriptions,
   extractItemValue,
@@ -6,17 +6,18 @@ import {
   COVER,
 } from './inventory-column-descriptions';
 import { NgMatTableComponent } from '@core/ui/table/ng-mat-table/ng-mat-table';
-import { DefaultTableModel } from '@app/core/ui/table/default/default-table-model';
-import { DefaultTableColumnModel } from '@app/core/ui/table/default/default-table-column-model';
-import { Table } from '@app/core/ui/table/interface/table';
-import { DefaultTable } from '@app/core/ui/table/default/default-table';
-import { ItemService } from '@app/core/api/item/item-service';
-import { Item } from '@app/core/api/item/model/item';
+import { DefaultTableModel } from '@core/ui/table/default/default-table-model';
+import { DefaultTableColumnModel } from '@core/ui/table/default/default-table-column-model';
+import { Table } from '@core/ui/table/interface/table';
+import { TableCellContext } from '@core/ui/table/interface/table-cell-context';
+import { DefaultTable } from '@core/ui/table/default/default-table';
+import { ItemService } from '@core/api/item/item-service';
+import { Item } from '@core/api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
-import { InventoryTableActionCallback } from './inventory-table-action-callback';
 import { ImageRendererConfiguration } from '@core/ui/renderer/image-renderer/image-renderer-configuration';
+import { Consumer } from '@utils/functional-interfaces';
 
 @Component({
   selector: 'app-inventory',
@@ -43,6 +44,10 @@ export class InventoryComponent {
   readonly #itemService: ItemService = inject(ItemService);
 
   protected readonly table: Table = new DefaultTable(
+    /*
+			TODO Maybe later, it's better to have a more specialized table model,
+			that has a list of items instead of the default tabel model's data matrix.
+		*/
     new DefaultTableModel(inventoryColumnDescriptions),
     new DefaultTableColumnModel(inventoryColumnDescriptions),
   );
@@ -70,14 +75,18 @@ export class InventoryComponent {
     }
   }
 
-  #createActionCallbackMap(item: Item): Map<InventoryTableAction, InventoryTableActionCallback> {
-    const map: Map<InventoryTableAction, InventoryTableActionCallback> = new Map<
+  #createActionCallbackMap(item: Item): Map<InventoryTableAction, Consumer<TableCellContext>> {
+    const map: Map<InventoryTableAction, Consumer<TableCellContext>> = new Map<
       InventoryTableAction,
-      InventoryTableActionCallback
+      Consumer<TableCellContext>
     >();
 
-    map.set(InventoryTableAction.MODIFY, new InventoryTableActionCallback(item, this.#modify));
-    map.set(InventoryTableAction.DELETE, new InventoryTableActionCallback(item, this.#delete));
+    map.set(InventoryTableAction.MODIFY, (tableCellContext) =>
+      this.#modify(tableCellContext, item),
+    );
+    map.set(InventoryTableAction.DELETE, (tableCellContext) =>
+      this.#delete(tableCellContext, item),
+    );
 
     return map;
   }
@@ -86,12 +95,13 @@ export class InventoryComponent {
     console.log('Add action triggered');
   }
 
-  #modify(item: Item): void {
+  #modify(tableCellContext: TableCellContext, item: Item): void {
     // TODO Implement modify functionality
     console.log('Modify action triggered');
   }
 
-  #delete(item: Item): void {
+  // TODO Remove via item service. Either directly or indirectly via item service update the table model.
+  #delete(tableCellContext: TableCellContext, item: Item): void {
     console.log('Delete action triggered');
     /*
 			TODO Match items properly. Maybe with an own table model,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { InventoryTableAction } from '@features/app-body/body-content/inventory/inventory-table-action';
-import { TableCellEditor } from '@app/core/ui/table/interface/table-cell-editor';
+import { TableCellEditor } from '@core/ui/table/interface/table-cell-editor';
 
 @Component({
   selector: 'app-inventory-table-action-editor',

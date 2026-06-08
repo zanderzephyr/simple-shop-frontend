@@ -1,7 +1,6 @@
-import { Item, ItemBuilder, MediaType } from '@app/core/api/item/model/item';
+import { Item, ItemBuilder, MediaType } from '@core/api/item/model/item';
 import { Injectable } from '@angular/core';
 import { Predicate } from '@utils/functional-interfaces';
-import { IllegalArgumentError } from '@utils/common-errors';
 
 let INSTANCE: ItemService | null = null;
 

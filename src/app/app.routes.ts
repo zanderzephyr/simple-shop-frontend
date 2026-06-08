@@ -37,26 +37,26 @@ export const routes: Routes = [
   {
     path: 'welcome',
     loadComponent: () =>
-      import('@app/features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent),
+      import('@features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent),
   },
   {
     path: 'login',
     loadComponent: () =>
-      import('@app/features/app-body/body-content/session-login/session-login').then(
+      import('@features/app-body/body-content/session-login/session-login').then(
         (m) => m.SessionLoginComponent,
       ),
   },
   {
     path: 'logout',
     loadComponent: () =>
-      import('@app/features/app-body/body-content/session-logout/session-logout').then(
+      import('@features/app-body/body-content/session-logout/session-logout').then(
         (m) => m.SessionLogoutComponent,
       ),
   },
   {
     path: 'shopping-cart',
     loadComponent: () =>
-      import('@app/features/app-body/body-content/shopping-cart/shopping-cart').then(
+      import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
         (m) => m.ShoppingCartComponent,
       ),
   },
@@ -68,14 +68,12 @@ export const routes: Routes = [
       {
         path: 'profile',
         loadComponent: () =>
-          import('@app/features/app-body/body-content/profile/profile').then(
-            (m) => m.ProfileComponent,
-          ),
+          import('@features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent),
       },
       {
         path: 'user-transactions',
         loadComponent: () =>
-          import('@app/features/app-body/body-content/user-transactions/user-transactions').then(
+          import('@features/app-body/body-content/user-transactions/user-transactions').then(
             (m) => m.UserTransactionsComponent,
           ),
       },
@@ -87,28 +85,28 @@ export const routes: Routes = [
           {
             path: 'global-transactions',
             loadComponent: () =>
-              import('@app/features/app-body/body-content/global-transactions/global-transactions').then(
+              import('@features/app-body/body-content/global-transactions/global-transactions').then(
                 (m) => m.GlobalTransactionsComponent,
               ),
           },
           {
             path: 'book-keeping',
             loadComponent: () =>
-              import('@app/features/app-body/body-content/book-keeping/book-keeping').then(
+              import('@features/app-body/body-content/book-keeping/book-keeping').then(
                 (m) => m.BookKeepingComponent,
               ),
           },
           {
             path: 'user-management',
             loadComponent: () =>
-              import('@app/features/app-body/body-content/user-management/user-management').then(
+              import('@features/app-body/body-content/user-management/user-management').then(
                 (m) => m.UserManagementComponent,
               ),
           },
           {
             path: 'inventory',
             loadComponent: () =>
-              import('@app/features/app-body/body-content/inventory/inventory').then(
+              import('@features/app-body/body-content/inventory/inventory').then(
                 (m) => m.InventoryComponent,
               ),
           },
