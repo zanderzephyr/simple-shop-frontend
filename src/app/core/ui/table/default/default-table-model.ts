@@ -51,6 +51,20 @@ export class DefaultTableModel implements TableModel {
     return this;
   }
 
+  public removeRow(rowModelIndex: number): this {
+    this.#validateRowIndex(rowModelIndex);
+
+    this.#tableData.update((tableData) => {
+      for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
+        const column: unknown[] = tableData[columnIndex];
+        column.splice(rowModelIndex, 1);
+      }
+      return tableData;
+    });
+
+    return this;
+  }
+
   public getValueAt<T>(
     columnModelIndex: number,
     rowModelIndex: number,
@@ -121,10 +135,17 @@ export class DefaultTableModel implements TableModel {
   }
 
   #validateCoordinates(columnModelIndex: number, rowModelIndex: number): void {
+    this.#validateColumnIndex(columnModelIndex);
+    this.#validateRowIndex(rowModelIndex);
+  }
+
+  #validateColumnIndex(columnModelIndex: number): void {
     if (columnModelIndex < 0 || columnModelIndex >= this.#columnCount()) {
       throw new IndexOutOfBoundsError('Invalid column index ' + columnModelIndex + '!');
     }
+  }
 
+  #validateRowIndex(rowModelIndex: number): void {
     if (rowModelIndex < 0 || rowModelIndex >= this.#rowCount()) {
       throw new IndexOutOfBoundsError('Invalid row index ' + rowModelIndex + '!');
     }

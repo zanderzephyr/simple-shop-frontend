@@ -9,6 +9,8 @@ export interface TableModel {
 
   addRow(row: unknown[]): this;
 
+  removeRow(rowModelIndex: number): this;
+
   /**
    * Throws an IndexOutOfBoundsError when the given table coordinates don't exist.
    * * Throws an IllegalArgumentError, when the columnType isn't the actual type of the column.
