@@ -34,8 +34,8 @@ export class InventoryComponent {
 		
 		Consider how to deal with a big amount of items, how to keep it in synch with the backend and so on.
 		Make sure, the table activities don't break that synching approach.
-		Maybe deal with huge amounts of data by having a size limited table with configurable size
-		and switching through table pages, as is done very often in many applications?
+		Maybe deal with huge amounts of data by having paginators
+		( https://v12.material.angular.io/components/paginator/overview )?
 
 		How should we deal with item service updates? They could be full table updates
 		or iteratively / step by step modifications, we could process. Full table updates
