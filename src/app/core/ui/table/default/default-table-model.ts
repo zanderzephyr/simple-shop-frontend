@@ -80,6 +80,8 @@ export class DefaultTableModel implements TableModel {
     this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
     const rawValue: Signal<unknown> = this.#tableData()[columnModelIndex][rowModelIndex];
+    const parsingResult: ZodSafeParseResult<T> = this.#parseValue(rawValue(), columnTypeSchema);
+    this.#validateParsingResult(parsingResult);
     return rawValue as unknown as Signal<T>;
   }
 
