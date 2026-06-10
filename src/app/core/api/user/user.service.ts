@@ -13,6 +13,8 @@ let INSTANCE: UserService | null = null;
   },
 })
 export abstract class UserService {
+  public constructor() {}
+
   // TODO Document and reconsider return value
   public abstract addUser(user: User): Promise<void>;
 

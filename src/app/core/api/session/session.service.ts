@@ -15,6 +15,8 @@ let INSTANCE: SessionService | null = null;
   },
 })
 export abstract class SessionService {
+  public constructor() {}
+
   /**
    * Tries to authorize the current session with the backend using
    * the login credentials.

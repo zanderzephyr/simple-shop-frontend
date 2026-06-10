@@ -14,6 +14,8 @@ let INSTANCE: ItemService | null = null;
   },
 })
 export abstract class ItemService {
+  public constructor() {}
+
   /**
    * Adds a new item and returns the created item.
    *
