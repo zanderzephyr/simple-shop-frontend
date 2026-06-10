@@ -61,23 +61,24 @@ export class InventoryComponent {
     if (this.#items === undefined) {
       console.log('Init inventory items');
       this.#items = await this.#itemService.getItems();
+      this.#items.forEach(this.#addItem);
     }
+  }
 
-    for (const item of this.#items) {
-      const row: unknown[] = [];
+  #addItem(item: Item): void {
+    const row: unknown[] = [];
 
-      for (const columnDescription of inventoryColumnDescriptions) {
-        if (columnDescription === ACTIONS) {
-          row.push(this.#createActionCallbackMap(item));
-        } else if (columnDescription === COVER) {
-          row.push(new ImageRendererConfiguration(item.getImageUrl()));
-        } else {
-          row.push(extractItemValue(item, columnDescription));
-        }
+    for (const columnDescription of inventoryColumnDescriptions) {
+      if (columnDescription === ACTIONS) {
+        row.push(this.#createActionCallbackMap(item));
+      } else if (columnDescription === COVER) {
+        row.push(new ImageRendererConfiguration(item.getImageUrl()));
+      } else {
+        row.push(extractItemValue(item, columnDescription));
       }
-
-      this.table.getTableModel().addRow(row);
     }
+
+    this.table.getTableModel().addRow(row);
   }
 
   #createActionCallbackMap(item: Item): Map<InventoryTableAction, Consumer<TableCellContext>> {
