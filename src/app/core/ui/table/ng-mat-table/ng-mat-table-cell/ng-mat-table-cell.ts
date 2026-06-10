@@ -33,6 +33,7 @@ export class NgMatTableCellComponent {
 
   public readonly rowViewIndex: InputSignal<number> = input.required<number>();
 
+  // TODO Maybe replace "content" with a unique string in the app, to prevent duplicates?
   readonly content: Signal<ViewContainerRef | undefined> = viewChild('content', {
     read: ViewContainerRef,
   });
