@@ -44,6 +44,8 @@ class NgMatDialogReference<
   RESULT extends DialogResult,
   CONTENT extends DialogContent<RESULT>,
 > implements DialogReference<RESULT> {
+  readonly interfaceTag: 'dialogReference' = 'dialogReference';
+
   readonly #matDialogReference: MatDialogRef<CONTENT, RESULT>;
 
   public constructor(matDialogReference: MatDialogRef<CONTENT, RESULT>) {

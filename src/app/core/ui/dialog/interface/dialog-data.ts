@@ -1,3 +1,3 @@
 export interface DialogData {
-  // Just a tag so far
+  readonly interfaceTag: 'dialogData';
 }

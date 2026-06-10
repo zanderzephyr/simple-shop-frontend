@@ -38,7 +38,7 @@ export class BodyContentComponent {
 
   protected showDialog(): void {
     this.#dialogService.open(
-      new DefaultDialogConfig(SimpleDialogComponent, SimpleDialogComponentDialogData),
+      new DefaultDialogConfig(SimpleDialogComponent, new SimpleDialogComponentDialogData()),
     );
   }
 }

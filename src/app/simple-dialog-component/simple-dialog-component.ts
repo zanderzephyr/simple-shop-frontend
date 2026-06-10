@@ -11,6 +11,8 @@ import { DialogData } from '@ui/dialog/interface/dialog-data';
   styleUrl: './simple-dialog-component.css',
 })
 export class SimpleDialogComponent implements DialogContent<SimpleDialogComponentDialogResult> {
+  readonly interfaceTag: 'dialogContent' = 'dialogContent';
+
   public constructor() {}
 
   createResult(): SimpleDialogComponentDialogResult {
@@ -19,6 +21,8 @@ export class SimpleDialogComponent implements DialogContent<SimpleDialogComponen
 }
 
 export class SimpleDialogComponentDialogResult implements DialogResult {
+  readonly interfaceTag: 'dialogResult' = 'dialogResult';
+
   public constructor() {}
 
   public print(): void {
@@ -27,6 +31,8 @@ export class SimpleDialogComponentDialogResult implements DialogResult {
 }
 
 export class SimpleDialogComponentDialogData implements DialogData {
+  readonly interfaceTag: 'dialogData' = 'dialogData';
+
   public constructor() {}
 
   public getSomeData(): string {

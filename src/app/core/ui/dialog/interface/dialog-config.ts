@@ -3,6 +3,8 @@ import { DialogContent } from './dialog-content';
 import { Type } from '@angular/core';
 
 export interface DialogConfig<CONTENT extends DialogContent<any>, DATA extends DialogData> {
+  readonly interfaceTag: 'dialogConfig';
+
   getWidth(): string;
 
   getHeight(): string;

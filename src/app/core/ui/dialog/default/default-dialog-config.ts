@@ -7,6 +7,8 @@ export class DefaultDialogConfig<
   CONTENT extends DialogContent<any>,
   DATA extends DialogData,
 > implements DialogConfig<CONTENT, DATA> {
+  readonly interfaceTag: 'dialogConfig' = 'dialogConfig';
+
   readonly #contentComponentType: Type<CONTENT>;
 
   readonly #dialogData: DATA;
