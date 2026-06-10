@@ -3,6 +3,12 @@ import { ItemService } from '@api/item/item-service';
 import { ItemSearchResults } from '@core/item-search-results';
 import { MatButtonModule } from '@angular/material/button';
 import { Item } from '@api/item/model/item';
+import { DialogService } from '@ui/dialog/interface/dialog-service';
+import { DefaultDialogConfig } from '@ui/dialog/default/default-dialog-config';
+import {
+  SimpleDialogComponent,
+  SimpleDialogComponentDialogData,
+} from '@app/simple-dialog-component/simple-dialog-component';
 
 @Component({
   selector: 'app-body-content',
@@ -15,6 +21,8 @@ export class BodyContentComponent {
 
   readonly #itemSearchResults: ItemSearchResults = inject(ItemSearchResults);
 
+  readonly #dialogService: DialogService = inject(DialogService);
+
   constructor() {
     // Nothing to do so far
   }
@@ -26,5 +34,11 @@ export class BodyContentComponent {
 
   protected removeSearchResults(): void {
     this.#itemSearchResults.clearSearchResults();
+  }
+
+  protected showDialog(): void {
+    this.#dialogService.open(
+      new DefaultDialogConfig(SimpleDialogComponent, SimpleDialogComponentDialogData),
+    );
   }
 }
