@@ -1,5 +1,6 @@
 import { DialogReference } from './dialog-reference';
 import { DialogResult } from './dialog-result';
+import { DialogData } from './dialog-data';
 import { DialogConfig } from './dialog-config';
 import { DialogContent } from './dialog-content';
 import { Injectable } from '@angular/core';
@@ -11,6 +12,7 @@ export abstract class DialogService {
   public abstract open<
     RESULT extends DialogResult,
     CONTENT extends DialogContent<RESULT>,
-    CONFIG extends DialogConfig<CONTENT, any>,
+    DATA extends DialogData,
+    CONFIG extends DialogConfig<CONTENT, DATA>,
   >(config: CONFIG): DialogReference<RESULT>;
 }
