@@ -4,10 +4,12 @@ import { ItemSearchResults } from '@core/item-search-results';
 import { MatButtonModule } from '@angular/material/button';
 import { Item } from '@api/item/model/item';
 import { DialogService } from '@ui/dialog/interface/dialog-service';
+import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DefaultDialogConfig } from '@ui/dialog/default/default-dialog-config';
 import {
   SimpleDialogComponent,
   SimpleDialogComponentDialogData,
+  SimpleDialogComponentDialogResult,
 } from '@app/simple-dialog-component/simple-dialog-component';
 
 @Component({
@@ -36,9 +38,19 @@ export class BodyContentComponent {
     this.#itemSearchResults.clearSearchResults();
   }
 
-  protected showDialog(): void {
-    this.#dialogService.open(
-      new DefaultDialogConfig(SimpleDialogComponent, new SimpleDialogComponentDialogData()),
-    );
+  protected async showDialog(): Promise<void> {
+    const dialogReference: DialogReference<SimpleDialogComponentDialogResult> =
+      this.#dialogService.open(
+        new DefaultDialogConfig(SimpleDialogComponent, new SimpleDialogComponentDialogData()),
+      );
+    const dialogResult: SimpleDialogComponentDialogResult | undefined =
+      await dialogReference.getResult();
+    let message: string = 'Dialog result: ';
+    if (dialogResult) {
+      message += dialogResult.getText();
+    } else {
+      message += 'undefined';
+    }
+    console.log(message);
   }
 }

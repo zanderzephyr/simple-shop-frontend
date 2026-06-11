@@ -25,8 +25,8 @@ export class SimpleDialogComponentDialogResult implements DialogResult {
 
   public constructor() {}
 
-  public print(): void {
-    console.log('Hello!');
+  public getText(): string {
+    return 'Hello!';
   }
 }
 
