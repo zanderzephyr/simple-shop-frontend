@@ -2,16 +2,8 @@ import { Item, ItemBuilder, MediaType } from '@api/item/model/item';
 import { Injectable } from '@angular/core';
 import { Predicate } from '@utils/functional-interfaces';
 
-let INSTANCE: ItemService | null = null;
-
 @Injectable({
   providedIn: 'root',
-  useFactory: () => {
-    if (!INSTANCE) {
-      INSTANCE = new ApiItemService();
-    }
-    return INSTANCE;
-  },
 })
 export abstract class ItemService {
   public constructor() {}
@@ -69,15 +61,7 @@ class ApiItemService extends ItemService {
   readonly #items: Item[] = new ItemGenerator().createItems();
 
   constructor() {
-    if (INSTANCE) {
-      throw new Error(
-        'Instantiation failed: ' +
-          ApiItemService.name +
-          ' is a singleton managed by the framework. Manual creation or re-providing is forbidden.',
-      );
-    } else {
-      super();
-    }
+    super();
   }
 
   // TODO Implement

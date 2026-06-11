@@ -3,16 +3,8 @@ import { LoginCredentials } from './model/login-credentials';
 import { Session, SessionData } from '@core/session';
 import { UserType } from '@api/user/model/user';
 
-let INSTANCE: SessionService | null = null;
-
 @Injectable({
   providedIn: 'root',
-  useFactory: () => {
-    if (!INSTANCE) {
-      INSTANCE = new ApiSessionService();
-    }
-    return INSTANCE;
-  },
 })
 export abstract class SessionService {
   public constructor() {}
@@ -37,15 +29,7 @@ class ApiSessionService extends SessionService {
   readonly #session: Session = inject(Session);
 
   constructor() {
-    if (INSTANCE) {
-      throw new Error(
-        'Instantiation failed: ' +
-          ApiSessionService.name +
-          ' is a singleton managed by the framework. Manual creation or re-providing is forbidden.',
-      );
-    } else {
-      super();
-    }
+    super();
   }
 
   // TODO This is just a test implementation. The rest needs a proper backend.

@@ -1,16 +1,8 @@
 import { User, UserBuilder, UserType } from '@api/user/model/user';
 import { Injectable } from '@angular/core';
 
-let INSTANCE: UserService | null = null;
-
 @Injectable({
   providedIn: 'root',
-  useFactory: () => {
-    if (!INSTANCE) {
-      INSTANCE = new ApiUserService();
-    }
-    return INSTANCE;
-  },
 })
 export abstract class UserService {
   public constructor() {}
@@ -42,15 +34,7 @@ class ApiUserService extends UserService {
   readonly #users: readonly User[] = Object.freeze(new UserGenerator().createUsers());
 
   constructor() {
-    if (INSTANCE) {
-      throw new Error(
-        'Instantiation failed: ' +
-          ApiUserService.name +
-          ' is a singleton managed by the framework. Manual creation or re-providing is forbidden.',
-      );
-    } else {
-      super();
-    }
+    super();
   }
 
   public override async addUser(user: User): Promise<void> {
