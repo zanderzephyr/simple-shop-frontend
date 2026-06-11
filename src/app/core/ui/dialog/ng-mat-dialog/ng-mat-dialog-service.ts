@@ -44,17 +44,47 @@ class NgMatDialogReference<
   RESULT extends DialogResult,
   CONTENT extends DialogContent<RESULT>,
 > implements DialogReference<RESULT> {
-  readonly interfaceTag: 'dialogReference' = 'dialogReference';
+  public readonly interfaceTag: 'dialogReference' = 'dialogReference';
 
   readonly #matDialogReference: MatDialogRef<CONTENT, RESULT>;
 
+  /*
+		According to ECMAScript standard, only the first settling of a promise is actually performed.
+		Therefore, we have not flags to prevent redundant resolves.
+		See https://ecma-international.org/wp-content/uploads/ECMA-262_15th_edition_june_2024.pdf
+		27.2 Promise Objects
+	*/
+  readonly #promiseAndResolvers: PromiseWithResolvers<RESULT | undefined>;
+
   public constructor(matDialogReference: MatDialogRef<CONTENT, RESULT>) {
     this.#matDialogReference = matDialogReference;
+    this.#promiseAndResolvers = Promise.withResolvers<RESULT | undefined>();
+
+    this.#init();
   }
 
-  public close(): Promise<RESULT | undefined> {
-    const dialogResult: RESULT = this.#matDialogReference.componentInstance.createResult();
+  #init(): void {
+    this.#matDialogReference.beforeClosed().subscribe(() => {
+      const dialogResult: RESULT | undefined = this.#determineResult(true);
+      this.#promiseAndResolvers.resolve(dialogResult);
+    });
+  }
+
+  #determineResult(discardResult?: boolean): RESULT | undefined {
+    const contentComponent: CONTENT = this.#matDialogReference.componentInstance;
+    return discardResult ? undefined : contentComponent.getResult();
+  }
+
+  public getResult(): Promise<RESULT | undefined> {
+    return this.#promiseAndResolvers.promise;
+  }
+
+  public close(discardResult?: boolean): Promise<void> {
+    const dialogResult: RESULT | undefined = this.#determineResult(discardResult);
+
+    this.#promiseAndResolvers.resolve(dialogResult);
+
     this.#matDialogReference.close(dialogResult);
-    return firstValueFrom<RESULT | undefined>(this.#matDialogReference.afterClosed());
+    return Promise.resolve();
   }
 }

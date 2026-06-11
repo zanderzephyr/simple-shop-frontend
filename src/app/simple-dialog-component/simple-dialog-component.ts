@@ -11,17 +11,17 @@ import { DialogData } from '@ui/dialog/interface/dialog-data';
   styleUrl: './simple-dialog-component.css',
 })
 export class SimpleDialogComponent implements DialogContent<SimpleDialogComponentDialogResult> {
-  readonly interfaceTag: 'dialogContent' = 'dialogContent';
+  public readonly interfaceTag: 'dialogContent' = 'dialogContent';
 
   public constructor() {}
 
-  createResult(): SimpleDialogComponentDialogResult {
+  getResult(): SimpleDialogComponentDialogResult {
     return new SimpleDialogComponentDialogResult();
   }
 }
 
 export class SimpleDialogComponentDialogResult implements DialogResult {
-  readonly interfaceTag: 'dialogResult' = 'dialogResult';
+  public readonly interfaceTag: 'dialogResult' = 'dialogResult';
 
   public constructor() {}
 
@@ -31,7 +31,7 @@ export class SimpleDialogComponentDialogResult implements DialogResult {
 }
 
 export class SimpleDialogComponentDialogData implements DialogData {
-  readonly interfaceTag: 'dialogData' = 'dialogData';
+  public readonly interfaceTag: 'dialogData' = 'dialogData';
 
   public constructor() {}
 
