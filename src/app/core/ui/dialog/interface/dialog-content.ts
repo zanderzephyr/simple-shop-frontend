@@ -1,7 +1,16 @@
 import { DialogResult } from './dialog-result';
+import { DialogReference } from './dialog-reference';
+import { DialogData } from './dialog-data';
+import { DIALOG_REFERENCE, DIALOG_DATA } from './dialog-tokens';
+import { Directive, inject } from '@angular/core';
 
-export interface DialogContent<RESULT extends DialogResult> {
-  readonly interfaceTag: 'dialogContent';
+@Directive()
+export abstract class DialogContent<RESULT extends DialogResult> {
+  public readonly dialogReference: DialogReference<RESULT> = inject(DIALOG_REFERENCE);
+
+  public readonly dialogData: DialogData = inject(DIALOG_DATA);
+
+  public constructor() {}
 
   /**
    * If the dialog content component works with some kind of result, the result has to be created
@@ -12,5 +21,5 @@ export interface DialogContent<RESULT extends DialogResult> {
    * (e.g. when the result hasn't been properly created yet (default) or if e.g. the dialog content
    * component has a partially filled form with missing required data etc. ).
    */
-  getResult(): RESULT | undefined;
+  public abstract getResult(): RESULT | undefined;
 }

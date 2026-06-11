@@ -10,9 +10,9 @@ export abstract class DialogService {
   public constructor() {}
 
   public abstract open<
+    DATA extends DialogData,
     RESULT extends DialogResult,
     CONTENT extends DialogContent<RESULT>,
-    DATA extends DialogData,
     CONFIG extends DialogConfig<CONTENT, DATA>,
   >(config: CONFIG): DialogReference<RESULT>;
 }

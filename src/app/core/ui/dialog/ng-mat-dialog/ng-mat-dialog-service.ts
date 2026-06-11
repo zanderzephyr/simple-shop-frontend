@@ -4,26 +4,45 @@ import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DialogResult } from '@ui/dialog/interface/dialog-result';
 import { DialogContent } from '@ui/dialog/interface/dialog-content';
+import { DIALOG_REFERENCE, DIALOG_DATA } from '@ui/dialog/interface/dialog-tokens';
 import { mapToNgMatConfig as mapToNgMatDialogConfig } from './ng-mat-dialog-config-mapper';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { inject, Injectable } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
+import { inject, Injectable, Injector } from '@angular/core';
 
 @Injectable()
 export class NgMatDialogService extends DialogService {
   readonly #matDialog: MatDialog = inject(MatDialog);
+
+  readonly #parentInjector: Injector = inject(Injector);
 
   public constructor() {
     super();
   }
 
   public open<
+    DATA extends DialogData,
     RESULT extends DialogResult,
     CONTENT extends DialogContent<RESULT>,
-    DATA extends DialogData,
     CONFIG extends DialogConfig<CONTENT, DATA>,
   >(config: CONFIG): DialogReference<RESULT> {
+    let wrappedDialogReference: NgMatDialogReference<RESULT, CONTENT>;
+
+    const dynamicElementInjector: Injector = Injector.create({
+      providers: [
+        {
+          provide: DIALOG_REFERENCE,
+          // COMMENT: Use a factory hook function to resolve the handle lazily at class lookup time.
+          useFactory: (): DialogReference<RESULT> => {
+            return wrappedDialogReference;
+          },
+        },
+        { provide: DIALOG_DATA, useValue: config.getDialogData() },
+      ],
+      parent: this.#parentInjector,
+    });
+
     const ngMatDialogConfig: MatDialogConfig<DATA> = mapToNgMatDialogConfig(config);
+    ngMatDialogConfig.injector = dynamicElementInjector;
 
     const rawDialogReference: MatDialogRef<CONTENT, RESULT> = this.#matDialog.open<
       CONTENT,
@@ -31,10 +50,7 @@ export class NgMatDialogService extends DialogService {
       RESULT
     >(config.getContentComponentType(), ngMatDialogConfig);
 
-    const wrappedDialogReference: NgMatDialogReference<RESULT, CONTENT> = new NgMatDialogReference<
-      RESULT,
-      CONTENT
-    >(rawDialogReference);
+    wrappedDialogReference = new NgMatDialogReference<RESULT, CONTENT>(rawDialogReference);
 
     return wrappedDialogReference;
   }

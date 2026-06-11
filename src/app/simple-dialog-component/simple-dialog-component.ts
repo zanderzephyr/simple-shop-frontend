@@ -10,10 +10,14 @@ import { DialogData } from '@ui/dialog/interface/dialog-data';
   templateUrl: './simple-dialog-component.html',
   styleUrl: './simple-dialog-component.css',
 })
-export class SimpleDialogComponent implements DialogContent<SimpleDialogComponentDialogResult> {
+export class SimpleDialogComponent extends DialogContent<SimpleDialogComponentDialogResult> {
   public readonly interfaceTag: 'dialogContent' = 'dialogContent';
 
-  public constructor() {}
+  public constructor() {
+    super();
+
+    console.log((this.dialogData as SimpleDialogComponentDialogData).getSomeData());
+  }
 
   getResult(): SimpleDialogComponentDialogResult {
     return new SimpleDialogComponentDialogResult();
