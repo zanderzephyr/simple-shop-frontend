@@ -41,7 +41,7 @@ export class BodyContentComponent {
   protected async showDialog(): Promise<void> {
     const dialogReference: DialogReference<SimpleDialogComponentDialogResult> =
       this.#dialogService.open(
-        new DefaultDialogConfig(SimpleDialogComponent, new SimpleDialogComponentDialogData()),
+        new DefaultDialogConfig(new SimpleDialogComponentDialogData(), SimpleDialogComponent),
       );
     const dialogResult: SimpleDialogComponentDialogResult | undefined =
       await dialogReference.getResult();

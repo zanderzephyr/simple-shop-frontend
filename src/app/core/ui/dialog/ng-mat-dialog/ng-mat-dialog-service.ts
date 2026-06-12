@@ -1,5 +1,5 @@
 import { DialogService } from '@ui/dialog/interface/dialog-service';
-import { DialogData } from '@ui/dialog/interface/dialog-data';
+import { DialogContentData } from '@app/core/ui/dialog/interface/dialog-content-data';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DialogResult } from '@ui/dialog/interface/dialog-result';
@@ -20,23 +20,22 @@ export class NgMatDialogService extends DialogService {
   }
 
   public open<
-    DATA extends DialogData,
+    DATA extends DialogContentData,
     RESULT extends DialogResult,
-    CONTENT extends DialogContent<RESULT>,
-    CONFIG extends DialogConfig<CONTENT, DATA>,
+    CONTENT extends DialogContent<DATA, RESULT>,
+    CONFIG extends DialogConfig<DATA, CONTENT>,
   >(config: CONFIG): DialogReference<RESULT> {
-    let wrappedDialogReference: NgMatDialogReference<RESULT, CONTENT>;
+    let wrappedDialogReference: NgMatDialogReference<DATA, RESULT, CONTENT>;
 
     const dynamicElementInjector: Injector = Injector.create({
       providers: [
         {
           provide: DIALOG_REFERENCE,
-          // COMMENT: Use a factory hook function to resolve the handle lazily at class lookup time.
           useFactory: (): DialogReference<RESULT> => {
             return wrappedDialogReference;
           },
         },
-        { provide: DIALOG_DATA, useValue: config.getDialogData() },
+        { provide: DIALOG_DATA, useValue: config.getDialogContentData() },
       ],
       parent: this.#parentInjector,
     });
@@ -50,15 +49,16 @@ export class NgMatDialogService extends DialogService {
       RESULT
     >(config.getContentComponentType(), ngMatDialogConfig);
 
-    wrappedDialogReference = new NgMatDialogReference<RESULT, CONTENT>(rawDialogReference);
+    wrappedDialogReference = new NgMatDialogReference<DATA, RESULT, CONTENT>(rawDialogReference);
 
     return wrappedDialogReference;
   }
 }
 
 class NgMatDialogReference<
+  DATA extends DialogContentData,
   RESULT extends DialogResult,
-  CONTENT extends DialogContent<RESULT>,
+  CONTENT extends DialogContent<DATA, RESULT>,
 > implements DialogReference<RESULT> {
   public readonly interfaceTag: 'dialogReference' = 'dialogReference';
 

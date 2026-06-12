@@ -1,14 +1,14 @@
 import { DialogResult } from './dialog-result';
 import { DialogReference } from './dialog-reference';
-import { DialogData } from './dialog-data';
+import { DialogContentData } from './dialog-content-data';
 import { DIALOG_REFERENCE, DIALOG_DATA } from './dialog-tokens';
 import { Directive, inject } from '@angular/core';
 
 @Directive()
-export abstract class DialogContent<RESULT extends DialogResult> {
+export abstract class DialogContent<DATA extends DialogContentData, RESULT extends DialogResult> {
   public readonly dialogReference: DialogReference<RESULT> = inject(DIALOG_REFERENCE);
 
-  public readonly dialogData: DialogData = inject(DIALOG_DATA);
+  public readonly dialogContentData: DATA = inject(DIALOG_DATA) as DATA;
 
   public constructor() {}
 

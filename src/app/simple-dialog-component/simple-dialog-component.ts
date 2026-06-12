@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { DialogContent } from '@ui/dialog/interface/dialog-content';
 import { DialogResult } from '@ui/dialog/interface/dialog-result';
-import { DialogData } from '@ui/dialog/interface/dialog-data';
+import { DialogContentData } from '@app/core/ui/dialog/interface/dialog-content-data';
 
 // TODO Remove this whole directory when dialogs work
 @Component({
@@ -10,13 +10,16 @@ import { DialogData } from '@ui/dialog/interface/dialog-data';
   templateUrl: './simple-dialog-component.html',
   styleUrl: './simple-dialog-component.css',
 })
-export class SimpleDialogComponent extends DialogContent<SimpleDialogComponentDialogResult> {
+export class SimpleDialogComponent extends DialogContent<
+  SimpleDialogComponentDialogData,
+  SimpleDialogComponentDialogResult
+> {
   public readonly interfaceTag: 'dialogContent' = 'dialogContent';
 
   public constructor() {
     super();
 
-    console.log((this.dialogData as SimpleDialogComponentDialogData).getSomeData());
+    console.log(this.dialogContentData.getSomeData());
   }
 
   getResult(): SimpleDialogComponentDialogResult {
@@ -34,8 +37,8 @@ export class SimpleDialogComponentDialogResult implements DialogResult {
   }
 }
 
-export class SimpleDialogComponentDialogData implements DialogData {
-  public readonly interfaceTag: 'dialogData' = 'dialogData';
+export class SimpleDialogComponentDialogData implements DialogContentData {
+  public readonly interfaceTag: 'dialogContentData' = 'dialogContentData';
 
   public constructor() {}
 

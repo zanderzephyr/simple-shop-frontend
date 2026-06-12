@@ -1,25 +1,25 @@
 import { Type } from '@angular/core';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogContent } from '@ui/dialog/interface/dialog-content';
-import { DialogData } from '@ui/dialog/interface/dialog-data';
+import { DialogContentData } from '@app/core/ui/dialog/interface/dialog-content-data';
 
 export class DefaultDialogConfig<
-  CONTENT extends DialogContent<any>,
-  DATA extends DialogData,
-> implements DialogConfig<CONTENT, DATA> {
+  DATA extends DialogContentData,
+  CONTENT extends DialogContent<DATA, any>,
+> implements DialogConfig<DATA, CONTENT> {
   public readonly interfaceTag: 'dialogConfig' = 'dialogConfig';
 
   readonly #contentComponentType: Type<CONTENT>;
 
-  readonly #dialogData: DATA;
+  readonly #dialogContentData: DATA;
 
   #disableClose: boolean;
   #height: string;
   #width: string;
 
-  public constructor(contentComponentType: Type<CONTENT>, dialogData: DATA) {
+  public constructor(dialogContentData: DATA, contentComponentType: Type<CONTENT>) {
     this.#contentComponentType = contentComponentType;
-    this.#dialogData = dialogData;
+    this.#dialogContentData = dialogContentData;
     this.#disableClose = false;
     this.#height = '400px';
     this.#width = '400px';
@@ -29,8 +29,8 @@ export class DefaultDialogConfig<
     return this.#contentComponentType;
   }
 
-  public getDialogData(): DATA {
-    return this.#dialogData;
+  public getDialogContentData(): DATA {
+    return this.#dialogContentData;
   }
 
   public getDisableClose(): boolean {

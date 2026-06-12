@@ -1,8 +1,11 @@
-import { DialogData } from './dialog-data';
+import { DialogContentData } from './dialog-content-data';
 import { DialogContent } from './dialog-content';
 import { Type } from '@angular/core';
 
-export interface DialogConfig<CONTENT extends DialogContent<any>, DATA extends DialogData> {
+export interface DialogConfig<
+  DATA extends DialogContentData,
+  CONTENT extends DialogContent<DATA, any>,
+> {
   readonly interfaceTag: 'dialogConfig';
 
   getWidth(): string;
@@ -13,5 +16,5 @@ export interface DialogConfig<CONTENT extends DialogContent<any>, DATA extends D
 
   getContentComponentType(): Type<CONTENT>;
 
-  getDialogData(): DATA;
+  getDialogContentData(): DATA;
 }
