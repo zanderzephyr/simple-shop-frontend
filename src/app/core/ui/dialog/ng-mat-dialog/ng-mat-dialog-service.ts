@@ -4,7 +4,7 @@ import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DialogResult } from '@ui/dialog/interface/dialog-result';
 import { DialogContent } from '@ui/dialog/interface/dialog-content';
-import { DIALOG_REFERENCE, DIALOG_DATA } from '@ui/dialog/interface/dialog-tokens';
+import { DIALOG_DATA } from '@ui/dialog/interface/dialog-tokens';
 import { mapToNgMatConfig as mapToNgMatDialogConfig } from './ng-mat-dialog-config-mapper';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { inject, Injectable, Injector } from '@angular/core';
@@ -25,23 +25,14 @@ export class NgMatDialogService extends DialogService {
     CONTENT extends DialogContent<DATA, RESULT>,
     CONFIG extends DialogConfig<DATA, CONTENT>,
   >(config: CONFIG): DialogReference<RESULT> {
-    let wrappedDialogReference: NgMatDialogReference<DATA, RESULT, CONTENT>;
-
-    const dynamicElementInjector: Injector = Injector.create({
-      providers: [
-        {
-          provide: DIALOG_REFERENCE,
-          useFactory: (): DialogReference<RESULT> => {
-            return wrappedDialogReference;
-          },
-        },
-        { provide: DIALOG_DATA, useValue: config.getDialogContentData() },
-      ],
-      parent: this.#parentInjector,
-    });
-
     const ngMatDialogConfig: MatDialogConfig<DATA> = mapToNgMatDialogConfig(config);
-    ngMatDialogConfig.injector = dynamicElementInjector;
+    /*
+			We use DI to pass things into the dialog content component. An alternative would be,
+			to have propper setters and getters on the dialog content component, which would
+			lead to increased privacy / reduced property visibility, but also mutability and
+			delayed data property availability in the dialog content component.
+		*/
+    ngMatDialogConfig.injector = this.#createInjector(config);
 
     const rawDialogReference: MatDialogRef<CONTENT, RESULT> = this.#matDialog.open<
       CONTENT,
@@ -49,9 +40,27 @@ export class NgMatDialogService extends DialogService {
       RESULT
     >(config.getContentComponentType(), ngMatDialogConfig);
 
-    wrappedDialogReference = new NgMatDialogReference<DATA, RESULT, CONTENT>(rawDialogReference);
+    const dialogReference: NgMatDialogReference<DATA, RESULT, CONTENT> = new NgMatDialogReference<
+      DATA,
+      RESULT,
+      CONTENT
+    >(rawDialogReference);
 
-    return wrappedDialogReference;
+    rawDialogReference.componentInstance.setDialogReference(dialogReference);
+
+    return dialogReference;
+  }
+
+  #createInjector<
+    DATA extends DialogContentData,
+    RESULT extends DialogResult,
+    CONTENT extends DialogContent<DATA, RESULT>,
+    CONFIG extends DialogConfig<DATA, CONTENT>,
+  >(config: CONFIG): Injector {
+    return Injector.create({
+      providers: [{ provide: DIALOG_DATA, useValue: config.getDialogContentData() }],
+      parent: this.#parentInjector,
+    });
   }
 }
 
@@ -62,8 +71,6 @@ class NgMatDialogReference<
 > implements DialogReference<RESULT> {
   public readonly interfaceTag: 'dialogReference' = 'dialogReference';
 
-  readonly #matDialogReference: MatDialogRef<CONTENT, RESULT>;
-
   /*
 		According to ECMAScript standard, only the first settling of a promise is actually performed.
 		Therefore, we have not flags to prevent redundant resolves.
@@ -72,9 +79,11 @@ class NgMatDialogReference<
 	*/
   readonly #promiseAndResolvers: PromiseWithResolvers<RESULT | undefined>;
 
-  public constructor(matDialogReference: MatDialogRef<CONTENT, RESULT>) {
-    this.#matDialogReference = matDialogReference;
+  readonly #matDialogReference: MatDialogRef<CONTENT, RESULT>;
+
+  public constructor(dialogReference: MatDialogRef<CONTENT, RESULT>) {
     this.#promiseAndResolvers = Promise.withResolvers<RESULT | undefined>();
+    this.#matDialogReference = dialogReference;
 
     this.#init();
   }
@@ -101,6 +110,7 @@ class NgMatDialogReference<
     this.#promiseAndResolvers.resolve(dialogResult);
 
     this.#matDialogReference.close(dialogResult);
+
     return Promise.resolve();
   }
 }

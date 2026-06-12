@@ -20,6 +20,9 @@ export class SimpleDialogComponent extends DialogContent<
     super();
 
     console.log(this.dialogContentData.getSomeData());
+    console.log(this.getDialogReference());
+
+    setTimeout(() => console.log(this.getDialogReference()), 2000);
   }
 
   getResult(): SimpleDialogComponentDialogResult {

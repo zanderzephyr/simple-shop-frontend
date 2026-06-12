@@ -1,14 +1,17 @@
 import { DialogResult } from './dialog-result';
 import { DialogReference } from './dialog-reference';
 import { DialogContentData } from './dialog-content-data';
-import { DIALOG_REFERENCE, DIALOG_DATA } from './dialog-tokens';
+import { DIALOG_DATA } from './dialog-tokens';
 import { Directive, inject } from '@angular/core';
 
 @Directive()
 export abstract class DialogContent<DATA extends DialogContentData, RESULT extends DialogResult> {
-  public readonly dialogReference: DialogReference<RESULT> = inject(DIALOG_REFERENCE);
-
   public readonly dialogContentData: DATA = inject(DIALOG_DATA) as DATA;
+
+  /**
+   * This property is set after the dialog has been created.
+   */
+  #dialogReference: DialogReference<RESULT> | undefined;
 
   public constructor() {}
 
@@ -22,4 +25,23 @@ export abstract class DialogContent<DATA extends DialogContentData, RESULT exten
    * component has a partially filled form with missing required data etc. ).
    */
   public abstract getResult(): RESULT | undefined;
+
+  public setDialogReference(dialogReference: DialogReference<RESULT>): this {
+    if (this.#dialogReference !== undefined) {
+      throw new Error('The dialog reference must be only set once!');
+    }
+    this.#dialogReference = dialogReference;
+    return this;
+  }
+
+  protected getDialogReference(): DialogReference<RESULT> {
+    if (this.#dialogReference === undefined) {
+      throw new Error('Lifecycle failure: Accessing the dialog reference before it is set!');
+    }
+    return this.#dialogReference;
+  }
+
+  protected getDialogContentData(): DATA {
+    return this.dialogContentData;
+  }
 }
