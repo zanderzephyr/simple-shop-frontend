@@ -46,6 +46,12 @@ export class NgMatDialogService extends DialogService {
       CONTENT
     >(rawDialogReference);
 
+    /*
+			The dialog reference itself cannot be injected into the dialog content component,
+			as the dialog has to be fully created to have a reference to it and the dialog
+			content component is created during dialog creation, where the reference doesn't
+			yet exists and the reference injection would take place.
+		*/
     rawDialogReference.componentInstance.setDialogReference(dialogReference);
 
     return dialogReference;
