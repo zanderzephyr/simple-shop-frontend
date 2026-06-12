@@ -1,6 +1,6 @@
 import { DialogContentData } from './dialog-content-data';
 import { DialogContent } from './dialog-content';
-import { Type } from '@angular/core';
+import { Type, Injector } from '@angular/core';
 
 export interface DialogConfig<
   DATA extends DialogContentData,
@@ -17,4 +17,6 @@ export interface DialogConfig<
   getContentComponentType(): Type<CONTENT>;
 
   getDialogContentData(): DATA;
+
+  getInjector(): Injector | undefined;
 }

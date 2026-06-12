@@ -13,7 +13,7 @@ import { inject, Injectable, Injector } from '@angular/core';
 export class NgMatDialogService extends DialogService {
   readonly #matDialog: MatDialog = inject(MatDialog);
 
-  readonly #parentInjector: Injector = inject(Injector);
+  readonly #injector: Injector = inject(Injector);
 
   public constructor() {
     super();
@@ -57,9 +57,10 @@ export class NgMatDialogService extends DialogService {
     CONTENT extends DialogContent<DATA, RESULT>,
     CONFIG extends DialogConfig<DATA, CONTENT>,
   >(config: CONFIG): Injector {
+    const configuredInjector: Injector | undefined = config.getInjector();
     return Injector.create({
       providers: [{ provide: DIALOG_DATA, useValue: config.getDialogContentData() }],
-      parent: this.#parentInjector,
+      parent: configuredInjector ? configuredInjector : this.#injector,
     });
   }
 }

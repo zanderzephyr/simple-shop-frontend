@@ -1,4 +1,4 @@
-import { Type } from '@angular/core';
+import { Type, Injector, inject, Directive } from '@angular/core';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogContent } from '@ui/dialog/interface/dialog-content';
 import { DialogContentData } from '@app/core/ui/dialog/interface/dialog-content-data';
@@ -16,6 +16,7 @@ export class DefaultDialogConfig<
   #disableClose: boolean;
   #height: string;
   #width: string;
+  #injector: Injector | undefined;
 
   public constructor(dialogContentData: DATA, contentComponentType: Type<CONTENT>) {
     this.#contentComponentType = contentComponentType;
@@ -59,6 +60,16 @@ export class DefaultDialogConfig<
 
   public setWidth(width: string): this {
     this.#width = width;
+
+    return this;
+  }
+
+  public getInjector(): Injector | undefined {
+    return this.#injector;
+  }
+
+  public setInjector(injector: Injector | undefined): this {
+    this.#injector = injector;
 
     return this;
   }
