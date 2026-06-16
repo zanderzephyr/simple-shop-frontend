@@ -1,5 +1,5 @@
 import { Component, Signal, signal } from '@angular/core';
-import { ButtonConfiguration } from '@app/core/ui/button/button-configuration';
+import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog';
 import { MatIconModule } from '@angular/material/icon';
 
