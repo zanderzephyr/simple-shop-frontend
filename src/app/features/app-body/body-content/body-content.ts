@@ -43,14 +43,9 @@ export class BodyContentComponent {
     const dialogReference: DialogReference<string> = this.#dialogService.open(
       new DefaultDialogConfig('Some data', SimpleDialogComponent),
     );
-    const dialogResult: string | undefined = await dialogReference.getResult();
-    let message: string = 'Dialog result: ';
-    if (dialogResult) {
-      message += dialogResult;
-    } else {
-      message += 'undefined';
-    }
-    console.log(message);
+
+    const dialogResult = await dialogReference.getResult();
+    console.log(`Dialog result: ${dialogResult ?? 'undefined'}`);
   }
 
   protected async showInfoDialog(): Promise<void> {
@@ -81,12 +76,6 @@ export class BodyContentComponent {
     >(dialogConfiguration);
 
     const dialogResult = await dialogReference.getResult();
-    let message: string = 'Dialog result: ';
-    if (dialogResult) {
-      message += dialogResult.id;
-    } else {
-      message += 'undefined';
-    }
-    console.log(message);
+    console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
   }
 }
