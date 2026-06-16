@@ -10,7 +10,7 @@ import { SimpleDialogComponent } from '@app/simple-dialog/simple-dialog';
 import { GeneralDialogContentComponent } from '@app/core/ui/dialog/general-dialog-content/general-dialog-content';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { InfoDialogComponent } from '@ui/dialog/message-dialog/info-dialog/info-dialog';
-import { MessageDialogContentData } from '@ui/dialog/message-dialog/message-dialog-content-data';
+import { InfoDialogContentData } from '@ui/dialog/message-dialog/info-dialog/info-dialog-content-data';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 
 @Component({
@@ -54,34 +54,26 @@ export class BodyContentComponent {
   }
 
   protected async showInfoDialog(): Promise<void> {
-    const dialogContentData = new MessageDialogContentData<InfoDialogComponent>(
-      'You are awesome!!',
-      'Info',
-      InfoDialogComponent,
-    );
+    const dialogContentData = new InfoDialogContentData('You are awesome!!');
 
     const dialogConfiguration = new DefaultDialogConfig<
-      MessageDialogContentData<InfoDialogComponent>,
+      InfoDialogContentData,
       MessageDialogResult,
-      GeneralDialogContentComponent<
-        MessageDialogContentData<InfoDialogComponent>,
-        MessageDialogResult,
-        InfoDialogComponent
-      >
+      GeneralDialogContentComponent<InfoDialogContentData, MessageDialogResult, InfoDialogComponent>
     >(dialogContentData, GeneralDialogContentComponent);
 
     const dialogReference = this.#dialogService.open<
-      MessageDialogContentData<InfoDialogComponent>,
+      InfoDialogContentData,
       MessageDialogResult,
       GeneralDialogContentComponent<
-        MessageDialogContentData<InfoDialogComponent>,
+        InfoDialogContentData,
         MessageDialogResult,
         InfoDialogComponent
       >,
       DialogConfig<
-        MessageDialogContentData<InfoDialogComponent>,
+        InfoDialogContentData,
         GeneralDialogContentComponent<
-          MessageDialogContentData<InfoDialogComponent>,
+          InfoDialogContentData,
           MessageDialogResult,
           InfoDialogComponent
         >
