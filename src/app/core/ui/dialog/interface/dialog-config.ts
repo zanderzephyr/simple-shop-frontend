@@ -1,7 +1,7 @@
 import { DialogContentComponent } from './dialog-content';
 import { Type, Injector } from '@angular/core';
 
-export interface DialogConfig<DATA, CONTENT extends DialogContentComponent<DATA, any>> {
+export interface DialogConfig<DATA, RESULT, CONTENT extends DialogContentComponent<DATA, RESULT>> {
   readonly interfaceTag: 'dialogConfig';
 
   getWidth(): string;

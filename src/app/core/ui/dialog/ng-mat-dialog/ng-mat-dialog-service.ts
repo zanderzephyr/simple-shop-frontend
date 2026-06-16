@@ -17,12 +17,9 @@ export class NgMatDialogService extends DialogService {
     super();
   }
 
-  public open<
-    DATA,
-    RESULT,
-    CONTENT extends DialogContentComponent<DATA, RESULT>,
-    CONFIG extends DialogConfig<DATA, CONTENT>,
-  >(config: CONFIG): DialogReference<RESULT> {
+  public open<DATA, RESULT, CONTENT extends DialogContentComponent<DATA, RESULT>>(
+    config: DialogConfig<DATA, RESULT, CONTENT>,
+  ): DialogReference<RESULT> {
     const ngMatDialogConfig: MatDialogConfig<DATA> = mapToNgMatDialogConfig(config);
     /*
 			We use DI to pass things into the dialog content component. An alternative would be,
@@ -55,12 +52,9 @@ export class NgMatDialogService extends DialogService {
     return dialogReference;
   }
 
-  #createInjector<
-    DATA,
-    RESULT,
-    CONTENT extends DialogContentComponent<DATA, RESULT>,
-    CONFIG extends DialogConfig<DATA, CONTENT>,
-  >(config: CONFIG): Injector {
+  #createInjector<DATA, RESULT, CONTENT extends DialogContentComponent<DATA, RESULT>>(
+    config: DialogConfig<DATA, RESULT, CONTENT>,
+  ): Injector {
     const configuredInjector: Injector | undefined = config.getInjector();
     return Injector.create({
       providers: [{ provide: DIALOG_CONTENT_DATA, useValue: config.getDialogContentData() }],

@@ -4,7 +4,7 @@ import { MatDialogConfig } from '@angular/material/dialog';
 /**
  * Only to be used by the NgMatDialogService.
  */
-export function mapToNgMatConfig<DATA, CONFIG extends DialogConfig<DATA, any>>(
+export function mapToNgMatConfig<DATA, RESULT, CONFIG extends DialogConfig<DATA, RESULT, any>>(
   config: CONFIG,
 ): MatDialogConfig<DATA> {
   const ngMatDialogConfig: MatDialogConfig<DATA> = new MatDialogConfig<DATA>();

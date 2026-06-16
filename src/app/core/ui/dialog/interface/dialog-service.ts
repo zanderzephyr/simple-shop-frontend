@@ -7,10 +7,7 @@ import { Injectable } from '@angular/core';
 export abstract class DialogService {
   public constructor() {}
 
-  public abstract open<
-    DATA,
-    RESULT,
-    CONTENT extends DialogContentComponent<DATA, RESULT>,
-    CONFIG extends DialogConfig<DATA, CONTENT>,
-  >(config: CONFIG): DialogReference<RESULT>;
+  public abstract open<DATA, RESULT, CONTENT extends DialogContentComponent<DATA, RESULT>>(
+    config: DialogConfig<DATA, RESULT, CONTENT>,
+  ): DialogReference<RESULT>;
 }

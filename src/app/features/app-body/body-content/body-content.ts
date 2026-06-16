@@ -60,19 +60,7 @@ export class BodyContentComponent {
     const dialogReference = this.#dialogService.open<
       InfoDialogContentData,
       MessageDialogResult,
-      GeneralDialogContentComponent<
-        InfoDialogContentData,
-        MessageDialogResult,
-        InfoDialogComponent
-      >,
-      DialogConfig<
-        InfoDialogContentData,
-        GeneralDialogContentComponent<
-          InfoDialogContentData,
-          MessageDialogResult,
-          InfoDialogComponent
-        >
-      >
+      GeneralDialogContentComponent<InfoDialogContentData, MessageDialogResult, InfoDialogComponent>
     >(dialogConfiguration);
 
     const dialogResult = await dialogReference.getResult();
