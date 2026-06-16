@@ -61,7 +61,7 @@ export class InventoryComponent {
     if (this.#items === undefined) {
       console.log('Init inventory items');
       this.#items = await this.#itemService.getItems();
-      this.#items.forEach(this.#addItem);
+      this.#items.forEach(this.#addItem.bind(this));
     }
   }
 
