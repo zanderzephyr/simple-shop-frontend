@@ -1,4 +1,4 @@
-<div class="button-bar-container" [style.flex-direction]="config().getFlexDirection().css">
+<div class="button-bar-container" [style.flex-direction]="config().getFlexDirection()().css">
   @for (buttonConfig of config().getButtonConfigurations()(); track buttonConfig.getText()) {
     <button
       mat-button
