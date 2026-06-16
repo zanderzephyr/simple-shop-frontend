@@ -1,6 +1,5 @@
 import { InjectionToken } from '@angular/core';
-import { DialogContentData } from './dialog-content-data';
 
-export const DIALOG_DATA: InjectionToken<DialogContentData> = new InjectionToken<DialogContentData>(
+export const DIALOG_CONTENT_DATA: InjectionToken<unknown> = new InjectionToken<unknown>(
   'DIALOG_DATA',
 );

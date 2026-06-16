@@ -1,6 +1,4 @@
-import { DialogResult } from './dialog-result';
-
-export interface DialogReference<RESULT extends DialogResult> {
+export interface DialogReference<RESULT> {
   readonly interfaceTag: 'dialogReference';
 
   /**

@@ -6,11 +6,12 @@ import { Item } from '@api/item/model/item';
 import { DialogService } from '@ui/dialog/interface/dialog-service';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DefaultDialogConfig } from '@ui/dialog/default/default-dialog-config';
-import {
-  SimpleDialogComponent,
-  SimpleDialogComponentDialogData,
-  SimpleDialogComponentDialogResult,
-} from '@app/simple-dialog-component/simple-dialog-component';
+import { SimpleDialogComponent } from '@app/simple-dialog/simple-dialog';
+import { GeneralDialogContentComponent } from '@app/core/ui/dialog/general-dialog-content/general-dialog-content';
+import { DialogConfig } from '@ui/dialog/interface/dialog-config';
+import { InfoDialogComponent } from '@ui/dialog/message-dialog/info-dialog/info-dialog';
+import { MessageDialogContentData } from '@ui/dialog/message-dialog/message-dialog-content-data';
+import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 
 @Component({
   selector: 'app-body-content',
@@ -39,15 +40,58 @@ export class BodyContentComponent {
   }
 
   protected async showDialog(): Promise<void> {
-    const dialogReference: DialogReference<SimpleDialogComponentDialogResult> =
-      this.#dialogService.open(
-        new DefaultDialogConfig(new SimpleDialogComponentDialogData(), SimpleDialogComponent),
-      );
-    const dialogResult: SimpleDialogComponentDialogResult | undefined =
-      await dialogReference.getResult();
+    const dialogReference: DialogReference<string> = this.#dialogService.open(
+      new DefaultDialogConfig('Some data', SimpleDialogComponent),
+    );
+    const dialogResult: string | undefined = await dialogReference.getResult();
     let message: string = 'Dialog result: ';
     if (dialogResult) {
-      message += dialogResult.getText();
+      message += dialogResult;
+    } else {
+      message += 'undefined';
+    }
+    console.log(message);
+  }
+
+  protected async showInfoDialog(): Promise<void> {
+    const dialogContentData = new MessageDialogContentData<InfoDialogComponent>(
+      'You are awesome!!',
+      'Info',
+      InfoDialogComponent,
+    );
+
+    const dialogConfiguration = new DefaultDialogConfig<
+      MessageDialogContentData<InfoDialogComponent>,
+      MessageDialogResult,
+      GeneralDialogContentComponent<
+        MessageDialogContentData<InfoDialogComponent>,
+        MessageDialogResult,
+        InfoDialogComponent
+      >
+    >(dialogContentData, GeneralDialogContentComponent);
+
+    const dialogReference = this.#dialogService.open<
+      MessageDialogContentData<InfoDialogComponent>,
+      MessageDialogResult,
+      GeneralDialogContentComponent<
+        MessageDialogContentData<InfoDialogComponent>,
+        MessageDialogResult,
+        InfoDialogComponent
+      >,
+      DialogConfig<
+        MessageDialogContentData<InfoDialogComponent>,
+        GeneralDialogContentComponent<
+          MessageDialogContentData<InfoDialogComponent>,
+          MessageDialogResult,
+          InfoDialogComponent
+        >
+      >
+    >(dialogConfiguration);
+
+    const dialogResult = await dialogReference.getResult();
+    let message: string = 'Dialog result: ';
+    if (dialogResult) {
+      message += dialogResult.id;
     } else {
       message += 'undefined';
     }

@@ -1,10 +1,8 @@
 import { DialogService } from '@ui/dialog/interface/dialog-service';
-import { DialogContentData } from '@app/core/ui/dialog/interface/dialog-content-data';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
-import { DialogResult } from '@ui/dialog/interface/dialog-result';
-import { DialogContent } from '@ui/dialog/interface/dialog-content';
-import { DIALOG_DATA } from '@ui/dialog/interface/dialog-tokens';
+import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
+import { DIALOG_CONTENT_DATA } from '@ui/dialog/interface/dialog-tokens';
 import { mapToNgMatConfig as mapToNgMatDialogConfig } from './ng-mat-dialog-config-mapper';
 import { MatDialogRef, MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { inject, Injectable, Injector } from '@angular/core';
@@ -20,9 +18,9 @@ export class NgMatDialogService extends DialogService {
   }
 
   public open<
-    DATA extends DialogContentData,
-    RESULT extends DialogResult,
-    CONTENT extends DialogContent<DATA, RESULT>,
+    DATA,
+    RESULT,
+    CONTENT extends DialogContentComponent<DATA, RESULT>,
     CONFIG extends DialogConfig<DATA, CONTENT>,
   >(config: CONFIG): DialogReference<RESULT> {
     const ngMatDialogConfig: MatDialogConfig<DATA> = mapToNgMatDialogConfig(config);
@@ -58,23 +56,23 @@ export class NgMatDialogService extends DialogService {
   }
 
   #createInjector<
-    DATA extends DialogContentData,
-    RESULT extends DialogResult,
-    CONTENT extends DialogContent<DATA, RESULT>,
+    DATA,
+    RESULT,
+    CONTENT extends DialogContentComponent<DATA, RESULT>,
     CONFIG extends DialogConfig<DATA, CONTENT>,
   >(config: CONFIG): Injector {
     const configuredInjector: Injector | undefined = config.getInjector();
     return Injector.create({
-      providers: [{ provide: DIALOG_DATA, useValue: config.getDialogContentData() }],
+      providers: [{ provide: DIALOG_CONTENT_DATA, useValue: config.getDialogContentData() }],
       parent: configuredInjector ? configuredInjector : this.#injector,
     });
   }
 }
 
 class NgMatDialogReference<
-  DATA extends DialogContentData,
-  RESULT extends DialogResult,
-  CONTENT extends DialogContent<DATA, RESULT>,
+  DATA,
+  RESULT,
+  CONTENT extends DialogContentComponent<DATA, RESULT>,
 > implements DialogReference<RESULT> {
   public readonly interfaceTag: 'dialogReference' = 'dialogReference';
 

@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SimpleDialogComponent } from './simple-dialog-component';
+import { ButtonBar } from './button-bar';
 
-describe('SimpleDialogComponent', () => {
-  let component: SimpleDialogComponent;
-  let fixture: ComponentFixture<SimpleDialogComponent>;
+describe('ButtonBar', () => {
+  let component: ButtonBar;
+  let fixture: ComponentFixture<ButtonBar>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [SimpleDialogComponent],
+      imports: [ButtonBar],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(SimpleDialogComponent);
+    fixture = TestBed.createComponent(ButtonBar);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -3,7 +3,7 @@ import { Editor } from '@ui/editor/editor';
 import { TableCellContext } from './table-cell-context';
 
 @Directive()
-export abstract class TableCellEditor<TYPE> implements Editor<TYPE> {
+export abstract class TableCellEditorComponent<TYPE> implements Editor<TYPE> {
   readonly interfaceTag: 'editor' = 'editor';
 
   public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();

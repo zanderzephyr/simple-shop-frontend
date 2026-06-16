@@ -1,11 +1,11 @@
-import { Type, Injector, inject, Directive } from '@angular/core';
+import { Type, Injector } from '@angular/core';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
-import { DialogContent } from '@ui/dialog/interface/dialog-content';
-import { DialogContentData } from '@app/core/ui/dialog/interface/dialog-content-data';
+import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
 
 export class DefaultDialogConfig<
-  DATA extends DialogContentData,
-  CONTENT extends DialogContent<DATA, any>,
+  DATA,
+  RESULT,
+  CONTENT extends DialogContentComponent<DATA, RESULT>,
 > implements DialogConfig<DATA, CONTENT> {
   public readonly interfaceTag: 'dialogConfig' = 'dialogConfig';
 

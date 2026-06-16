@@ -1,0 +1,11 @@
+<div class="button-bar-container" [style.flex-direction]="config().getFlexDirection().css">
+  @for (buttonConfig of config().getButtonConfigurations()(); track buttonConfig.getText()) {
+    <button
+      mat-button
+      (click)="buttonConfig.getActionCallback()()()"
+      [disabled]="!buttonConfig.getEnabled()()"
+    >
+      {{ buttonConfig.getText()() }}
+    </button>
+  }
+</div>

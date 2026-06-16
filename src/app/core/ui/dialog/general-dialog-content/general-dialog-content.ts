@@ -1,0 +1,99 @@
+import { ButtonBarComponent } from '@ui/button-bar/button-bar';
+import { ButtonConfiguration } from '@ui/button/button-configuration';
+import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration';
+import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
+import { DialogReference } from '@ui/dialog/interface/dialog-reference';
+import { FlexDirection } from '@ui/layout/flex-direction';
+import { GeneralDialogChildContentComponent } from './general-dialog-child-content';
+import { GeneralDialogContentData } from './general-dialog-content-data';
+import {
+  Component,
+  ComponentRef,
+  computed,
+  inject,
+  Injector,
+  effect,
+  signal,
+  Signal,
+  Type,
+  ViewContainerRef,
+  viewChild,
+  WritableSignal,
+} from '@angular/core';
+
+@Component({
+  selector: 'app-general-dialog-content',
+  imports: [ButtonBarComponent],
+  templateUrl: './general-dialog-content.html',
+  styleUrl: './general-dialog-content.css',
+})
+export class GeneralDialogContentComponent<
+  DATA extends GeneralDialogContentData<DATA, RESULT, CONTENT>,
+  RESULT,
+  CONTENT extends GeneralDialogChildContentComponent<DATA, RESULT>,
+> extends DialogContentComponent<DATA, RESULT> {
+  readonly #injector: Injector = inject(Injector);
+
+  // TODO Maybe replace "content" with a unique string in the app, to prevent duplicates?
+  readonly contentChild: Signal<ViewContainerRef | undefined> = viewChild('content', {
+    read: ViewContainerRef,
+  });
+
+  // Keep a local reference to the active dynamic component instance
+  #contentChildComponentRef: WritableSignal<ComponentRef<CONTENT> | undefined> = signal(undefined);
+
+  readonly #buttonConfigurations: Signal<ButtonConfiguration[]> = computed(() => {
+    const componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
+    if (componentRef) {
+      return componentRef.instance.getButtonConfigurations()();
+    }
+    return [];
+  });
+
+  protected readonly buttonBarConfiguration: Signal<ButtonBarConfiguration> = computed(() => {
+    const buttonConfigurations: Signal<ButtonConfiguration[]> = this.#buttonConfigurations;
+    const flexDirection: Signal<FlexDirection> = signal(FlexDirection.ROW);
+    return {
+      getButtonConfigurations: () => buttonConfigurations,
+      getFlexDirection: () => flexDirection,
+    };
+  });
+
+  public constructor() {
+    super();
+
+    this.#init();
+  }
+
+  #init(): void {
+    effect(() => {
+      // Register signals
+      const viewContainer: ViewContainerRef | undefined = this.contentChild();
+      const type: Type<CONTENT> = this.getDialogContentData().getChildContentType();
+
+      // Only do that if the template is already built
+      if (viewContainer) {
+        let componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
+        if (!componentRef || componentRef.componentType !== type) {
+          this.#clearComponent();
+          this.#contentChildComponentRef.set(viewContainer.createComponent(type));
+          componentRef = this.#contentChildComponentRef();
+          componentRef!.instance.setDialogReference(this.getDialogReference());
+        }
+      }
+    });
+  }
+
+  #clearComponent(): void {
+    const componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
+    if (componentRef) {
+      componentRef.destroy();
+      this.#contentChildComponentRef.set(undefined);
+      this.contentChild()!.clear();
+    }
+  }
+
+  public override getResult(): RESULT | undefined {
+    return this.#contentChildComponentRef()!.instance.getResult();
+  }
+}

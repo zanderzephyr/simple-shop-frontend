@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultRenderer } from '@ui/renderer/default-renderer';
+import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
 import { ImageRendererConfiguration } from './image-renderer-configuration';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
@@ -9,7 +9,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   templateUrl: './image-renderer.html',
   styleUrl: './image-renderer.css',
 })
-export class ImageRendererComponent extends DefaultRenderer<ImageRendererConfiguration> {
+export class ImageRendererComponent extends DefaultRendererComponent<ImageRendererConfiguration> {
   constructor() {
     super();
   }

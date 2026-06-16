@@ -3,7 +3,7 @@ import { Renderer } from '@ui/renderer/renderer';
 import { TableCellContext } from './table-cell-context';
 
 @Directive()
-export abstract class TableCellRenderer<TYPE> implements Renderer<TYPE> {
+export abstract class TableCellRendererComponent<TYPE> implements Renderer<TYPE> {
   readonly interfaceTag: 'renderer' = 'renderer';
 
   public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();

@@ -3,7 +3,7 @@ import { InventoryTableAction } from '@features/app-body/body-content/inventory/
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Consumer } from '@utils/functional-interfaces';
-import { TableCellRenderer } from '@ui/table/interface/table-cell-renderer';
+import { TableCellRendererComponent } from '@ui/table/interface/table-cell-renderer';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 
 @Component({
@@ -12,7 +12,7 @@ import { TableCellContext } from '@ui/table/interface/table-cell-context';
   templateUrl: './inventory-table-action-renderer.html',
   styleUrl: './inventory-table-action-renderer.css',
 })
-export class InventoryTableActionRendererComponent extends TableCellRenderer<
+export class InventoryTableActionRendererComponent extends TableCellRendererComponent<
   Map<InventoryTableAction, Consumer<TableCellContext>>
 > {
   protected readonly InventoryTableAction = InventoryTableAction;

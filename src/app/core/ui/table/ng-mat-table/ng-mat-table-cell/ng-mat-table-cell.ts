@@ -12,14 +12,15 @@ import {
 import { Table } from '@ui/table/interface/table';
 import { TableCellContext, TableCellContextBuilder } from '@ui/table/interface/table-cell-context';
 import { TableColumn } from '@ui/table/interface/table-column';
-import { TableCellRenderer } from '@ui/table/interface/table-cell-renderer';
-import { TableCellEditor } from '@ui/table/interface/table-cell-editor';
+import { TableCellRendererComponent } from '@ui/table/interface/table-cell-renderer';
+import { TableCellEditorComponent } from '@ui/table/interface/table-cell-editor';
 import { Renderer } from '@ui/renderer/renderer';
 
 /*
  TODO On click, replace renderer by editor.
-*/
 
+ TODO Maybe create a proper abstract structure for content projection?
+*/
 @Component({
   selector: 'app-ng-mat-table-cell',
   imports: [],
@@ -42,6 +43,10 @@ export class NgMatTableCellComponent {
   #currentComponentRef: ComponentRef<unknown> | undefined = undefined;
 
   public constructor() {
+    this.#init();
+  }
+
+  #init(): void {
     effect(() => {
       // Immediately execute the signals to register the effect properly.
       const column: TableColumn<unknown> = this.table().getTableColumnModel().getTableColumns()()[
@@ -62,8 +67,8 @@ export class NgMatTableCellComponent {
       }
 
       if (
-        this.#currentComponentRef.instance instanceof TableCellRenderer ||
-        this.#currentComponentRef.instance instanceof TableCellEditor
+        this.#currentComponentRef.instance instanceof TableCellRendererComponent ||
+        this.#currentComponentRef.instance instanceof TableCellEditorComponent
       ) {
         const cellContext: TableCellContext = new TableCellContextBuilder()
           .setTable(this.table())

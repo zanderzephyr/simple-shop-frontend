@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultRenderer } from '@ui/renderer/default-renderer';
+import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
 
 @Component({
   selector: 'app-number-renderer',
@@ -7,7 +7,7 @@ import { DefaultRenderer } from '@ui/renderer/default-renderer';
   templateUrl: './number-renderer.html',
   styleUrl: './number-renderer.css',
 })
-export class NumberRendererComponent extends DefaultRenderer<number> {
+export class NumberRendererComponent extends DefaultRendererComponent<number> {
   public constructor() {
     super();
   }

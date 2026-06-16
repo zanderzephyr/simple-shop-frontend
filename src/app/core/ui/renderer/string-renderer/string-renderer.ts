@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { DefaultRenderer } from '@ui/renderer/default-renderer';
+import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
 
 @Component({
   selector: 'app-string-renderer',
@@ -7,7 +7,7 @@ import { DefaultRenderer } from '@ui/renderer/default-renderer';
   templateUrl: './string-renderer.html',
   styleUrl: './string-renderer.css',
 })
-export class StringRendererComponent extends DefaultRenderer<string> {
+export class StringRendererComponent extends DefaultRendererComponent<string> {
   public constructor() {
     super();
   }

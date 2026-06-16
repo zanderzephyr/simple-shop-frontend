@@ -1,12 +1,10 @@
-import { DialogResult } from './dialog-result';
 import { DialogReference } from './dialog-reference';
-import { DialogContentData } from './dialog-content-data';
-import { DIALOG_DATA } from './dialog-tokens';
+import { DIALOG_CONTENT_DATA } from './dialog-tokens';
 import { Directive, inject } from '@angular/core';
 
 @Directive()
-export abstract class DialogContent<DATA extends DialogContentData, RESULT extends DialogResult> {
-  readonly #dialogContentData: DATA = inject(DIALOG_DATA) as DATA;
+export abstract class DialogContentComponent<DATA, RESULT> {
+  readonly #dialogContentData: DATA = inject(DIALOG_CONTENT_DATA) as DATA;
 
   /**
    * This property is set after the dialog has been created.
