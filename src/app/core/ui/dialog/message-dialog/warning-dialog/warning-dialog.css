@@ -1,0 +1,11 @@
+.warning-dialog-container {
+  display: flex;
+  flex-direction: row;
+
+  /* Centers horizontally (the axis of the flex direction) */
+  justify-content: center;
+
+  /* Centers vertically (the axis that crosses the flex direction) */
+  align-items: center;
+  gap: 10px;
+}

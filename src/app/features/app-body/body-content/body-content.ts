@@ -3,7 +3,12 @@ import { ItemService } from '@api/item/item-service';
 import { ItemSearchResults } from '@core/item-search-results';
 import { MatButtonModule } from '@angular/material/button';
 import { Item } from '@api/item/model/item';
-import { DialogService, openInfoDialog } from '@ui/dialog/interface/dialog-service';
+import {
+  DialogService,
+  openInfoDialog,
+  openWarningDialog,
+  openErrorDialog,
+} from '@ui/dialog/interface/dialog-service';
 
 @Component({
   selector: 'app-body-content',
@@ -33,6 +38,22 @@ export class BodyContentComponent {
 
   protected async showInfoDialog(): Promise<void> {
     const dialogReference = openInfoDialog(this.#dialogService, 'You are awesome!!', (config) =>
+      config.setDisableClose(true),
+    );
+    const dialogResult = await dialogReference.getResult();
+    console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
+  }
+
+  protected async showWarningDialog(): Promise<void> {
+    const dialogReference = openWarningDialog(this.#dialogService, 'Are you sure?!', (config) =>
+      config.setDisableClose(true),
+    );
+    const dialogResult = await dialogReference.getResult();
+    console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
+  }
+
+  protected async showErrorDialog(): Promise<void> {
+    const dialogReference = openErrorDialog(this.#dialogService, 'Nooo, sir!!', (config) =>
       config.setDisableClose(true),
     );
     const dialogResult = await dialogReference.getResult();

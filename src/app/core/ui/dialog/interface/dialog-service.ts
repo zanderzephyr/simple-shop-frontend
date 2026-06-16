@@ -3,6 +3,9 @@ import { DialogConfig } from './dialog-config';
 import { Injectable } from '@angular/core';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog-content/general-dialog-content';
 import { InfoDialogContentData } from '@ui/dialog/message-dialog/info-dialog/info-dialog-content-data';
+import { WarningDialogContentData } from '@ui/dialog/message-dialog/warning-dialog/warning-dialog-content-data';
+import { ErrorDialogContentData } from '@ui/dialog/message-dialog/error-dialog/error-dialog-content-data';
+import { MessageDialogContentData } from '@ui/dialog/message-dialog/message-dialog-content-data';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 import { Consumer } from '@utils/functional-interfaces';
 
@@ -18,9 +21,34 @@ export function openInfoDialog(
   message: string,
   configurer?: Consumer<DialogConfig<InfoDialogContentData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  const dialogContentData = new InfoDialogContentData(message);
+  return openDialog(dialogService, message, InfoDialogContentData, configurer);
+}
 
-  const dialogConfiguration = new DialogConfig<InfoDialogContentData, MessageDialogResult>(
+export function openWarningDialog(
+  dialogService: DialogService,
+  message: string,
+  configurer?: Consumer<DialogConfig<WarningDialogContentData, MessageDialogResult>>,
+): DialogReference<MessageDialogResult> {
+  return openDialog(dialogService, message, WarningDialogContentData, configurer);
+}
+
+export function openErrorDialog(
+  dialogService: DialogService,
+  message: string,
+  configurer?: Consumer<DialogConfig<ErrorDialogContentData, MessageDialogResult>>,
+): DialogReference<MessageDialogResult> {
+  return openDialog(dialogService, message, ErrorDialogContentData, configurer);
+}
+
+function openDialog<DATA extends MessageDialogContentData<any>>(
+  dialogService: DialogService,
+  message: string,
+  dataConstructor: new (message: string) => DATA,
+  configurer?: Consumer<DialogConfig<DATA, MessageDialogResult>>,
+): DialogReference<MessageDialogResult> {
+  const dialogContentData = new dataConstructor(message);
+
+  const dialogConfiguration = new DialogConfig<DATA, MessageDialogResult>(
     dialogContentData,
     GeneralDialogContentComponent,
   );
