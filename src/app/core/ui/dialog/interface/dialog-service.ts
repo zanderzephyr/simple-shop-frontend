@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog-content/general-dialog-content';
 import { InfoDialogContentData } from '@ui/dialog/message-dialog/info-dialog/info-dialog-content-data';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
-import { DefaultDialogConfig } from '@ui/dialog/default/default-dialog-config';
+import { Consumer } from '@utils/functional-interfaces';
 
 @Injectable()
 export abstract class DialogService {
@@ -16,13 +16,18 @@ export abstract class DialogService {
 export function openInfoDialog(
   dialogService: DialogService,
   message: string,
+  configurer?: Consumer<DialogConfig<InfoDialogContentData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
   const dialogContentData = new InfoDialogContentData(message);
 
-  const dialogConfiguration = new DefaultDialogConfig<InfoDialogContentData, MessageDialogResult>(
+  const dialogConfiguration = new DialogConfig<InfoDialogContentData, MessageDialogResult>(
     dialogContentData,
     GeneralDialogContentComponent,
   );
+
+  if (configurer) {
+    configurer(dialogConfiguration);
+  }
 
   const dialogReference = dialogService.open(dialogConfiguration);
 

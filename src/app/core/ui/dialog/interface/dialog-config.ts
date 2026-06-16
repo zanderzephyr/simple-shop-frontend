@@ -7,22 +7,90 @@ import { Type, Injector } from '@angular/core';
   MUST be actively used in public methods or properties to be automatically 
   inferred by consumer services (like DialogService.open).
 */
-export interface DialogConfig<DATA, RESULT> {
-  readonly interfaceTag: 'dialogConfig';
+export class DialogConfig<DATA, RESULT> {
+  #width: string = '400px';
 
-  getWidth(): string;
+  #height: string = '400px';
 
-  getHeight(): string;
+  #disableClose: boolean = false;
 
-  getDisableClose(): boolean;
+  #contentComponentType: Type<DialogContentComponent<DATA, RESULT>>;
+
+  #dialogContentData: DATA;
+
+  #injector: Injector | undefined;
+
+  public constructor(
+    dialogContentData: DATA,
+    contentComponentType: Type<DialogContentComponent<DATA, RESULT>>,
+  ) {
+    this.#dialogContentData = dialogContentData;
+    this.#contentComponentType = contentComponentType;
+  }
+
+  public getWidth(): string {
+    return this.#width;
+  }
+
+  public setWidth(width: string): this {
+    this.#width = width;
+
+    return this;
+  }
+
+  public getHeight(): string {
+    return this.#height;
+  }
+
+  public setHeight(height: string): this {
+    this.#height = height;
+
+    return this;
+  }
+
+  public getDisableClose(): boolean {
+    return this.#disableClose;
+  }
+
+  public setDisableClose(disableClose: boolean): this {
+    this.#disableClose = disableClose;
+
+    return this;
+  }
 
   /*
 		Unlike Java's strict generic variance rules, TypeScript's structural type 
    	system natively allows specific subclasses to satisfy this base type contract.
 	*/
-  getContentComponentType(): Type<DialogContentComponent<DATA, RESULT>>;
+  public getContentComponentType(): Type<DialogContentComponent<DATA, RESULT>> {
+    return this.#contentComponentType;
+  }
 
-  getDialogContentData(): DATA;
+  public setContentComponentType(
+    contentComponentType: Type<DialogContentComponent<DATA, RESULT>>,
+  ): this {
+    this.#contentComponentType = contentComponentType;
 
-  getInjector(): Injector | undefined;
+    return this;
+  }
+
+  public getDialogContentData(): DATA {
+    return this.#dialogContentData;
+  }
+
+  public setDialogContentData(dialogContentData: DATA): this {
+    this.#dialogContentData = dialogContentData;
+
+    return this;
+  }
+
+  public getInjector(): Injector | undefined {
+    return this.#injector;
+  }
+
+  public setInjector(injector: Injector | undefined): this {
+    this.#injector = injector;
+
+    return this;
+  }
 }

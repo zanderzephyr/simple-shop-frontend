@@ -5,7 +5,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { Item } from '@api/item/model/item';
 import { DialogService, openInfoDialog } from '@ui/dialog/interface/dialog-service';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
-import { DefaultDialogConfig } from '@ui/dialog/default/default-dialog-config';
+import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { SimpleDialogComponent } from '@app/simple-dialog/simple-dialog';
 
 @Component({
@@ -36,7 +36,7 @@ export class BodyContentComponent {
 
   protected async showDialog(): Promise<void> {
     const dialogReference: DialogReference<string> = this.#dialogService.open(
-      new DefaultDialogConfig('Some data', SimpleDialogComponent),
+      new DialogConfig('Some data', SimpleDialogComponent),
     );
 
     const dialogResult = await dialogReference.getResult();

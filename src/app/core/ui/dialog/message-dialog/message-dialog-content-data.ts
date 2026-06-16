@@ -1,7 +1,7 @@
 import { MessageDialogResult } from './message-dialog-result';
 import { MessageDialogComponent } from './message-dialog';
 import { GeneralDialogContentData } from '@ui/dialog/general-dialog-content/general-dialog-content-data';
-import { Type } from '@angular/core';
+import { signal, Signal, Type, WritableSignal } from '@angular/core';
 
 export class MessageDialogContentData<
   CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,
@@ -10,15 +10,21 @@ export class MessageDialogContentData<
   MessageDialogResult,
   CONTENT_TYPE
 > {
-  readonly #message: string;
+  #message: WritableSignal<string>;
 
   public constructor(message: string, title: string, contentType: Type<CONTENT_TYPE>) {
     super(title, contentType);
 
-    this.#message = message;
+    this.#message = signal(message);
   }
 
-  public getMessage(): string {
-    return this.#message;
+  public getMessage(): Signal<string> {
+    return this.#message.asReadonly();
+  }
+
+  public setMessage(message: string): this {
+    this.#message.set(message);
+
+    return this;
   }
 }
