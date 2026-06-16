@@ -1,7 +1,7 @@
 <div class="general-dialog-container">
   <p class="title">{{ getDialogContentData().getTitle()() }}</p>
 
-  <ng-container #content></ng-container>
+  <ng-container class="content" #content></ng-container>
 
-  <app-button-bar [config]="buttonBarConfiguration()"></app-button-bar>
+  <app-button-bar class="button-bar" [config]="buttonBarConfiguration()"></app-button-bar>
 </div>

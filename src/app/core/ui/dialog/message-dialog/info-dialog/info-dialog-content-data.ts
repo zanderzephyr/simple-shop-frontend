@@ -3,6 +3,6 @@ import { InfoDialogComponent } from './info-dialog';
 
 export class InfoDialogContentData extends MessageDialogContentData<InfoDialogComponent> {
   public constructor(message: string, title?: string) {
-    super(message, title ?? 'info', InfoDialogComponent);
+    super(message, title ?? 'Info', InfoDialogComponent);
   }
 }

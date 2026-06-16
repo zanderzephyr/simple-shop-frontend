@@ -1,3 +1,20 @@
+.general-dialog-container {
+  display: flex;
+  flex-direction: column;
+}
+
 .title {
   font-size: large;
+  justify-content: center;
+  align-self: center;
+}
+
+.content {
+  justify-content: center;
+  align-self: center;
+}
+
+.button-bar {
+  justify-content: center;
+  align-self: center;
 }
