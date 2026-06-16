@@ -1,10 +1,11 @@
 import { Component, Signal, signal } from '@angular/core';
 import { ButtonConfiguration } from '@app/core/ui/button/button-configuration';
 import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog';
+import { MatIconModule } from '@angular/material/icon';
 
 @Component({
   selector: 'app-info-dialog',
-  imports: [],
+  imports: [MatIconModule],
   templateUrl: './info-dialog.html',
   styleUrl: './info-dialog.css',
 })
