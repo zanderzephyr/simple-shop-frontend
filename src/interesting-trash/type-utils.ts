@@ -18,13 +18,15 @@ export type TypeToken =
   | 'function'
   | 'unknown';
 
+// Just for type safety of the generic type of RuntimeType.
+const RUNTIME_TYPE_SYMBOL = Symbol('RuntimeTypeSymbol');
 // The universal interface that carries BOTH the compile-time type and runtime metadata
 export interface RuntimeType<T> {
   readonly type: TypeToken;
   readonly name: string;
 
   // A dummy property that only exists for the compiler to lock down the generic T
-  readonly __typeBrand?: T;
+  [RUNTIME_TYPE_SYMBOL]?(): T;
 
   // A standard type-guarding utility function
   is(value: unknown): value is T;
