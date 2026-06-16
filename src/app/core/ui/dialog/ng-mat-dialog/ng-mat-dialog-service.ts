@@ -17,9 +17,7 @@ export class NgMatDialogService extends DialogService {
     super();
   }
 
-  public open<DATA, RESULT, CONTENT extends DialogContentComponent<DATA, RESULT>>(
-    config: DialogConfig<DATA, RESULT, CONTENT>,
-  ): DialogReference<RESULT> {
+  public open<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): DialogReference<RESULT> {
     const ngMatDialogConfig: MatDialogConfig<DATA> = mapToNgMatDialogConfig(config);
     /*
 			We use DI to pass things into the dialog content component. An alternative would be,
@@ -29,16 +27,17 @@ export class NgMatDialogService extends DialogService {
 		*/
     ngMatDialogConfig.injector = this.#createInjector(config);
 
-    const rawDialogReference: MatDialogRef<CONTENT, RESULT> = this.#matDialog.open<
-      CONTENT,
+    const rawDialogReference: MatDialogRef<
+      DialogContentComponent<DATA, RESULT>,
+      RESULT
+    > = this.#matDialog.open<DialogContentComponent<DATA, RESULT>, DATA, RESULT>(
+      config.getContentComponentType(),
+      ngMatDialogConfig,
+    );
+
+    const dialogReference: NgMatDialogReference<DATA, RESULT> = new NgMatDialogReference<
       DATA,
       RESULT
-    >(config.getContentComponentType(), ngMatDialogConfig);
-
-    const dialogReference: NgMatDialogReference<DATA, RESULT, CONTENT> = new NgMatDialogReference<
-      DATA,
-      RESULT,
-      CONTENT
     >(rawDialogReference);
 
     /*
@@ -52,9 +51,7 @@ export class NgMatDialogService extends DialogService {
     return dialogReference;
   }
 
-  #createInjector<DATA, RESULT, CONTENT extends DialogContentComponent<DATA, RESULT>>(
-    config: DialogConfig<DATA, RESULT, CONTENT>,
-  ): Injector {
+  #createInjector<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): Injector {
     const configuredInjector: Injector | undefined = config.getInjector();
     return Injector.create({
       providers: [{ provide: DIALOG_CONTENT_DATA, useValue: config.getDialogContentData() }],
@@ -63,11 +60,7 @@ export class NgMatDialogService extends DialogService {
   }
 }
 
-class NgMatDialogReference<
-  DATA,
-  RESULT,
-  CONTENT extends DialogContentComponent<DATA, RESULT>,
-> implements DialogReference<RESULT> {
+class NgMatDialogReference<DATA, RESULT> implements DialogReference<RESULT> {
   public readonly interfaceTag: 'dialogReference' = 'dialogReference';
 
   /*
@@ -78,9 +71,9 @@ class NgMatDialogReference<
 	*/
   readonly #promiseAndResolvers: PromiseWithResolvers<RESULT | undefined>;
 
-  readonly #matDialogReference: MatDialogRef<CONTENT, RESULT>;
+  readonly #matDialogReference: MatDialogRef<DialogContentComponent<DATA, RESULT>, RESULT>;
 
-  public constructor(dialogReference: MatDialogRef<CONTENT, RESULT>) {
+  public constructor(dialogReference: MatDialogRef<DialogContentComponent<DATA, RESULT>, RESULT>) {
     this.#promiseAndResolvers = Promise.withResolvers<RESULT | undefined>();
     this.#matDialogReference = dialogReference;
 
@@ -95,7 +88,8 @@ class NgMatDialogReference<
   }
 
   #determineResult(discardResult?: boolean): RESULT | undefined {
-    const contentComponent: CONTENT = this.#matDialogReference.componentInstance;
+    const contentComponent: DialogContentComponent<DATA, RESULT> =
+      this.#matDialogReference.componentInstance;
     return discardResult ? undefined : contentComponent.getResult();
   }
 

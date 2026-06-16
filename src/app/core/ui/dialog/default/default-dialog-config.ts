@@ -2,14 +2,11 @@ import { Type, Injector } from '@angular/core';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
 
-export class DefaultDialogConfig<
-  DATA,
-  RESULT,
-  CONTENT extends DialogContentComponent<DATA, RESULT>,
-> implements DialogConfig<DATA, RESULT, CONTENT> {
+export class DefaultDialogConfig<DATA, RESULT> implements DialogConfig<DATA, RESULT> {
   public readonly interfaceTag: 'dialogConfig' = 'dialogConfig';
+  readonly #bla: RESULT = undefined as unknown as RESULT;
 
-  readonly #contentComponentType: Type<CONTENT>;
+  readonly #contentComponentType: Type<DialogContentComponent<DATA, RESULT>>;
 
   readonly #dialogContentData: DATA;
 
@@ -18,7 +15,10 @@ export class DefaultDialogConfig<
   #width: string;
   #injector: Injector | undefined;
 
-  public constructor(dialogContentData: DATA, contentComponentType: Type<CONTENT>) {
+  public constructor(
+    dialogContentData: DATA,
+    contentComponentType: Type<DialogContentComponent<DATA, RESULT>>,
+  ) {
     this.#contentComponentType = contentComponentType;
     this.#dialogContentData = dialogContentData;
     this.#disableClose = false;
@@ -26,7 +26,7 @@ export class DefaultDialogConfig<
     this.#width = '400px';
   }
 
-  public getContentComponentType(): Type<CONTENT> {
+  public getContentComponentType(): Type<DialogContentComponent<DATA, RESULT>> {
     return this.#contentComponentType;
   }
 
