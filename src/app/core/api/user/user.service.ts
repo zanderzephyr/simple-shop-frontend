@@ -1,8 +1,9 @@
 import { User, UserBuilder, UserType } from '@api/user/model/user';
-import { Injectable } from '@angular/core';
+import { forwardRef, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
+  useClass: forwardRef(() => ApiUserService),
 })
 export abstract class UserService {
   public constructor() {}

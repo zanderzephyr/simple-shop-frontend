@@ -44,7 +44,9 @@ export class BodyContentComponent {
   }
 
   protected async showInfoDialog(): Promise<void> {
-    const dialogReference = openInfoDialog(this.#dialogService, 'You are awesome!!');
+    const dialogReference = openInfoDialog(this.#dialogService, 'You are awesome!!', (config) =>
+      config.setDisableClose(true),
+    );
     const dialogResult = await dialogReference.getResult();
     console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
   }

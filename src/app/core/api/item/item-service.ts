@@ -1,9 +1,10 @@
 import { Item, ItemBuilder, MediaType } from '@api/item/model/item';
-import { Injectable } from '@angular/core';
 import { Predicate } from '@utils/functional-interfaces';
+import { forwardRef, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root',
+  useClass: forwardRef(() => ApiItemService),
 })
 export abstract class ItemService {
   public constructor() {}

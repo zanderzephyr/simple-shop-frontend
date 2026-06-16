@@ -1,10 +1,11 @@
-import { Injectable, inject } from '@angular/core';
+import { forwardRef, Injectable, inject } from '@angular/core';
 import { LoginCredentials } from './model/login-credentials';
 import { Session, SessionData } from '@core/session';
 import { UserType } from '@api/user/model/user';
 
 @Injectable({
   providedIn: 'root',
+  useClass: forwardRef(() => ApiSessionService),
 })
 export abstract class SessionService {
   public constructor() {}
