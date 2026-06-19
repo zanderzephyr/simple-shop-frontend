@@ -1,0 +1,29 @@
+subprojects { subproject ->
+    // Target only backend service directories
+    if (subproject.name.endsWith('-service')) {
+        
+        // Apply the core Java plugin 
+        subproject.pluginManager.apply('java')
+        
+        // Enforce Java 25 via automated toolchains
+        subproject.extensions.configure('java') { javaExtension ->
+            javaExtension.toolchain {
+                languageVersion = JavaLanguageVersion.of(25)
+            }
+        }
+
+        subproject.repositories {
+            mavenCentral()
+        }
+
+        // Enforce UTF-8 for the Java compiler task
+        subproject.tasks.withType(JavaCompile).configureEach {
+            options.encoding = 'UTF-8'
+        }
+
+        // Enforce UTF-8 for the configuration/properties copy task
+        subproject.tasks.withType(ProcessResources).configureEach {
+            filteringCharset = 'UTF-8'
+        }
+    }
+}
