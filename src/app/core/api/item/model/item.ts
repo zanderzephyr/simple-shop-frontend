@@ -1,3 +1,5 @@
+import { LocalDateTime, DateTimeFormatter } from '@js-joda/core';
+
 const secretKey: symbol = Symbol('secretKey');
 
 /*
@@ -7,14 +9,15 @@ const secretKey: symbol = Symbol('secretKey');
  */
 interface ItemData {
   [secretKey]: true; // Marker to prevent external construction
-  id: number;
+  id: bigint;
   title: string;
   mediaType: MediaType;
   stock: number;
   price: number;
   imageUrl: string;
-  lastModificationTimestamp: string;
-  lastModifyingUserId: number;
+  lastChange: LocalDateTime;
+  lastChangedBy: bigint;
+  version: bigint;
 }
 
 export const MediaType: {
@@ -30,15 +33,15 @@ type ValueOf<T> = T[keyof T];
 export type MediaType = ValueOf<typeof MediaType>;
 
 export class Item {
-  readonly #id: number;
+  readonly #id: bigint;
   readonly #title: string;
   readonly #mediaType: MediaType;
   readonly #stock: number;
   readonly #price: number;
   readonly #imageUrl: string;
-  // TODO Use a proper date time type for that
-  readonly #lastModificationTimestamp: string;
-  readonly #lastModifyingUserId: number;
+  readonly #lastChange: LocalDateTime;
+  readonly #lastChangedBy: bigint;
+  readonly #version: bigint;
 
   public constructor(itemData: ItemData) {
     this.#id = itemData.id;
@@ -47,13 +50,14 @@ export class Item {
     this.#stock = itemData.stock;
     this.#price = itemData.price;
     this.#imageUrl = itemData.imageUrl;
-    this.#lastModificationTimestamp = itemData.lastModificationTimestamp;
-    this.#lastModifyingUserId = itemData.lastModifyingUserId;
+    this.#lastChange = itemData.lastChange;
+    this.#lastChangedBy = itemData.lastChangedBy;
+    this.#version = itemData.version;
 
     Object.freeze(this);
   }
 
-  public getId(): number {
+  public getId(): bigint {
     return this.#id;
   }
 
@@ -77,12 +81,16 @@ export class Item {
     return this.#imageUrl;
   }
 
-  public getLastModificationTimestamp(): string {
-    return this.#lastModificationTimestamp;
+  public getLastChange(): LocalDateTime {
+    return this.#lastChange;
   }
 
-  public getLastModifyingUserId(): number {
-    return this.#lastModifyingUserId;
+  public getLastChangedBy(): bigint {
+    return this.#lastChangedBy;
+  }
+
+  public getVersion(): bigint {
+    return this.#version;
   }
 }
 
@@ -93,7 +101,7 @@ export class ItemBuilder {
   /**
    * Is only to be set by the item service.
    */
-  #id?: number;
+  #id?: bigint;
   #title?: string;
   #mediaType?: MediaType;
   #stock?: number;
@@ -102,17 +110,18 @@ export class ItemBuilder {
   /**
    * Is only to be set by the item service.
    */
-  #lastModificationTimestamp?: string;
-  #lastModifyingUserId?: number;
+  #lastChange?: LocalDateTime;
+  #lastChangedBy?: bigint;
+  #version?: bigint;
 
   public constructor() {
     // Nothing to do so far
   }
 
-  public getId(): number | undefined {
+  public getId(): bigint | undefined {
     return this.#id;
   }
-  public setId(id: number): this {
+  public setId(id: bigint): this {
     this.#id = id;
     return this;
   }
@@ -161,21 +170,30 @@ export class ItemBuilder {
     return this;
   }
 
-  public getLastModificationTimestamp(): string | undefined {
-    return this.#lastModificationTimestamp;
+  public getLastChange(): LocalDateTime | undefined {
+    return this.#lastChange;
   }
 
-  public setLastModificationTimestamp(lastModificationTimestamp: string): this {
-    this.#lastModificationTimestamp = lastModificationTimestamp;
+  public setLastChange(lastChange: LocalDateTime): this {
+    this.#lastChange = lastChange;
     return this;
   }
 
-  public getLastModifyingUserId(): number | undefined {
-    return this.#lastModifyingUserId;
+  public getLastChangedBy(): bigint | undefined {
+    return this.#lastChangedBy;
   }
 
-  public setLastModifyingUserId(lastModifyingUserId: number): this {
-    this.#lastModifyingUserId = lastModifyingUserId;
+  public setLastChangedBy(lastChangedBy: bigint): this {
+    this.#lastChangedBy = lastChangedBy;
+    return this;
+  }
+
+  public getVersion(): bigint | undefined {
+    return this.#version;
+  }
+
+  public setVersion(version: bigint): this {
+    this.#version = version;
     return this;
   }
 
@@ -191,14 +209,15 @@ export class ItemBuilder {
       stock: this.#stock!,
       price: this.#price!,
       imageUrl: this.#imageUrl!,
-      lastModificationTimestamp: this.#lastModificationTimestamp!,
-      lastModifyingUserId: this.#lastModifyingUserId!,
+      lastChange: this.#lastChange!,
+      lastChangedBy: this.#lastChangedBy!,
+      version: this.#version!,
     };
   }
 
   #validate(): void {
-    if (this.#id === undefined) {
-      throw new Error('No item ID!');
+    if (this.#id === undefined || this.#id < 0n) {
+      throw new Error('Invalid item ID!');
     }
 
     if (this.#title === undefined) {
@@ -217,12 +236,12 @@ export class ItemBuilder {
       throw new Error('No item image URL!');
     }
 
-    if (this.#lastModificationTimestamp === undefined) {
-      throw new Error('No last modification timestamp!');
+    if (this.#lastChange === undefined) {
+      throw new Error('No last change timestamp!');
     }
 
-    if (this.#lastModifyingUserId === undefined) {
-      throw new Error('No last modification user ID!');
+    if (this.#lastChangedBy === undefined) {
+      throw new Error('No last changed by user ID!');
     }
   }
 
