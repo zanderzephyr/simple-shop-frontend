@@ -1,6 +1,6 @@
 import { TableColumnDescription } from '@ui/table/interface/table-column-description';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
-import { Function, Consumer, zodConsumer } from '@utils/functional-interfaces';
+import { Function, Consumer, zodConsumer } from '@core/utils/functional-interfaces';
 import { Item } from '@api/item/model/item';
 import { StringEditorComponent } from '@ui/editor/string-editor/string-editor';
 import { StringRendererComponent } from '@ui/renderer/string-renderer/string-renderer';

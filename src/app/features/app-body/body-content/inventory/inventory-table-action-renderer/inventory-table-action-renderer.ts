@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { InventoryTableAction } from '@features/app-body/body-content/inventory/inventory-table-action';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Consumer } from '@utils/functional-interfaces';
+import { Consumer } from '@core/utils/functional-interfaces';
 import { TableCellRendererComponent } from '@ui/table/interface/table-cell-renderer';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 

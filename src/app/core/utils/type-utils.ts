@@ -1,5 +1,5 @@
 import { z, ZodType, ZodObject, ZodRawShape } from 'zod';
-import { IllegalArgumentError } from '@utils/common-errors';
+import { IllegalArgumentError } from '@core/utils/common-errors';
 
 // Using any as return type makes sure void types are accepted as return types in every strict scenario.
 type AnyFunction = (...args: any[]) => any;

@@ -1,6 +1,6 @@
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
 import { TableModel } from '@ui/table/interface/table-model';
-import { IllegalArgumentError, IndexOutOfBoundsError } from '@utils/common-errors';
+import { IllegalArgumentError, IndexOutOfBoundsError } from '@core/utils/common-errors';
 import { TableColumnDescription } from '@ui/table/interface/table-column-description';
 import { ZodType, ZodSafeParseResult } from 'zod';
 

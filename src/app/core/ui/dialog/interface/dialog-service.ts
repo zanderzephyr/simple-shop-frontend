@@ -7,7 +7,7 @@ import { WarningDialogContentData } from '@ui/dialog/message-dialog/warning-dial
 import { ErrorDialogContentData } from '@ui/dialog/message-dialog/error-dialog/error-dialog-content-data';
 import { MessageDialogContentData } from '@ui/dialog/message-dialog/message-dialog-content-data';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
-import { Consumer } from '@utils/functional-interfaces';
+import { Consumer } from '@core/utils/functional-interfaces';
 
 @Injectable()
 export abstract class DialogService {

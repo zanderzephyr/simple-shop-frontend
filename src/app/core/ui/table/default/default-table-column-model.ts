@@ -3,7 +3,7 @@ import { TableColumnDescription } from '@ui/table/interface/table-column-descrip
 import { TableColumn } from '@ui/table/interface/table-column';
 import { DefaultTableColumn } from './default-table-column';
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
-import { IllegalArgumentError, InvalidStateError } from '@utils/common-errors';
+import { IllegalArgumentError, InvalidStateError } from '@core/utils/common-errors';
 
 export class DefaultTableColumnModel implements TableColumnModel {
   /**

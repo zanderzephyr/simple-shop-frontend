@@ -17,7 +17,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
 import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
-import { Consumer } from '@utils/functional-interfaces';
+import { Consumer } from '@core/utils/functional-interfaces';
 
 @Component({
   selector: 'app-inventory',

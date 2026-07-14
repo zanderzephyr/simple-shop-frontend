@@ -17,12 +17,12 @@
     "rootDir": "src",
     "paths": {
       "@app/*": ["./src/app/*"],
+      "@api/*": ["./src/app/core/api/*"],
+      "@core/*": ["./src/app/core/*"],
       "@features/*": ["./src/app/features/*"],
       "@shared/*": ["./src/app/shared/*"],
-      "@core/*": ["./src/app/core/*"],
-      "@utils/*": ["./src/app/core/utils/*"],
       "@ui/*": ["./src/app/core/ui/*"],
-      "@api/*": ["./src/app/core/api/*"]
+      "@utils/*": ["./src/app/utils/*"]
     }
   },
   "angularCompilerOptions": {

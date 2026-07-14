@@ -2,7 +2,7 @@ import { Component, signal, WritableSignal } from '@angular/core';
 import { MatSliderModule } from '@angular/material/slider';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { extractNumberValue } from '@utils/input-field-utils';
+import { extractNumberValue } from '@core/utils/input-field-utils';
 
 @Component({
   selector: 'app-price-sidebar-filter',

@@ -2,7 +2,6 @@ import { ButtonBarComponent } from '@ui/button-bar/button-bar';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
-import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { FlexDirection } from '@ui/layout/flex-direction';
 import { GeneralDialogChildContentComponent } from './general-dialog-child-content';
 import { GeneralDialogContentData } from './general-dialog-content-data';

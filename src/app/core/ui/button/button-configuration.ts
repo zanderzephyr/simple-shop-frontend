@@ -1,4 +1,4 @@
-import { Runnable } from '@utils/functional-interfaces';
+import { Runnable } from '@core/utils/functional-interfaces';
 import { Signal } from '@angular/core';
 
 export interface ButtonConfiguration {
