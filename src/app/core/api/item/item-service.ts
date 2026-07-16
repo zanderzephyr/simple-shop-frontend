@@ -1,6 +1,11 @@
-import { Item, ItemBuilder, MediaType } from '@api/item/model/item';
-import { Predicate } from '@utils/functional-interfaces';
-import { forwardRef, Injectable } from '@angular/core';
+import { Item, ItemBuilder, ItemDto, MediaType } from '@api/item/model/item';
+import { firstValueFrom } from 'rxjs';
+import { forwardRef, inject, Injectable } from '@angular/core';
+import { PageConfig } from '@app/core/utils/page-config';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { ItemSerializer } from './item-serializer';
+import { Page, PageBuilder, PageDto } from '@core/utils/page';
+import { ItemDeserializer } from './item-deserializer';
 
 @Injectable({
   providedIn: 'root',
@@ -12,8 +17,9 @@ export abstract class ItemService {
   /**
    * Adds a new item and returns the created item.
    *
-   * The technical properties of the passed in item (e.g. the ID field)
-   * will be ignored by the backend, as the backend sets them.
+   * An item to create must have id of -1 and version of null.
+   * The backend will set the technical properties of the item (e.g. the ID field)
+   * and return the created item.
    *
    * @returns The item created by the backend.
    */
@@ -21,28 +27,22 @@ export abstract class ItemService {
   public abstract addItem(item: Item): Promise<Item>;
 
   /**
-   * Requests all items from the backend, that match the filter.
+   * Requests an item by its ID from the backend.
    *
-   * @returns The requested items.
+   * @returns The requested item or null if not found.
    */
-  public abstract getItems(filter?: Predicate<Item>): Promise<readonly Item[]>;
+  public abstract getItemById(id: bigint): Promise<Item | null>;
 
   /**
-   * Requests the previous versions of an item.
+   * Requests items based on the provided page configuration.
    *
-   * The service returns the list of previous item versions in historic order
-   * (earliest first). If the item ID is unknown in the backend, the returned list is empty.
-   *
-   * @returns The item history or an empty list if the item ID is unknown in the backend.
+   * @returns The list of requested items.
    */
-  // TODO Document
-  public abstract getItemHistory(itemId: number): Promise<readonly Item[]>;
+  // TODO This returns a page, that contains the items and the total number of items in the backend. Adapt the return type accordingly.
+  public abstract getItems(pageConfig: PageConfig): Promise<Page<Item>>;
 
   /**
    * Changes an item.
-   *
-   * The technical properties of the passed in item (e.g. the ID field)
-   * will be ignored by the backend, as the backend sets them.
    *
    * @returns The modified item.
    */
@@ -50,7 +50,7 @@ export abstract class ItemService {
   public abstract modifyItem(item: Item): Promise<Item>;
 
   /**
-   * Removes the item in the backend.
+   * Removes an item in the backend.
    */
   // TODO Document
   public abstract removeItem(item: Item): Promise<void>;
@@ -58,54 +58,67 @@ export abstract class ItemService {
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
-  // TODO Just for the prototype, replace with actual request and response processing.
-  readonly #items: Item[] = new ItemGenerator().createItems();
+  readonly #url = '/api/api/v1/items';
+
+  readonly #httpClient = inject(HttpClient);
 
   constructor() {
     super();
   }
 
-  // TODO Implement
   public override async addItem(item: Item): Promise<Item> {
-    console.log('Adding items not yet implemented!');
-
-    return item;
+    const body: string = ItemSerializer.serialize(item);
+    const itemJson: string = await firstValueFrom(this.#httpClient.post<string>(this.#url, body));
+    return ItemDeserializer.deserialize(itemJson);
   }
 
-  // TODO Replace with non-dummy logic
-  public override async getItems(filter?: Predicate<Item>): Promise<readonly Item[]> {
-    return Object.freeze(filter ? this.#items.filter(filter) : this.#items);
+  public override async getItemById(id: bigint): Promise<Item | null> {
+    const url: string = this.#url + '/' + id.toString();
+    const itemJson: string = await firstValueFrom(this.#httpClient.get<string>(url));
+    return ItemDeserializer.deserialize(itemJson);
   }
 
-  // TODO Implement
-  public override async getItemHistory(itemId: number): Promise<readonly Item[]> {
-    return Object.freeze([]);
+  public override async getItems(pageConfig: PageConfig): Promise<Page<Item>> {
+    const params: HttpParams = new HttpParams()
+      .set('pageIndex', pageConfig.getPageIndex().toString())
+      .set('pageSize', pageConfig.getPageSize().toString());
+
+    const responseRaw: PageDto<string> = await firstValueFrom(
+      this.#httpClient.get<PageDto<string>>(this.#url, { params }),
+    );
+
+    const items: Item[] = responseRaw.content.map((itemJson: string) =>
+      ItemDeserializer.deserialize(itemJson),
+    );
+
+    return new PageBuilder<Item>()
+      .setContent(items)
+      .setPageIndex(responseRaw.pageIndex)
+      .setPageSize(responseRaw.pageSize)
+      .setTotalElements(responseRaw.totalElements)
+      .setTotalPages(responseRaw.totalPages)
+      .build();
   }
 
-  // TODO Implement
   public override async modifyItem(item: Item): Promise<Item> {
-    console.log('Modifying items not yet implemented!');
-
-    return item;
+    const body: string = ItemSerializer.serialize(item);
+    const url: string = this.#url + '/' + item.getId().toString();
+    const itemJson: string = await firstValueFrom(this.#httpClient.put<string>(url, body));
+    return ItemDeserializer.deserialize(itemJson);
   }
 
   /*
 		Do not throw in that method, if the item doesn't exist anymore.
    	The current client might try to delete an item, that another client already removed.
 	 */
-  // TODO Replace with non-dummy logic
   public override async removeItem(item: Item): Promise<void> {
-    const index: number = this.#items.indexOf(item);
-    if (index >= 0) {
-      this.#items.splice(index, 1);
-    }
+    const url: string = this.#url + '/' + item.getId().toString();
+    await firstValueFrom(this.#httpClient.delete<void>(url));
   }
 }
 
 // Just needed until we have a proper service
 class ItemGenerator {
-  static #currentItemId: number = 0;
-
   public createItems(): Item[] {
     const items: Item[] = [];
 
@@ -120,26 +133,20 @@ class ItemGenerator {
     const books: Item[] = [];
 
     const hp1: Item = new ItemBuilder()
-      .setId(++ItemGenerator.#currentItemId)
       .setTitle("Harry Potter and the Sorcerer's Stone")
       .setMediaType(MediaType.BOOK)
       .setStock(5)
       .setPrice(9.99)
       .setImageUrl('https://hp1-link.com')
-      .setLastModificationTimestamp('bla')
-      .setLastModifyingUserId(123456)
       .build();
     books.push(hp1);
 
     const lotr1: Item = new ItemBuilder()
-      .setId(++ItemGenerator.#currentItemId)
       .setTitle('The Lord of the Rings: The Fellowship of the Ring')
       .setMediaType(MediaType.BOOK)
       .setStock(3)
       .setPrice(12.99)
       .setImageUrl('https://lotr1-link.com')
-      .setLastModificationTimestamp('bla')
-      .setLastModifyingUserId(123456)
       .build();
     books.push(lotr1);
 
@@ -150,26 +157,20 @@ class ItemGenerator {
     const movies: Item[] = [];
 
     const hpMovie: Item = new ItemBuilder()
-      .setId(++ItemGenerator.#currentItemId)
       .setTitle('Harry Potter and the Sorcerer’s Stone (Movie)')
       .setMediaType(MediaType.MOVIE)
       .setStock(2)
       .setPrice(19.99)
       .setImageUrl('https://hp1-movie-link.com')
-      .setLastModificationTimestamp('bla')
-      .setLastModifyingUserId(123456)
       .build();
     movies.push(hpMovie);
 
     const lotrMovie: Item = new ItemBuilder()
-      .setId(++ItemGenerator.#currentItemId)
       .setTitle('The Lord of the Rings: The Fellowship of the Ring (Movie)')
       .setMediaType(MediaType.MOVIE)
       .setStock(1)
       .setPrice(24.99)
       .setImageUrl('https://lotr-movie-link.com')
-      .setLastModificationTimestamp('bla')
-      .setLastModifyingUserId(123456)
       .build();
     movies.push(lotrMovie);
 
@@ -180,26 +181,20 @@ class ItemGenerator {
     const games: Item[] = [];
 
     const stellaris: Item = new ItemBuilder()
-      .setId(++ItemGenerator.#currentItemId)
       .setTitle('Stellaris')
       .setMediaType(MediaType.GAME)
       .setStock(1)
       .setPrice(29.99)
       .setImageUrl('https://stellaris-link.com')
-      .setLastModificationTimestamp('bla')
-      .setLastModifyingUserId(123456)
       .build();
     games.push(stellaris);
 
     const skyrim: Item = new ItemBuilder()
-      .setId(++ItemGenerator.#currentItemId)
       .setTitle('The Elder Scrolls V: Skyrim')
       .setMediaType(MediaType.GAME)
       .setStock(1)
       .setPrice(29.99)
       .setImageUrl('https://skyrim-link.com')
-      .setLastModificationTimestamp('bla')
-      .setLastModifyingUserId(123456)
       .build();
     games.push(skyrim);
 

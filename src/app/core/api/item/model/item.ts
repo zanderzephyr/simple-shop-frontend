@@ -1,4 +1,5 @@
 import { LocalDateTime } from '@js-joda/core';
+import { InvalidStateError } from '@core/utils/common-errors';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -94,12 +95,11 @@ export class Item {
   }
 }
 
-/**
- * Only to be used by the item service.
- */
 export class ItemBuilder {
   /**
    * Is only to be set by the item service.
+   *
+   * For creation, use -1.
    */
   #id?: bigint;
   #title?: string;
@@ -112,6 +112,11 @@ export class ItemBuilder {
    */
   #lastChange?: LocalDateTime;
   #lastChangedBy?: bigint;
+  /**
+   * Is only to be set by the item service.
+   *
+   * For creation, use -1.
+   */
   #version?: bigint;
 
   public constructor() {
@@ -202,7 +207,6 @@ export class ItemBuilder {
 
     return {
       [secretKey]: true,
-      // ! tells the compiler, these values can't be null or undefined.
       id: this.#id!,
       title: this.#title!,
       mediaType: this.#mediaType!,
@@ -217,35 +221,45 @@ export class ItemBuilder {
 
   #validate(): void {
     if (this.#id === undefined || this.#id < 0n) {
-      throw new Error('Invalid item ID!');
+      throw new InvalidStateError('Invalid item ID!');
     }
 
     if (this.#title === undefined) {
-      throw new Error('No item title!');
+      throw new InvalidStateError('No item title!');
     }
 
     if (this.#stock === undefined) {
-      throw new Error('No stock!');
+      throw new InvalidStateError('No stock!');
     }
 
     if (this.#price === undefined) {
-      throw new Error('No item price!');
+      throw new InvalidStateError('No item price!');
     }
 
     if (this.#imageUrl === undefined) {
-      throw new Error('No item image URL!');
+      throw new InvalidStateError('No item image URL!');
     }
 
     if (this.#lastChange === undefined) {
-      throw new Error('No last change timestamp!');
+      throw new InvalidStateError('No last change timestamp!');
     }
 
     if (this.#lastChangedBy === undefined) {
-      throw new Error('No last changed by user ID!');
+      throw new InvalidStateError('No last changed by user ID!');
     }
   }
 
   public build(): Item {
     return new Item(this.#createItemData());
   }
+}
+
+export interface ItemDto {
+  id: string;
+  title: string;
+  mediaType: string;
+  stock: number;
+  price: number;
+  imageUrl: string;
+  version: number;
 }

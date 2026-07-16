@@ -38,3 +38,9 @@ export class InvalidStateError extends BaseError {
     super(message);
   }
 }
+
+export class UnsupportedOperationError extends BaseError {
+  constructor(message?: string) {
+    super(message);
+  }
+}
