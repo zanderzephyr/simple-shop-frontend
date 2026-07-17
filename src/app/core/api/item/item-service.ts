@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemSerializer } from './item-serializer';
 import { Page, PageDto, zodPage } from '@core/utils/page/page';
 import { IllegalArgumentError } from '@core/utils/common-errors';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -70,15 +71,19 @@ class ApiItemService extends ItemService {
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
 
-    const itemDto: ItemDto = await firstValueFrom(
-      this.#httpClient.post<ItemDto>(this.#url, body, options),
+    const itemStream$: Observable<ItemDto> = this.#httpClient.post<ItemDto>(
+      this.#url,
+      body,
+      options,
     );
+    const itemDto: ItemDto = await firstValueFrom(itemStream$);
     return zodItem().parse(itemDto);
   }
 
-  public override async getItemById(id: bigint): Promise<Item | null> {
-    const url: string = this.#url + '/' + id.toString();
-    const itemDto: ItemDto = await firstValueFrom(this.#httpClient.get<ItemDto>(url));
+  public override async getItemById(itemId: bigint): Promise<Item | null> {
+    const url: string = this.#url + '/' + itemId.toString();
+    const itemStream$: Observable<ItemDto> = this.#httpClient.get<ItemDto>(url);
+    const itemDto: ItemDto = await firstValueFrom(itemStream$);
     return zodItem().parse(itemDto);
   }
 
@@ -88,9 +93,11 @@ class ApiItemService extends ItemService {
       .set('pageSize', pageConfig.getPageSize().toString());
     const options = { params };
 
-    const pageDto: PageDto<ItemDto> = await firstValueFrom(
-      this.#httpClient.get<PageDto<ItemDto>>(this.#url, options),
+    const pageStream$: Observable<PageDto<ItemDto>> = this.#httpClient.get<PageDto<ItemDto>>(
+      this.#url,
+      options,
     );
+    const pageDto: PageDto<ItemDto> = await firstValueFrom(pageStream$);
 
     return zodPage(zodItem()).parse(pageDto);
   }
@@ -101,13 +108,12 @@ class ApiItemService extends ItemService {
     if (itemId === undefined) {
       throw new IllegalArgumentError('Item ID is undefined. Cannot modify item without ID.');
     }
-    const url: string = this.#url + '/' + itemId.toString();
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
+    const url: string = this.#url + '/' + itemId.toString();
 
-    const itemDto: ItemDto = await firstValueFrom(
-      this.#httpClient.put<ItemDto>(url, body, options),
-    );
+    const itemStream$: Observable<ItemDto> = this.#httpClient.put<ItemDto>(url, body, options);
+    const itemDto: ItemDto = await firstValueFrom(itemStream$);
     return zodItem().parse(itemDto);
   }
 
@@ -120,8 +126,10 @@ class ApiItemService extends ItemService {
     if (itemId === undefined) {
       throw new IllegalArgumentError('Item ID is undefined. Cannot delete item without ID.');
     }
+
     const url: string = this.#url + '/' + itemId.toString();
-    await firstValueFrom(this.#httpClient.delete(url));
+    const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
+    await firstValueFrom(resultStream$);
   }
 
   #createHeaders(): HttpHeaders {
