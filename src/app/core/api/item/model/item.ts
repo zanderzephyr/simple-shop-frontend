@@ -283,30 +283,32 @@ export interface ItemDto {
 export const dateTimeFormatter: DateTimeFormatter =
   DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss.SSS');
 
+function zodItemDto(): ZodType<ItemDto> {
+  return z.object({
+    id: z.string(),
+    title: z.string(),
+    mediaType: z.string(),
+    stock: z.number(),
+    price: z.number(),
+    imageUrl: z.string(),
+    lastChange: z.string(),
+    lastChangedBy: z.string(),
+    version: z.string(),
+  });
+}
+
 export function zodItem(): ZodType<Item> {
-  return z
-    .object({
-      id: z.string().transform((val) => BigInt(val)),
-      title: z.string(),
-      mediaType: z.string().transform((val) => convertStringToEnum(val, MediaType)!),
-      stock: z.number(),
-      price: z.number(),
-      imageUrl: z.string(),
-      lastChange: z.string().transform((val) => parseLocalDateTime(val, dateTimeFormatter)),
-      lastChangedBy: z.string().transform((val) => BigInt(val)),
-      version: z.string().transform((val) => BigInt(val)),
-    })
-    .transform((data): Item => {
-      return new ItemBuilder()
-        .setId(data.id!)
-        .setTitle(data.title)
-        .setMediaType(data.mediaType)
-        .setStock(data.stock)
-        .setPrice(data.price)
-        .setImageUrl(data.imageUrl)
-        .setLastChange(data.lastChange!)
-        .setLastChangedBy(data.lastChangedBy!)
-        .setVersion(data.version!)
-        .build();
-    });
+  return zodItemDto().transform((data: ItemDto): Item => {
+    return new ItemBuilder()
+      .setId(BigInt(data.id!))
+      .setTitle(data.title)
+      .setMediaType(convertStringToEnum(data.mediaType, MediaType)!)
+      .setStock(data.stock)
+      .setPrice(data.price)
+      .setImageUrl(data.imageUrl)
+      .setLastChange(parseLocalDateTime(data.lastChange!, dateTimeFormatter))
+      .setLastChangedBy(BigInt(data.lastChangedBy!))
+      .setVersion(BigInt(data.version!))
+      .build();
+  });
 }
