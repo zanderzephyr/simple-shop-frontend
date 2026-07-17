@@ -1,6 +1,7 @@
 .header-session-container {
   display: flex;
   flex-direction: row;
+  gap: 10px;
 }
 
 .header-session-menu-admin-actions {
