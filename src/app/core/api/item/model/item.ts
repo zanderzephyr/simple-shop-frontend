@@ -1,7 +1,7 @@
-import { LocalDateTime } from '@js-joda/core';
+import { DateTimeFormatter, LocalDateTime } from '@js-joda/core';
 import { InvalidStateError } from '@core/utils/common-errors';
 import { z, ZodType } from 'zod';
-import { convertStringToEnum } from '@core/utils/data-type-utils';
+import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -12,15 +12,15 @@ const secretKey: symbol = Symbol('secretKey');
  */
 interface ItemData {
   [secretKey]: true; // Marker to prevent external construction
-  id: bigint;
+  id: bigint | undefined;
   title: string;
   mediaType: MediaType;
   stock: number;
   price: number;
   imageUrl: string;
-  lastChange: LocalDateTime;
-  lastChangedBy: bigint;
-  version: bigint;
+  lastChange: LocalDateTime | undefined;
+  lastChangedBy: bigint | undefined;
+  version: bigint | undefined;
 }
 
 export const MediaType: {
@@ -36,15 +36,15 @@ type ValueOf<T> = T[keyof T];
 export type MediaType = ValueOf<typeof MediaType>;
 
 export class Item {
-  readonly #id: bigint;
+  readonly #id: bigint | undefined;
   readonly #title: string;
   readonly #mediaType: MediaType;
   readonly #stock: number;
   readonly #price: number;
   readonly #imageUrl: string;
-  readonly #lastChange: LocalDateTime;
-  readonly #lastChangedBy: bigint;
-  readonly #version: bigint;
+  readonly #lastChange: LocalDateTime | undefined;
+  readonly #lastChangedBy: bigint | undefined;
+  readonly #version: bigint | undefined;
 
   public constructor(itemData: ItemData) {
     this.#id = itemData.id;
@@ -60,7 +60,7 @@ export class Item {
     Object.freeze(this);
   }
 
-  public getId(): bigint {
+  public getId(): bigint | undefined {
     return this.#id;
   }
 
@@ -84,15 +84,15 @@ export class Item {
     return this.#imageUrl;
   }
 
-  public getLastChange(): LocalDateTime {
+  public getLastChange(): LocalDateTime | undefined {
     return this.#lastChange;
   }
 
-  public getLastChangedBy(): bigint {
+  public getLastChangedBy(): bigint | undefined {
     return this.#lastChangedBy;
   }
 
-  public getVersion(): bigint {
+  public getVersion(): bigint | undefined {
     return this.#version;
   }
 }
@@ -100,8 +100,6 @@ export class Item {
 export class ItemBuilder {
   /**
    * Is only to be set by the item service.
-   *
-   * For creation, use -1.
    */
   #id?: bigint;
   #title?: string;
@@ -113,11 +111,12 @@ export class ItemBuilder {
    * Is only to be set by the item service.
    */
   #lastChange?: LocalDateTime;
+  /**
+   * Is only to be set by the item service.
+   */
   #lastChangedBy?: bigint;
   /**
    * Is only to be set by the item service.
-   *
-   * For creation, use -1.
    */
   #version?: bigint;
 
@@ -207,34 +206,39 @@ export class ItemBuilder {
   #createItemData(): ItemData {
     this.#validate();
 
+    // Existence of fields relies on the validation above.
     return {
       [secretKey]: true,
-      id: this.#id!,
+      id: this.#id,
       title: this.#title!,
       mediaType: this.#mediaType!,
       stock: this.#stock!,
       price: this.#price!,
       imageUrl: this.#imageUrl!,
-      lastChange: this.#lastChange!,
-      lastChangedBy: this.#lastChangedBy!,
-      version: this.#version!,
+      lastChange: this.#lastChange,
+      lastChangedBy: this.#lastChangedBy,
+      version: this.#version,
     };
   }
 
   #validate(): void {
-    if (this.#id === undefined || this.#id < -1n) {
+    if (this.#id !== undefined && this.#id < 0n) {
       throw new InvalidStateError('Invalid item ID!');
+    }
+
+    if (this.#lastChangedBy !== undefined && this.#lastChangedBy < 0n) {
+      throw new InvalidStateError('Invalid last changed by!');
     }
 
     if (this.#title === undefined) {
       throw new InvalidStateError('No item title!');
     }
 
-    if (this.#stock === undefined) {
+    if (this.#stock === undefined || this.#stock < 0) {
       throw new InvalidStateError('No stock!');
     }
 
-    if (this.#price === undefined) {
+    if (this.#price === undefined || this.#price < 0) {
       throw new InvalidStateError('No item price!');
     }
 
@@ -242,7 +246,7 @@ export class ItemBuilder {
       throw new InvalidStateError('No item image URL!');
     }
 
-    if (this.#version === undefined || this.#version < -1n) {
+    if (this.#version !== undefined && this.#version < 0n) {
       throw new InvalidStateError('Invalid item version!');
     }
   }
@@ -253,14 +257,31 @@ export class ItemBuilder {
 }
 
 export interface ItemDto {
-  id: string;
+  /**
+   * Can be missing to the backend, never from the backend.
+   */
+  id: string | undefined;
   title: string;
   mediaType: string;
   stock: number;
   price: number;
   imageUrl: string;
-  version: number;
+  /**
+   * Can be missing to the backend, never from the backend.
+   */
+  lastChange: string | undefined;
+  /**
+   * Can be missing to the backend, never from the backend.
+   */
+  lastChangedBy: string | undefined;
+  /**
+   * Can be missing to the backend, never from the backend.
+   */
+  version: string | undefined;
 }
+
+export const dateTimeFormatter: DateTimeFormatter =
+  DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss.SSS');
 
 export function zodItem(): ZodType<Item> {
   return z
@@ -271,17 +292,21 @@ export function zodItem(): ZodType<Item> {
       stock: z.number(),
       price: z.number(),
       imageUrl: z.string(),
+      lastChange: z.string().transform((val) => parseLocalDateTime(val, dateTimeFormatter)),
+      lastChangedBy: z.string().transform((val) => BigInt(val)),
       version: z.string().transform((val) => BigInt(val)),
     })
     .transform((data): Item => {
       return new ItemBuilder()
-        .setId(data.id)
+        .setId(data.id!)
         .setTitle(data.title)
         .setMediaType(data.mediaType)
         .setStock(data.stock)
         .setPrice(data.price)
         .setImageUrl(data.imageUrl)
-        .setVersion(data.version)
+        .setLastChange(data.lastChange!)
+        .setLastChangedBy(data.lastChangedBy!)
+        .setVersion(data.version!)
         .build();
     });
 }

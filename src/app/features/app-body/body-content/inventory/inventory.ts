@@ -47,7 +47,7 @@ export class InventoryComponent {
   public constructor() {
     // TODO Remove. Just for testing.
     this.#initItems();
-
+    /*
     effect(() => {
       const page: Page<Item> | undefined = this.#page();
       this.table.getTableModel().removeAllRows();
@@ -57,6 +57,7 @@ export class InventoryComponent {
     });
 
     this.refresh();
+		*/
   }
 
   // TODO Remove. Just for testing.
@@ -147,8 +148,6 @@ class ItemGenerator {
       .setStock(5)
       .setPrice(9.99)
       .setImageUrl('https://hp1-link.com')
-      .setId(-1n)
-      .setVersion(-1n)
       .build();
     books.push(hp1);
 
@@ -158,8 +157,6 @@ class ItemGenerator {
       .setStock(3)
       .setPrice(12.99)
       .setImageUrl('https://lotr1-link.com')
-      .setId(-1n)
-      .setVersion(-1n)
       .build();
     books.push(lotr1);
 
@@ -175,8 +172,6 @@ class ItemGenerator {
       .setStock(2)
       .setPrice(19.99)
       .setImageUrl('https://hp1-movie-link.com')
-      .setId(-1n)
-      .setVersion(-1n)
       .build();
     movies.push(hpMovie);
 
@@ -186,8 +181,6 @@ class ItemGenerator {
       .setStock(1)
       .setPrice(24.99)
       .setImageUrl('https://lotr-movie-link.com')
-      .setId(-1n)
-      .setVersion(-1n)
       .build();
     movies.push(lotrMovie);
 
@@ -203,8 +196,6 @@ class ItemGenerator {
       .setStock(1)
       .setPrice(29.99)
       .setImageUrl('https://stellaris-link.com')
-      .setId(-1n)
-      .setVersion(-1n)
       .build();
     games.push(stellaris);
 
@@ -214,8 +205,6 @@ class ItemGenerator {
       .setStock(1)
       .setPrice(29.99)
       .setImageUrl('https://skyrim-link.com')
-      .setId(-1n)
-      .setVersion(-1n)
       .build();
     games.push(skyrim);
 

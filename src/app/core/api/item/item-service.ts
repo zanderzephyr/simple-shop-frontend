@@ -1,10 +1,11 @@
-import { Item, ItemBuilder, ItemDto, MediaType, zodItem } from '@api/item/model/item';
+import { Item, ItemDto, zodItem } from '@api/item/model/item';
 import { firstValueFrom } from 'rxjs';
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { PageConfig } from '@app/core/utils/page/page-config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemSerializer } from './item-serializer';
-import { Page, PageBuilder, PageDto, zodPage } from '@core/utils/page/page';
+import { Page, PageDto, zodPage } from '@core/utils/page/page';
+import { IllegalArgumentError } from '@core/utils/common-errors';
 
 @Injectable({
   providedIn: 'root',
@@ -16,7 +17,6 @@ export abstract class ItemService {
   /**
    * Adds a new item and returns the created item.
    *
-   * An item to create must have id and version of -1.
    * The backend will set the technical properties of the item (e.g. the ID field)
    * and return the created item.
    *
@@ -97,7 +97,11 @@ class ApiItemService extends ItemService {
 
   public override async modifyItem(item: Item): Promise<Item> {
     const body: string = ItemSerializer.serialize(item);
-    const url: string = this.#url + '/' + item.getId().toString();
+    const itemId: bigint | undefined = item.getId();
+    if (itemId === undefined) {
+      throw new IllegalArgumentError('Item ID is undefined. Cannot modify item without ID.');
+    }
+    const url: string = this.#url + '/' + itemId.toString();
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
 
@@ -112,7 +116,11 @@ class ApiItemService extends ItemService {
    	The current client might try to delete an item, that another client already removed.
 	 */
   public override async deleteItem(item: Item): Promise<void> {
-    const url: string = this.#url + '/' + item.getId().toString();
+    const itemId: bigint | undefined = item.getId();
+    if (itemId === undefined) {
+      throw new IllegalArgumentError('Item ID is undefined. Cannot delete item without ID.');
+    }
+    const url: string = this.#url + '/' + itemId.toString();
     await firstValueFrom(this.#httpClient.delete(url));
   }
 
