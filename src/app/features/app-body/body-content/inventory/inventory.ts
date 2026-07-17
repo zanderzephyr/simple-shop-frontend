@@ -46,8 +46,8 @@ export class InventoryComponent {
 
   public constructor() {
     // TODO Remove. Just for testing.
-    this.#initItems();
-    /*
+    //this.#initItems();
+
     effect(() => {
       const page: Page<Item> | undefined = this.#page();
       this.table.getTableModel().removeAllRows();
@@ -57,7 +57,6 @@ export class InventoryComponent {
     });
 
     this.refresh();
-		*/
   }
 
   // TODO Remove. Just for testing.
