@@ -1,4 +1,5 @@
 import { InvalidStateError } from '@core/utils/common-errors';
+import { z, ZodType } from 'zod';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -155,4 +156,24 @@ export interface PageDto<T> {
   pageSize: number;
   totalElements: number;
   totalPages: number;
+}
+
+export function zodPage<T>(innerSchema: ZodType<T>): ZodType<Page<T>> {
+  return z
+    .object({
+      content: z.array(innerSchema),
+      pageIndex: z.number(),
+      pageSize: z.number(),
+      totalElements: z.number(),
+      totalPages: z.number(),
+    })
+    .transform((data): Page<T> => {
+      return new PageBuilder<T>()
+        .setContent(data.content)
+        .setPageIndex(data.pageIndex)
+        .setPageSize(data.pageSize)
+        .setTotalElements(data.totalElements)
+        .setTotalPages(data.totalPages)
+        .build();
+    });
 }

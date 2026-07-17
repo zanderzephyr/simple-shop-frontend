@@ -4,5 +4,10 @@
     <span>Create Item</span>
   </button>
 
+  <button class="inventory-container-refresh-button" mat-raised-button (click)="refresh()">
+    <mat-icon>refresh</mat-icon>
+    <span>Refresh</span>
+  </button>
+
   <app-ng-mat-table class="inventory-container-table" [table]="table"> </app-ng-mat-table>
 </div>

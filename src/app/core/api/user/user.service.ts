@@ -9,7 +9,7 @@ export abstract class UserService {
   public constructor() {}
 
   // TODO Document and reconsider return value
-  public abstract addUser(user: User): Promise<void>;
+  public abstract createUser(user: User): Promise<void>;
 
   // TODO Document and reconsider return value
   public abstract getUsers(): Promise<readonly User[]>;
@@ -27,7 +27,7 @@ export abstract class UserService {
   public abstract modifyUser(user: User): Promise<void>;
 
   // TODO Document and reconsider return value
-  public abstract removeUser(user: User): Promise<void>;
+  public abstract deleteUser(user: User): Promise<void>;
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
@@ -38,7 +38,7 @@ class ApiUserService extends UserService {
     super();
   }
 
-  public override async addUser(user: User): Promise<void> {
+  public override async createUser(user: User): Promise<void> {
     // TODO
     console.log('Adding users not yet implemented!');
   }
@@ -57,9 +57,9 @@ class ApiUserService extends UserService {
     console.log('Modifying users not yet implemented!');
   }
 
-  public override async removeUser(user: User): Promise<void> {
+  public override async deleteUser(user: User): Promise<void> {
     // TODO
-    console.log('Removing users not yet implemented!');
+    console.log('Deleting users not yet implemented!');
   }
 }
 

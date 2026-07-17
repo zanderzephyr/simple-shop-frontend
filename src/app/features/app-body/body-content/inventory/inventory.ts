@@ -1,4 +1,4 @@
-import { inject, Component } from '@angular/core';
+import { inject, Component, WritableSignal, signal, effect } from '@angular/core';
 import {
   inventoryColumnDescriptions,
   extractItemValue,
@@ -12,12 +12,14 @@ import { Table } from '@ui/table/interface/table';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { DefaultTable } from '@ui/table/default/default-table';
 import { ItemService } from '@api/item/item-service';
-import { Item } from '@api/item/model/item';
+import { Item, ItemBuilder, MediaType } from '@api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
 import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { Consumer } from '@core/utils/functional-interfaces';
+import { Page } from '@app/core/utils/page/page';
+import { PageConfig } from '@app/core/utils/page/page-config';
 
 @Component({
   selector: 'app-inventory',
@@ -26,23 +28,7 @@ import { Consumer } from '@core/utils/functional-interfaces';
   styleUrl: './inventory.css',
 })
 export class InventoryComponent {
-  /*
-		TODO Deal with the item service properly. For now, I completely work around this,
-		until the details of the backend are specified. The item service for now is simply
-		an initial test data supplier. We don't keep it up to date and we don't receive
-		updates from it.
-		
-		Consider how to deal with a big amount of items, how to keep it in synch with the backend and so on.
-		Make sure, the table activities don't break that synching approach.
-		Maybe deal with huge amounts of data by having paginators
-		( https://v12.material.angular.io/components/paginator/overview )?
-
-		How should we deal with item service updates? They could be full table updates
-		or iteratively / step by step modifications, we could process. Full table updates
-		would probably be less efficient.
-	*/
   readonly #itemService: ItemService = inject(ItemService);
-  #items: readonly Item[] | undefined;
 
   protected readonly table: Table = new DefaultTable(
     /*
@@ -53,15 +39,31 @@ export class InventoryComponent {
     new DefaultTableColumnModel(inventoryColumnDescriptions),
   );
 
+  readonly #page: WritableSignal<Page<Item> | undefined> = signal(undefined);
+
+  protected readonly currentPageIndex: WritableSignal<number> = signal(0);
+  protected readonly pageSize: WritableSignal<number> = signal(20);
+
   public constructor() {
-    this.#initTableContent();
+    // TODO Remove. Just for testing.
+    this.#initItems();
+
+    effect(() => {
+      const page: Page<Item> | undefined = this.#page();
+      this.table.getTableModel().removeAllRows();
+      if (page !== undefined) {
+        page.getContent().forEach((item: Item) => this.#addItem(item));
+      }
+    });
+
+    this.refresh();
   }
 
-  async #initTableContent(): Promise<void> {
-    if (this.#items === undefined) {
-      console.log('Init inventory items');
-      this.#items = await this.#itemService.getItems();
-      this.#items.forEach(this.#addItem.bind(this));
+  // TODO Remove. Just for testing.
+  async #initItems(): Promise<void> {
+    const items: Item[] = new ItemGenerator().createItems();
+    for (const item of items) {
+      await this.#itemService.createItem(item);
     }
   }
 
@@ -96,18 +98,127 @@ export class InventoryComponent {
 
     return map;
   }
+
+  protected refresh(): void {
+    const pageConfig: PageConfig = new PageConfig(this.currentPageIndex(), this.pageSize());
+    this.#itemService.getItems(pageConfig).then((page: Page<Item>) => this.#page.set(page));
+  }
+
   protected add(): void {
-    // TODO Implement add functionality
+    // TODO Show dialog to create an item. Save item in backend and refresh the table.
+    //this.#itemService.addItem(item).then((createdItem: Item) => this.refresh());
     console.log('Add action triggered');
   }
 
   #modify(tableCellContext: TableCellContext, item: Item): void {
-    // TODO Implement modify functionality
+    // TODO Show dialog to modify the item. Save item in backend and refresh the table.
+    //this.#itemService.modifyItem(item).then((modifiedItem: Item) => this.refresh());
     console.log('Modify action triggered');
   }
 
-  // TODO Remove via item service. Either directly or indirectly via item service update the table model.
   #delete(tableCellContext: TableCellContext, item: Item): void {
-    this.table.getTableModel().removeRow(tableCellContext.getRowViewIndex());
+    // TODO Is it safe, to stay on the same page after deletion? What if the last item on the page is deleted?
+    this.#itemService.deleteItem(item).then(() => this.refresh());
+  }
+}
+
+// Just needed until we have a proper service
+class ItemGenerator {
+  constructor() {
+    // Nothing so far
+  }
+
+  public createItems(): Item[] {
+    const items: Item[] = [];
+
+    items.push(...this.#createBooks());
+    items.push(...this.#createMovies());
+    items.push(...this.#createGames());
+
+    return items;
+  }
+
+  #createBooks(): Item[] {
+    const books: Item[] = [];
+
+    const hp1: Item = new ItemBuilder()
+      .setTitle("Harry Potter and the Sorcerer's Stone")
+      .setMediaType(MediaType.BOOK)
+      .setStock(5)
+      .setPrice(9.99)
+      .setImageUrl('https://hp1-link.com')
+      .setId(-1n)
+      .setVersion(-1n)
+      .build();
+    books.push(hp1);
+
+    const lotr1: Item = new ItemBuilder()
+      .setTitle('The Lord of the Rings: The Fellowship of the Ring')
+      .setMediaType(MediaType.BOOK)
+      .setStock(3)
+      .setPrice(12.99)
+      .setImageUrl('https://lotr1-link.com')
+      .setId(-1n)
+      .setVersion(-1n)
+      .build();
+    books.push(lotr1);
+
+    return books;
+  }
+
+  #createMovies(): Item[] {
+    const movies: Item[] = [];
+
+    const hpMovie: Item = new ItemBuilder()
+      .setTitle('Harry Potter and the Sorcerer’s Stone (Movie)')
+      .setMediaType(MediaType.MOVIE)
+      .setStock(2)
+      .setPrice(19.99)
+      .setImageUrl('https://hp1-movie-link.com')
+      .setId(-1n)
+      .setVersion(-1n)
+      .build();
+    movies.push(hpMovie);
+
+    const lotrMovie: Item = new ItemBuilder()
+      .setTitle('The Lord of the Rings: The Fellowship of the Ring (Movie)')
+      .setMediaType(MediaType.MOVIE)
+      .setStock(1)
+      .setPrice(24.99)
+      .setImageUrl('https://lotr-movie-link.com')
+      .setId(-1n)
+      .setVersion(-1n)
+      .build();
+    movies.push(lotrMovie);
+
+    return movies;
+  }
+
+  #createGames(): Item[] {
+    const games: Item[] = [];
+
+    const stellaris: Item = new ItemBuilder()
+      .setTitle('Stellaris')
+      .setMediaType(MediaType.GAME)
+      .setStock(1)
+      .setPrice(29.99)
+      .setImageUrl('https://stellaris-link.com')
+      .setId(-1n)
+      .setVersion(-1n)
+      .build();
+    games.push(stellaris);
+
+    const skyrim: Item = new ItemBuilder()
+      .setTitle('The Elder Scrolls V: Skyrim')
+      .setMediaType(MediaType.GAME)
+      .setStock(1)
+      .setPrice(29.99)
+      .setImageUrl('https://skyrim-link.com')
+      .setId(-1n)
+      .setVersion(-1n)
+      .build();
+    games.push(skyrim);
+
+    return games;
   }
 }

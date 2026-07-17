@@ -1,5 +1,7 @@
 import { LocalDateTime } from '@js-joda/core';
 import { InvalidStateError } from '@core/utils/common-errors';
+import { z, ZodType } from 'zod';
+import { convertStringToEnum } from '@core/utils/data-type-utils';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -220,7 +222,7 @@ export class ItemBuilder {
   }
 
   #validate(): void {
-    if (this.#id === undefined || this.#id < 0n) {
+    if (this.#id === undefined || this.#id < -1n) {
       throw new InvalidStateError('Invalid item ID!');
     }
 
@@ -240,12 +242,8 @@ export class ItemBuilder {
       throw new InvalidStateError('No item image URL!');
     }
 
-    if (this.#lastChange === undefined) {
-      throw new InvalidStateError('No last change timestamp!');
-    }
-
-    if (this.#lastChangedBy === undefined) {
-      throw new InvalidStateError('No last changed by user ID!');
+    if (this.#version === undefined || this.#version < -1n) {
+      throw new InvalidStateError('Invalid item version!');
     }
   }
 
@@ -262,4 +260,28 @@ export interface ItemDto {
   price: number;
   imageUrl: string;
   version: number;
+}
+
+export function zodItem(): ZodType<Item> {
+  return z
+    .object({
+      id: z.string().transform((val) => BigInt(val)),
+      title: z.string(),
+      mediaType: z.string().transform((val) => convertStringToEnum(val, MediaType)!),
+      stock: z.number(),
+      price: z.number(),
+      imageUrl: z.string(),
+      version: z.string().transform((val) => BigInt(val)),
+    })
+    .transform((data): Item => {
+      return new ItemBuilder()
+        .setId(data.id)
+        .setTitle(data.title)
+        .setMediaType(data.mediaType)
+        .setStock(data.stock)
+        .setPrice(data.price)
+        .setImageUrl(data.imageUrl)
+        .setVersion(data.version)
+        .build();
+    });
 }

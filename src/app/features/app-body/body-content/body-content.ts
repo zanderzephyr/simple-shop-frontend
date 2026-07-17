@@ -9,6 +9,7 @@ import {
   openWarningDialog,
   openErrorDialog,
 } from '@ui/dialog/interface/dialog-service';
+import { PageConfig } from '@app/core/utils/page/page-config';
 
 @Component({
   selector: 'app-body-content',
@@ -28,7 +29,10 @@ export class BodyContentComponent {
   }
 
   protected async addSearchResults(): Promise<void> {
-    const items: readonly Item[] = await this.#itemService.getItems();
+    const pageConfig: PageConfig = new PageConfig(0, 20);
+    const items: readonly Item[] = await this.#itemService
+      .getItems(pageConfig)
+      .then((page) => page.getContent());
     this.#itemSearchResults.addSearchResults(items);
   }
 

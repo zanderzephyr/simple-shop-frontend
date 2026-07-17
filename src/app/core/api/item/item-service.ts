@@ -1,11 +1,10 @@
-import { Item, ItemBuilder, ItemDto, MediaType } from '@api/item/model/item';
+import { Item, ItemBuilder, ItemDto, MediaType, zodItem } from '@api/item/model/item';
 import { firstValueFrom } from 'rxjs';
 import { forwardRef, inject, Injectable } from '@angular/core';
-import { PageConfig } from '@app/core/utils/page-config';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { PageConfig } from '@app/core/utils/page/page-config';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemSerializer } from './item-serializer';
-import { Page, PageBuilder, PageDto } from '@core/utils/page';
-import { ItemDeserializer } from './item-deserializer';
+import { Page, PageBuilder, PageDto, zodPage } from '@core/utils/page/page';
 
 @Injectable({
   providedIn: 'root',
@@ -17,14 +16,14 @@ export abstract class ItemService {
   /**
    * Adds a new item and returns the created item.
    *
-   * An item to create must have id of -1 and version of null.
+   * An item to create must have id and version of -1.
    * The backend will set the technical properties of the item (e.g. the ID field)
    * and return the created item.
    *
    * @returns The item created by the backend.
    */
   // TODO Document
-  public abstract addItem(item: Item): Promise<Item>;
+  public abstract createItem(item: Item): Promise<Item>;
 
   /**
    * Requests an item by its ID from the backend.
@@ -53,7 +52,7 @@ export abstract class ItemService {
    * Removes an item in the backend.
    */
   // TODO Document
-  public abstract removeItem(item: Item): Promise<void>;
+  public abstract deleteItem(item: Item): Promise<void>;
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
@@ -66,138 +65,58 @@ class ApiItemService extends ItemService {
     super();
   }
 
-  public override async addItem(item: Item): Promise<Item> {
+  public override async createItem(item: Item): Promise<Item> {
     const body: string = ItemSerializer.serialize(item);
-    const itemJson: string = await firstValueFrom(this.#httpClient.post<string>(this.#url, body));
-    return ItemDeserializer.deserialize(itemJson);
+    const headers: HttpHeaders = this.#createHeaders();
+    const options = { headers };
+
+    const itemDto: ItemDto = await firstValueFrom(
+      this.#httpClient.post<ItemDto>(this.#url, body, options),
+    );
+    return zodItem().parse(itemDto);
   }
 
   public override async getItemById(id: bigint): Promise<Item | null> {
     const url: string = this.#url + '/' + id.toString();
-    const itemJson: string = await firstValueFrom(this.#httpClient.get<string>(url));
-    return ItemDeserializer.deserialize(itemJson);
+    const itemDto: ItemDto = await firstValueFrom(this.#httpClient.get<ItemDto>(url));
+    return zodItem().parse(itemDto);
   }
 
   public override async getItems(pageConfig: PageConfig): Promise<Page<Item>> {
     const params: HttpParams = new HttpParams()
       .set('pageIndex', pageConfig.getPageIndex().toString())
       .set('pageSize', pageConfig.getPageSize().toString());
+    const options = { params };
 
-    const responseRaw: PageDto<string> = await firstValueFrom(
-      this.#httpClient.get<PageDto<string>>(this.#url, { params }),
+    const pageDto: PageDto<ItemDto> = await firstValueFrom(
+      this.#httpClient.get<PageDto<ItemDto>>(this.#url, options),
     );
 
-    const items: Item[] = responseRaw.content.map((itemJson: string) =>
-      ItemDeserializer.deserialize(itemJson),
-    );
-
-    return new PageBuilder<Item>()
-      .setContent(items)
-      .setPageIndex(responseRaw.pageIndex)
-      .setPageSize(responseRaw.pageSize)
-      .setTotalElements(responseRaw.totalElements)
-      .setTotalPages(responseRaw.totalPages)
-      .build();
+    return zodPage(zodItem()).parse(pageDto);
   }
 
   public override async modifyItem(item: Item): Promise<Item> {
     const body: string = ItemSerializer.serialize(item);
     const url: string = this.#url + '/' + item.getId().toString();
-    const itemJson: string = await firstValueFrom(this.#httpClient.put<string>(url, body));
-    return ItemDeserializer.deserialize(itemJson);
+    const headers: HttpHeaders = this.#createHeaders();
+    const options = { headers };
+
+    const itemDto: ItemDto = await firstValueFrom(
+      this.#httpClient.put<ItemDto>(url, body, options),
+    );
+    return zodItem().parse(itemDto);
   }
 
   /*
 		Do not throw in that method, if the item doesn't exist anymore.
    	The current client might try to delete an item, that another client already removed.
 	 */
-  public override async removeItem(item: Item): Promise<void> {
+  public override async deleteItem(item: Item): Promise<void> {
     const url: string = this.#url + '/' + item.getId().toString();
-    await firstValueFrom(this.#httpClient.delete<void>(url));
-  }
-}
-
-// Just needed until we have a proper service
-class ItemGenerator {
-  public createItems(): Item[] {
-    const items: Item[] = [];
-
-    items.push(...this.#createBooks());
-    items.push(...this.#createMovies());
-    items.push(...this.#createGames());
-
-    return items;
+    await firstValueFrom(this.#httpClient.delete(url));
   }
 
-  #createBooks(): Item[] {
-    const books: Item[] = [];
-
-    const hp1: Item = new ItemBuilder()
-      .setTitle("Harry Potter and the Sorcerer's Stone")
-      .setMediaType(MediaType.BOOK)
-      .setStock(5)
-      .setPrice(9.99)
-      .setImageUrl('https://hp1-link.com')
-      .build();
-    books.push(hp1);
-
-    const lotr1: Item = new ItemBuilder()
-      .setTitle('The Lord of the Rings: The Fellowship of the Ring')
-      .setMediaType(MediaType.BOOK)
-      .setStock(3)
-      .setPrice(12.99)
-      .setImageUrl('https://lotr1-link.com')
-      .build();
-    books.push(lotr1);
-
-    return books;
-  }
-
-  #createMovies(): Item[] {
-    const movies: Item[] = [];
-
-    const hpMovie: Item = new ItemBuilder()
-      .setTitle('Harry Potter and the Sorcerer’s Stone (Movie)')
-      .setMediaType(MediaType.MOVIE)
-      .setStock(2)
-      .setPrice(19.99)
-      .setImageUrl('https://hp1-movie-link.com')
-      .build();
-    movies.push(hpMovie);
-
-    const lotrMovie: Item = new ItemBuilder()
-      .setTitle('The Lord of the Rings: The Fellowship of the Ring (Movie)')
-      .setMediaType(MediaType.MOVIE)
-      .setStock(1)
-      .setPrice(24.99)
-      .setImageUrl('https://lotr-movie-link.com')
-      .build();
-    movies.push(lotrMovie);
-
-    return movies;
-  }
-
-  #createGames(): Item[] {
-    const games: Item[] = [];
-
-    const stellaris: Item = new ItemBuilder()
-      .setTitle('Stellaris')
-      .setMediaType(MediaType.GAME)
-      .setStock(1)
-      .setPrice(29.99)
-      .setImageUrl('https://stellaris-link.com')
-      .build();
-    games.push(stellaris);
-
-    const skyrim: Item = new ItemBuilder()
-      .setTitle('The Elder Scrolls V: Skyrim')
-      .setMediaType(MediaType.GAME)
-      .setStock(1)
-      .setPrice(29.99)
-      .setImageUrl('https://skyrim-link.com')
-      .build();
-    games.push(skyrim);
-
-    return games;
+  #createHeaders(): HttpHeaders {
+    return new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   }
 }
