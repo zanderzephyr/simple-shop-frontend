@@ -1,13 +1,15 @@
 <div class="inventory-container">
-  <button class="inventory-container-add-button" mat-raised-button (click)="add()">
-    <mat-icon>add</mat-icon>
-    <span>Create Item</span>
-  </button>
+  <div class="inventory-container-header">
+    <button class="inventory-container-refresh-button" mat-raised-button (click)="refresh()">
+      <mat-icon>refresh</mat-icon>
+      <span>Refresh</span>
+    </button>
 
-  <button class="inventory-container-refresh-button" mat-raised-button (click)="refresh()">
-    <mat-icon>refresh</mat-icon>
-    <span>Refresh</span>
-  </button>
+    <button class="inventory-container-add-button" mat-raised-button (click)="add()">
+      <mat-icon>add</mat-icon>
+      <span>Create Item</span>
+    </button>
+  </div>
 
   <app-ng-mat-table class="inventory-container-table" [table]="table"> </app-ng-mat-table>
 </div>

@@ -1,3 +1,9 @@
+.inventory-container-header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
 .inventory-container-add-button {
   display: flex;
   flex-direction: row;
