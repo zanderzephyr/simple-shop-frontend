@@ -1,5 +1,5 @@
 import { ButtonConfiguration } from '@ui/button/button-configuration';
-import { MessageDialogContentData } from './message-dialog-content-data';
+import { MessageDialogData } from './message-dialog-data';
 import { MessageDialogResult } from './message-dialog-result';
 import { GeneralDialogContentComponent } from '@app/core/ui/dialog/general-dialog/general-dialog-content';
 import { Directive, signal, Signal } from '@angular/core';
@@ -7,10 +7,7 @@ import { Directive, signal, Signal } from '@angular/core';
 @Directive()
 export abstract class MessageDialogComponent<
   CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,
-> extends GeneralDialogContentComponent<
-  MessageDialogContentData<CONTENT_TYPE>,
-  MessageDialogResult
-> {
+> extends GeneralDialogContentComponent<MessageDialogData<CONTENT_TYPE>, MessageDialogResult> {
   #confirmButtonConfiguration: ButtonConfiguration = this.#createConfirmButtonConfiguration();
 
   #cancelButtonConfiguration: ButtonConfiguration = this.#createCancelButtonConfiguration();

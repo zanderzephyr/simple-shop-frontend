@@ -1,7 +1,7 @@
-import { MessageDialogContentData } from '@ui/dialog/message-dialog/message-dialog-content-data';
+import { MessageDialogData } from '@app/core/ui/dialog/message-dialog/message-dialog-data';
 import { InfoDialogComponent } from './info-dialog';
 
-export class InfoDialogContentData extends MessageDialogContentData<InfoDialogComponent> {
+export class InfoDialogContentData extends MessageDialogData<InfoDialogComponent> {
   public constructor(message: string, title?: string) {
     super(message, title ?? 'Info', InfoDialogComponent);
   }

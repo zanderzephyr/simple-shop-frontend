@@ -5,7 +5,7 @@ import { GeneralDialogComponent } from '@app/core/ui/dialog/general-dialog/gener
 import { InfoDialogContentData } from '@ui/dialog/message-dialog/info-dialog/info-dialog-content-data';
 import { WarningDialogContentData } from '@ui/dialog/message-dialog/warning-dialog/warning-dialog-content-data';
 import { ErrorDialogContentData } from '@ui/dialog/message-dialog/error-dialog/error-dialog-content-data';
-import { MessageDialogContentData } from '@ui/dialog/message-dialog/message-dialog-content-data';
+import { MessageDialogData } from '@app/core/ui/dialog/message-dialog/message-dialog-data';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 import { Consumer } from '@core/utils/functional-interfaces';
 
@@ -40,7 +40,7 @@ export function openErrorDialog(
   return openDialog(dialogService, message, ErrorDialogContentData, configurer);
 }
 
-function openDialog<DATA extends MessageDialogContentData<any>>(
+function openDialog<DATA extends MessageDialogData<any>>(
   dialogService: DialogService,
   message: string,
   dataConstructor: new (message: string) => DATA,
