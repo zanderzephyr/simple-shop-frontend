@@ -16,40 +16,76 @@ export abstract class DialogService {
   public abstract open<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): DialogReference<RESULT>;
 }
 
+/*
+Example code:
+	protected async showInfoDialog(): Promise<void> {
+    const dialogReference: DialogReference<MessageDialogResult> = openInfoDialog(
+      this.#dialogService,
+      'You are awesome!!',
+      (config) => config.setDisableClose(true),
+    );
+    const dialogResult = await dialogReference.getResult();
+    console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
+  }
+*/
 export function openInfoDialog(
   dialogService: DialogService,
   message: string,
   configurer?: Consumer<DialogConfig<InfoDialogData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  return openDialog(dialogService, message, InfoDialogData, configurer);
+  const dialogData: InfoDialogData = new InfoDialogData(message);
+  return openDialog(dialogService, dialogData, configurer);
 }
 
+/*
+Example code:
+	protected async showWarningDialog(): Promise<void> {
+    const dialogReference: DialogReference<MessageDialogResult> = openWarningDialog(
+      this.#dialogService,
+      'Are you sure?!',
+      (config) => config.setDisableClose(true),
+    );
+    const dialogResult = await dialogReference.getResult();
+    console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
+  }
+*/
 export function openWarningDialog(
   dialogService: DialogService,
   message: string,
   configurer?: Consumer<DialogConfig<WarningDialogData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  return openDialog(dialogService, message, WarningDialogData, configurer);
+  const dialogData: WarningDialogData = new WarningDialogData(message);
+  return openDialog(dialogService, dialogData, configurer);
 }
 
+/*
+Example code:
+	protected async showErrorDialog(): Promise<void> {
+    const dialogReference: DialogReference<MessageDialogResult> = openErrorDialog(
+      this.#dialogService,
+      'Nooo, sir!!',
+      (config) => config.setDisableClose(true),
+    );
+    const dialogResult = await dialogReference.getResult();
+    console.log(`Dialog result: ${dialogResult?.id ?? 'undefined'}`);
+  }
+*/
 export function openErrorDialog(
   dialogService: DialogService,
   message: string,
   configurer?: Consumer<DialogConfig<ErrorDialogData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  return openDialog(dialogService, message, ErrorDialogData, configurer);
+  const dialogData: ErrorDialogData = new ErrorDialogData(message);
+  return openDialog(dialogService, dialogData, configurer);
 }
 
 function openDialog<DATA extends MessageDialogData<any>>(
   dialogService: DialogService,
-  message: string,
-  dataConstructor: new (message: string) => DATA,
+  dialogData: DATA,
   configurer?: Consumer<DialogConfig<DATA, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  const dialogContentData = new dataConstructor(message);
-
   const dialogConfiguration = new DialogConfig<DATA, MessageDialogResult>(
-    dialogContentData,
+    dialogData,
     GeneralDialogComponent,
   );
 

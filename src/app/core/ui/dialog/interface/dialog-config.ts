@@ -16,15 +16,15 @@ export class DialogConfig<DATA, RESULT> {
 
   #contentComponentType: Type<DialogContentComponent<DATA, RESULT>>;
 
-  #dialogContentData: DATA;
+  #dialogData: DATA;
 
   #injector: Injector | undefined;
 
   public constructor(
-    dialogContentData: DATA,
+    dialogData: DATA,
     contentComponentType: Type<DialogContentComponent<DATA, RESULT>>,
   ) {
-    this.#dialogContentData = dialogContentData;
+    this.#dialogData = dialogData;
     this.#contentComponentType = contentComponentType;
   }
 
@@ -74,12 +74,12 @@ export class DialogConfig<DATA, RESULT> {
     return this;
   }
 
-  public getDialogContentData(): DATA {
-    return this.#dialogContentData;
+  public getDialogData(): DATA {
+    return this.#dialogData;
   }
 
-  public setDialogContentData(dialogContentData: DATA): this {
-    this.#dialogContentData = dialogContentData;
+  public setDialogData(dialogData: DATA): this {
+    this.#dialogData = dialogData;
 
     return this;
   }

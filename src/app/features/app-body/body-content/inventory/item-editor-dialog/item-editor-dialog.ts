@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { ItemEditorDialogData } from './item-editor-dialog-data';
-import { Item } from '@api/item/model/item';
+import { Item, ItemBuilder } from '@api/item/model/item';
 
 @Component({
   selector: 'app-item-editor-dialog',
@@ -18,15 +18,21 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
   }
 
   protected override onConfirm(): void {
-    // TODO
-    //this.setResult(MessageDialogResult.CONFIRM);
+    this.setResult(this.#createItem());
 
     super.onConfirm();
   }
 
+  #createItem(): Item {
+    return (
+      new ItemBuilder() //
+        // TODO
+        .build()
+    );
+  }
+
   protected override onCancel(): void {
-    // TODO
-    //this.setResult(MessageDialogResult.CANCEL);
+    this.setResult(undefined);
 
     super.onCancel();
   }

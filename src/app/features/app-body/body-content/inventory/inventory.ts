@@ -18,8 +18,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
 import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { Consumer } from '@core/utils/functional-interfaces';
-import { Page } from '@app/core/utils/page/page';
-import { PageConfig } from '@app/core/utils/page/page-config';
+import { Page } from '@core/utils/page/page';
+import { PageConfig } from '@core/utils/page/page-config';
+import { DialogReference } from '@ui/dialog/interface/dialog-reference';
+import { DialogService } from '@ui/dialog/interface/dialog-service';
+import { DialogConfig } from '@ui/dialog/interface/dialog-config';
+import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-data';
+import { GeneralDialogComponent } from '@ui/dialog/general-dialog/general-dialog';
 
 @Component({
   selector: 'app-inventory',
@@ -29,6 +34,7 @@ import { PageConfig } from '@app/core/utils/page/page-config';
 })
 export class InventoryComponent {
   readonly #itemService: ItemService = inject(ItemService);
+  readonly #dialogService: DialogService = inject(DialogService);
 
   protected readonly table: Table = new DefaultTable(
     /*
@@ -104,16 +110,29 @@ export class InventoryComponent {
     this.#itemService.getItems(pageConfig).then((page: Page<Item>) => this.#page.set(page));
   }
 
-  protected add(): void {
-    // TODO Show dialog to create an item. Save item in backend and refresh the table.
-    //this.#itemService.addItem(item).then((createdItem: Item) => this.refresh());
-    console.log('Add action triggered');
+  protected async add(): Promise<void> {
+    const itemToCreate: Item | undefined = await this.#showDialog('Create Item', undefined);
+    if (itemToCreate) {
+      this.#itemService.createItem(itemToCreate).then((createdItem: Item) => this.refresh());
+    }
   }
 
-  #modify(tableCellContext: TableCellContext, item: Item): void {
-    // TODO Show dialog to modify the item. Save item in backend and refresh the table.
-    //this.#itemService.modifyItem(item).then((modifiedItem: Item) => this.refresh());
-    console.log('Modify action triggered');
+  async #showDialog(title: string, item: Item | undefined): Promise<Item | undefined> {
+    const dialogData: ItemEditorDialogData = new ItemEditorDialogData(undefined, title);
+    const dialogConfiguration: DialogConfig<ItemEditorDialogData, Item> = new DialogConfig<
+      ItemEditorDialogData,
+      Item
+    >(dialogData, GeneralDialogComponent);
+    const dialogReference: DialogReference<Item> = this.#dialogService.open(dialogConfiguration);
+
+    return await dialogReference.getResult();
+  }
+
+  async #modify(tableCellContext: TableCellContext, item: Item): Promise<void> {
+    const itemToModify: Item | undefined = await this.#showDialog('Modify Item', item);
+    if (itemToModify) {
+      this.#itemService.modifyItem(itemToModify).then((modifiedItem: Item) => this.refresh());
+    }
   }
 
   #delete(tableCellContext: TableCellContext, item: Item): void {

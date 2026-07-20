@@ -54,7 +54,7 @@ export class NgMatDialogService extends DialogService {
   #createInjector<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): Injector {
     const configuredInjector: Injector | undefined = config.getInjector();
     return Injector.create({
-      providers: [{ provide: DIALOG_CONTENT_DATA, useValue: config.getDialogContentData() }],
+      providers: [{ provide: DIALOG_CONTENT_DATA, useValue: config.getDialogData() }],
       parent: configuredInjector ? configuredInjector : this.#injector,
     });
   }
