@@ -1,6 +1,6 @@
 import { MessageDialogResult } from './message-dialog-result';
 import { MessageDialogComponent } from './message-dialog';
-import { GeneralDialogContentData } from '@ui/dialog/general-dialog-content/general-dialog-content-data';
+import { GeneralDialogContentData } from '@app/core/ui/dialog/general-dialog/general-dialog-data';
 import { signal, Signal, Type, WritableSignal } from '@angular/core';
 
 export class MessageDialogContentData<

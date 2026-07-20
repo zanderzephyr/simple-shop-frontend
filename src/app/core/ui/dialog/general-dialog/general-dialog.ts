@@ -4,7 +4,7 @@ import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration'
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
 import { FlexDirection } from '@ui/layout/flex-direction';
 import { GeneralDialogChildContentComponent } from './general-dialog-child-content';
-import { GeneralDialogContentData } from './general-dialog-content-data';
+import { GeneralDialogContentData } from './general-dialog-data';
 import {
   Component,
   ComponentRef,
@@ -21,12 +21,12 @@ import {
 } from '@angular/core';
 
 @Component({
-  selector: 'app-general-dialog-content',
+  selector: 'app-general-dialog',
   imports: [ButtonBarComponent],
-  templateUrl: './general-dialog-content.html',
-  styleUrl: './general-dialog-content.css',
+  templateUrl: './general-dialog.html',
+  styleUrl: './general-dialog.css',
 })
-export class GeneralDialogContentComponent<
+export class GeneralDialogComponent<
   DATA extends GeneralDialogContentData<DATA, RESULT, CONTENT>,
   RESULT,
   CONTENT extends GeneralDialogChildContentComponent<DATA, RESULT>,

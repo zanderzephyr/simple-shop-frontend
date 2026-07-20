@@ -1,7 +1,7 @@
 import { DialogReference } from './dialog-reference';
 import { DialogConfig } from './dialog-config';
 import { Injectable } from '@angular/core';
-import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog-content/general-dialog-content';
+import { GeneralDialogComponent } from '@app/core/ui/dialog/general-dialog/general-dialog';
 import { InfoDialogContentData } from '@ui/dialog/message-dialog/info-dialog/info-dialog-content-data';
 import { WarningDialogContentData } from '@ui/dialog/message-dialog/warning-dialog/warning-dialog-content-data';
 import { ErrorDialogContentData } from '@ui/dialog/message-dialog/error-dialog/error-dialog-content-data';
@@ -50,7 +50,7 @@ function openDialog<DATA extends MessageDialogContentData<any>>(
 
   const dialogConfiguration = new DialogConfig<DATA, MessageDialogResult>(
     dialogContentData,
-    GeneralDialogContentComponent,
+    GeneralDialogComponent,
   );
 
   if (configurer) {
