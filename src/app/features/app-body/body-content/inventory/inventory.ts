@@ -65,14 +65,6 @@ export class InventoryComponent {
     this.refresh();
   }
 
-  // TODO Remove. Just for testing.
-  async #initItems(): Promise<void> {
-    const items: Item[] = new ItemGenerator().createItems();
-    for (const item of items) {
-      await this.#itemService.createItem(item);
-    }
-  }
-
   #addItem(item: Item): void {
     const row: unknown[] = [];
 
@@ -118,7 +110,7 @@ export class InventoryComponent {
   }
 
   async #showDialog(title: string, item: Item | undefined): Promise<Item | undefined> {
-    const dialogData: ItemEditorDialogData = new ItemEditorDialogData(undefined, title);
+    const dialogData: ItemEditorDialogData = new ItemEditorDialogData(item, title);
     const dialogConfiguration: DialogConfig<ItemEditorDialogData, Item> = new DialogConfig<
       ItemEditorDialogData,
       Item
@@ -138,94 +130,5 @@ export class InventoryComponent {
   #delete(tableCellContext: TableCellContext, item: Item): void {
     // TODO Is it safe, to stay on the same page after deletion? What if the last item on the page is deleted?
     this.#itemService.deleteItem(item).then(() => this.refresh());
-  }
-}
-
-// Just needed until we have a proper service
-class ItemGenerator {
-  constructor() {
-    // Nothing so far
-  }
-
-  public createItems(): Item[] {
-    const items: Item[] = [];
-
-    items.push(...this.#createBooks());
-    items.push(...this.#createMovies());
-    items.push(...this.#createGames());
-
-    return items;
-  }
-
-  #createBooks(): Item[] {
-    const books: Item[] = [];
-
-    const hp1: Item = new ItemBuilder()
-      .setTitle("Harry Potter and the Sorcerer's Stone")
-      .setMediaType(MediaType.BOOK)
-      .setStock(5)
-      .setPrice(9.99)
-      .setImageUrl('https://hp1-link.com')
-      .build();
-    books.push(hp1);
-
-    const lotr1: Item = new ItemBuilder()
-      .setTitle('The Lord of the Rings: The Fellowship of the Ring')
-      .setMediaType(MediaType.BOOK)
-      .setStock(3)
-      .setPrice(12.99)
-      .setImageUrl('https://lotr1-link.com')
-      .build();
-    books.push(lotr1);
-
-    return books;
-  }
-
-  #createMovies(): Item[] {
-    const movies: Item[] = [];
-
-    const hpMovie: Item = new ItemBuilder()
-      .setTitle('Harry Potter and the Sorcerer’s Stone (Movie)')
-      .setMediaType(MediaType.MOVIE)
-      .setStock(2)
-      .setPrice(19.99)
-      .setImageUrl('https://hp1-movie-link.com')
-      .build();
-    movies.push(hpMovie);
-
-    const lotrMovie: Item = new ItemBuilder()
-      .setTitle('The Lord of the Rings: The Fellowship of the Ring (Movie)')
-      .setMediaType(MediaType.MOVIE)
-      .setStock(1)
-      .setPrice(24.99)
-      .setImageUrl('https://lotr-movie-link.com')
-      .build();
-    movies.push(lotrMovie);
-
-    return movies;
-  }
-
-  #createGames(): Item[] {
-    const games: Item[] = [];
-
-    const stellaris: Item = new ItemBuilder()
-      .setTitle('Stellaris')
-      .setMediaType(MediaType.GAME)
-      .setStock(1)
-      .setPrice(29.99)
-      .setImageUrl('https://stellaris-link.com')
-      .build();
-    games.push(stellaris);
-
-    const skyrim: Item = new ItemBuilder()
-      .setTitle('The Elder Scrolls V: Skyrim')
-      .setMediaType(MediaType.GAME)
-      .setStock(1)
-      .setPrice(29.99)
-      .setImageUrl('https://skyrim-link.com')
-      .build();
-    games.push(skyrim);
-
-    return games;
   }
 }

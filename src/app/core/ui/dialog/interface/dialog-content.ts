@@ -4,7 +4,7 @@ import { Directive, inject } from '@angular/core';
 
 @Directive()
 export abstract class DialogContentComponent<DATA, RESULT> {
-  readonly #dialogContentData: DATA = inject(DIALOG_CONTENT_DATA) as DATA;
+  readonly #dialogData: DATA = inject(DIALOG_CONTENT_DATA) as DATA;
 
   /**
    * This property is set after the dialog has been created.
@@ -39,7 +39,7 @@ export abstract class DialogContentComponent<DATA, RESULT> {
     return this.#dialogReference;
   }
 
-  protected getDialogContentData(): DATA {
-    return this.#dialogContentData;
+  protected getDialogData(): DATA {
+    return this.#dialogData;
   }
 }

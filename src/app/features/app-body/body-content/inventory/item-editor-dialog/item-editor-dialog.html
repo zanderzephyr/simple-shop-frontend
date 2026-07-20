@@ -1,1 +1,55 @@
-<p>item-editor-dialog works!</p>
+<form
+  class="item-form-container"
+  [formGroup]="itemForm"
+  #formDirective="ngForm"
+  (ngSubmit)="onConfirm()"
+>
+  <mat-form-field class="item-form-title" appearance="outline">
+    <mat-label>Title</mat-label>
+    <input matInput type="text" formControlName="title" />
+
+    @if (isTitleFieldInvalid()) {
+      <mat-error>Title must not be empty or longer then 400 characters!</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="item-form-media-type" appearance="outline">
+    <mat-label>Media Type</mat-label>
+    <mat-select formControlName="mediaType" [compareWith]="compareMediaTypes">
+      @for (mediaType of mediaTypes(); track mediaType.id) {
+        <mat-option [value]="mediaType">{{ mediaType.name }}</mat-option>
+      }
+    </mat-select>
+
+    @if (isMediaTypeFieldInvalid()) {
+      <mat-error>Media type must not be empty!</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="item-form-stock" appearance="outline">
+    <mat-label>Stock</mat-label>
+    <input matInput type="number" formControlName="stock" />
+
+    @if (isStockFieldInvalid()) {
+      <mat-error>Stock must not be empty or negative!</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="item-form-stock" appearance="outline">
+    <mat-label>Price</mat-label>
+    <input matInput type="number" formControlName="price" />
+
+    @if (isPriceFieldInvalid()) {
+      <mat-error>Price must not be empty or negative!</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field class="item-form-image-url" appearance="outline">
+    <mat-label>Image URL</mat-label>
+    <input matInput type="text" formControlName="imageUrl" />
+
+    @if (isImageUrlFieldInvalid()) {
+      <mat-error>Image URL must not be empty or longer then 2048 characters!</mat-error>
+    }
+  </mat-form-field>
+</form>

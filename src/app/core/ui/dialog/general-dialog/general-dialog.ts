@@ -68,7 +68,7 @@ export class GeneralDialogComponent<
     effect(() => {
       // Register signals
       const viewContainer: ViewContainerRef | undefined = this.contentChild();
-      const type: Type<CONTENT> = this.getDialogContentData().getChildContentType();
+      const type: Type<CONTENT> = this.getDialogData().getChildContentType();
 
       // Only do that if the template is already built
       if (viewContainer) {

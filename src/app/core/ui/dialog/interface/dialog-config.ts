@@ -8,9 +8,9 @@ import { Type, Injector } from '@angular/core';
   inferred by consumer services (like DialogService.open).
 */
 export class DialogConfig<DATA, RESULT> {
-  #width: string = '400px';
+  #width: string | undefined;
 
-  #height: string = '400px';
+  #height: string | undefined;
 
   #disableClose: boolean = false;
 
@@ -28,21 +28,21 @@ export class DialogConfig<DATA, RESULT> {
     this.#contentComponentType = contentComponentType;
   }
 
-  public getWidth(): string {
+  public getWidth(): string | undefined {
     return this.#width;
   }
 
-  public setWidth(width: string): this {
+  public setWidth(width: string | undefined): this {
     this.#width = width;
 
     return this;
   }
 
-  public getHeight(): string {
+  public getHeight(): string | undefined {
     return this.#height;
   }
 
-  public setHeight(height: string): this {
+  public setHeight(height: string | undefined): this {
     this.#height = height;
 
     return this;

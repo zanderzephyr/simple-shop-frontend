@@ -32,7 +32,7 @@ export class SessionLoginComponent {
   readonly #sessionService: SessionService = inject(SessionService);
   readonly #formBuilder: FormBuilder = inject(FormBuilder);
 
-  protected readonly loginForm: FormGroup = this.#formBuilder.nonNullable.group({
+  protected readonly loginForm = this.#formBuilder.nonNullable.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
