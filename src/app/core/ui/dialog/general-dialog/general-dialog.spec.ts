@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { GeneralDialogContentComponent } from './general-dialog-content';
+import { GeneralDialogComponent } from './general-dialog';
 
 describe('GeneralDialog', () => {
-  let component: GeneralDialogContentComponent;
-  let fixture: ComponentFixture<GeneralDialogContentComponent>;
+  let component: GeneralDialogComponent;
+  let fixture: ComponentFixture<GeneralDialogComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GeneralDialogContentComponent],
+      imports: [GeneralDialogComponent],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(GeneralDialogContentComponent);
+    fixture = TestBed.createComponent(GeneralDialogComponent);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });

@@ -1,13 +1,13 @@
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { MessageDialogContentData } from './message-dialog-content-data';
 import { MessageDialogResult } from './message-dialog-result';
-import { GeneralDialogChildContentComponent } from '@app/core/ui/dialog/general-dialog/general-dialog-child-content';
+import { GeneralDialogContentComponent } from '@app/core/ui/dialog/general-dialog/general-dialog-content';
 import { Directive, signal, Signal } from '@angular/core';
 
 @Directive()
 export abstract class MessageDialogComponent<
   CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,
-> extends GeneralDialogChildContentComponent<
+> extends GeneralDialogContentComponent<
   MessageDialogContentData<CONTENT_TYPE>,
   MessageDialogResult
 > {

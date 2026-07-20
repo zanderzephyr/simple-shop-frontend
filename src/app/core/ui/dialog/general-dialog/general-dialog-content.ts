@@ -2,10 +2,10 @@ import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
 import { Signal } from '@angular/core';
 
-export abstract class GeneralDialogChildContentComponent<
+export abstract class GeneralDialogContentComponent<DATA, RESULT> extends DialogContentComponent<
   DATA,
-  RESULT,
-> extends DialogContentComponent<DATA, RESULT> {
+  RESULT
+> {
   public constructor() {
     super();
   }

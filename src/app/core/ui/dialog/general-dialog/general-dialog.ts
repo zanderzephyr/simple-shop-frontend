@@ -3,7 +3,7 @@ import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
 import { FlexDirection } from '@ui/layout/flex-direction';
-import { GeneralDialogChildContentComponent } from './general-dialog-child-content';
+import { GeneralDialogContentComponent } from './general-dialog-content';
 import { GeneralDialogContentData } from './general-dialog-data';
 import {
   Component,
@@ -29,7 +29,7 @@ import {
 export class GeneralDialogComponent<
   DATA extends GeneralDialogContentData<DATA, RESULT, CONTENT>,
   RESULT,
-  CONTENT extends GeneralDialogChildContentComponent<DATA, RESULT>,
+  CONTENT extends GeneralDialogContentComponent<DATA, RESULT>,
 > extends DialogContentComponent<DATA, RESULT> {
   readonly #injector: Injector = inject(Injector);
 

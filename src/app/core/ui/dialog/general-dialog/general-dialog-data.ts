@@ -1,10 +1,10 @@
-import { GeneralDialogChildContentComponent } from './general-dialog-child-content';
+import { GeneralDialogContentComponent } from './general-dialog-content';
 import { signal, Signal, Type, WritableSignal } from '@angular/core';
 
 export abstract class GeneralDialogContentData<
   CHILD_DATA,
   CHILD_RESULT,
-  CHILD_CONTENT_TYPE extends GeneralDialogChildContentComponent<CHILD_DATA, CHILD_RESULT>,
+  CHILD_CONTENT_TYPE extends GeneralDialogContentComponent<CHILD_DATA, CHILD_RESULT>,
 > {
   readonly #title: WritableSignal<string>;
 
