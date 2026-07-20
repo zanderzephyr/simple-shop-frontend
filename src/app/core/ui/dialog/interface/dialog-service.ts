@@ -2,9 +2,9 @@ import { DialogReference } from './dialog-reference';
 import { DialogConfig } from './dialog-config';
 import { Injectable } from '@angular/core';
 import { GeneralDialogComponent } from '@app/core/ui/dialog/general-dialog/general-dialog';
-import { InfoDialogContentData } from '@ui/dialog/message-dialog/info-dialog/info-dialog-content-data';
-import { WarningDialogContentData } from '@ui/dialog/message-dialog/warning-dialog/warning-dialog-content-data';
-import { ErrorDialogContentData } from '@ui/dialog/message-dialog/error-dialog/error-dialog-content-data';
+import { InfoDialogData } from '@app/core/ui/dialog/message-dialog/info-dialog/info-dialog-data';
+import { WarningDialogData } from '@app/core/ui/dialog/message-dialog/warning-dialog/warning-dialog-data';
+import { ErrorDialogData } from '@app/core/ui/dialog/message-dialog/error-dialog/error-dialog-data';
 import { MessageDialogData } from '@app/core/ui/dialog/message-dialog/message-dialog-data';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 import { Consumer } from '@core/utils/functional-interfaces';
@@ -19,25 +19,25 @@ export abstract class DialogService {
 export function openInfoDialog(
   dialogService: DialogService,
   message: string,
-  configurer?: Consumer<DialogConfig<InfoDialogContentData, MessageDialogResult>>,
+  configurer?: Consumer<DialogConfig<InfoDialogData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  return openDialog(dialogService, message, InfoDialogContentData, configurer);
+  return openDialog(dialogService, message, InfoDialogData, configurer);
 }
 
 export function openWarningDialog(
   dialogService: DialogService,
   message: string,
-  configurer?: Consumer<DialogConfig<WarningDialogContentData, MessageDialogResult>>,
+  configurer?: Consumer<DialogConfig<WarningDialogData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  return openDialog(dialogService, message, WarningDialogContentData, configurer);
+  return openDialog(dialogService, message, WarningDialogData, configurer);
 }
 
 export function openErrorDialog(
   dialogService: DialogService,
   message: string,
-  configurer?: Consumer<DialogConfig<ErrorDialogContentData, MessageDialogResult>>,
+  configurer?: Consumer<DialogConfig<ErrorDialogData, MessageDialogResult>>,
 ): DialogReference<MessageDialogResult> {
-  return openDialog(dialogService, message, ErrorDialogContentData, configurer);
+  return openDialog(dialogService, message, ErrorDialogData, configurer);
 }
 
 function openDialog<DATA extends MessageDialogData<any>>(

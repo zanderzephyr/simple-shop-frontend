@@ -44,7 +44,7 @@ export class GeneralDialogComponent<
   readonly #buttonConfigurations: Signal<ButtonConfiguration[]> = computed(() => {
     const componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
     if (componentRef) {
-      return componentRef.instance.getButtonConfigurations()();
+      return componentRef.instance.getButtonConfigurations();
     }
     return [];
   });

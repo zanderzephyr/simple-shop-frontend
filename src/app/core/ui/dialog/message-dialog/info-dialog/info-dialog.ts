@@ -1,4 +1,4 @@
-import { Component, Signal, signal } from '@angular/core';
+import { Component } from '@angular/core';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,15 +10,11 @@ import { MatIconModule } from '@angular/material/icon';
   styleUrl: './info-dialog.css',
 })
 export class InfoDialogComponent extends MessageDialogComponent<InfoDialogComponent> {
-  readonly #buttonConfigurations: Signal<ButtonConfiguration[]> = signal([
-    this.getConfirmButtonConfiguration(),
-  ]);
-
   public constructor() {
     super();
   }
 
-  public override getButtonConfigurations(): Signal<ButtonConfiguration[]> {
-    return this.#buttonConfigurations;
+  public override createButtonConfigurations(): ButtonConfiguration[] {
+    return [this.getConfirmButtonConfiguration()];
   }
 }
