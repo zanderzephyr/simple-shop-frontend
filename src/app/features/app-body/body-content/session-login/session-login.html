@@ -12,19 +12,13 @@
   <mat-form-field class="session-login-username" appearance="outline">
     <mat-label>Username</mat-label>
     <input matInput type="text" formControlName="username" />
-
-    @if (isUsernameFieldInvalid()) {
-      <mat-error>Username must not be empty!</mat-error>
-    }
+    <mat-error>Username must not be empty!</mat-error>
   </mat-form-field>
 
   <mat-form-field class="session-login-password" appearance="outline">
     <mat-label>Password</mat-label>
     <input matInput type="password" formControlName="password" />
-
-    @if (isPasswordFieldInvalid()) {
-      <mat-error>Password must not be empty!</mat-error>
-    }
+    <mat-error>Password must not be empty!</mat-error>
   </mat-form-field>
 
   <button

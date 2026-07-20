@@ -33,7 +33,6 @@ export class GeneralDialogComponent<
 > extends DialogContentComponent<DATA, RESULT> {
   readonly #injector: Injector = inject(Injector);
 
-  // TODO Maybe replace "content" with a unique string in the app, to prevent duplicates?
   readonly contentChild: Signal<ViewContainerRef | undefined> = viewChild('content', {
     read: ViewContainerRef,
   });

@@ -1,19 +1,11 @@
-import { Component, computed, inject, signal, Signal, WritableSignal } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
-import { merge } from 'rxjs';
-import {
-  ReactiveFormsModule,
-  FormBuilder,
-  Validators,
-  FormGroupDirective,
-  AbstractControl,
-} from '@angular/forms';
+import { Component, inject, signal, Signal, WritableSignal } from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { ItemEditorDialogData } from './item-editor-dialog-data';
-import { Item, ItemBuilder, MediaType } from '@api/item/model/item';
+import { Item, ItemBuilder, MediaType, compareMediaTypes } from '@api/item/model/item';
 
 interface ItemShape {
   title: string | null;
@@ -57,43 +49,10 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 
   protected readonly isSubmitted: WritableSignal<boolean> = signal(false);
 
-  readonly #formTrigger: Signal<unknown> = toSignal(
-    merge(this.itemForm.statusChanges, this.itemForm.valueChanges),
-    { initialValue: null },
-  );
-
-  protected isTitleFieldInvalid: Signal<boolean> = computed(() => {
-    return this.#isFieldInvalid('title');
-  });
-
-  protected isMediaTypeFieldInvalid: Signal<boolean> = computed(() => {
-    return this.#isFieldInvalid('mediaType');
-  });
-
-  protected isStockFieldInvalid: Signal<boolean> = computed(() => {
-    return this.#isFieldInvalid('stock');
-  });
-
-  protected isPriceFieldInvalid: Signal<boolean> = computed(() => {
-    return this.#isFieldInvalid('price');
-  });
-
-  protected isImageUrlFieldInvalid: Signal<boolean> = computed(() => {
-    return this.#isFieldInvalid('imageUrl');
-  });
+  protected readonly compareMediaTypes = compareMediaTypes;
 
   constructor() {
     super();
-  }
-
-  #isFieldInvalid(fieldName: string): boolean {
-    this.#formTrigger();
-
-    const field: AbstractControl<unknown, unknown, unknown> | null = this.itemForm.get(fieldName);
-    if (field?.invalid && (field?.touched || this.isSubmitted())) {
-      return true;
-    }
-    return false;
   }
 
   // TODO Not called currently. Add a button for that or remove this method.
@@ -110,6 +69,8 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 
   protected override onConfirm(): void {
     this.isSubmitted.set(true);
+
+    this.itemForm.markAllAsTouched();
 
     if (this.itemForm.valid) {
       const itemShape: ItemShape = this.itemForm.getRawValue();
@@ -132,10 +93,5 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
     this.setResult(undefined);
 
     super.onCancel();
-  }
-
-  // TODO Maybe add this to MediaType?
-  protected compareMediaTypes(o1: MediaType | null, o2: MediaType | null): boolean {
-    return o1?.id === o2?.id;
   }
 }

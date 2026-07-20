@@ -1,20 +1,16 @@
 .general-dialog-container {
   display: flex;
   flex-direction: column;
+  align-items: center;
+  padding: 10px 10px;
+  box-sizing: border-box;
 }
 
 .title {
   font-size: large;
-  justify-content: center;
-  align-self: center;
+  text-align: center;
 }
 
-.content {
-  justify-content: center;
-  align-self: center;
-}
-
-.button-bar {
-  justify-content: center;
-  align-self: center;
+.general-dialog-container > .content {
+  width: 100%;
 }

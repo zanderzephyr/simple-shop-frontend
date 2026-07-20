@@ -35,6 +35,10 @@ export const MediaType: {
 type ValueOf<T> = T[keyof T];
 export type MediaType = ValueOf<typeof MediaType>;
 
+export function compareMediaTypes(o1: MediaType | null, o2: MediaType | null): boolean {
+  return o1?.id === o2?.id;
+}
+
 export class Item {
   readonly #id: bigint | undefined;
   readonly #title: string;
