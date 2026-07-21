@@ -1,5 +1,5 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { UserType } from '@api/user/model/user';
+import { UserType } from '@api/user/model/user-type';
 import { Session, SessionData } from '@core/session';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';

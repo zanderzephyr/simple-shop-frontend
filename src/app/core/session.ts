@@ -1,5 +1,5 @@
 import { computed, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { UserType } from '@api/user/model/user';
+import { UserType } from '@api/user/model/user-type';
 
 let INSTANCE: Session | null = null;
 

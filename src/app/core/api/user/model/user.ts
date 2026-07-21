@@ -1,3 +1,5 @@
+import { UserType } from './user-type';
+
 const secretKey: symbol = Symbol('secretKey');
 
 interface UserData {
@@ -6,16 +8,6 @@ interface UserData {
   username: string;
   userType: UserType;
 }
-
-export const UserType: {
-  readonly ADMIN: { readonly id: 'ADMIN'; readonly name: 'Admin' };
-  readonly CUSTOMER: { readonly id: 'CUSTOMER'; readonly name: 'Customer' };
-} = {
-  ADMIN: { id: 'ADMIN', name: 'Admin' },
-  CUSTOMER: { id: 'CUSTOMER', name: 'Customer' },
-} as const;
-type ValueOf<T> = T[keyof T];
-export type UserType = ValueOf<typeof UserType>;
 
 export class User {
   readonly #id: number;

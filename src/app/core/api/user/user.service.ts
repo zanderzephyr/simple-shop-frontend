@@ -1,4 +1,5 @@
-import { User, UserBuilder, UserType } from '@api/user/model/user';
+import { User, UserBuilder } from '@api/user/model/user';
+import { UserType } from '@api/user/model/user-type';
 import { forwardRef, Injectable } from '@angular/core';
 
 @Injectable({

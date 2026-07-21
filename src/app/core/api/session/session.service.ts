@@ -1,7 +1,7 @@
 import { forwardRef, Injectable, inject } from '@angular/core';
 import { LoginCredentials } from './model/login-credentials';
 import { Session, SessionData } from '@core/session';
-import { UserType } from '@api/user/model/user';
+import { UserType } from '@api/user/model/user-type';
 
 @Injectable({
   providedIn: 'root',
