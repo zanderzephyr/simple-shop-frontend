@@ -1,5 +1,6 @@
 import { localDateTimeToString } from '@core/utils/data-type-utils';
-import { dateTimeFormatter, Item, ItemDto } from './model/item';
+import { Item } from './model/item';
+import { dateTimeFormatter, ItemDto } from './model/item-dto';
 import { UnsupportedOperationError } from '@core/utils/common-errors';
 
 export class ItemSerializer {

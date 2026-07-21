@@ -5,7 +5,8 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { ItemEditorDialogData } from './item-editor-dialog-data';
-import { Item, ItemBuilder, MediaType, compareMediaTypes } from '@api/item/model/item';
+import { Item, ItemBuilder } from '@api/item/model/item';
+import { MediaType, compareMediaTypes } from '@api/item/model/media-type';
 
 interface ItemShape {
   title: string | null;

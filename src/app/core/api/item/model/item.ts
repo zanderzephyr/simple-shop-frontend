@@ -1,7 +1,9 @@
-import { DateTimeFormatter, LocalDateTime } from '@js-joda/core';
+import { LocalDateTime } from '@js-joda/core';
 import { InvalidStateError } from '@core/utils/common-errors';
-import { z, ZodType } from 'zod';
+import { ZodType } from 'zod';
 import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';
+import { MediaType } from './media-type';
+import { ItemDto, zodItemDto, dateTimeFormatter } from './item-dto';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -21,22 +23,6 @@ interface ItemData {
   lastChange: LocalDateTime | undefined;
   lastChangedBy: bigint | undefined;
   version: bigint | undefined;
-}
-
-export const MediaType: {
-  readonly BOOK: { readonly id: 'BOOK'; readonly name: 'Book' };
-  readonly GAME: { readonly id: 'GAME'; readonly name: 'Game' };
-  readonly MOVIE: { readonly id: 'MOVIE'; readonly name: 'Movie' };
-} = {
-  BOOK: { id: 'BOOK', name: 'Book' },
-  GAME: { id: 'GAME', name: 'Game' },
-  MOVIE: { id: 'MOVIE', name: 'Movie' },
-} as const;
-type ValueOf<T> = T[keyof T];
-export type MediaType = ValueOf<typeof MediaType>;
-
-export function compareMediaTypes(o1: MediaType | null, o2: MediaType | null): boolean {
-  return o1?.id === o2?.id;
 }
 
 export class Item {
@@ -258,47 +244,6 @@ export class ItemBuilder {
   public build(): Item {
     return new Item(this.#createItemData());
   }
-}
-
-export interface ItemDto {
-  /**
-   * Can be missing to the backend, never from the backend.
-   */
-  id: string | undefined;
-  title: string;
-  mediaType: string;
-  stock: number;
-  price: number;
-  imageUrl: string;
-  /**
-   * Can be missing to the backend, never from the backend.
-   */
-  lastChange: string | undefined;
-  /**
-   * Can be missing to the backend, never from the backend.
-   */
-  lastChangedBy: string | undefined;
-  /**
-   * Can be missing to the backend, never from the backend.
-   */
-  version: string | undefined;
-}
-
-export const dateTimeFormatter: DateTimeFormatter =
-  DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss.SSS');
-
-function zodItemDto(): ZodType<ItemDto> {
-  return z.object({
-    id: z.string(),
-    title: z.string(),
-    mediaType: z.string(),
-    stock: z.number(),
-    price: z.number(),
-    imageUrl: z.string(),
-    lastChange: z.string(),
-    lastChangedBy: z.string(),
-    version: z.string(),
-  });
 }
 
 export function zodItem(): ZodType<Item> {

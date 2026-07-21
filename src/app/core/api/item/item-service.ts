@@ -1,4 +1,5 @@
-import { Item, ItemDto, zodItem } from '@api/item/model/item';
+import { Item, zodItem } from '@api/item/model/item';
+import { ItemDto } from '@api/item/model/item-dto';
 import { firstValueFrom } from 'rxjs';
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { PageConfig } from '@app/core/utils/page/page-config';
