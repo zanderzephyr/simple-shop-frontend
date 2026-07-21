@@ -124,6 +124,7 @@ export class InventoryComponent {
   async #modify(tableCellContext: TableCellContext, item: Item): Promise<void> {
     const itemToModify: Item | undefined = await this.#showDialog('Modify Item', item);
     if (itemToModify) {
+      // TODO Performance: Simply use the resulting item and update the table instead of reloading the whole page.
       this.#itemService.modifyItem(itemToModify).then((modifiedItem: Item) => this.refresh());
     }
   }
