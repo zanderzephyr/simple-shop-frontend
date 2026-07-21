@@ -1,7 +1,12 @@
 .inventory-container-header {
   display: flex;
   flex-direction: row;
-  justify-content: end;
+  justify-content: space-between;
+}
+
+.inventory-container-header-buttons {
+  display: flex;
+  flex-direction: row;
   gap: 10px;
 }
 

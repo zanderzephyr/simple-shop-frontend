@@ -1,4 +1,4 @@
-import { inject, Component, WritableSignal, signal, effect } from '@angular/core';
+import { inject, Component, WritableSignal, signal, effect, computed } from '@angular/core';
 import {
   inventoryColumnDescriptions,
   extractItemValue,
@@ -15,6 +15,7 @@ import { ItemService } from '@api/item/item-service';
 import { Item } from '@api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { InventoryTableAction } from './inventory-table-action';
 import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { Consumer } from '@core/utils/functional-interfaces';
@@ -29,7 +30,7 @@ import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-re
 
 @Component({
   selector: 'app-inventory',
-  imports: [NgMatTableComponent, MatButtonModule, MatIconModule],
+  imports: [NgMatTableComponent, MatButtonModule, MatIconModule, MatPaginatorModule],
   templateUrl: './inventory.html',
   styleUrl: './inventory.css',
 })
@@ -48,13 +49,14 @@ export class InventoryComponent {
 
   readonly #page: WritableSignal<Page<Item> | undefined> = signal(undefined);
 
-  protected readonly currentPageIndex: WritableSignal<number> = signal(0);
+  protected readonly pageIndex: WritableSignal<number> = signal(0);
   protected readonly pageSize: WritableSignal<number> = signal(20);
 
-  public constructor() {
-    // TODO Remove. Just for testing.
-    //this.#initItems();
+  protected readonly totalItems = computed(
+    () => this.#page()?.getPageMetaData().getTotalElements() ?? 0,
+  );
 
+  public constructor() {
     effect(() => {
       const page: Page<Item> | undefined = this.#page();
       this.table.getTableModel().removeAllRows();
@@ -63,7 +65,9 @@ export class InventoryComponent {
       }
     });
 
-    this.refresh();
+    effect(() => {
+      this.refresh();
+    });
   }
 
   #addItem(item: Item): void {
@@ -99,7 +103,7 @@ export class InventoryComponent {
   }
 
   protected refresh(): void {
-    const pageConfig: PageConfig = new PageConfig(this.currentPageIndex(), this.pageSize());
+    const pageConfig: PageConfig = new PageConfig(this.pageIndex(), this.pageSize());
     this.#itemService.getItems(pageConfig).then((page: Page<Item>) => this.#page.set(page));
   }
 
@@ -138,5 +142,10 @@ export class InventoryComponent {
     if (result === MessageDialogResult.CONFIRM) {
       this.#itemService.deleteItem(item).then(() => this.refresh());
     }
+  }
+
+  protected onPageChange(event: PageEvent): void {
+    this.pageIndex.set(event.pageIndex);
+    this.pageSize.set(event.pageSize);
   }
 }
