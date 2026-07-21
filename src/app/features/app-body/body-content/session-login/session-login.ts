@@ -1,4 +1,4 @@
-import { Component, inject, signal, WritableSignal, Signal, computed } from '@angular/core';
+import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -8,8 +8,8 @@ import { LoginCredentials } from '@api/session/model/login-credentials';
 import { Router } from '@angular/router';
 
 interface LoginFormShape {
-  username: string;
-  password: string;
+  username: string | null;
+  password: string | null;
 }
 
 @Component({
@@ -23,9 +23,9 @@ export class SessionLoginComponent {
   readonly #sessionService: SessionService = inject(SessionService);
   readonly #formBuilder: FormBuilder = inject(FormBuilder);
 
-  protected readonly loginForm = this.#formBuilder.nonNullable.group({
-    username: ['', [Validators.required]],
-    password: ['', [Validators.required]],
+  protected readonly loginForm = this.#formBuilder.group({
+    username: [null, [Validators.required]],
+    password: [null, [Validators.required]],
   });
 
   protected readonly isSubmitted: WritableSignal<boolean> = signal(false);
@@ -46,7 +46,7 @@ export class SessionLoginComponent {
 
     if (this.loginForm.valid) {
       const { username, password }: LoginFormShape = this.loginForm.getRawValue();
-      const loginCredentials: LoginCredentials = new LoginCredentials(username, password);
+      const loginCredentials: LoginCredentials = new LoginCredentials(username!, password!);
 
       // TODO Catch error and show validation results at the input fields
       await this.#sessionService.login(loginCredentials);
