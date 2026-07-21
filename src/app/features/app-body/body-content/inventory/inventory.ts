@@ -12,7 +12,7 @@ import { Table } from '@ui/table/interface/table';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { DefaultTable } from '@ui/table/default/default-table';
 import { ItemService } from '@api/item/item-service';
-import { Item, ItemBuilder, MediaType } from '@api/item/model/item';
+import { Item } from '@api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { InventoryTableAction } from './inventory-table-action';
@@ -21,10 +21,11 @@ import { Consumer } from '@core/utils/functional-interfaces';
 import { Page } from '@core/utils/page/page';
 import { PageConfig } from '@core/utils/page/page-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
-import { DialogService } from '@ui/dialog/interface/dialog-service';
+import { DialogService, openWarningDialog } from '@ui/dialog/interface/dialog-service';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-data';
 import { GeneralDialogComponent } from '@ui/dialog/general-dialog/general-dialog';
+import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 
 @Component({
   selector: 'app-inventory',
@@ -127,8 +128,14 @@ export class InventoryComponent {
     }
   }
 
-  #delete(tableCellContext: TableCellContext, item: Item): void {
-    // TODO Is it safe, to stay on the same page after deletion? What if the last item on the page is deleted?
-    this.#itemService.deleteItem(item).then(() => this.refresh());
+  async #delete(tableCellContext: TableCellContext, item: Item): Promise<void> {
+    const dialogReference: DialogReference<MessageDialogResult> = openWarningDialog(
+      this.#dialogService,
+      'Really delete item?',
+    );
+    const result: MessageDialogResult | undefined = await dialogReference.getResult();
+    if (result === MessageDialogResult.CONFIRM) {
+      this.#itemService.deleteItem(item).then(() => this.refresh());
+    }
   }
 }
