@@ -11,7 +11,7 @@
 		TODO Maybe also add row tracking: [trackBy]="trackRowIndex"
 		Depends on if the table model supports stable row IDs or not.
 	-->
-  <table mat-table [dataSource]="tableRowIds()" class="ng-mat-table">
+  <table class="ng-mat-table" mat-table [dataSource]="tableRowIds()">
     @for (
       tableColumn of tableColumns();
       track tableColumn.getModelIndex();
@@ -23,12 +23,19 @@
 					*matHeaderCellDef: Creates an injection slot for the column header.
 					The tag content is what's injected.
 				-->
-        <th mat-header-cell *matHeaderCellDef>{{ tableColumn.getTitle()() }}</th>
+        <th
+          class="ng-mat-table-header-cell"
+          mat-header-cell
+          *matHeaderCellDef
+          [style.width]="tableColumnIdToWidth().get(tableColumn.getModelIndex())"
+        >
+          {{ tableColumn.getTitle()() }}
+        </th>
         <!--
 					*matCellDef: Creates an injection slot for a column data cell; this
 					is done for each row. The tag content is what's injected.
 				-->
-        <td mat-cell *matCellDef="let row">
+        <td class="ng-mat-table-data-cell" mat-cell *matCellDef="let row">
           <!-- TODO Is it necessary to sort of track the component and prevent it from being created too often? -->
           <app-ng-mat-table-cell
             [table]="table()"
@@ -43,13 +50,13 @@
 			Performs the actual injection into the previously created injection slots for the header.
 			Done for each column.
 		-->
-    <tr mat-header-row *matHeaderRowDef="tableColumnIds()"></tr>
+    <tr class="ng-mat-table-header-row" mat-header-row *matHeaderRowDef="tableColumnIds()"></tr>
 
     <!--
 			Spawns a table row container (<tr>) for every item provided by the dataSource.
 			For each row, it loops through the specified column IDs to extract and inject 
 			the matching data cell templates, passing the current item context down as 'row'.
     -->
-    <tr mat-row *matRowDef="let row; columns: tableColumnIds()"></tr>
+    <tr class="ng-mat-table-data-row" mat-row *matRowDef="let row; columns: tableColumnIds()"></tr>
   </table>
 </div>

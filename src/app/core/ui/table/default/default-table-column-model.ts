@@ -4,6 +4,7 @@ import { TableColumn } from '@ui/table/interface/table-column';
 import { DefaultTableColumn } from './default-table-column';
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
 import { IllegalArgumentError, InvalidStateError } from '@core/utils/common-errors';
+import { TableWidthPolicy } from '@ui/table/interface/table-width-policy';
 
 export class DefaultTableColumnModel implements TableColumnModel {
   /**
@@ -14,6 +15,8 @@ export class DefaultTableColumnModel implements TableColumnModel {
     const copy: TableColumn<unknown>[] = [...this.#tableColumns()];
     return Object.freeze(copy);
   });
+
+  #tableWidthPolicy: TableWidthPolicy = TableWidthPolicy.EQUAL_SHARES;
 
   public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
     this.#tableColumns = signal(this.#createTableColumns(columnDescriptions));
@@ -82,5 +85,15 @@ export class DefaultTableColumnModel implements TableColumnModel {
     if (columnViewIndex < 0 || columnViewIndex >= this.#tableColumns().length) {
       throw new IllegalArgumentError('Indexes out of range: ' + columnViewIndex);
     }
+  }
+
+  public getTableWidthPolicy(): TableWidthPolicy {
+    return this.#tableWidthPolicy;
+  }
+
+  public setTableWidthPolicy(tableWidthPolicy: TableWidthPolicy): this {
+    this.#tableWidthPolicy = tableWidthPolicy;
+
+    return this;
   }
 }

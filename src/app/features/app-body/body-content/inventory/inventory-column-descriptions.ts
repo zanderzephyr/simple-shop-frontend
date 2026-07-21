@@ -1,4 +1,7 @@
-import { TableColumnDescription } from '@ui/table/interface/table-column-description';
+import {
+  TableColumnDescription,
+  TableColumnDescriptionBuilder,
+} from '@ui/table/interface/table-column-description';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { Function, Consumer, zodConsumer } from '@core/utils/functional-interfaces';
 import { Item } from '@api/item/model/item';
@@ -18,56 +21,57 @@ import { z } from 'zod';
 
 let modelIndex: number = 0;
 
-export const TITLE: TableColumnDescription<string> = new TableColumnDescription<string>(
-  modelIndex++,
-  'Title',
-  z.string(),
-  StringRendererComponent,
-  StringEditorComponent,
-);
+export const TITLE: TableColumnDescription<string> = new TableColumnDescriptionBuilder<string>() //
+  .setModelIndex(modelIndex++) //
+  .setTitle('Title') //
+  .setTypeSchema(z.string()) //
+  .setRendererType(StringRendererComponent) //
+  .setEditorType(StringEditorComponent) //
+  .build();
 
-export const MEDIA_TYPE: TableColumnDescription<string> = new TableColumnDescription<string>(
-  modelIndex++,
-  'Media Type',
-  z.string(),
-  StringRendererComponent,
-  StringEditorComponent,
-);
+export const MEDIA_TYPE: TableColumnDescription<string> =
+  new TableColumnDescriptionBuilder<string>() //
+    .setModelIndex(modelIndex++) //
+    .setTitle('Media Type') //
+    .setTypeSchema(z.string()) //
+    .setRendererType(StringRendererComponent) //
+    .setEditorType(StringEditorComponent) //
+    .build();
 
-export const STOCK: TableColumnDescription<number> = new TableColumnDescription<number>(
-  modelIndex++,
-  'Stock',
-  z.number(),
-  NumberRendererComponent,
-  NumberEditorComponent,
-);
+export const STOCK: TableColumnDescription<number> = new TableColumnDescriptionBuilder<number>() //
+  .setModelIndex(modelIndex++) //
+  .setTitle('Stock') //
+  .setTypeSchema(z.number()) //
+  .setRendererType(NumberRendererComponent) //
+  .setEditorType(NumberEditorComponent) //
+  .build();
 
-export const PRICE: TableColumnDescription<number> = new TableColumnDescription<number>(
-  modelIndex++,
-  'Price',
-  z.number(),
-  NumberRendererComponent,
-  NumberEditorComponent,
-);
+export const PRICE: TableColumnDescription<number> = new TableColumnDescriptionBuilder<number>() //
+  .setModelIndex(modelIndex++) //
+  .setTitle('Price') //
+  .setTypeSchema(z.number()) //
+  .setRendererType(NumberRendererComponent) //
+  .setEditorType(NumberEditorComponent) //
+  .build();
 
 export const COVER: TableColumnDescription<ImageRendererConfiguration> =
-  new TableColumnDescription<ImageRendererConfiguration>(
-    modelIndex++,
-    'Cover',
-    zodImageRendererConfiguration(),
-    ImageRendererComponent,
-    undefined,
-  );
+  new TableColumnDescriptionBuilder<ImageRendererConfiguration>() //
+    .setModelIndex(modelIndex++) //
+    .setTitle('Cover') //
+    .setTypeSchema(zodImageRendererConfiguration()) //
+    .setRendererType(ImageRendererComponent) //
+    .setEditorType(undefined) //
+    .build();
 
 export const ACTIONS: TableColumnDescription<
   Map<InventoryTableAction, Consumer<TableCellContext>>
-> = new TableColumnDescription<Map<InventoryTableAction, Consumer<TableCellContext>>>(
-  modelIndex++,
-  'Actions',
-  z.map(zodInventoryTableAction(), zodConsumer()),
-  InventoryTableActionRendererComponent,
-  InventoryTableActionEditorComponent,
-);
+> = new TableColumnDescriptionBuilder<Map<InventoryTableAction, Consumer<TableCellContext>>>() //
+  .setModelIndex(modelIndex++) //
+  .setTitle('Actions') //
+  .setTypeSchema(z.map(zodInventoryTableAction(), zodConsumer())) //
+  .setRendererType(InventoryTableActionRendererComponent) //
+  .setEditorType(InventoryTableActionEditorComponent) //
+  .build();
 
 export const inventoryColumnDescriptions: readonly TableColumnDescription<unknown>[] =
   createColumnDescriptions();
