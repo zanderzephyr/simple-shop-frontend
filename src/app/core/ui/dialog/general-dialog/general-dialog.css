@@ -9,6 +9,7 @@
 .title {
   font-size: large;
   text-align: center;
+  padding: 0 0 10px 0;
 }
 
 .general-dialog-container > .content {
