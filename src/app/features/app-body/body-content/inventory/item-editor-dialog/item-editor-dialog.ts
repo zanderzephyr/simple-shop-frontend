@@ -80,13 +80,19 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
   }
 
   #createItem(itemShape: ItemShape): Item {
-    return new ItemBuilder() //
+    const itemBuilder: ItemBuilder = new ItemBuilder() //
       .setTitle(itemShape.title!) //
       .setMediaType(itemShape.mediaType!) //
       .setStock(itemShape.stock!) //
       .setPrice(itemShape.price!) //
-      .setImageUrl(itemShape.imageUrl!) //
-      .build();
+      .setImageUrl(itemShape.imageUrl!);
+
+    if (this.#initialItem) {
+      itemBuilder.setId(this.#initialItem.getId()!);
+      itemBuilder.setVersion(this.#initialItem.getVersion()!);
+    }
+
+    return itemBuilder.build();
   }
 
   protected override onCancel(): void {
