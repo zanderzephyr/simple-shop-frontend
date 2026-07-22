@@ -3,6 +3,8 @@ import { DateTimeFormatter, LocalDateTime } from '@js-joda/core';
 
 const DEFAULT_DATE_TIME_FORMATTER: DateTimeFormatter = DateTimeFormatter.ISO_LOCAL_DATE_TIME;
 
+export const JAVA_MAX_INT_VALUE: number = 2147483647;
+
 export function convertStringToEnum<ENUM extends Record<string, any>>(
   idValue: string | undefined | null,
   enumObject: ENUM,

@@ -7,6 +7,7 @@ import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general
 import { ItemEditorDialogData } from './item-editor-dialog-data';
 import { Item, ItemBuilder } from '@api/item/model/item';
 import { MediaType, compareMediaTypes } from '@api/item/model/media-type';
+import { JAVA_MAX_INT_VALUE } from '@core/utils/data-type-utils';
 
 interface ItemShape {
   title: string | null;
@@ -40,8 +41,14 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
       [Validators.required, Validators.maxLength(400)],
     ],
     mediaType: [this.#initialItem?.getMediaType() ?? null, [Validators.required]],
-    stock: [this.#initialItem?.getStock() ?? null, [Validators.required, Validators.min(0)]],
-    price: [this.#initialItem?.getPrice() ?? null, [Validators.required, Validators.min(0)]],
+    stock: [
+      this.#initialItem?.getStock() ?? null,
+      [Validators.required, Validators.min(0), Validators.max(JAVA_MAX_INT_VALUE)],
+    ],
+    price: [
+      this.#initialItem?.getPrice() ?? null,
+      [Validators.required, Validators.min(0), Validators.max(JAVA_MAX_INT_VALUE)],
+    ],
     imageUrl: [
       this.#initialItem?.getImageUrl() ?? null,
       [Validators.required, Validators.maxLength(2048)],
@@ -50,7 +57,11 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 
   protected readonly isSubmitted: WritableSignal<boolean> = signal(false);
 
-  protected readonly compareMediaTypes = compareMediaTypes;
+  protected readonly compareMediaTypes: (o1: MediaType | null, o2: MediaType | null) => boolean =
+    compareMediaTypes;
+
+  protected readonly badIntErrorMessage: string =
+    ' must not be empty, &lt; 0 or &gt; ' + JAVA_MAX_INT_VALUE + '!';
 
   constructor() {
     super();
