@@ -14,6 +14,8 @@ export class DialogConfig<DATA, RESULT> {
 
   #disableClose: boolean = false;
 
+  #restoreFocus: boolean = false;
+
   #contentComponentType: Type<DialogContentComponent<DATA, RESULT>>;
 
   #dialogData: DATA;
@@ -54,6 +56,16 @@ export class DialogConfig<DATA, RESULT> {
 
   public setDisableClose(disableClose: boolean): this {
     this.#disableClose = disableClose;
+
+    return this;
+  }
+
+  public getRestoreFocus(): boolean {
+    return this.#restoreFocus;
+  }
+
+  public setRestoreFocus(restoreFocus: boolean): this {
+    this.#restoreFocus = restoreFocus;
 
     return this;
   }

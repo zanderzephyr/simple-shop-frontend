@@ -12,6 +12,7 @@ export function mapToNgMatConfig<DATA, RESULT, CONFIG extends DialogConfig<DATA,
   ngMatDialogConfig.width = config.getWidth();
   ngMatDialogConfig.height = config.getHeight();
   ngMatDialogConfig.disableClose = config.getDisableClose();
+  ngMatDialogConfig.restoreFocus = config.getRestoreFocus();
 
   // TODO Extend as DialogConfig grows
 
