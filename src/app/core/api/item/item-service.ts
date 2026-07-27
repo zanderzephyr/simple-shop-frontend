@@ -1,13 +1,12 @@
 import { Item, zodItem } from '@api/item/model/item';
 import { ItemDto } from '@api/item/model/item-dto';
-import { firstValueFrom } from 'rxjs';
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { PageConfig } from '@app/core/utils/page/page-config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { ItemSerializer } from './item-serializer';
 import { Page, PageDto, zodPage } from '@core/utils/page/page';
 import { IllegalArgumentError } from '@core/utils/common-errors';
-import { Observable } from 'rxjs';
+import { Observable, firstValueFrom } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -32,6 +31,7 @@ export abstract class ItemService {
    *
    * @returns The requested item or null if not found.
    */
+  // TODO Document
   public abstract getItemById(id: bigint): Promise<Item | null>;
 
   /**
@@ -39,7 +39,7 @@ export abstract class ItemService {
    *
    * @returns The list of requested items.
    */
-  // TODO This returns a page, that contains the items and the total number of items in the backend. Adapt the return type accordingly.
+  // TODO Document
   public abstract getItems(pageConfig: PageConfig): Promise<Page<Item>>;
 
   /**

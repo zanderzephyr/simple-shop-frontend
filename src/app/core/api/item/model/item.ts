@@ -4,6 +4,7 @@ import { ZodType } from 'zod';
 import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';
 import { MediaType } from './media-type';
 import { ItemDto, zodItemDto, dateTimeFormatter } from './item-dto';
+import { isBlank } from '@core/utils/string-utils';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -14,27 +15,27 @@ const secretKey: symbol = Symbol('secretKey');
  */
 interface ItemData {
   [secretKey]: true; // Marker to prevent external construction
-  id: bigint | undefined;
+  id?: bigint;
   title: string;
   mediaType: MediaType;
   stock: number;
   price: number;
   imageUrl: string;
-  lastChange: LocalDateTime | undefined;
-  lastChangedBy: bigint | undefined;
-  version: bigint | undefined;
+  lastChange?: LocalDateTime;
+  lastChangedBy?: bigint;
+  version?: bigint;
 }
 
 export class Item {
-  readonly #id: bigint | undefined;
+  readonly #id?: bigint;
   readonly #title: string;
   readonly #mediaType: MediaType;
   readonly #stock: number;
   readonly #price: number;
   readonly #imageUrl: string;
-  readonly #lastChange: LocalDateTime | undefined;
-  readonly #lastChangedBy: bigint | undefined;
-  readonly #version: bigint | undefined;
+  readonly #lastChange?: LocalDateTime;
+  readonly #lastChangedBy?: bigint;
+  readonly #version?: bigint;
 
   public constructor(itemData: ItemData) {
     this.#id = itemData.id;
@@ -117,7 +118,7 @@ export class ItemBuilder {
   public getId(): bigint | undefined {
     return this.#id;
   }
-  public setId(id: bigint): this {
+  public setId(id: bigint | undefined): this {
     this.#id = id;
     return this;
   }
@@ -126,7 +127,7 @@ export class ItemBuilder {
     return this.#title;
   }
 
-  public setTitle(title: string): this {
+  public setTitle(title: string | undefined): this {
     this.#title = title;
     return this;
   }
@@ -135,7 +136,7 @@ export class ItemBuilder {
     return this.#mediaType;
   }
 
-  public setMediaType(mediaType: MediaType): this {
+  public setMediaType(mediaType: MediaType | undefined): this {
     this.#mediaType = mediaType;
     return this;
   }
@@ -144,7 +145,7 @@ export class ItemBuilder {
     return this.#stock;
   }
 
-  public setStock(stock: number): this {
+  public setStock(stock: number | undefined): this {
     this.#stock = stock;
     return this;
   }
@@ -153,7 +154,7 @@ export class ItemBuilder {
     return this.#price;
   }
 
-  public setPrice(price: number): this {
+  public setPrice(price: number | undefined): this {
     this.#price = price;
     return this;
   }
@@ -161,7 +162,7 @@ export class ItemBuilder {
   public getImageUrl(): string | undefined {
     return this.#imageUrl;
   }
-  public setImageUrl(imageUrl: string): this {
+  public setImageUrl(imageUrl: string | undefined): this {
     this.#imageUrl = imageUrl;
     return this;
   }
@@ -170,7 +171,7 @@ export class ItemBuilder {
     return this.#lastChange;
   }
 
-  public setLastChange(lastChange: LocalDateTime): this {
+  public setLastChange(lastChange: LocalDateTime | undefined): this {
     this.#lastChange = lastChange;
     return this;
   }
@@ -179,7 +180,7 @@ export class ItemBuilder {
     return this.#lastChangedBy;
   }
 
-  public setLastChangedBy(lastChangedBy: bigint): this {
+  public setLastChangedBy(lastChangedBy: bigint | undefined): this {
     this.#lastChangedBy = lastChangedBy;
     return this;
   }
@@ -188,7 +189,7 @@ export class ItemBuilder {
     return this.#version;
   }
 
-  public setVersion(version: bigint): this {
+  public setVersion(version: bigint | undefined): this {
     this.#version = version;
     return this;
   }
@@ -216,11 +217,7 @@ export class ItemBuilder {
       throw new InvalidStateError('Invalid item ID!');
     }
 
-    if (this.#lastChangedBy !== undefined && this.#lastChangedBy < 0n) {
-      throw new InvalidStateError('Invalid last changed by!');
-    }
-
-    if (this.#title === undefined) {
+    if (this.#title === undefined || isBlank(this.#title)) {
       throw new InvalidStateError('No item title!');
     }
 
@@ -232,12 +229,16 @@ export class ItemBuilder {
       throw new InvalidStateError('No item price!');
     }
 
-    if (this.#imageUrl === undefined) {
+    if (this.#imageUrl === undefined || isBlank(this.#imageUrl)) {
       throw new InvalidStateError('No item image URL!');
     }
 
+    if (this.#lastChangedBy !== undefined && this.#lastChangedBy < 0n) {
+      throw new InvalidStateError('Invalid last changed by!');
+    }
+
     if (this.#version !== undefined && this.#version < 0n) {
-      throw new InvalidStateError('Invalid item version!');
+      throw new InvalidStateError('Invalid version!');
     }
   }
 
@@ -247,17 +248,17 @@ export class ItemBuilder {
 }
 
 export function zodItem(): ZodType<Item> {
-  return zodItemDto().transform((data: ItemDto): Item => {
+  return zodItemDto().transform((dto: ItemDto): Item => {
     return new ItemBuilder()
-      .setId(BigInt(data.id!))
-      .setTitle(data.title)
-      .setMediaType(convertStringToEnum(data.mediaType, MediaType)!)
-      .setStock(data.stock)
-      .setPrice(data.price)
-      .setImageUrl(data.imageUrl)
-      .setLastChange(parseLocalDateTime(data.lastChange!, dateTimeFormatter))
-      .setLastChangedBy(BigInt(data.lastChangedBy!))
-      .setVersion(BigInt(data.version!))
+      .setId(BigInt(dto.id!))
+      .setTitle(dto.title)
+      .setMediaType(convertStringToEnum(dto.mediaType, MediaType)!)
+      .setStock(dto.stock)
+      .setPrice(dto.price)
+      .setImageUrl(dto.imageUrl)
+      .setLastChange(parseLocalDateTime(dto.lastChange!, dateTimeFormatter))
+      .setLastChangedBy(BigInt(dto.lastChangedBy!))
+      .setVersion(BigInt(dto.version!))
       .build();
   });
 }

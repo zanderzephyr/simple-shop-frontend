@@ -1,6 +1,13 @@
-import { User, UserBuilder } from '@api/user/model/user';
+import { zodUser, User, UserBuilder } from '@api/user/model/user';
 import { UserType } from '@api/user/model/user-type';
-import { forwardRef, Injectable } from '@angular/core';
+import { UserDto } from '@api/user/model/user-dto';
+import { inject, forwardRef, Injectable } from '@angular/core';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { PageConfig } from '@core/utils/page/page-config';
+import { Page, PageDto, zodPage } from '@core/utils/page/page';
+import { UserSerializer } from './user-serializer';
+import { Observable, firstValueFrom } from 'rxjs';
+import { IllegalArgumentError } from '@core/utils/common-errors';
 
 @Injectable({
   providedIn: 'root',
@@ -9,84 +16,125 @@ import { forwardRef, Injectable } from '@angular/core';
 export abstract class UserService {
   public constructor() {}
 
-  // TODO Document and reconsider return value
-  public abstract createUser(user: User): Promise<void>;
-
-  // TODO Document and reconsider return value
-  public abstract getUsers(): Promise<readonly User[]>;
+  /**
+   * Adds a new user and returns the created user.
+   *
+   * The backend will set the technical properties of the user (e.g. the ID field)
+   * and return the created user.
+   *
+   * @returns The user created by the backend.
+   */
+  // TODO Document
+  public abstract createUser(user: User): Promise<User>;
 
   /**
-   * Retrieves a user with ID of userId from the user
-   * service if such a user exists.
+   * Requests a user by its ID from the backend.
    *
-   * @returns The user with ID userId or null if such a
-   * user doesn't exist.
+   * @returns The requested user or null if not found.
    */
-  public abstract getUser(userId: number): Promise<User | null>;
+  // TODO Document
+  public abstract getUserById(id: bigint): Promise<User | null>;
 
-  // TODO Document and reconsider return value
-  public abstract modifyUser(user: User): Promise<void>;
+  /**
+   * Requests user based on the provided page configuration.
+   *
+   * @returns The list of requested users.
+   */
+  // TODO Document
+  public abstract getUsers(pageConfig: PageConfig): Promise<Page<User>>;
 
-  // TODO Document and reconsider return value
+  /**
+   * Changes a user.
+   *
+   * @returns The modified user.
+   */
+  // TODO Document
+  public abstract modifyUser(user: User): Promise<User>;
+
+  /**
+   * Removes a user in the backend.
+   */
+  // TODO Document
   public abstract deleteUser(user: User): Promise<void>;
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiUserService extends UserService {
-  readonly #users: readonly User[] = Object.freeze(new UserGenerator().createUsers());
+  readonly #url = '/api/api/v1/users';
+
+  readonly #httpClient = inject(HttpClient);
 
   constructor() {
     super();
   }
 
-  public override async createUser(user: User): Promise<void> {
-    // TODO
-    console.log('Adding users not yet implemented!');
+  public override async createUser(user: User): Promise<User> {
+    const body: string = UserSerializer.serialize(user);
+    const headers: HttpHeaders = this.#createHeaders();
+    const options = { headers };
+
+    const userStream$: Observable<UserDto> = this.#httpClient.post<UserDto>(
+      this.#url,
+      body,
+      options,
+    );
+    const userDto: UserDto = await firstValueFrom(userStream$);
+    return zodUser().parse(userDto);
   }
 
-  // TODO replace with actual request and response processing.
-  public override async getUsers(): Promise<readonly User[]> {
-    return this.#users;
+  public override async getUserById(userId: bigint): Promise<User | null> {
+    const url: string = this.#url + '/' + userId.toString();
+    const userStream$: Observable<UserDto> = this.#httpClient.get<UserDto>(url);
+    const userDto: UserDto = await firstValueFrom(userStream$);
+    return zodUser().parse(userDto);
   }
 
-  public override async getUser(userId: number): Promise<User | null> {
-    return this.#users.find((user) => user.getId() === userId) ?? null;
+  public override async getUsers(pageConfig: PageConfig): Promise<Page<User>> {
+    const params: HttpParams = new HttpParams()
+      .set('pageIndex', pageConfig.getPageIndex().toString())
+      .set('pageSize', pageConfig.getPageSize().toString());
+    const options = { params };
+
+    const pageStream$: Observable<PageDto<UserDto>> = this.#httpClient.get<PageDto<UserDto>>(
+      this.#url,
+      options,
+    );
+    const pageDto: PageDto<UserDto> = await firstValueFrom(pageStream$);
+
+    return zodPage(zodUser()).parse(pageDto);
   }
 
-  public override async modifyUser(user: User): Promise<void> {
-    // TODO
-    console.log('Modifying users not yet implemented!');
+  public override async modifyUser(user: User): Promise<User> {
+    const body: string = UserSerializer.serialize(user);
+    const userId: bigint | undefined = user.getId();
+    if (userId === undefined) {
+      throw new IllegalArgumentError('User ID is undefined. Cannot modify user without ID.');
+    }
+    const headers: HttpHeaders = this.#createHeaders();
+    const options = { headers };
+    const url: string = this.#url + '/' + userId.toString();
+
+    const userStream$: Observable<UserDto> = this.#httpClient.put<UserDto>(url, body, options);
+    const userDto: UserDto = await firstValueFrom(userStream$);
+    return zodUser().parse(userDto);
   }
 
+  /*
+			Do not throw in that method, if the user doesn't exist anymore.
+			The current client might try to delete a user, that another client already removed.
+		 */
   public override async deleteUser(user: User): Promise<void> {
-    // TODO
-    console.log('Deleting users not yet implemented!');
+    const userId: bigint | undefined = user.getId();
+    if (userId === undefined) {
+      throw new IllegalArgumentError('User ID is undefined. Cannot delete user without ID.');
+    }
+
+    const url: string = this.#url + '/' + userId.toString();
+    const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
+    await firstValueFrom(resultStream$);
   }
-}
 
-// Just needed until we have a proper service
-class UserGenerator {
-  static #currentUserId: number = 0;
-
-  public createUsers(): User[] {
-    const users: User[] = [];
-
-    users.push(
-      new UserBuilder()
-        .setId(UserGenerator.#currentUserId++)
-        .setUsername('Horst')
-        .setUserType(UserType.ADMIN)
-        .build(),
-    );
-
-    users.push(
-      new UserBuilder()
-        .setId(UserGenerator.#currentUserId++)
-        .setUsername('Hannes')
-        .setUserType(UserType.CUSTOMER)
-        .build(),
-    );
-
-    return users;
+  #createHeaders(): HttpHeaders {
+    return new HttpHeaders().set('Content-Type', 'application/json; charset=utf-8');
   }
 }

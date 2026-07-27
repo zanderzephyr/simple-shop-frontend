@@ -4,11 +4,12 @@ import { z, ZodType } from 'zod';
 export const dateTimeFormatter: DateTimeFormatter =
   DateTimeFormatter.ofPattern('yyyy-MM-dd HH:mm:ss.SSS');
 
+// Using the "?" allows the property key to be missing. "undefined" would enforce it with an empty value.
 export interface ItemDto {
   /**
    * Can be missing to the backend, never from the backend.
    */
-  id: string | undefined;
+  id?: string;
   title: string;
   mediaType: string;
   stock: number;
@@ -17,27 +18,27 @@ export interface ItemDto {
   /**
    * Can be missing to the backend, never from the backend.
    */
-  lastChange: string | undefined;
+  lastChange?: string;
   /**
    * Can be missing to the backend, never from the backend.
    */
-  lastChangedBy: string | undefined;
+  lastChangedBy?: string;
   /**
    * Can be missing to the backend, never from the backend.
    */
-  version: string | undefined;
+  version?: string;
 }
 
 export function zodItemDto(): ZodType<ItemDto> {
   return z.object({
-    id: z.string(),
+    id: z.string().optional(),
     title: z.string(),
     mediaType: z.string(),
     stock: z.number(),
     price: z.number(),
     imageUrl: z.string(),
-    lastChange: z.string(),
-    lastChangedBy: z.string(),
-    version: z.string(),
+    lastChange: z.string().optional(),
+    lastChangedBy: z.string().optional(),
+    version: z.string().optional(),
   });
 }

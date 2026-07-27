@@ -1,4 +1,5 @@
 import { localDateTimeToString } from '@core/utils/data-type-utils';
+import { LocalDateTime } from '@js-joda/core';
 import { Item } from './model/item';
 import { dateTimeFormatter, ItemDto } from './model/item-dto';
 import { UnsupportedOperationError } from '@core/utils/common-errors';
@@ -9,7 +10,8 @@ export class ItemSerializer {
   }
 
   public static serialize(item: Item): string {
-    // Create a DTO object without private fields and properly formatted.
+    const lastChange: LocalDateTime | undefined = item.getLastChange();
+
     const itemDto: ItemDto = {
       id: item.getId()?.toString(),
       title: item.getTitle(),
@@ -17,9 +19,7 @@ export class ItemSerializer {
       stock: item.getStock(),
       price: item.getPrice(),
       imageUrl: item.getImageUrl(),
-      lastChange: item.getLastChange()
-        ? localDateTimeToString(item.getLastChange()!, dateTimeFormatter)
-        : undefined,
+      lastChange: lastChange ? localDateTimeToString(lastChange, dateTimeFormatter) : undefined,
       lastChangedBy: item.getLastChangedBy()?.toString(),
       version: item.getVersion()?.toString(),
     };
