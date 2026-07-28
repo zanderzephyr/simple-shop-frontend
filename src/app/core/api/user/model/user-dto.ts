@@ -16,8 +16,11 @@ export interface UserDto {
   lastName: string;
   email: string;
   userType: string;
-  srpSalt?: string;
-  srpVerifier?: string;
+  /**
+   * Is always missing from the backend.
+   * Can be missing to the backend in modification workflow, never missing for creation workflow.
+   */
+  passwordHash?: string;
   /**
    * Can be missing to the backend, never from the backend.
    */
@@ -41,8 +44,7 @@ export function zodUserDto(): ZodType<UserDto> {
     lastName: z.string(),
     email: z.string(),
     userType: z.string(),
-    srpSalt: z.string(),
-    srpVerifier: z.string(),
+    passwordHash: z.string().optional(),
     lastChange: z.string().optional(),
     lastChangedBy: z.string().optional(),
     version: z.string().optional(),

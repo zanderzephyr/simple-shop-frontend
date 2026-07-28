@@ -7,7 +7,7 @@
   <mat-form-field class="item-form-title" appearance="outline">
     <mat-label>Title</mat-label>
     <input matInput type="text" formControlName="title" />
-    <mat-error>Title must not be empty or longer then 400 characters!</mat-error>
+    <mat-error>Title must not be empty or &gt; 400 characters!</mat-error>
   </mat-form-field>
 
   <mat-form-field class="item-form-media-type" appearance="outline">
@@ -35,6 +35,6 @@
   <mat-form-field class="item-form-image-url" appearance="outline">
     <mat-label>Image URL</mat-label>
     <input matInput type="text" formControlName="imageUrl" />
-    <mat-error>URL is required and must be &lt; 2048 characters!</mat-error>
+    <mat-error>URL is required and must be &gt; 2048 characters!</mat-error>
   </mat-form-field>
 </form>

@@ -17,8 +17,7 @@ interface UserData {
   lastName: string;
   email: string;
   userType: UserType;
-  srpSalt?: string;
-  srpVerifier?: string;
+  passwordHash?: string;
   lastChange?: LocalDateTime;
   lastChangedBy?: bigint;
   version?: bigint;
@@ -32,8 +31,7 @@ export class User {
   readonly #middleNames?: string[];
   readonly #email: string;
   readonly #userType: UserType;
-  readonly #srpSalt?: string;
-  readonly #srpVerifier?: string;
+  readonly #passwordHash?: string;
   readonly #lastChange?: LocalDateTime;
   readonly #lastChangedBy?: bigint;
   readonly #version?: bigint;
@@ -46,8 +44,7 @@ export class User {
     this.#lastName = userData.lastName;
     this.#email = userData.email;
     this.#userType = userData.userType;
-    this.#srpSalt = userData.srpSalt;
-    this.#srpVerifier = userData.srpVerifier;
+    this.#passwordHash = userData.passwordHash;
     this.#lastChange = userData.lastChange;
     this.#lastChangedBy = userData.lastChangedBy;
     this.#version = userData.version;
@@ -83,12 +80,8 @@ export class User {
     return this.#userType;
   }
 
-  public getSrpSalt(): string | undefined {
-    return this.#srpSalt;
-  }
-
-  public getSrpVerifier(): string | undefined {
-    return this.#srpVerifier;
+  public getPasswordHash(): string | undefined {
+    return this.#passwordHash;
   }
 
   public getLastChange(): LocalDateTime | undefined {
@@ -115,8 +108,7 @@ export class UserBuilder {
   #lastName?: string;
   #email?: string;
   #userType?: UserType;
-  #srpSalt?: string;
-  #srpVerifier?: string;
+  #passwordHash?: string;
   /**
    * Is only to be set by the user service.
    */
@@ -157,7 +149,7 @@ export class UserBuilder {
   }
 
   public setFirstName(firstName: string | undefined): this {
-    this.#username = firstName;
+    this.#firstName = firstName;
     return this;
   }
 
@@ -197,21 +189,12 @@ export class UserBuilder {
     return this;
   }
 
-  public getSrpSalt(): string | undefined {
-    return this.#srpSalt;
+  public getPasswordHash(): string | undefined {
+    return this.#passwordHash;
   }
 
-  public setSrpSalt(srpSalt: string | undefined): this {
-    this.#srpSalt = srpSalt;
-    return this;
-  }
-
-  public getSrpVerifier(): string | undefined {
-    return this.#srpVerifier;
-  }
-
-  public setSrpVerifier(srpVerifier: string | undefined): this {
-    this.#srpVerifier = srpVerifier;
+  public setPasswordHash(passwordHash: string | undefined): this {
+    this.#passwordHash = passwordHash;
     return this;
   }
 
@@ -255,8 +238,7 @@ export class UserBuilder {
       lastName: this.#lastName!,
       email: this.#email!,
       userType: this.#userType!,
-      srpSalt: this.#srpSalt,
-      srpVerifier: this.#srpVerifier,
+      passwordHash: this.#passwordHash,
       lastChange: this.#lastChange,
       lastChangedBy: this.#lastChangedBy,
       version: this.#version,
@@ -312,10 +294,9 @@ export function zodUser(): ZodType<User> {
       .setLastName(dto.lastName)
       .setEmail(dto.email)
       .setUserType(convertStringToEnum(dto.userType, UserType)!)
-      .setSrpSalt(dto.srpSalt)
-      .setSrpVerifier(dto.srpVerifier)
+      .setPasswordHash(dto.passwordHash)
       .setLastChange(parseLocalDateTime(dto.lastChange!, dateTimeFormatter))
-      .setLastChangedBy(BigInt(dto.lastChangedBy!))
+      .setLastChangedBy(dto.lastChangedBy ? BigInt(dto.lastChangedBy) : undefined)
       .setVersion(BigInt(dto.version!))
       .build();
   });

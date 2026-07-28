@@ -1,5 +1,4 @@
-import { zodUser, User, UserBuilder } from '@api/user/model/user';
-import { UserType } from '@api/user/model/user-type';
+import { zodUser, User } from '@api/user/model/user';
 import { UserDto } from '@api/user/model/user-dto';
 import { inject, forwardRef, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -60,7 +59,7 @@ export abstract class UserService {
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiUserService extends UserService {
-  readonly #url = '/api/api/v1/users';
+  readonly #url = '/api/v1/users';
 
   readonly #httpClient = inject(HttpClient);
 

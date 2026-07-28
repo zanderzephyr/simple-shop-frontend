@@ -1,0 +1,58 @@
+<form
+  class="user-form-container"
+  [formGroup]="userForm"
+  #formDirective="ngForm"
+  (ngSubmit)="onConfirm()"
+>
+  <mat-form-field class="user-form-username" appearance="outline">
+    <mat-label>Username</mat-label>
+    <input matInput type="text" formControlName="username" />
+    <mat-error>Username must not be empty or &gt; 30 characters!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-first-name" appearance="outline">
+    <mat-label>First name</mat-label>
+    <input matInput type="text" formControlName="firstName" />
+    <mat-error>First name must not be empty or &gt; 30 characters!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-middle-names" appearance="outline">
+    <mat-label>Middle names</mat-label>
+    <input matInput type="text" formControlName="middleNames" />
+    <mat-error>Middle names must not be &gt; 100 characters!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-last-name" appearance="outline">
+    <mat-label>Last name</mat-label>
+    <input matInput type="text" formControlName="lastName" />
+    <mat-error>Last name must not be empty or &gt; 30 characters!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-email" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input matInput type="text" formControlName="email" />
+    <mat-error>Email must be a valid email address and not &gt; 254 characters!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-user-type" appearance="outline">
+    <mat-label>User Type</mat-label>
+    <mat-select formControlName="userType" [compareWith]="compareUserTypes">
+      @for (userType of userTypes(); track userType.id) {
+        <mat-option [value]="userType">{{ userType.name }}</mat-option>
+      }
+    </mat-select>
+    <mat-error>User type must not be empty!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-password" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="password" />
+    <mat-error>Password must not be empty!</mat-error>
+  </mat-form-field>
+
+  <mat-form-field class="user-form-password-confirmation" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input matInput type="password" formControlName="passwordConfirmation" />
+    <mat-error>Password confirmation must not be empty!</mat-error>
+  </mat-form-field>
+</form>

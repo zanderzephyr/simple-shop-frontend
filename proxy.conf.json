@@ -1,10 +1,12 @@
 {
-  "/api": {
+  "/api/v1/items": {
     "target": "http://localhost:8081",
     "secure": false,
-    "changeOrigin": true,
-    "pathRewrite": {
-      "^/api": ""
-    }
+    "changeOrigin": true
+  },
+  "/api/v1/users": {
+    "target": "http://localhost:8082",
+    "secure": false,
+    "changeOrigin": true
   }
 }

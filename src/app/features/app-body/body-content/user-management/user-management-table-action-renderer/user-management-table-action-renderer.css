@@ -1,0 +1,4 @@
+.user-management-table-action-container {
+  display: flex;
+  flex-direction: row;
+}
