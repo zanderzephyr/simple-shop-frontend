@@ -93,11 +93,11 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 
   #createItem(itemShape: ItemShape): Item {
     const itemBuilder: ItemBuilder = new ItemBuilder() //
-      .setTitle(itemShape.title!) //
+      .setTitle(itemShape.title!.trim()) //
       .setMediaType(itemShape.mediaType!) //
       .setStock(itemShape.stock!) //
       .setPrice(itemShape.price!) //
-      .setImageUrl(itemShape.imageUrl!);
+      .setImageUrl(itemShape.imageUrl!.trim());
 
     if (this.#initialItem) {
       itemBuilder.setId(this.#initialItem.getId()!);

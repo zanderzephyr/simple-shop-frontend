@@ -24,7 +24,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
-import { UserManagementEditorDialogData } from './user-management-editor-dialog/user-management-editor-dialog-data';
+import { UserManagementEditorDialogData } from './user-editor-dialog/user-editor-dialog-data';
 
 @Component({
   selector: 'app-user-management',
