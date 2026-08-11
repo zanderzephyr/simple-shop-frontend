@@ -59,7 +59,7 @@ export abstract class UserService {
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiUserService extends UserService {
-  readonly #url = '/api/users/v1';
+  readonly #url = '/api/users/v1/regular';
 
   readonly #httpClient = inject(HttpClient);
 
