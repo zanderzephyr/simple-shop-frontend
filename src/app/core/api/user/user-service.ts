@@ -7,6 +7,8 @@ import { Page, PageDto, zodPage } from '@core/utils/page/page';
 import { UserSerializer } from './user-serializer';
 import { Observable, firstValueFrom } from 'rxjs';
 import { IllegalArgumentError } from '@core/utils/common-errors';
+import { UserType } from './model/user-type';
+import { convertStringToEnum } from '@core/utils/data-type-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -41,6 +43,9 @@ export abstract class UserService {
    */
   // TODO Document
   public abstract getUsers(pageConfig: PageConfig): Promise<Page<User>>;
+
+  // TODO Document
+  public abstract getUserType(id: bigint): Promise<UserType | null>;
 
   /**
    * Changes a user.
@@ -99,6 +104,14 @@ class ApiUserService extends UserService {
     const pageDto: PageDto<UserDto> = await firstValueFrom(pageStream$);
 
     return zodPage(zodUser()).parse(pageDto);
+  }
+
+  public override async getUserType(userId: bigint): Promise<UserType | null> {
+    const url: string = this.#url + '/get-user-type/' + userId.toString();
+    const options = { responseType: 'text' as const };
+    const userTypeStream$: Observable<string> = this.#httpClient.get(url, options);
+    const userType: string = await firstValueFrom(userTypeStream$);
+    return convertStringToEnum(userType, UserType) ?? null;
   }
 
   public override async modifyUser(user: User): Promise<User> {
