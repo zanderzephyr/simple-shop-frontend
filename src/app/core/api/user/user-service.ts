@@ -68,34 +68,32 @@ class ApiUserService extends UserService {
   }
 
   public override async createUser(user: User): Promise<User> {
+    const url: string = this.#url + '/create-user';
     const body: string = UserSerializer.serialize(user);
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
 
-    const userStream$: Observable<UserDto> = this.#httpClient.post<UserDto>(
-      this.#url,
-      body,
-      options,
-    );
+    const userStream$: Observable<UserDto> = this.#httpClient.post<UserDto>(url, body, options);
     const userDto: UserDto = await firstValueFrom(userStream$);
     return zodUser().parse(userDto);
   }
 
   public override async getUserById(userId: bigint): Promise<User | null> {
-    const url: string = this.#url + '/' + userId.toString();
+    const url: string = this.#url + '/get-user/' + userId.toString();
     const userStream$: Observable<UserDto> = this.#httpClient.get<UserDto>(url);
     const userDto: UserDto = await firstValueFrom(userStream$);
     return zodUser().parse(userDto);
   }
 
   public override async getUsers(pageConfig: PageConfig): Promise<Page<User>> {
+    const url: string = this.#url + '/get-users';
     const params: HttpParams = new HttpParams()
       .set('pageIndex', pageConfig.getPageIndex().toString())
       .set('pageSize', pageConfig.getPageSize().toString());
     const options = { params };
 
     const pageStream$: Observable<PageDto<UserDto>> = this.#httpClient.get<PageDto<UserDto>>(
-      this.#url,
+      url,
       options,
     );
     const pageDto: PageDto<UserDto> = await firstValueFrom(pageStream$);
@@ -109,9 +107,9 @@ class ApiUserService extends UserService {
     if (userId === undefined) {
       throw new IllegalArgumentError('User ID is undefined. Cannot modify user without ID.');
     }
+    const url: string = this.#url + '/modify-user/' + userId.toString();
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
-    const url: string = this.#url + '/' + userId.toString();
 
     const userStream$: Observable<UserDto> = this.#httpClient.put<UserDto>(url, body, options);
     const userDto: UserDto = await firstValueFrom(userStream$);
@@ -128,7 +126,7 @@ class ApiUserService extends UserService {
       throw new IllegalArgumentError('User ID is undefined. Cannot delete user without ID.');
     }
 
-    const url: string = this.#url + '/' + userId.toString();
+    const url: string = this.#url + '/delete-user/' + userId.toString();
     const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
     await firstValueFrom(resultStream$);
   }
