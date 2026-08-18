@@ -1,5 +1,5 @@
 import { zodUser, User } from '@api/user/model/user';
-import { UserDto } from '@api/user/model/user-dto';
+import { UserDto } from '@app/core/api/user/dto/user-dto';
 import { inject, forwardRef, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { PageConfig } from '@core/utils/page/page-config';
@@ -62,6 +62,7 @@ export abstract class UserService {
   public abstract deleteUser(user: User): Promise<void>;
 }
 
+// TODO For all endpoints, work with the possible error responses from the backend.
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiUserService extends UserService {
   readonly #url = '/api/users/v1/regular';

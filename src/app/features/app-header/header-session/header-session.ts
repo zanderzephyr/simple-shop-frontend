@@ -1,12 +1,12 @@
 import { Component, computed, inject, Signal } from '@angular/core';
 import { UserType } from '@api/user/model/user-type';
-import { Session, SessionData } from '@core/session';
+import { Session, SessionData } from '@app/core/session/session-service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
-import { SessionService } from '@api/session/session.service';
+import { AuthService } from '@app/core/api/auth/auth.service';
 
 @Component({
   selector: 'app-header-session',
@@ -17,7 +17,7 @@ import { SessionService } from '@api/session/session.service';
 export class HeaderSessionComponent {
   readonly #session: Session = inject(Session);
   readonly #router: Router = inject(Router);
-  readonly #sessionService: SessionService = inject(SessionService);
+  readonly #sessionService: AuthService = inject(AuthService);
 
   readonly #sessionData: Signal<SessionData | undefined> = this.#session.getSessionData();
 

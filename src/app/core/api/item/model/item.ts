@@ -3,7 +3,7 @@ import { InvalidStateError } from '@core/utils/common-errors';
 import { ZodType } from 'zod';
 import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';
 import { MediaType } from './media-type';
-import { ItemDto, zodItemDto, dateTimeFormatter } from './item-dto';
+import { ItemDto, zodItemDto, dateTimeFormatter } from '../dto/item-dto';
 import { isBlank } from '@core/utils/string-utils';
 
 const secretKey: symbol = Symbol('secretKey');

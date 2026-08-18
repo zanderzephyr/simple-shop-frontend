@@ -1,7 +1,7 @@
 import { LocalDateTime } from '@js-joda/core';
 import { UserType } from './user-type';
 import { ZodType } from 'zod';
-import { UserDto, zodUserDto, dateTimeFormatter } from './user-dto';
+import { UserDto, zodUserDto, dateTimeFormatter } from '../dto/user-dto';
 import { InvalidStateError } from '@core/utils/common-errors';
 import { isBlank } from '@core/utils/string-utils';
 import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';

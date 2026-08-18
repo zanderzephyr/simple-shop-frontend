@@ -1,7 +1,7 @@
 import { localDateTimeToString } from '@core/utils/data-type-utils';
 import { LocalDateTime } from '@js-joda/core';
 import { User } from './model/user';
-import { dateTimeFormatter, UserDto } from './model/user-dto';
+import { dateTimeFormatter, UserDto } from './dto/user-dto';
 import { UnsupportedOperationError } from '@core/utils/common-errors';
 
 export class UserSerializer {

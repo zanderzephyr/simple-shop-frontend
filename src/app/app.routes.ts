@@ -1,7 +1,7 @@
 import { inject } from '@angular/core';
 import { Routes, CanActivateFn, Router } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
-import { Session, SessionData } from '@core/session';
+import { Session, SessionData } from '@app/core/session/session-service';
 
 function getSessionData(): SessionData | undefined {
   const session: Session = inject(Session);

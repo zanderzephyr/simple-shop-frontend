@@ -3,8 +3,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
-import { SessionService } from '@api/session/session.service';
-import { LoginCredentials } from '@api/session/model/login-credentials';
+import { AuthService } from '@app/core/api/auth/auth.service';
+import { LoginRequest } from '@app/core/api/auth/model/login-request';
 import { Router } from '@angular/router';
 
 interface LoginFormShape {
@@ -20,7 +20,7 @@ interface LoginFormShape {
 })
 export class SessionLoginComponent {
   readonly #router: Router = inject(Router);
-  readonly #sessionService: SessionService = inject(SessionService);
+  readonly #sessionService: AuthService = inject(AuthService);
   readonly #formBuilder: FormBuilder = inject(FormBuilder);
 
   protected readonly loginForm = this.#formBuilder.group({
@@ -46,7 +46,7 @@ export class SessionLoginComponent {
 
     if (this.loginForm.valid) {
       const { username, password }: LoginFormShape = this.loginForm.getRawValue();
-      const loginCredentials: LoginCredentials = new LoginCredentials(username!, password!);
+      const loginCredentials: LoginRequest = new LoginRequest(username!, password!);
 
       // TODO Catch error and show validation results at the input fields
       await this.#sessionService.login(loginCredentials);

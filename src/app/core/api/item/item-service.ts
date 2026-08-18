@@ -1,5 +1,5 @@
 import { Item, zodItem } from '@api/item/model/item';
-import { ItemDto } from '@api/item/model/item-dto';
+import { ItemDto } from '@app/core/api/item/dto/item-dto';
 import { forwardRef, inject, Injectable } from '@angular/core';
 import { PageConfig } from '@app/core/utils/page/page-config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
@@ -57,6 +57,7 @@ export abstract class ItemService {
   public abstract deleteItem(item: Item): Promise<void>;
 }
 
+// TODO For all endpoints, work with the possible error responses from the backend.
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
   readonly #url = '/api/items/v1/regular';
