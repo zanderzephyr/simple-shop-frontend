@@ -1,29 +1,37 @@
 import { inject } from '@angular/core';
 import { Routes, CanActivateFn, Router } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
-import { Session, SessionData } from '@app/core/session/session-service';
+import { SessionService } from '@core/session/session-service';
+import { SessionData } from '@core/session/session-data';
+import { UserService } from '@core/api/user/user-service';
 
-function getSessionData(): SessionData | undefined {
-  const session: Session = inject(Session);
-  return session.getSessionData()();
-}
-
-const isAdminGuard: CanActivateFn = () => {
+const isAdminGuard: CanActivateFn = async () => {
   const router: Router = inject(Router);
-  const userType: UserType | undefined = getSessionData()?.getUserType();
-  if (UserType.ADMIN === userType) {
-    return true;
+  const sessionService: SessionService = inject(SessionService);
+  const userService: UserService = inject(UserService);
+
+  const sessionData: SessionData | undefined = sessionService.getSessionData()();
+  if (sessionData) {
+    const userId: bigint = sessionData.getUserId();
+    const userType: UserType | null = await userService.getUserType(userId);
+    if (UserType.ADMIN === userType) {
+      return true;
+    }
   }
 
+  // TODO Maybe better redirect to a "not authorized" page instead of the welcome page.
   return router.createUrlTree(['/']);
 };
 
 const isLoggedInGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
-  if (getSessionData() !== undefined) {
+  const sessionService: SessionService = inject(SessionService);
+
+  if (sessionService.getSessionData()() !== undefined) {
     return true;
   }
 
+  // TODO Maybe better redirect to a "not authorized" page instead of the welcome page.
   return router.createUrlTree(['/']);
 };
 
