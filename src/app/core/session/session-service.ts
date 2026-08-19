@@ -98,12 +98,9 @@ class CoreSessionService extends SessionService {
     }
 
     /*
-     * There could still be a session cookie. In this case, we log out and let the
-     *  cookie be deleted in the process.
+     * There could still be a session cookie. We ignore this case though, because a logout
+     * call has to happen in an active session or the backend throws an error.
      */
-    if (sessionData === null) {
-      await this.logout();
-    }
 
     this.#sessionData.set(sessionData);
   }
