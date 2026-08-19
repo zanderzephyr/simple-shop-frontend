@@ -3,9 +3,11 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroupDirective } from '@angular/forms';
-import { AuthService } from '@app/core/api/auth/auth.service';
-import { LoginRequest } from '@app/core/api/auth/model/login-request';
 import { Router } from '@angular/router';
+import { LoginRequest, LoginRequestBuilder } from '@core/api/auth/model/login-request';
+import { generateSha256Hash } from '@core/utils/crypto-utils';
+import { SessionService } from '@core/session/session-service';
+import { DialogService, openErrorDialog } from '@core/ui/dialog/interface/dialog-service';
 
 interface LoginFormShape {
   username: string | null;
@@ -20,7 +22,8 @@ interface LoginFormShape {
 })
 export class SessionLoginComponent {
   readonly #router: Router = inject(Router);
-  readonly #sessionService: AuthService = inject(AuthService);
+  readonly #sessionService: SessionService = inject(SessionService);
+  readonly #dialogService = inject(DialogService);
   readonly #formBuilder: FormBuilder = inject(FormBuilder);
 
   protected readonly loginForm = this.#formBuilder.group({
@@ -46,12 +49,17 @@ export class SessionLoginComponent {
 
     if (this.loginForm.valid) {
       const { username, password }: LoginFormShape = this.loginForm.getRawValue();
-      const loginCredentials: LoginRequest = new LoginRequest(username!, password!);
+      const loginCredentials: LoginRequest = new LoginRequestBuilder() //
+        .setUsername(username!.trim()) //
+        .setPasswordHash(generateSha256Hash(password!.trim())) //
+        .build();
 
-      // TODO Catch error and show validation results at the input fields
-      await this.#sessionService.login(loginCredentials);
-
-      this.#router.navigate(['/welcome']);
+      const loginSuccessful: boolean = await this.#sessionService.login(loginCredentials);
+      if (loginSuccessful) {
+        this.#router.navigate(['/welcome']);
+      } else {
+        openErrorDialog(this.#dialogService, 'Login failed!');
+      }
     }
   }
 }
