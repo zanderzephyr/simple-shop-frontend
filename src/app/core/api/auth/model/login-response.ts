@@ -1,4 +1,4 @@
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { isBlank } from '@core/utils/string-utils';
 import { ZodType } from 'zod';
 import { zodLoginResponseDto, LoginResponseDto } from '../dto/login-response-dto';
@@ -87,15 +87,15 @@ export class LoginResponseBuilder {
 
   #validate(): void {
     if (this.#credentialsOk === undefined) {
-      throw new InvalidStateError('Invalid credentials ok!');
+      throw new IllegalStateError('Invalid credentials ok!');
     }
 
     if (this.#userId !== undefined && this.#userId < 0n) {
-      throw new InvalidStateError('Invalid user ID!');
+      throw new IllegalStateError('Invalid user ID!');
     }
 
     if (this.#errorMessage !== undefined && isBlank(this.#errorMessage)) {
-      throw new InvalidStateError('Invalid error message!');
+      throw new IllegalStateError('Invalid error message!');
     }
   }
 

@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 import { Editor } from '@ui//editor/editor';
 import { Renderer } from '@ui/renderer/renderer';
 import { z, ZodType } from 'zod';
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -155,23 +155,23 @@ export class TableColumnDescriptionBuilder<TYPE> {
 
   #validate(): void {
     if (this.#modelIndex === undefined || this.#modelIndex < 0) {
-      throw new InvalidStateError('Invalid model index!');
+      throw new IllegalStateError('Invalid model index!');
     }
 
     if (this.#title === undefined || this.#title.trim().length === 0) {
-      throw new InvalidStateError('No item title!');
+      throw new IllegalStateError('No item title!');
     }
 
     if (this.#typeSchema === undefined) {
-      throw new InvalidStateError('No type schema!');
+      throw new IllegalStateError('No type schema!');
     }
 
     if (this.#rendererType === undefined) {
-      throw new InvalidStateError('No renderer type!');
+      throw new IllegalStateError('No renderer type!');
     }
 
     if (this.#width !== undefined && this.#width.trim().length === 0) {
-      throw new InvalidStateError('No width!');
+      throw new IllegalStateError('No width!');
     }
   }
 

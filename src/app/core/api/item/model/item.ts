@@ -1,5 +1,5 @@
 import { LocalDateTime } from '@js-joda/core';
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { ZodType } from 'zod';
 import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';
 import { MediaType } from './media-type';
@@ -214,31 +214,31 @@ export class ItemBuilder {
 
   #validate(): void {
     if (this.#id !== undefined && this.#id < 0n) {
-      throw new InvalidStateError('Invalid item ID!');
+      throw new IllegalStateError('Invalid item ID!');
     }
 
     if (this.#title === undefined || isBlank(this.#title)) {
-      throw new InvalidStateError('No item title!');
+      throw new IllegalStateError('No item title!');
     }
 
     if (this.#stock === undefined || this.#stock < 0) {
-      throw new InvalidStateError('No stock!');
+      throw new IllegalStateError('No stock!');
     }
 
     if (this.#price === undefined || this.#price < 0) {
-      throw new InvalidStateError('No item price!');
+      throw new IllegalStateError('No item price!');
     }
 
     if (this.#imageUrl === undefined || isBlank(this.#imageUrl)) {
-      throw new InvalidStateError('No item image URL!');
+      throw new IllegalStateError('No item image URL!');
     }
 
     if (this.#lastChangedBy !== undefined && this.#lastChangedBy < 0n) {
-      throw new InvalidStateError('Invalid last changed by!');
+      throw new IllegalStateError('Invalid last changed by!');
     }
 
     if (this.#version !== undefined && this.#version < 0n) {
-      throw new InvalidStateError('Invalid version!');
+      throw new IllegalStateError('Invalid version!');
     }
   }
 

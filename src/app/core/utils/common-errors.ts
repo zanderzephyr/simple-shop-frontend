@@ -33,7 +33,7 @@ export class IndexOutOfBoundsError extends BaseError {
   }
 }
 
-export class InvalidStateError extends BaseError {
+export class IllegalStateError extends BaseError {
   constructor(message?: string) {
     super(message);
   }

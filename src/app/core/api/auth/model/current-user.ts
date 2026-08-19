@@ -1,4 +1,4 @@
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { ZodType } from 'zod';
 import { CurrentUserDto, zodCurrentUserDto } from '../dto/current-user-dto';
 
@@ -7,7 +7,7 @@ export class CurrentUser {
 
   constructor(userId: bigint) {
     if (userId < 0n) {
-      throw new InvalidStateError('Invalid user ID!');
+      throw new IllegalStateError('Invalid user ID!');
     }
 
     this.#userId = userId;

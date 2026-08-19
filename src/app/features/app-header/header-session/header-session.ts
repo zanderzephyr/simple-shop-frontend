@@ -1,12 +1,13 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { UserType } from '@api/user/model/user-type';
-import { Session, SessionData } from '@app/core/session/session-service';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
-import { AuthService } from '@app/core/api/auth/auth.service';
+import { UserService } from '@api/user/user-service';
+import { UserType } from '@api/user/model/user-type';
+import { SessionService } from '@core/session/session-service';
+import { SessionData } from '@core/session/session-data';
 
 @Component({
   selector: 'app-header-session',
@@ -15,19 +16,27 @@ import { AuthService } from '@app/core/api/auth/auth.service';
   styleUrl: './header-session.css',
 })
 export class HeaderSessionComponent {
-  readonly #session: Session = inject(Session);
+  readonly #sessionService: SessionService = inject(SessionService);
+  readonly #userService: UserService = inject(UserService);
   readonly #router: Router = inject(Router);
-  readonly #sessionService: AuthService = inject(AuthService);
 
-  readonly #sessionData: Signal<SessionData | undefined> = this.#session.getSessionData();
+  protected readonly isLoggedIn: Signal<boolean> = this.#sessionService.isLoggedIn();
 
-  protected readonly isLoggedIn: Signal<boolean> = computed(
-    () => this.#sessionData() !== undefined,
-  );
+  protected readonly isAdmin: Signal<boolean> = computed(() => {
+    const sessionData: SessionData | null = this.#sessionService.getSessionData()();
+    return sessionData !== null && sessionData.getUserType() === UserType.ADMIN;
+  });
 
-  protected readonly isAdmin: Signal<boolean> = computed(
-    () => this.#sessionData()?.getUserType() === UserType.ADMIN,
-  );
+  /*() => {
+    const sessionData: SessionData | null = this.#sessionService.getSessionData()();
+    if (sessionData) {
+      const userType: UserType | null = await this.#userService.getUserType(
+        sessionData.getUserId(),
+      );
+      return UserType.ADMIN === userType;
+    }
+    return false;
+  });*/
 
   constructor() {
     // Nothing to do so far

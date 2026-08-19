@@ -3,17 +3,14 @@ import { Routes, CanActivateFn, Router } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
 import { SessionService } from '@core/session/session-service';
 import { SessionData } from '@core/session/session-data';
-import { UserService } from '@core/api/user/user-service';
 
-const isAdminGuard: CanActivateFn = async () => {
+const isAdminGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
   const sessionService: SessionService = inject(SessionService);
-  const userService: UserService = inject(UserService);
 
-  const sessionData: SessionData | undefined = sessionService.getSessionData()();
-  if (sessionData) {
-    const userId: bigint = sessionData.getUserId();
-    const userType: UserType | null = await userService.getUserType(userId);
+  const sessionData: SessionData | null = sessionService.getSessionData()();
+  if (sessionData != null) {
+    const userType: UserType | null = sessionData.getUserType();
     if (UserType.ADMIN === userType) {
       return true;
     }
@@ -27,7 +24,7 @@ const isLoggedInGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
   const sessionService: SessionService = inject(SessionService);
 
-  if (sessionService.getSessionData()() !== undefined) {
+  if (sessionService.isLoggedIn()()) {
     return true;
   }
 

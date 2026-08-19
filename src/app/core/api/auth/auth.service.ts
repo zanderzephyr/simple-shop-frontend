@@ -24,7 +24,7 @@ export abstract class AuthService {
   // TODO Document
   public abstract logout(): Promise<void>;
 
-  public abstract getCurrentUser(): Promise<CurrentUser | undefined>;
+  public abstract getCurrentUser(): Promise<CurrentUser | null>;
 }
 
 /*
@@ -76,7 +76,7 @@ class ApiAuthService extends AuthService {
     await firstValueFrom(logoutResponseStream$);
   }
 
-  public override async getCurrentUser(): Promise<CurrentUser | undefined> {
+  public override async getCurrentUser(): Promise<CurrentUser | null> {
     const url: string = this.#url + '/me';
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
@@ -98,7 +98,7 @@ class ApiAuthService extends AuthService {
       }
     }
 
-    return currentUser ? zodCurrentUser().parse(currentUser) : undefined;
+    return currentUser ? zodCurrentUser().parse(currentUser) : null;
   }
 
   #createHeaders(): HttpHeaders {

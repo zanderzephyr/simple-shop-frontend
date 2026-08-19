@@ -2,7 +2,7 @@ import { LocalDateTime } from '@js-joda/core';
 import { UserType } from './user-type';
 import { ZodType } from 'zod';
 import { UserDto, zodUserDto, dateTimeFormatter } from '../dto/user-dto';
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { isBlank } from '@core/utils/string-utils';
 import { convertStringToEnum, parseLocalDateTime } from '@core/utils/data-type-utils';
 
@@ -247,35 +247,35 @@ export class UserBuilder {
 
   #validate(): void {
     if (this.#id !== undefined && this.#id < 0n) {
-      throw new InvalidStateError('Invalid item ID!');
+      throw new IllegalStateError('Invalid item ID!');
     }
 
     if (this.#username === undefined || isBlank(this.#username)) {
-      throw new InvalidStateError('No username!');
+      throw new IllegalStateError('No username!');
     }
 
     if (this.#firstName === undefined || isBlank(this.#firstName)) {
-      throw new InvalidStateError('No first name!');
+      throw new IllegalStateError('No first name!');
     }
 
     if (this.#lastName === undefined || isBlank(this.#lastName)) {
-      throw new InvalidStateError('No last name!');
+      throw new IllegalStateError('No last name!');
     }
 
     if (this.#email === undefined || isBlank(this.#email)) {
-      throw new InvalidStateError('No email!');
+      throw new IllegalStateError('No email!');
     }
 
     if (this.#userType === undefined) {
-      throw new InvalidStateError('No user type!');
+      throw new IllegalStateError('No user type!');
     }
 
     if (this.#lastChangedBy !== undefined && this.#lastChangedBy < 0n) {
-      throw new InvalidStateError('Invalid last changed by!');
+      throw new IllegalStateError('Invalid last changed by!');
     }
 
     if (this.#version !== undefined && this.#version < 0n) {
-      throw new InvalidStateError('Invalid version!');
+      throw new IllegalStateError('Invalid version!');
     }
   }
 

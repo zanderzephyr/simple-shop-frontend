@@ -1,4 +1,4 @@
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { isBlank } from '@core/utils/string-utils';
 
 const secretKey: symbol = Symbol('secretKey');
@@ -73,11 +73,11 @@ export class LoginRequestBuilder {
 
   #validate(): void {
     if (this.#username === undefined || isBlank(this.#username)) {
-      throw new InvalidStateError('Invalid username!');
+      throw new IllegalStateError('Invalid username!');
     }
 
     if (this.#passwordHash === undefined || isBlank(this.#passwordHash)) {
-      throw new InvalidStateError('Invalid password hash!');
+      throw new IllegalStateError('Invalid password hash!');
     }
   }
 

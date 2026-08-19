@@ -1,5 +1,5 @@
 import { Component, computed, inject, Signal } from '@angular/core';
-import { Session } from '@app/core/session/session-service';
+import { SessionService } from '@app/core/session/session-service';
 
 @Component({
   selector: 'app-welcome',
@@ -8,12 +8,14 @@ import { Session } from '@app/core/session/session-service';
   styleUrl: './welcome.css',
 })
 export class WelcomeComponent {
-  readonly #session: Session = inject(Session);
+  readonly #sessionService: SessionService = inject(SessionService);
 
-  protected readonly isLoggedIn: Signal<boolean> = computed(() => this.#session.isLoggedIn()());
+  protected readonly isLoggedIn: Signal<boolean> = computed(() =>
+    this.#sessionService.isLoggedIn()(),
+  );
 
   protected readonly username: Signal<string | undefined> = computed(() =>
-    this.#session.getSessionData()()?.getUsername(),
+    this.#sessionService.getSessionData()()?.getUsername(),
   );
 
   constructor() {

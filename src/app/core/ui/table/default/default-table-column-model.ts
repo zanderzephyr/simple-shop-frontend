@@ -3,7 +3,7 @@ import { TableColumnDescription } from '@ui/table/interface/table-column-descrip
 import { TableColumn } from '@ui/table/interface/table-column';
 import { DefaultTableColumn } from './default-table-column';
 import { computed, WritableSignal, Signal, signal } from '@angular/core';
-import { IllegalArgumentError, InvalidStateError } from '@core/utils/common-errors';
+import { IllegalArgumentError, IllegalStateError } from '@core/utils/common-errors';
 import { TableWidthPolicy } from '@ui/table/interface/table-width-policy';
 
 export class DefaultTableColumnModel implements TableColumnModel {
@@ -66,7 +66,7 @@ export class DefaultTableColumnModel implements TableColumnModel {
     }
 
     // can't happen - we previously found it. Just for the compiler.
-    throw new InvalidStateError("Column wasn't found!");
+    throw new IllegalStateError("Column wasn't found!");
   }
 
   #getColumnViaModelIndex(

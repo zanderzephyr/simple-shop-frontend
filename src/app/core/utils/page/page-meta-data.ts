@@ -1,4 +1,4 @@
-import { InvalidStateError } from '@core/utils/common-errors';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { z, ZodType } from 'zod';
 
 const secretKey: symbol = Symbol('secretKey');
@@ -106,19 +106,19 @@ class PageMetaDataBuilder {
 
   #validate(): void {
     if (this.#pageIndex === undefined) {
-      throw new InvalidStateError('No page index!');
+      throw new IllegalStateError('No page index!');
     }
 
     if (this.#pageSize === undefined) {
-      throw new InvalidStateError('No page size!');
+      throw new IllegalStateError('No page size!');
     }
 
     if (this.#totalElements === undefined) {
-      throw new InvalidStateError('No total elements!');
+      throw new IllegalStateError('No total elements!');
     }
 
     if (this.#totalPages === undefined) {
-      throw new InvalidStateError('No total pages!');
+      throw new IllegalStateError('No total pages!');
     }
   }
 
