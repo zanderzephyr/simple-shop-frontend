@@ -11,7 +11,6 @@ import { SessionData } from './session-data';
 import { AuthService } from '@api/auth/auth.service';
 import { LoginResponse } from '@api/auth/model/login-response';
 import { LoginRequest } from '@api/auth/model/login-request';
-import { DialogService, openErrorDialog } from '../ui/dialog/interface/dialog-service';
 import { CurrentUser } from '../api/auth/model/current-user';
 
 @Injectable({
@@ -21,14 +20,23 @@ import { CurrentUser } from '../api/auth/model/current-user';
 export abstract class SessionService {
   public constructor() {}
 
-  public abstract login(loginRequest: LoginRequest): Promise<void>;
+  /**
+   * Attempts to log in the user with the provided login credentials.
+   * @param loginRequest The login credentials to use for authentication.
+   * @returns A promise that resolves to true if the login was successful, or false if the credentials were invalid.
+   */
+  public abstract login(loginRequest: LoginRequest): Promise<boolean>;
 
+  // TODO Document
   public abstract logout(): Promise<void>;
 
+  // TODO Document
   public abstract initSession(): Promise<void>;
 
+  // TODO Document
   public abstract getSessionData(): Signal<SessionData | undefined>;
 
+  // TODO Document
   public abstract isLoggedIn(): Signal<boolean>;
 }
 
@@ -40,20 +48,19 @@ class CoreSessionService extends SessionService {
 
   readonly #authService = inject(AuthService);
 
-  readonly #dialogService = inject(DialogService);
-
   constructor() {
     super();
   }
 
-  public override async login(loginRequest: LoginRequest): Promise<void> {
+  public override async login(loginRequest: LoginRequest): Promise<boolean> {
     const loginResponse: LoginResponse = await this.#authService.login(loginRequest);
 
     if (loginResponse.getCredentialsOk()) {
       this.#sessionData.set(new SessionData(loginResponse.getUserId()!));
-    } else {
-      openErrorDialog(this.#dialogService, 'Login failed!');
+
+      return true;
     }
+    return false;
   }
 
   public override async logout(): Promise<void> {
