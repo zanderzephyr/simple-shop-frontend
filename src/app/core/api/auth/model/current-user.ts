@@ -3,10 +3,10 @@ import { ZodType } from 'zod';
 import { CurrentUserDto, zodCurrentUserDto } from '../dto/current-user-dto';
 
 export class CurrentUser {
-  readonly #userId: bigint;
+  readonly #userId?: bigint;
 
-  constructor(userId: bigint) {
-    if (userId < 0n) {
+  constructor(userId: bigint | undefined) {
+    if (userId !== undefined && userId < 0n) {
       throw new IllegalStateError('Invalid user ID!');
     }
 
@@ -15,13 +15,13 @@ export class CurrentUser {
     Object.freeze(this);
   }
 
-  public getUserId(): bigint {
+  public getUserId(): bigint | undefined {
     return this.#userId;
   }
 }
 
 export function zodCurrentUser(): ZodType<CurrentUser> {
   return zodCurrentUserDto().transform((dto: CurrentUserDto): CurrentUser => {
-    return new CurrentUser(BigInt(dto.userId));
+    return new CurrentUser(dto.userId !== undefined ? BigInt(dto.userId) : undefined);
   });
 }

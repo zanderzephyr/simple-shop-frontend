@@ -24,7 +24,7 @@ export abstract class AuthService {
   // TODO Document
   public abstract logout(): Promise<void>;
 
-  public abstract getCurrentUser(): Promise<CurrentUser | null>;
+  public abstract getCurrentUser(): Promise<CurrentUser>;
 }
 
 /*
@@ -73,10 +73,23 @@ class ApiAuthService extends AuthService {
     const options = { headers };
 
     const logoutResponseStream$: Observable<unknown> = this.#httpClient.post(url, options);
-    await firstValueFrom(logoutResponseStream$);
+    try {
+      await firstValueFrom(logoutResponseStream$);
+    } catch (error: unknown) {
+      /*
+       *	If it's a 401, the user was already unauthenticated on the backend.
+       *	Ignore it quietly so it doesn't crash the frontend application startup sequence.
+       */
+      if (
+        (error instanceof HttpErrorResponse && error.status !== 401) ||
+        !(error instanceof HttpErrorResponse)
+      ) {
+        console.error('Error logging out:', error);
+      }
+    }
   }
 
-  public override async getCurrentUser(): Promise<CurrentUser | null> {
+  public override async getCurrentUser(): Promise<CurrentUser> {
     const url: string = this.#url + '/me';
     const headers: HttpHeaders = this.#createHeaders();
     const options = { headers };
@@ -86,19 +99,9 @@ class ApiAuthService extends AuthService {
       options,
     );
 
-    let currentUser: CurrentUserDto | undefined = undefined;
-    try {
-      currentUser = await firstValueFrom(currentUserIdStream$);
-    } catch (error: unknown) {
-      if (
-        (error instanceof HttpErrorResponse && error.status !== 401) ||
-        !(error instanceof HttpErrorResponse)
-      ) {
-        console.error('Error fetching current user:', error);
-      }
-    }
+    let currentUser: CurrentUserDto = await firstValueFrom(currentUserIdStream$);
 
-    return currentUser ? zodCurrentUser().parse(currentUser) : null;
+    return zodCurrentUser().parse(currentUser);
   }
 
   #createHeaders(): HttpHeaders {

@@ -91,9 +91,10 @@ class CoreSessionService extends SessionService {
   public override async initSession(): Promise<void> {
     let sessionData: SessionData | null = null;
 
-    const currentUser: CurrentUser | null = await this.#authService.getCurrentUser();
-    if (currentUser !== null) {
-      sessionData = await this.#createSessionDataFromCurrentUser(currentUser.getUserId());
+    const currentUser: CurrentUser = await this.#authService.getCurrentUser();
+    const userId: bigint | undefined = currentUser.getUserId();
+    if (userId !== undefined) {
+      sessionData = await this.#createSessionDataFromCurrentUser(userId);
     }
 
     /*
