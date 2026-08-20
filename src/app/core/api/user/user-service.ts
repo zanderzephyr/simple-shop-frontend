@@ -155,7 +155,7 @@ class ApiUserService extends UserService {
     try {
       const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
       await executeApiCall(resultStream$);
-    } catch (error) {
+    } catch (error: unknown) {
       if (!(error instanceof ObjectNotFoundError)) {
         throw error;
       }

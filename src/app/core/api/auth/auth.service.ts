@@ -8,6 +8,7 @@ import { LoginResponseDto } from './dto/login-response-dto';
 import { LoginRequestSerializer } from './auth-serializer';
 import { CurrentUser, zodCurrentUser } from './model/current-user';
 import { CurrentUserDto } from './dto/current-user-dto';
+import { UnauthorizedError, executeApiCall } from '@core/utils/api-errors';
 
 @Injectable({
   providedIn: 'root',
@@ -17,34 +18,28 @@ export abstract class AuthService {
   public constructor() {}
 
   /**
-   * Tries to log into the backend.
+   * Logs in.
+   *
+   * @throws UnauthorizedError if the login fails.
+   *
+   * @returns The login response.
    */
   public abstract login(loginRequest: LoginRequest): Promise<LoginResponse>;
 
-  // TODO Document
+  /**
+   * Logs out.
+   */
   public abstract logout(): Promise<void>;
 
+  /**
+   * Requests the currently logged-in user.
+   *
+   * @returns The currently logged-in user (its ID). The ID is undefined
+   * if there is no currently logged-in user.
+   */
   public abstract getCurrentUser(): Promise<CurrentUser>;
 }
 
-/*
- * TODO For all endpoints, work with the possible error responses from the backend.
- * For example, if the backend returns a 401 Unauthorized response, we could handle
- * that gracefully and provide a meaningful error message to the user.
- *
- * try {
- *   const loginResponse = await authService.login(loginRequest);
- *   // Handle successful login
- * } catch (error) {
- *   if (error instanceof HttpErrorResponse) {
- *	 		if (error.status === 401) {
- *     		// Handle unauthorized error
- *		  }
- *   } else {
- *     // Handle other errors
- *   }
- * }
- */
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiAuthService extends AuthService {
   readonly #url = '/api/auth/v1/user';
@@ -63,7 +58,7 @@ class ApiAuthService extends AuthService {
 
     const loginResponseStream$: Observable<LoginResponseDto> =
       this.#httpClient.post<LoginResponseDto>(url, body, options);
-    const loginResponseDto: LoginResponseDto = await firstValueFrom(loginResponseStream$);
+    const loginResponseDto: LoginResponseDto = await executeApiCall(loginResponseStream$);
     return zodLoginResponse().parse(loginResponseDto);
   }
 
@@ -74,17 +69,14 @@ class ApiAuthService extends AuthService {
 
     const logoutResponseStream$: Observable<unknown> = this.#httpClient.post(url, options);
     try {
-      await firstValueFrom(logoutResponseStream$);
+      await executeApiCall(logoutResponseStream$);
     } catch (error: unknown) {
       /*
-       *	If it's a 401, the user was already unauthenticated on the backend.
+       *	If the request was unauthorized, the user was already unauthenticated on the backend.
        *	Ignore it quietly so it doesn't crash the frontend application startup sequence.
        */
-      if (
-        (error instanceof HttpErrorResponse && error.status !== 401) ||
-        !(error instanceof HttpErrorResponse)
-      ) {
-        console.error('Error logging out:', error);
+      if (!(error instanceof UnauthorizedError)) {
+        throw error;
       }
     }
   }
@@ -99,7 +91,7 @@ class ApiAuthService extends AuthService {
       options,
     );
 
-    let currentUser: CurrentUserDto = await firstValueFrom(currentUserIdStream$);
+    let currentUser: CurrentUserDto = await executeApiCall(currentUserIdStream$);
 
     return zodCurrentUser().parse(currentUser);
   }

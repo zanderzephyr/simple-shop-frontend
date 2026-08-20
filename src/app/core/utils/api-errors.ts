@@ -20,11 +20,11 @@ export class ServiceUnavailableError extends AvailabilityError {}
 export class InvalidRequestError extends AvailabilityError {}
 
 /**
- * Might happen if a session expires and the user clicks on someting behind the session-wall.
+ * Happens if a login fails or if a session expires and the user clicks on someting behind the session-wall.
  * This should be caught globally and the user has to be redirected to the landing page or
  * something equivalent.
  */
-export class UnauthorizedError extends AvailabilityError {}
+export class UnauthorizedError extends DomainError {}
 
 /**
  * Represents the case of a request without sufficient rights.
