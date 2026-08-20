@@ -21,26 +21,10 @@ export abstract class BaseError extends Error {
   }
 }
 
-export class IllegalArgumentError extends BaseError {
-  constructor(message?: string) {
-    super(message);
-  }
-}
+export class IllegalArgumentError extends BaseError {}
 
-export class IndexOutOfBoundsError extends BaseError {
-  constructor(message?: string) {
-    super(message);
-  }
-}
+export class IndexOutOfBoundsError extends BaseError {}
 
-export class IllegalStateError extends BaseError {
-  constructor(message?: string) {
-    super(message);
-  }
-}
+export class IllegalStateError extends BaseError {}
 
-export class UnsupportedOperationError extends BaseError {
-  constructor(message?: string) {
-    super(message);
-  }
-}
+export class UnsupportedOperationError extends BaseError {}
