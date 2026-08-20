@@ -8,9 +8,9 @@ const isAdminGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
   const sessionService: SessionService = inject(SessionService);
 
-  const sessionData: SessionData | null = sessionService.getSessionData()();
-  if (sessionData != null) {
-    const userType: UserType | null = sessionData.getUserType();
+  const sessionData: SessionData | undefined = sessionService.getSessionData()();
+  if (sessionData != undefined) {
+    const userType: UserType = sessionData.getUserType();
     if (UserType.ADMIN === userType) {
       return true;
     }

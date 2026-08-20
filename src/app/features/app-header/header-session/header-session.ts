@@ -23,8 +23,8 @@ export class HeaderSessionComponent {
   protected readonly isLoggedIn: Signal<boolean> = this.#sessionService.isLoggedIn();
 
   protected readonly isAdmin: Signal<boolean> = computed(() => {
-    const sessionData: SessionData | null = this.#sessionService.getSessionData()();
-    return sessionData !== null && sessionData.getUserType() === UserType.ADMIN;
+    const sessionData: SessionData | undefined = this.#sessionService.getSessionData()();
+    return sessionData !== undefined && sessionData.getUserType() === UserType.ADMIN;
   });
 
   /*() => {

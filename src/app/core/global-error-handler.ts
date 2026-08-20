@@ -18,7 +18,7 @@ export class GlobalErrorHandler implements ErrorHandler {
       this.#router.navigateByUrl('/outage');
     }
     // Session expired?
-    else if (error instanceof UnauthorizedError && !this.#router.url.endsWith('/login')) {
+    else if (error instanceof UnauthorizedError) {
       this.#sessionService.logout();
       this.#router.navigateByUrl('/login');
     }
