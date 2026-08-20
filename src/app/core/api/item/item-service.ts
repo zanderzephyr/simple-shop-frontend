@@ -1,12 +1,13 @@
-import { Item, zodItem } from '@api/item/model/item';
-import { ItemDto } from '@app/core/api/item/dto/item-dto';
 import { forwardRef, inject, Injectable } from '@angular/core';
-import { PageConfig } from '@app/core/utils/page/page-config';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { Observable, firstValueFrom } from 'rxjs';
 import { ItemSerializer } from './item-serializer';
 import { Page, PageDto, zodPage } from '@core/utils/page/page';
 import { IllegalArgumentError } from '@core/utils/common-errors';
-import { Observable, firstValueFrom } from 'rxjs';
+import { PageConfig } from '@core/utils/page/page-config';
+import { Item, zodItem } from '@api/item/model/item';
+import { ItemDto } from '@api/item/dto/item-dto';
+import { ObjectNotFoundError, executeApiCall } from '@core/utils/api-errors';
 
 @Injectable({
   providedIn: 'root',
@@ -21,43 +22,43 @@ export abstract class ItemService {
    * The backend will set the technical properties of the item (e.g. the ID field)
    * and return the created item.
    *
-   * @returns The item created by the backend.
+   * @returns The created item.
    */
-  // TODO Document
   public abstract createItem(item: Item): Promise<Item>;
 
   /**
-   * Requests an item by its ID from the backend.
+   * Requests an item by its ID.
    *
-   * @returns The requested item or null if not found.
+   * @throws ObjectNotFoundError if the item wasn't found.
+   *
+   * @returns The requested item.
    */
-  // TODO Document
-  public abstract getItemById(id: bigint): Promise<Item | null>;
+  public abstract getItemById(id: bigint): Promise<Item>;
 
   /**
    * Requests items based on the provided page configuration.
    *
-   * @returns The list of requested items.
+   * @returns The page of requested items.
    */
-  // TODO Document
   public abstract getItems(pageConfig: PageConfig): Promise<Page<Item>>;
 
   /**
-   * Changes an item.
+   * Modifies an item.
+   *
+   * @throws ObjectNotFoundError if the item wasn't found.
    *
    * @returns The modified item.
    */
-  // TODO Document
   public abstract modifyItem(item: Item): Promise<Item>;
 
   /**
-   * Removes an item in the backend.
+   * Deletes an item.
+   *
+   * Does not throw if the item doesn't exist anymore.
    */
-  // TODO Document
   public abstract deleteItem(item: Item): Promise<void>;
 }
 
-// TODO For all endpoints, work with the possible error responses from the backend.
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiItemService extends ItemService {
   readonly #url = '/api/items/v1/regular';
@@ -75,14 +76,14 @@ class ApiItemService extends ItemService {
     const options = { headers };
 
     const itemStream$: Observable<ItemDto> = this.#httpClient.post<ItemDto>(url, body, options);
-    const itemDto: ItemDto = await firstValueFrom(itemStream$);
+    const itemDto: ItemDto = await executeApiCall(itemStream$);
     return zodItem().parse(itemDto);
   }
 
-  public override async getItemById(itemId: bigint): Promise<Item | null> {
+  public override async getItemById(itemId: bigint): Promise<Item> {
     const url: string = this.#url + '/get-item/' + itemId.toString();
     const itemStream$: Observable<ItemDto> = this.#httpClient.get<ItemDto>(url);
-    const itemDto: ItemDto = await firstValueFrom(itemStream$);
+    const itemDto: ItemDto = await executeApiCall(itemStream$);
     return zodItem().parse(itemDto);
   }
 
@@ -97,7 +98,7 @@ class ApiItemService extends ItemService {
       url,
       options,
     );
-    const pageDto: PageDto<ItemDto> = await firstValueFrom(pageStream$);
+    const pageDto: PageDto<ItemDto> = await executeApiCall(pageStream$);
 
     return zodPage(zodItem()).parse(pageDto);
   }
@@ -113,7 +114,7 @@ class ApiItemService extends ItemService {
     const options = { headers };
 
     const itemStream$: Observable<ItemDto> = this.#httpClient.put<ItemDto>(url, body, options);
-    const itemDto: ItemDto = await firstValueFrom(itemStream$);
+    const itemDto: ItemDto = await executeApiCall(itemStream$);
     return zodItem().parse(itemDto);
   }
 
@@ -129,7 +130,13 @@ class ApiItemService extends ItemService {
 
     const url: string = this.#url + '/delete-item/' + itemId.toString();
     const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
-    await firstValueFrom(resultStream$);
+    try {
+      await executeApiCall(resultStream$);
+    } catch (error: unknown) {
+      if (!(error instanceof ObjectNotFoundError)) {
+        throw error;
+      }
+    }
   }
 
   #createHeaders(): HttpHeaders {

@@ -26,12 +26,12 @@ export abstract class UserService {
    *
    * @throws DuplicateObjectError if there already was a user like that.
    *
-   * @returns The user created by the backend.
+   * @returns The created user.
    */
   public abstract createUser(user: User): Promise<User>;
 
   /**
-   * Requests a user by its ID from the backend.
+   * Requests a user by its ID.
    *
    * @throws IllegalRequestError if the requesting user didn't have enough rights to see the target user.
    * @throws ObjectNotFoundError if the user wasn't found.
@@ -41,7 +41,7 @@ export abstract class UserService {
   public abstract getUserById(id: bigint): Promise<User>;
 
   /**
-   * Requests user based on the provided page configuration.
+   * Requests users based on the provided page configuration.
    *
    * @returns The page of requested users.
    */
