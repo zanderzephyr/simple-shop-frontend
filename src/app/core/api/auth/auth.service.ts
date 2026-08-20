@@ -1,7 +1,6 @@
 import { forwardRef, Injectable, inject } from '@angular/core';
-import { HttpErrorResponse } from '@angular/common/http';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Observable, firstValueFrom } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 import { LoginRequest } from './model/login-request';
 import { LoginResponse, zodLoginResponse } from './model/login-response';
 import { LoginResponseDto } from './dto/login-response-dto';
@@ -19,8 +18,6 @@ export abstract class AuthService {
 
   /**
    * Logs in.
-   *
-   * @throws UnauthorizedError if the login fails.
    *
    * @returns The login response.
    */
