@@ -1,4 +1,5 @@
 import { HttpErrorResponse, HttpStatusCode } from '@angular/common/http';
+import { Observable, firstValueFrom } from 'rxjs';
 import { BaseError } from './common-errors';
 
 // TODO Move content to lib
@@ -66,7 +67,7 @@ function createMap(): Map<number, (message?: string) => ApiError> {
   return map;
 }
 
-export function map(error: unknown): ApiError | undefined {
+export function mapApiError(error: unknown): ApiError | undefined {
   let mappingResult: ApiError | undefined = undefined;
 
   if (error instanceof HttpErrorResponse) {
@@ -113,4 +114,13 @@ function extractErrorMessage(httpErrorResponse: HttpErrorResponse): string {
   }
 
   return httpErrorResponse.message;
+}
+
+export async function executeApiCall<T>(stream$: Observable<T>): Promise<T> {
+  try {
+    return await firstValueFrom(stream$);
+  } catch (error) {
+    const apiError: ApiError | undefined = mapApiError(error);
+    throw apiError !== undefined ? apiError : error;
+  }
 }

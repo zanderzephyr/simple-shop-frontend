@@ -9,6 +9,7 @@ import { Observable, firstValueFrom } from 'rxjs';
 import { IllegalArgumentError } from '@core/utils/common-errors';
 import { UserType } from './model/user-type';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
+import { ObjectNotFoundError, executeApiCall } from '@core/utils/api-errors';
 
 @Injectable({
   providedIn: 'root',
@@ -23,46 +24,60 @@ export abstract class UserService {
    * The backend will set the technical properties of the user (e.g. the ID field)
    * and return the created user.
    *
+   * @throws DuplicateObjectError if there already was a user like that.
+   *
    * @returns The user created by the backend.
    */
-  // TODO Document
   public abstract createUser(user: User): Promise<User>;
 
   /**
    * Requests a user by its ID from the backend.
    *
-   * @returns The requested user or null if not found.
+   * @throws IllegalRequestError if the requesting user didn't have enough rights to see the target user.
+   * @throws ObjectNotFoundError if the user wasn't found.
+   *
+   * @returns The requested user.
    */
-  // TODO Document
-  public abstract getUserById(id: bigint): Promise<User | null>;
+  public abstract getUserById(id: bigint): Promise<User>;
 
   /**
    * Requests user based on the provided page configuration.
    *
-   * @returns The list of requested users.
+   * @returns The page of requested users.
    */
-  // TODO Document
   public abstract getUsers(pageConfig: PageConfig): Promise<Page<User>>;
 
-  // TODO Document
-  public abstract getUserType(id: bigint): Promise<UserType | null>;
+  /**
+   * Requests the type of a user by the ID of this user.
+   *
+   * @throws IllegalRequestError if the requesting user didn't have enough rights to see the target user.
+   * @throws ObjectNotFoundError if the user wasn't found.
+   *
+   * @returns The requested user type.
+   */
+  public abstract getUserType(id: bigint): Promise<UserType>;
 
   /**
-   * Changes a user.
+   * Modifies a user.
+   *
+   * @throws DuplicateObjectError if there already was a user like that.
+   * @throws IllegalRequestError if the requesting user didn't have enough rights to modify the target user.
+   * @throws ObjectNotFoundError if the user wasn't found.
    *
    * @returns The modified user.
    */
-  // TODO Document
   public abstract modifyUser(user: User): Promise<User>;
 
   /**
-   * Removes a user in the backend.
+   * Deletes a user.
+   *
+   * Does not throw if the user doesn't exist anymore.
+   *
+   * @throws IllegalRequestError if the requesting user didn't have enough rights to delete the target user.
    */
-  // TODO Document
   public abstract deleteUser(user: User): Promise<void>;
 }
 
-// TODO For all endpoints, work with the possible error responses from the backend.
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 class ApiUserService extends UserService {
   readonly #url = '/api/users/v1/regular';
@@ -80,14 +95,14 @@ class ApiUserService extends UserService {
     const options = { headers };
 
     const userStream$: Observable<UserDto> = this.#httpClient.post<UserDto>(url, body, options);
-    const userDto: UserDto = await firstValueFrom(userStream$);
+    const userDto: UserDto = await executeApiCall(userStream$);
     return zodUser().parse(userDto);
   }
 
-  public override async getUserById(userId: bigint): Promise<User | null> {
+  public override async getUserById(userId: bigint): Promise<User> {
     const url: string = this.#url + '/get-user/' + userId.toString();
     const userStream$: Observable<UserDto> = this.#httpClient.get<UserDto>(url);
-    const userDto: UserDto = await firstValueFrom(userStream$);
+    const userDto: UserDto = await executeApiCall(userStream$);
     return zodUser().parse(userDto);
   }
 
@@ -102,17 +117,17 @@ class ApiUserService extends UserService {
       url,
       options,
     );
-    const pageDto: PageDto<UserDto> = await firstValueFrom(pageStream$);
+    const pageDto: PageDto<UserDto> = await executeApiCall(pageStream$);
 
     return zodPage(zodUser()).parse(pageDto);
   }
 
-  public override async getUserType(userId: bigint): Promise<UserType | null> {
+  public override async getUserType(userId: bigint): Promise<UserType> {
     const url: string = this.#url + '/get-user-type/' + userId.toString();
     const options = { responseType: 'text' as const };
     const userTypeStream$: Observable<string> = this.#httpClient.get(url, options);
-    const userType: string = await firstValueFrom(userTypeStream$);
-    return convertStringToEnum(userType, UserType) ?? null;
+    const userType: string = await executeApiCall(userTypeStream$);
+    return convertStringToEnum(userType, UserType)!;
   }
 
   public override async modifyUser(user: User): Promise<User> {
@@ -126,14 +141,10 @@ class ApiUserService extends UserService {
     const options = { headers };
 
     const userStream$: Observable<UserDto> = this.#httpClient.put<UserDto>(url, body, options);
-    const userDto: UserDto = await firstValueFrom(userStream$);
+    const userDto: UserDto = await executeApiCall(userStream$);
     return zodUser().parse(userDto);
   }
 
-  /*
-			Do not throw in that method, if the user doesn't exist anymore.
-			The current client might try to delete a user, that another client already removed.
-		 */
   public override async deleteUser(user: User): Promise<void> {
     const userId: bigint | undefined = user.getId();
     if (userId === undefined) {
@@ -141,8 +152,14 @@ class ApiUserService extends UserService {
     }
 
     const url: string = this.#url + '/delete-user/' + userId.toString();
-    const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
-    await firstValueFrom(resultStream$);
+    try {
+      const resultStream$: Observable<unknown> = this.#httpClient.delete(url);
+      await executeApiCall(resultStream$);
+    } catch (error) {
+      if (!(error instanceof ObjectNotFoundError)) {
+        throw error;
+      }
+    }
   }
 
   #createHeaders(): HttpHeaders {
