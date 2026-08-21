@@ -1,3 +1,68 @@
+:root {
+  /* Use the system default font. If system-ui is not known, use sans-serif. */
+  --font-main: system-ui, sans-serif;
+}
+
+/*
+Variable meaning:
+color-background-bottom: Main background color
+color-background-intermediate: Main segment background color
+color-background-high: Elevated element background color for e.g. dialogs, popup menus, ...
+color-background-primary: Background color of especially important elements
+color-background-primary-hover: Background color of especially important elements, the user hovers over
+
+color-foreground-main: Main foreground color
+color-foreground-primary: Foreground color if especially important elements
+
+color-border: Main border color for e.g. table column/row separators, menu separators, borders around buttons, ...
+
+Color model for regular app and e.g. a table or list in it:
+Table cell background color: transparent (i.e. using the parent's background color, usually color-background-bottom)
+Table cell foreground color: color-foreground-main
+Table cell background color selected: color-background-intermediate
+
+Color model for dialog with multiple buttons, of which one is the primary button:
+Regular button background color: transparent (i.e. using the parent's background color, usually color-background-bottom)
+Regular button background color hover: color-background-intermediate
+Regular button foreground color: color-foreground-main
+Primary button background color: color-background-primary
+Primary button background color hover: color-background-primary-hover
+Primary button foreground color: color-foreground-primary
+*/
+html[data-theme='light'] {
+  --color-background-bottom: #ffffff;
+  --color-background-intermediate: #f8f9fa;
+  --color-background-high: #ffffff;
+  --color-background-primary: #3f51b5;
+  --color-background-primary-hover: #303f9f;
+
+  --color-foreground-main: #121212;
+  --color-foreground-primary: #ffffff;
+
+  --color-border: #dee2e6;
+}
+
+html[data-theme='dark'] {
+  --color-background-bottom: #121212;
+  --color-background-intermediate: #1e1e1e;
+  --color-background-high: #242424;
+  --color-background-primary: #7986cb;
+  --color-background-primary-hover: #9fa8da;
+
+  --color-foreground-main: #e0e0e0;
+  --color-foreground-primary: #121212;
+
+  --color-border: #333333;
+}
+
+body {
+  font-family: var(--font-main);
+  background-color: var(--color-background-bottom);
+  color: var(--color-foreground-main);
+  margin: 0;
+  padding: 0;
+}
+
 /* Prevents the width of the paginator range label to change irritatingly */
 .mat-mdc-paginator-range-label {
   min-width: 100px;
