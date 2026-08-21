@@ -65,6 +65,11 @@ export const routes: Routes = [
         (m) => m.ShoppingCartComponent,
       ),
   },
+  {
+    path: 'outage',
+    loadComponent: () =>
+      import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent),
+  },
 
   {
     path: '',
