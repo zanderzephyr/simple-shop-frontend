@@ -3,6 +3,10 @@
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
+  <button class="header-session-settings" mat-icon-button (click)="onSettingsClick()">
+    <mat-icon>settings</mat-icon>
+  </button>
+
   @if (isLoggedIn()) {
     <button class="header-session-menu-button" mat-flat-button [matMenuTriggerFor]="sessionMenu">
       Session

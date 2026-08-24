@@ -40,11 +40,6 @@ export const routes: Routes = [
   },
 
   {
-    path: 'welcome',
-    loadComponent: () =>
-      import('@features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent),
-  },
-  {
     path: 'login',
     loadComponent: () =>
       import('@features/app-body/body-content/session-login/session-login').then(
@@ -59,6 +54,16 @@ export const routes: Routes = [
       ),
   },
   {
+    path: 'outage',
+    loadComponent: () =>
+      import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent),
+  },
+  {
+    path: 'settings',
+    loadComponent: () =>
+      import('@features/app-body/body-content/settings/settings').then((m) => m.SettingsComponent),
+  },
+  {
     path: 'shopping-cart',
     loadComponent: () =>
       import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
@@ -66,9 +71,9 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'outage',
+    path: 'welcome',
     loadComponent: () =>
-      import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent),
+      import('@features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent),
   },
 
   {
@@ -93,13 +98,6 @@ export const routes: Routes = [
         canActivate: [isAdminGuard],
         children: [
           {
-            path: 'global-transactions',
-            loadComponent: () =>
-              import('@features/app-body/body-content/global-transactions/global-transactions').then(
-                (m) => m.GlobalTransactionsComponent,
-              ),
-          },
-          {
             path: 'book-keeping',
             loadComponent: () =>
               import('@features/app-body/body-content/book-keeping/book-keeping').then(
@@ -107,10 +105,10 @@ export const routes: Routes = [
               ),
           },
           {
-            path: 'user-management',
+            path: 'global-transactions',
             loadComponent: () =>
-              import('@features/app-body/body-content/user-management/user-management').then(
-                (m) => m.UserManagementComponent,
+              import('@features/app-body/body-content/global-transactions/global-transactions').then(
+                (m) => m.GlobalTransactionsComponent,
               ),
           },
           {
@@ -118,6 +116,13 @@ export const routes: Routes = [
             loadComponent: () =>
               import('@features/app-body/body-content/inventory/inventory').then(
                 (m) => m.InventoryComponent,
+              ),
+          },
+          {
+            path: 'user-management',
+            loadComponent: () =>
+              import('@features/app-body/body-content/user-management/user-management').then(
+                (m) => m.UserManagementComponent,
               ),
           },
         ],

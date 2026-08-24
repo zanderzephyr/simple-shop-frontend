@@ -42,16 +42,26 @@ export class HeaderSessionComponent {
     // Nothing to do so far
   }
 
+  protected onBookKeepingClick(): void {
+    this.#router.navigate(['/book-keeping']);
+  }
+
+  protected onGlobalTransactionsClick(): void {
+    this.#router.navigate(['/global-transactions']);
+  }
+
+  protected onInventoryClick(): void {
+    this.#router.navigate(['/inventory']);
+  }
+
   protected onLoginClick(): void {
     /*
-			What I do right now is very insecure. We should usually have our own subdomain
-			handle the login on a very secure and restricted server. No other content
-			besides the login fields should exist on the frontend for that subdomain, to
-			prevent malicious JS to sniff at the DOM. That content is outside of the actual
-			app.
-
-			All that doesn't matter for now, this is just for practice.
-		*/
+     *	TODO This is insecure. We should have our own subdomain
+     *	handle the login on a secure and restricted server. No other content
+     *	besides the login fields should exist on the frontend of that subdomain, to
+     *	prevent malicious JS to sniff at the DOM. That content must be outside of the actual
+     *	app.
+     */
     this.#router.navigate(['/login']);
   }
 
@@ -65,27 +75,19 @@ export class HeaderSessionComponent {
     this.#router.navigate(['/profile']);
   }
 
-  protected onUserTransactionsClick(): void {
-    this.#router.navigate(['/user-transactions']);
+  protected onSettingsClick(): void {
+    this.#router.navigate(['/settings']);
   }
 
   protected onShoppingCartClick(): void {
     this.#router.navigate(['/shopping-cart']);
   }
 
-  protected onGlobalTransactionsClick(): void {
-    this.#router.navigate(['/global-transactions']);
-  }
-
-  protected onBookKeepingClick(): void {
-    this.#router.navigate(['/book-keeping']);
-  }
-
-  protected onInventoryClick(): void {
-    this.#router.navigate(['/inventory']);
-  }
-
   protected onUserManagementClick(): void {
     this.#router.navigate(['/user-management']);
+  }
+
+  protected onUserTransactionsClick(): void {
+    this.#router.navigate(['/user-transactions']);
   }
 }
