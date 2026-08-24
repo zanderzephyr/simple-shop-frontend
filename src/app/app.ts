@@ -1,9 +1,9 @@
 import { Component, effect, inject, Signal, signal } from '@angular/core';
+import { Title } from '@angular/platform-browser';
 import { AppBodyComponent } from '@features/app-body/app-body';
 import { AppFooterComponent } from '@features/app-footer/app-footer';
 import { AppHeaderComponent } from '@features/app-header/app-header';
-
-import { Title } from '@angular/platform-browser';
+import { ThemeService } from '@core/theme/theme-service';
 
 @Component({
   selector: 'app-root',
@@ -17,6 +17,9 @@ export class AppComponent {
   readonly #title: Signal<string> = signal('Shelf Indulgence').asReadonly();
 
   constructor() {
+    // Initializes the stored or default theme
+    inject(ThemeService);
+
     effect(() => {
       this.#titleService.setTitle(this.#title());
     });
