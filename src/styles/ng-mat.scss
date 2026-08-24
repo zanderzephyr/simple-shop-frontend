@@ -1,0 +1,21 @@
+html {
+  /* Map Material's background surfaces to YOUR colors */
+  --mat-sys-surface: var(--color-background-bottom);
+  --mat-sys-surface-container: var(--color-background-intermediate);
+  --mat-sys-surface-container-high: var(--color-background-high);
+
+  /* Map Material's text/foreground layers */
+  --mat-sys-on-surface: var(--color-foreground-main);
+  --mat-sys-on-surface-variant: var(--color-foreground-main);
+
+  /* Map Material's primary accent colors */
+  --mat-sys-primary: var(--color-background-primary);
+  --mat-sys-outline: var(--color-border);
+}
+
+/* Prevents the width of the paginator range label to change irritatingly */
+.mat-mdc-paginator-range-label {
+  min-width: 100px;
+  text-align: center;
+  justify-content: center;
+}
