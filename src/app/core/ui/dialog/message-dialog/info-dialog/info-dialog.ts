@@ -7,7 +7,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-info-dialog',
   imports: [MatIconModule],
   templateUrl: './info-dialog.html',
-  styleUrl: './info-dialog.css',
+  styleUrl: './info-dialog.scss',
 })
 export class InfoDialogComponent extends MessageDialogComponent<InfoDialogComponent> {
   public constructor() {

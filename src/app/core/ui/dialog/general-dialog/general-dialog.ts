@@ -24,7 +24,7 @@ import {
   selector: 'app-general-dialog',
   imports: [ButtonBarComponent],
   templateUrl: './general-dialog.html',
-  styleUrl: './general-dialog.css',
+  styleUrl: './general-dialog.scss',
 })
 export class GeneralDialogComponent<
   DATA extends GeneralDialogData<DATA, RESULT, CONTENT>,

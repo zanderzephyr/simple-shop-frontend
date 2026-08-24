@@ -5,7 +5,7 @@ import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
   selector: 'app-string-renderer',
   imports: [],
   templateUrl: './string-renderer.html',
-  styleUrl: './string-renderer.css',
+  styleUrl: './string-renderer.scss',
 })
 export class StringRendererComponent extends DefaultRendererComponent<string> {
   public constructor() {

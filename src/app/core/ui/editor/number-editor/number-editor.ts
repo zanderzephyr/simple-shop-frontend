@@ -5,7 +5,7 @@ import { DefaultEditor } from '@ui/editor/default-editor';
   selector: 'app-number-editor',
   imports: [],
   templateUrl: './number-editor.html',
-  styleUrl: './number-editor.css',
+  styleUrl: './number-editor.scss',
 })
 export class NumberEditorComponent extends DefaultEditor<number> {
   public constructor() {

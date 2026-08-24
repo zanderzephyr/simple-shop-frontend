@@ -7,7 +7,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   selector: 'app-image-renderer',
   imports: [MatTooltipModule],
   templateUrl: './image-renderer.html',
-  styleUrl: './image-renderer.css',
+  styleUrl: './image-renderer.scss',
 })
 export class ImageRendererComponent extends DefaultRendererComponent<ImageRendererConfiguration> {
   constructor() {

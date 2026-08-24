@@ -6,7 +6,7 @@ import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog
   selector: 'app-warning-dialog',
   imports: [MatIconModule],
   templateUrl: './warning-dialog.html',
-  styleUrl: './warning-dialog.css',
+  styleUrl: './warning-dialog.scss',
 })
 export class WarningDialogComponent extends MessageDialogComponent<WarningDialogComponent> {
   public constructor() {

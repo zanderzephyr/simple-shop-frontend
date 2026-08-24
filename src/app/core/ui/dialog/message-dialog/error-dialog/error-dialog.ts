@@ -7,7 +7,7 @@ import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog
   selector: 'app-error-dialog',
   imports: [MatIconModule],
   templateUrl: './error-dialog.html',
-  styleUrl: './error-dialog.css',
+  styleUrl: './error-dialog.scss',
 })
 export class ErrorDialogComponent extends MessageDialogComponent<ErrorDialogComponent> {
   public constructor() {

@@ -6,7 +6,7 @@ import { MatButtonModule } from '@angular/material/button';
   selector: 'app-button-bar',
   imports: [MatButtonModule],
   templateUrl: './button-bar.html',
-  styleUrl: './button-bar.css',
+  styleUrl: './button-bar.scss',
 })
 export class ButtonBarComponent {
   public readonly config: InputSignal<ButtonBarConfiguration> =

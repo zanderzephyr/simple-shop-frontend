@@ -5,7 +5,7 @@ import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
   selector: 'app-number-renderer',
   imports: [],
   templateUrl: './number-renderer.html',
-  styleUrl: './number-renderer.css',
+  styleUrl: './number-renderer.scss',
 })
 export class NumberRendererComponent extends DefaultRendererComponent<number> {
   public constructor() {

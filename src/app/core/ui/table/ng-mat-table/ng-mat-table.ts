@@ -10,7 +10,7 @@ import { TableWidthPolicy } from '@ui/table/interface/table-width-policy';
   selector: 'app-ng-mat-table',
   imports: [MatTableModule, NgMatTableCellComponent],
   templateUrl: './ng-mat-table.html',
-  styleUrl: './ng-mat-table.css',
+  styleUrl: './ng-mat-table.scss',
 })
 export class NgMatTableComponent extends CommonTableComponent {
   protected readonly tableColumns: Signal<readonly TableColumn<unknown>[]> = computed(() =>
