@@ -1,5 +1,6 @@
-@import './styles/variables.css';
-@import './styles/angular-material.css';
+@use 'styles/variables.scss';
+@use 'styles/angular-material.scss';
+@use 'styles/material-theme.scss';
 
 :root {
   /* Use the system default font. If system-ui is not known, use sans-serif. */
