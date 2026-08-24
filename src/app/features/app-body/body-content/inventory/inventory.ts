@@ -32,7 +32,7 @@ import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-re
   selector: 'app-inventory',
   imports: [NgMatTableComponent, MatButtonModule, MatIconModule, MatPaginatorModule],
   templateUrl: './inventory.html',
-  styleUrl: './inventory.css',
+  styleUrl: './inventory.scss',
 })
 export class InventoryComponent {
   readonly #itemService: ItemService = inject(ItemService);

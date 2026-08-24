@@ -14,7 +14,7 @@ import { SidebarFiltersComponent } from './sidebar-filters/sidebar-filters';
   selector: 'app-body-sidebar',
   imports: [SidebarFiltersComponent],
   templateUrl: './body-sidebar.html',
-  styleUrl: './body-sidebar.css',
+  styleUrl: './body-sidebar.scss',
 })
 export class BodySidebarComponent {
   public readonly visibilityChange: OutputEmitterRef<boolean> = output<boolean>();

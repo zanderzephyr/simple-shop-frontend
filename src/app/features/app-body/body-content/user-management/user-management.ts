@@ -30,7 +30,7 @@ import { UserManagementEditorDialogData } from './user-editor-dialog/user-editor
   selector: 'app-user-management',
   imports: [NgMatTableComponent, MatButtonModule, MatIconModule, MatPaginatorModule],
   templateUrl: './user-management.html',
-  styleUrl: './user-management.css',
+  styleUrl: './user-management.scss',
 })
 export class UserManagementComponent {
   readonly #userService: UserService = inject(UserService);

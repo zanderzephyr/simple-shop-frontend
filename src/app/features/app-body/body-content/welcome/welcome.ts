@@ -5,7 +5,7 @@ import { SessionService } from '@core/session/session-service';
   selector: 'app-welcome',
   imports: [],
   templateUrl: './welcome.html',
-  styleUrl: './welcome.css',
+  styleUrl: './welcome.scss',
 })
 export class WelcomeComponent {
   readonly #sessionService: SessionService = inject(SessionService);

@@ -10,7 +10,7 @@ import { TableCellContext } from '@ui/table/interface/table-cell-context';
   selector: 'app-inventory-table-action-renderer',
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './inventory-table-action-renderer.html',
-  styleUrl: './inventory-table-action-renderer.css',
+  styleUrl: './inventory-table-action-renderer.scss',
 })
 export class InventoryTableActionRendererComponent extends TableCellRendererComponent<
   Map<InventoryTableAction, Consumer<TableCellContext>>

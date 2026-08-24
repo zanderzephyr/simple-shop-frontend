@@ -32,7 +32,7 @@ interface UserShape {
   selector: 'app-user-editor-dialog',
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule],
   templateUrl: './user-editor-dialog.html',
-  styleUrl: './user-editor-dialog.css',
+  styleUrl: './user-editor-dialog.scss',
 })
 export class UserEditorDialogComponent extends GeneralDialogContentComponent<
   UserManagementEditorDialogData,

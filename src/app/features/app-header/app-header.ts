@@ -7,7 +7,7 @@ import { HeaderSessionComponent } from './header-session/header-session';
   selector: 'app-header',
   imports: [HeaderSessionComponent, HeaderCompanyLogoComponent, HeaderSearchBarComponent],
   templateUrl: './app-header.html',
-  styleUrl: './app-header.css',
+  styleUrl: './app-header.scss',
 })
 export class AppHeaderComponent {
   constructor() {

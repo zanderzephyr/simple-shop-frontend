@@ -10,7 +10,7 @@ import { MatIconModule } from '@angular/material/icon';
   selector: 'app-user-management-table-action-renderer',
   imports: [MatButtonModule, MatIconModule],
   templateUrl: './user-management-table-action-renderer.html',
-  styleUrl: './user-management-table-action-renderer.css',
+  styleUrl: './user-management-table-action-renderer.scss',
 })
 export class UserManagementTableActionRendererComponent extends TableCellRendererComponent<
   Map<UserManagementTableAction, Consumer<TableCellContext>>

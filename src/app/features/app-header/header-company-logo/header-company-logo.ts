@@ -5,7 +5,7 @@ import { RouterLink } from '@angular/router';
   selector: 'app-header-company-logo',
   imports: [RouterLink],
   templateUrl: './header-company-logo.html',
-  styleUrl: './header-company-logo.css',
+  styleUrl: './header-company-logo.scss',
 })
 export class HeaderCompanyLogoComponent {
   constructor() {

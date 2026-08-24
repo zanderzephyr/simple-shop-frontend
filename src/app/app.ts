@@ -9,7 +9,7 @@ import { Title } from '@angular/platform-browser';
   selector: 'app-root',
   imports: [AppHeaderComponent, AppBodyComponent, AppFooterComponent],
   templateUrl: './app.html',
-  styleUrl: './app.css',
+  styleUrl: './app.scss',
 })
 export class AppComponent {
   readonly #titleService: Title = inject(Title);

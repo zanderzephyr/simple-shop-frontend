@@ -7,7 +7,7 @@ import { MediaType } from '@api/item/model/media-type';
   selector: 'app-media-type-sidebar-filter',
   imports: [MatSelectModule, MatFormFieldModule],
   templateUrl: './media-type-sidebar-filter.html',
-  styleUrl: './media-type-sidebar-filter.css',
+  styleUrl: './media-type-sidebar-filter.scss',
 })
 export class MediaTypeSidebarFilterComponent {
   readonly #allMediaTypeValue: string = 'All';

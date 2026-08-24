@@ -21,7 +21,7 @@ interface ItemShape {
   selector: 'app-item-editor-dialog',
   imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule],
   templateUrl: './item-editor-dialog.html',
-  styleUrl: './item-editor-dialog.css',
+  styleUrl: './item-editor-dialog.scss',
 })
 export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
   ItemEditorDialogData,

@@ -18,7 +18,7 @@ interface LoginFormShape {
   selector: 'app-session-login',
   imports: [MatButtonModule, MatFormFieldModule, MatInputModule, ReactiveFormsModule],
   templateUrl: './session-login.html',
-  styleUrl: './session-login.css',
+  styleUrl: './session-login.scss',
 })
 export class SessionLoginComponent {
   readonly #router: Router = inject(Router);

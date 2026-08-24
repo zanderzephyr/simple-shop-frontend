@@ -6,7 +6,7 @@ import { TableCellEditorComponent } from '@ui/table/interface/table-cell-editor'
   selector: 'app-inventory-table-action-editor',
   imports: [],
   templateUrl: './inventory-table-action-editor.html',
-  styleUrl: './inventory-table-action-editor.css',
+  styleUrl: './inventory-table-action-editor.scss',
 })
 export class InventoryTableActionEditorComponent extends TableCellEditorComponent<
   Map<InventoryTableAction, (columnViewIndex: number, rowViewIndex: number) => void>

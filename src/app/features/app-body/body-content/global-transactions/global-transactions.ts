@@ -4,6 +4,6 @@ import { Component } from '@angular/core';
   selector: 'app-global-transactions',
   imports: [],
   templateUrl: './global-transactions.html',
-  styleUrl: './global-transactions.css',
+  styleUrl: './global-transactions.scss',
 })
 export class GlobalTransactionsComponent {}

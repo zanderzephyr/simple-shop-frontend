@@ -15,7 +15,7 @@ import { ItemSearchResults } from '@core/item-search-results';
   selector: 'app-sidebar-filters',
   imports: [MediaTypeSidebarFilterComponent, PriceSidebarFilterComponent],
   templateUrl: './sidebar-filters.html',
-  styleUrl: './sidebar-filters.css',
+  styleUrl: './sidebar-filters.scss',
 })
 export class SidebarFiltersComponent {
   /*

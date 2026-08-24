@@ -8,7 +8,7 @@ import { ThemeService } from '@core/theme/theme-service';
   selector: 'app-settings',
   imports: [MatSelectModule, MatFormFieldModule],
   templateUrl: './settings.html',
-  styleUrl: './settings.css',
+  styleUrl: './settings.scss',
 })
 export class SettingsComponent {
   readonly #themeService: ThemeService = inject(ThemeService);

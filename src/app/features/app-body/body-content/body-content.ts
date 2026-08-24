@@ -10,7 +10,7 @@ import { PageConfig } from '@app/core/utils/page/page-config';
   selector: 'app-body-content',
   imports: [MatButtonModule],
   templateUrl: './body-content.html',
-  styleUrl: './body-content.css',
+  styleUrl: './body-content.scss',
 })
 export class BodyContentComponent {
   readonly #itemService: ItemService = inject(ItemService);

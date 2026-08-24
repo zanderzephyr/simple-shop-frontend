@@ -13,7 +13,7 @@ import { Component } from '@angular/core';
   selector: 'app-outage',
   imports: [],
   templateUrl: './outage.html',
-  styleUrl: './outage.css',
+  styleUrl: './outage.scss',
 })
 export class OutageComponent {
   public constructor() {

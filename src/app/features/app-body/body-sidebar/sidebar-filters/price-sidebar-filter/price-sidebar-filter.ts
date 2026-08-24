@@ -8,7 +8,7 @@ import { extractNumberValue } from '@core/utils/input-field-utils';
   selector: 'app-price-sidebar-filter',
   imports: [MatSliderModule, MatFormFieldModule, MatInputModule],
   templateUrl: './price-sidebar-filter.html',
-  styleUrl: './price-sidebar-filter.css',
+  styleUrl: './price-sidebar-filter.scss',
 })
 export class PriceSidebarFilterComponent {
   // TODO This must be taken from the available items set later.

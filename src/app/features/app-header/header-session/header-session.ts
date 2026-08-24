@@ -13,7 +13,7 @@ import { SessionData } from '@core/session/session-data';
   selector: 'app-header-session',
   imports: [MatButtonModule, MatDividerModule, MatIconModule, MatMenuModule],
   templateUrl: './header-session.html',
-  styleUrl: './header-session.css',
+  styleUrl: './header-session.scss',
 })
 export class HeaderSessionComponent {
   readonly #sessionService: SessionService = inject(SessionService);

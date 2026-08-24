@@ -6,7 +6,7 @@ import { TableCellEditorComponent } from '@ui/table/interface/table-cell-editor'
   selector: 'app-user-management-table-action-editor',
   imports: [],
   templateUrl: './user-management-table-action-editor.html',
-  styleUrl: './user-management-table-action-editor.css',
+  styleUrl: './user-management-table-action-editor.scss',
 })
 export class UserManagementTableActionEditorComponent extends TableCellEditorComponent<
   Map<UserManagementTableAction, (columnViewIndex: number, rowViewIndex: number) => void>

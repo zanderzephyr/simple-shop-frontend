@@ -8,7 +8,7 @@ import { RouterOutlet } from '@angular/router';
   selector: 'app-body',
   imports: [BodySidebarComponent, BodyContentComponent, RouterOutlet],
   templateUrl: './app-body.html',
-  styleUrl: './app-body.css',
+  styleUrl: './app-body.scss',
 })
 export class AppBodyComponent {
   protected readonly sidebarVisible: WritableSignal<boolean> = signal<boolean>(false);
