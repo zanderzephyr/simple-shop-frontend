@@ -1,1 +1,14 @@
-<p>settings works!</p>
+<div class="settings-container">
+  <span class="settings-header">Settings</span>
+
+  <div class="general-ui-settings-container">
+    <mat-form-field class="settings-theme-form-field" appearance="outline">
+      <mat-label>Choose Theme</mat-label>
+      <mat-select [value]="selectedTheme()" (selectionChange)="updateSelectedTheme($event.value)">
+        @for (theme of themes(); track theme.id) {
+          <mat-option [value]="theme">{{ theme.name }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>
