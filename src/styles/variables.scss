@@ -23,29 +23,43 @@ Regular button foreground color: color-foreground-main
 Primary button background color: color-background-primary
 Primary button background color hover: color-background-primary-hover
 Primary button foreground color: color-foreground-primary
+
+We work with Angular Material and its themes in this app.
+Angular Materials has very specific color algorithms, that
+we can't control properly from the outside. Therefore, we
+fully use all their theming stuff but "hook" into it to
+reuse it for our own components outside of Angular Material.
+We try hiding away their variable layer behind a wall of easy
+to understand variables of our domain. (We probably can't nicely
+"abstract away" the Angular Material theming or if we can, it
+takes a lot of time and effort, which is simply not available
+right now. Therefore, we accept Angular Material themes as a
+core aspect of the application.)
 */
-html[theme='LIGHT'] {
-  --color-background-bottom: #ffffff;
-  --color-background-intermediate: #f8f9fa;
-  --color-background-high: #ffffff;
-  --color-background-primary: #3f51b5;
-  --color-background-primary-hover: #303f9f;
-
-  --color-foreground-main: #121212;
-  --color-foreground-primary: #ffffff;
-
-  --color-border: #dee2e6;
-}
-
-html[theme='DARK'] {
-  --color-background-bottom: #121212;
-  --color-background-intermediate: #1e1e1e;
-  --color-background-high: #242424;
-  --color-background-primary: #7986cb;
-  --color-background-primary-hover: #9fa8da;
-
-  --color-foreground-main: #e0e0e0;
-  --color-foreground-primary: #121212;
-
-  --color-border: #333333;
+:root {
+  --font-main: var(--mat-sys-body-medium-font);
+  /* Background Layers */
+  --color-background-bottom: var(--mat-sys-surface);
+  --color-background-intermediate: var(--mat-sys-surface-container);
+  --color-background-high: var(--mat-sys-surface-container-high);
+  /* Interactive Background Accents */
+  --color-background-primary: var(--mat-sys-primary);
+  /*
+	TODO
+	This is currently experimental: Gemini proposed this algorithm
+	to calculate the hover background color just as Angular Material
+	does. Not sure if it's really functional. Research the this code,
+	how Angular Material actually does this and if it works nicely.
+	*/
+  --color-background-primary-hover: color-mix(
+    in srgb,
+    var(--color-foreground-primary) 8%,
+    var(--color-background-primary)
+  );
+  /* Foreground Content / Text Layers */
+  --color-foreground-main: var(--mat-sys-on-surface);
+  --color-foreground-secondary: var(--mat-sys-on-surface-variant);
+  --color-foreground-primary: var(--mat-sys-on-primary);
+  /* Structural Separators */
+  --color-border: var(--mat-sys-outline);
 }
