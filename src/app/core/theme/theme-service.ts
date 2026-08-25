@@ -1,10 +1,11 @@
 import { effect, forwardRef, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
 import { Theme } from './theme';
+import { IllegalArgumentError } from '@core/utils/common-errors';
 
 @Injectable({
   providedIn: 'root',
-  useClass: forwardRef(() => CoreThemeService),
+  useClass: forwardRef(() => NgMatThemeService),
 })
 export abstract class ThemeService {
   public constructor() {}
@@ -18,7 +19,7 @@ const themeKey: string = 'theme';
 const defaultTheme: Theme = Theme.LIGHT;
 
 @Injectable()
-class CoreThemeService extends ThemeService {
+class NgMatThemeService extends ThemeService {
   readonly #activeTheme: WritableSignal<Theme> = signal(this.#init());
 
   public constructor() {
@@ -26,9 +27,26 @@ class CoreThemeService extends ThemeService {
 
     effect(() => {
       const currentTheme: Theme = this.#activeTheme();
-      document.documentElement.setAttribute(themeKey, currentTheme.id);
+
+      let colorSchemeValue: string = this.#mapThemeToNgMatColorSchemeValue(currentTheme);
+      document.documentElement.style.colorScheme = colorSchemeValue;
+
       localStorage.setItem(themeKey, currentTheme.id);
     });
+  }
+
+  #mapThemeToNgMatColorSchemeValue(theme: Theme): string {
+    let colorSchemeValue: string;
+
+    if (Theme.DARK === theme) {
+      colorSchemeValue = 'dark';
+    } else if (Theme.LIGHT === theme) {
+      colorSchemeValue = 'light';
+    } else {
+      throw new IllegalArgumentError('Unexpected theme value: ' + theme.id);
+    }
+
+    return colorSchemeValue;
   }
 
   // TODO Init from OS preference

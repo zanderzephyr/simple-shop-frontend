@@ -1,15 +1,2 @@
 @use 'styles/variables.scss';
 @use 'styles/ng-mat.scss';
-
-:root {
-  /* Use the system default font. If system-ui is not known, use sans-serif. */
-  --font-main: system-ui, sans-serif;
-}
-
-body {
-  font-family: var(--font-main);
-  background-color: var(--color-background-bottom);
-  color: var(--color-foreground-main);
-  margin: 0;
-  padding: 0;
-}
