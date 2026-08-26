@@ -1,4 +1,5 @@
 import {
+  computed,
   effect,
   forwardRef,
   inject,
@@ -34,6 +35,8 @@ export abstract class LocalizationService {
   public abstract getLocalization(): Signal<Localization>;
 
   public abstract setLocalization(localization: Localization): void;
+
+  public abstract isInitialized(): Signal<boolean>;
 }
 
 const missingPlaceholderKey: string = 'app.global.localization.missingPlaceholder';
@@ -49,6 +52,10 @@ class CoreLocalizationService extends LocalizationService {
   readonly #activeLocalization: WritableSignal<Localization> = signal(this.#init());
 
   readonly #localizationMapping: WritableSignal<unknown | undefined> = signal(undefined);
+
+  readonly #isInitialized: Signal<boolean> = computed(
+    () => this.#localizationMapping() !== undefined,
+  );
 
   public constructor() {
     super();
@@ -127,5 +134,9 @@ class CoreLocalizationService extends LocalizationService {
 
   public override setLocalization(localization: Localization): void {
     this.#activeLocalization.set(localization);
+  }
+
+  public override isInitialized(): Signal<boolean> {
+    return this.#isInitialized;
   }
 }

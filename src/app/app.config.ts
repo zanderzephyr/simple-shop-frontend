@@ -5,8 +5,8 @@ import {
   inject,
   provideAppInitializer,
 } from '@angular/core';
-import { provideHttpClient, withXsrfConfiguration, withInterceptors } from '@angular/common/http';
-import { provideRouter } from '@angular/router';
+import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
+import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from '@app/app.routes';
 import { DialogService } from '@ui/dialog/interface/dialog-service';
 import { NgMatDialogService } from '@ui/dialog/ng-mat-dialog/ng-mat-dialog-service';
@@ -17,7 +17,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
 
-    provideRouter(routes),
+    provideRouter(routes, withComponentInputBinding()),
 
     { provide: DialogService, useClass: NgMatDialogService },
 

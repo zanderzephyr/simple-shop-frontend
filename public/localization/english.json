@@ -18,6 +18,9 @@
     "settings": {
       "header": "Settings",
       "ui": {
+        "localization": {
+          "chooseLocalizationLabel": "Choose Language"
+        },
         "theme": {
           "chooseThemeLabel": "Choose Theme"
         }

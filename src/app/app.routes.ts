@@ -62,6 +62,9 @@ export const routes: Routes = [
     path: 'settings',
     loadComponent: () =>
       import('@features/app-body/body-content/settings/settings').then((m) => m.SettingsComponent),
+    data: {
+      contextPath: 'app',
+    },
   },
   {
     path: 'shopping-cart',
