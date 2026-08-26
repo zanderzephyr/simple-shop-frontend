@@ -2,6 +2,18 @@
   <span class="settings-header">Settings</span>
 
   <div class="general-ui-settings-container">
+    <mat-form-field class="settings-localization-form-field" appearance="outline">
+      <mat-label>Choose Localization</mat-label>
+      <mat-select
+        [value]="selectedLocalization()"
+        (selectionChange)="updateSelectedLocalization($event.value)"
+      >
+        @for (localization of localizations(); track localization.id) {
+          <mat-option [value]="localization">{{ localization.id }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
+
     <mat-form-field class="settings-theme-form-field" appearance="outline">
       <mat-label>Choose Theme</mat-label>
       <mat-select [value]="selectedTheme()" (selectionChange)="updateSelectedTheme($event.value)">
