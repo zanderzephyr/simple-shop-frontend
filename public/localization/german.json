@@ -1,0 +1,27 @@
+{
+  "app": {
+    "global": {
+      "enums": {
+        "localization": {
+          "english": "Englisch",
+          "german": "Deutsch"
+        },
+        "theme": {
+          "light": "Heller Modus",
+          "dark": "Dunkler Modus"
+        }
+      },
+      "localization": {
+        "missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
+      }
+    },
+    "settings": {
+      "header": "Einstellungen",
+      "ui": {
+        "theme": {
+          "chooseThemeLabel": "Theme wählen"
+        }
+      }
+    }
+  }
+}
