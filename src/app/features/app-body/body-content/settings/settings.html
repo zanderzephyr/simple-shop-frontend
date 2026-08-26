@@ -6,7 +6,7 @@
       <mat-label>Choose Theme</mat-label>
       <mat-select [value]="selectedTheme()" (selectionChange)="updateSelectedTheme($event.value)">
         @for (theme of themes(); track theme.id) {
-          <mat-option [value]="theme">{{ theme.name }}</mat-option>
+          <mat-option [value]="theme">{{ theme.id }}</mat-option>
         }
       </mat-select>
     </mat-form-field>
