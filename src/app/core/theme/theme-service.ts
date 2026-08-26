@@ -8,7 +8,9 @@ import { IllegalArgumentError } from '@core/utils/common-errors';
   useClass: forwardRef(() => NgMatThemeService),
 })
 export abstract class ThemeService {
-  public constructor() {}
+  public constructor() {
+    // Nothing to do so far
+  }
 
   public abstract getTheme(): Signal<Theme>;
 
