@@ -39,7 +39,7 @@ export class UserManagementComponent {
   protected readonly table: Table = new DefaultTable(
     /*
 			TODO Maybe later, it's better to have a more specialized table model,
-			that has a list of items instead of the default tabel model's data matrix.
+			that has a list of user instead of the default tabel model's data matrix.
 		*/
     new DefaultTableModel(userManagementColumnDescriptions),
     new DefaultTableColumnModel(userManagementColumnDescriptions),
@@ -50,7 +50,7 @@ export class UserManagementComponent {
   protected readonly pageIndex: WritableSignal<number> = signal(0);
   protected readonly pageSize: WritableSignal<number> = signal(20);
 
-  protected readonly totalItems = computed(
+  protected readonly totalUsers = computed(
     () => this.#page()?.getPageMetaData().getTotalElements() ?? 0,
   );
 
@@ -125,7 +125,7 @@ export class UserManagementComponent {
   async #modify(tableCellContext: TableCellContext, user: User): Promise<void> {
     const userToModify: User | undefined = await this.#showDialog('Modify User', user);
     if (userToModify) {
-      // TODO Performance: Simply use the resulting item and update the table instead of reloading the whole page.
+      // TODO Performance: Simply use the resulting user and update the table instead of reloading the whole page.
       this.#userService.modifyUser(userToModify).then((modifiedUser: User) => this.refresh());
     }
   }
