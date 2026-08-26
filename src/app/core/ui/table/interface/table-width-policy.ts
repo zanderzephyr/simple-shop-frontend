@@ -1,7 +1,4 @@
-export const TableWidthPolicy: {
-  readonly EQUAL_SHARES: { readonly id: 'EQUAL_SHARES' };
-  readonly FIXED: { readonly id: 'FIXED' };
-} = {
+export const TableWidthPolicy = {
   EQUAL_SHARES: { id: 'EQUAL_SHARES' },
   FIXED: { id: 'FIXED' },
 } as const;

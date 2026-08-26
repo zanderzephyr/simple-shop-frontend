@@ -1,7 +1,4 @@
-export const ItemAction: {
-  readonly MODIFY: { readonly id: 'MODIFY'; readonly name: 'Modify' };
-  readonly DELETE: { readonly id: 'DELETE'; readonly name: 'Delete' };
-} = {
+export const ItemAction = {
   MODIFY: { id: 'MODIFY', name: 'Modify' },
   DELETE: { id: 'DELETE', name: 'Delete' },
 } as const;

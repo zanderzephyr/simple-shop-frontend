@@ -1,7 +1,4 @@
-export const MessageDialogResult: {
-  readonly CONFIRM: { readonly id: 'CONFIRM' };
-  readonly CANCEL: { readonly id: 'CANCEL' };
-} = {
+export const MessageDialogResult = {
   CONFIRM: { id: 'CONFIRM' },
   CANCEL: { id: 'CANCEL' },
 } as const;

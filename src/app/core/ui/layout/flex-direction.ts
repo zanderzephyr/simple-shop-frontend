@@ -1,7 +1,4 @@
-export const FlexDirection: {
-  readonly ROW: { readonly id: 'ROW'; css: 'row' };
-  readonly COLUMN: { readonly id: 'COLUMN'; css: 'column' };
-} = {
+export const FlexDirection = {
   ROW: { id: 'ROW', css: 'row' },
   COLUMN: { id: 'COLUMN', css: 'column' },
 } as const;

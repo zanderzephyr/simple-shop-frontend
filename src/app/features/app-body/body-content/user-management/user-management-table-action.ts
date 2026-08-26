@@ -1,11 +1,7 @@
 import { ZodType } from 'zod';
 import { createEnumSchema } from '@core/utils/type-utils';
 
-export const UserManagementTableAction: {
-  readonly ADD: { readonly id: 'ADD' };
-  readonly DELETE: { readonly id: 'DELETE' };
-  readonly MODIFY: { readonly id: 'MODIFY' };
-} = {
+export const UserManagementTableAction = {
   ADD: { id: 'ADD' },
   DELETE: { id: 'DELETE' },
   MODIFY: { id: 'MODIFY' },

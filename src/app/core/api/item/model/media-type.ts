@@ -1,8 +1,4 @@
-export const MediaType: {
-  readonly BOOK: { readonly id: 'BOOK'; readonly name: 'Book' };
-  readonly GAME: { readonly id: 'GAME'; readonly name: 'Game' };
-  readonly MOVIE: { readonly id: 'MOVIE'; readonly name: 'Movie' };
-} = {
+export const MediaType = {
   BOOK: { id: 'BOOK', name: 'Book' },
   GAME: { id: 'GAME', name: 'Game' },
   MOVIE: { id: 'MOVIE', name: 'Movie' },
