@@ -20,6 +20,7 @@ export abstract class ThemeService {
 const themeKey: string = 'theme';
 const defaultTheme: Theme = Theme.LIGHT;
 
+// TODO Init from OS preference
 @Injectable()
 class NgMatThemeService extends ThemeService {
   readonly #activeTheme: WritableSignal<Theme> = signal(this.#init());
@@ -51,7 +52,6 @@ class NgMatThemeService extends ThemeService {
     return colorSchemeValue;
   }
 
-  // TODO Init from OS preference
   #init(): Theme {
     let themeString: string | null = localStorage.getItem(themeKey);
     if (themeString === null) {
