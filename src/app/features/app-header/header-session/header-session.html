@@ -9,7 +9,7 @@
 
   @if (isLoggedIn()) {
     <button class="header-session-menu-button" mat-flat-button [matMenuTriggerFor]="sessionMenu">
-      {{ session() }}
+      {{ sessionText() }}
     </button>
     <mat-menu #sessionMenu="matMenu">
       <button
@@ -17,23 +17,23 @@
         mat-menu-item
         (click)="onUserTransactionsClick()"
       >
-        <span>{{ transactions() }}</span>
+        <span>{{ transactionsText() }}</span>
       </button>
 
       <button class="header-session-menu-profile" mat-menu-item (click)="onProfileClick()">
-        <span>{{ profile() }}</span>
+        <span>{{ profileText() }}</span>
       </button>
 
       @if (isAdmin()) {
         <mat-divider></mat-divider>
-        <div class="header-session-menu-management">{{ management() }}</div>
+        <div class="header-session-menu-management">{{ managementText() }}</div>
 
         <button
           class="header-session-menu-global-transactions"
           mat-menu-item
           (click)="onGlobalTransactionsClick()"
         >
-          <span>{{ globalTransactions() }}</span>
+          <span>{{ globalTransactionsText() }}</span>
         </button>
 
         <button
@@ -41,11 +41,11 @@
           mat-menu-item
           (click)="onBookKeepingClick()"
         >
-          <span>{{ bookKeeping() }}</span>
+          <span>{{ bookKeepingText() }}</span>
         </button>
 
         <button class="header-session-menu-inventory" mat-menu-item (click)="onInventoryClick()">
-          <span>{{ inventory() }}</span>
+          <span>{{ inventoryText() }}</span>
         </button>
 
         <button
@@ -53,18 +53,18 @@
           mat-menu-item
           (click)="onUserManagementClick()"
         >
-          <span>{{ userManagement() }}</span>
+          <span>{{ userManagementText() }}</span>
         </button>
       }
 
       <mat-divider></mat-divider>
       <button class="header-session-menu-logout" mat-menu-item (click)="onLogoutClick()">
-        <span>{{ logout() }}</span>
+        <span>{{ logoutText() }}</span>
       </button>
     </mat-menu>
   } @else {
     <button class="header-session-login" mat-flat-button (click)="onLoginClick()">
-      {{ login() }}
+      {{ loginText() }}
     </button>
   }
 </div>

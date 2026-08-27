@@ -33,7 +33,7 @@ export class SettingsComponent {
     });
     return Object.freeze(options);
   });
-  protected readonly chooseLocalizationLabel: Signal<string> = computed(() =>
+  protected readonly chooseLocalizationText: Signal<string> = computed(() =>
     this.localizationService.getValue(LocalizationKeys.CHOOSE_LOCALIZATION_LABEL_KEY),
   );
 
@@ -49,11 +49,11 @@ export class SettingsComponent {
       return Object.freeze(options);
     },
   );
-  protected readonly chooseThemeLabel: Signal<string> = computed(() =>
+  protected readonly chooseThemeText: Signal<string> = computed(() =>
     this.localizationService.getValue(LocalizationKeys.CHOOSE_THEME_LABEL_KEY),
   );
 
-  protected readonly settingsHeader: Signal<string> = computed(() =>
+  protected readonly settingsHeaderText: Signal<string> = computed(() =>
     this.localizationService.getValue(LocalizationKeys.SETTINGS_HEADER_KEY),
   );
 

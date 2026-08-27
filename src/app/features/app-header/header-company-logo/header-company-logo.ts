@@ -12,7 +12,7 @@ import * as LocalizationKeys from './header-company-logo-utils';
 export class HeaderCompanyLogoComponent {
   readonly #localizationService: LocalizationService = inject(LocalizationService);
 
-  protected readonly subheader: Signal<string> = computed(() =>
+  protected readonly subheaderText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.SUBHEADER_KEY),
   );
 

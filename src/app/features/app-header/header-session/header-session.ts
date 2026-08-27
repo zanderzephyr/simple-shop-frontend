@@ -28,43 +28,43 @@ export class HeaderSessionComponent {
     return sessionData !== undefined && sessionData.getUserType() === UserType.ADMIN;
   });
 
-  protected readonly bookKeeping: Signal<string> = computed(() =>
+  protected readonly bookKeepingText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.BOOK_KEEPING_KEY),
   );
 
-  protected readonly globalTransactions: Signal<string> = computed(() =>
+  protected readonly globalTransactionsText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.GLOBAL_TRANSACTIONS_KEY),
   );
 
-  protected readonly inventory: Signal<string> = computed(() =>
+  protected readonly inventoryText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.INVENTORY_KEY),
   );
 
-  protected readonly login: Signal<string> = computed(() =>
+  protected readonly loginText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.LOGIN_KEY),
   );
 
-  protected readonly logout: Signal<string> = computed(() =>
+  protected readonly logoutText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.LOGOUT_KEY),
   );
 
-  protected readonly management: Signal<string> = computed(() =>
+  protected readonly managementText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.MANAGEMENT_KEY),
   );
 
-  protected readonly profile: Signal<string> = computed(() =>
+  protected readonly profileText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.PROFILE_KEY),
   );
 
-  protected readonly session: Signal<string> = computed(() =>
+  protected readonly sessionText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.SESSION_KEY),
   );
 
-  protected readonly transactions: Signal<string> = computed(() =>
+  protected readonly transactionsText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.TRANSACTIONS_KEY),
   );
 
-  protected readonly userManagement: Signal<string> = computed(() =>
+  protected readonly userManagementText: Signal<string> = computed(() =>
     this.#localizationService.getValue(LocalizationKeys.USER_MANAGEMENT_KEY),
   );
 

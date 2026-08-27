@@ -1,9 +1,9 @@
 <div class="settings-container">
-  <span class="settings-header">{{ settingsHeader() }}</span>
+  <span class="settings-header">{{ settingsHeaderText() }}</span>
 
   <div class="general-ui-settings-container">
     <mat-form-field class="settings-localization-form-field" appearance="outline">
-      <mat-label>{{ chooseLocalizationLabel() }}</mat-label>
+      <mat-label>{{ chooseLocalizationText() }}</mat-label>
       <mat-select
         [value]="localizationService.getLocalization()().id"
         (selectionChange)="updateSelectedLocalization($event.value)"
@@ -15,7 +15,7 @@
     </mat-form-field>
 
     <mat-form-field class="settings-theme-form-field" appearance="outline">
-      <mat-label>{{ chooseThemeLabel() }}</mat-label>
+      <mat-label>{{ chooseThemeText() }}</mat-label>
       <mat-select
         [value]="themeService.getTheme()().id"
         (selectionChange)="updateSelectedTheme($event.value)"
