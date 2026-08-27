@@ -27,7 +27,7 @@ export class SettingsComponent {
   > = computed(() => {
     const localizationList: Localization[] = Object.values(Localization);
     const options: LocalizedOption<Localization>[] = localizationList.map((t) => {
-      const localizationKey: string = LocalizationKeys.LOCALIZATION_ENUM_KEY + t.localizationKey;
+      const localizationKey: string = LocalizationKeys.LOCALIZATION_ENUM_KEY + t.id.toLowerCase();
       const label: string = this.localizationService.getValue(localizationKey);
       return { object: t, localizedLabel: label };
     });
@@ -42,7 +42,7 @@ export class SettingsComponent {
     () => {
       const themesList: Theme[] = Object.values(Theme);
       const options: LocalizedOption<Theme>[] = themesList.map((t) => {
-        const themeKey: string = LocalizationKeys.THEME_ENUM_KEY + t.localizationKey;
+        const themeKey: string = LocalizationKeys.THEME_ENUM_KEY + t.id.toLowerCase();
         const label: string = this.localizationService.getValue(themeKey);
         return { object: t, localizedLabel: label };
       });
