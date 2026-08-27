@@ -1,4 +1,4 @@
-import { effect, inject, Component, computed, signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, inject, signal, Signal, WritableSignal } from '@angular/core';
 import { UserService } from '@api/user/user-service';
 import { User } from '@api/user/model/user';
 import { DefaultTableModel } from '@ui/table/default/default-table-model';
@@ -25,6 +25,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
 import { UserManagementEditorDialogData } from './user-editor-dialog/user-editor-dialog-data';
+import { LocalizationService } from '@core/localization/localization-service';
+import * as Keys from './user-management-utils';
 
 @Component({
   selector: 'app-user-management',
@@ -35,6 +37,7 @@ import { UserManagementEditorDialogData } from './user-editor-dialog/user-editor
 export class UserManagementComponent {
   readonly #userService: UserService = inject(UserService);
   readonly #dialogService: DialogService = inject(DialogService);
+  readonly #localizationService: LocalizationService = inject(LocalizationService);
 
   protected readonly table: Table = new DefaultTable(
     /*
@@ -52,6 +55,14 @@ export class UserManagementComponent {
 
   protected readonly totalUsers = computed(
     () => this.#page()?.getPageMetaData().getTotalElements() ?? 0,
+  );
+
+  protected readonly createUserText: Signal<string> = computed(() =>
+    this.#localizationService.getValue(Keys.CREATE_USER_KEY),
+  );
+
+  protected readonly refreshText: Signal<string> = computed(() =>
+    this.#localizationService.getValue(Keys.REFRESH_KEY),
   );
 
   public constructor() {

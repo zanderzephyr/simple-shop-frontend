@@ -17,12 +17,12 @@
         (click)="refresh()"
       >
         <mat-icon>refresh</mat-icon>
-        <span>Refresh</span>
+        <span>{{ refreshText() }}</span>
       </button>
 
       <button class="user-management-container-add-button" mat-stroked-button (click)="add()">
         <mat-icon>add</mat-icon>
-        <span>Create User</span>
+        <span>{{ createUserText() }}</span>
       </button>
     </div>
   </div>

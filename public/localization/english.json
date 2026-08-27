@@ -8,8 +8,8 @@
         },
         "session": {
           "menu": {
-            "bookKeeping": "Book keeping",
-            "globalTransactions": "Global transactions",
+            "bookKeeping": "Book Keeping",
+            "globalTransactions": "Global Transactions",
             "inventory": "Inventory",
             "login": "Login",
             "logout": "Logout",
@@ -17,7 +17,7 @@
             "profile": "Profile",
             "session": "Session",
             "transactions": "Transactions",
-            "userManagement": "User management"
+            "userManagement": "User Management"
           }
         }
       },
@@ -34,6 +34,10 @@
             "chooseThemeLabel": "Choose Theme"
           }
         }
+      },
+      "userManagement": {
+        "refresh": "Refresh",
+        "createUser": "Create User"
       }
     },
     "global": {
