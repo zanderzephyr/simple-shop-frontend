@@ -1,7 +1,23 @@
 {
   "app": {
+    "feature": {
+      "localization": {
+        "missingPlaceholder": "No localization value available for '{key}'!"
+      },
+      "settings": {
+        "header": "Settings",
+        "ui": {
+          "localization": {
+            "chooseLocalizationLabel": "Choose Language"
+          },
+          "theme": {
+            "chooseThemeLabel": "Choose Theme"
+          }
+        }
+      }
+    },
     "global": {
-      "enums": {
+      "enum": {
         "localization": {
           "english": "English",
           "german": "German"
@@ -9,20 +25,6 @@
         "theme": {
           "light": "Light Mode",
           "dark": "Dark Mode"
-        }
-      },
-      "localization": {
-        "missingPlaceholder": "No localization value available for '{key}'!"
-      }
-    },
-    "settings": {
-      "header": "Settings",
-      "ui": {
-        "localization": {
-          "chooseLocalizationLabel": "Choose Language"
-        },
-        "theme": {
-          "chooseThemeLabel": "Choose Theme"
         }
       }
     }

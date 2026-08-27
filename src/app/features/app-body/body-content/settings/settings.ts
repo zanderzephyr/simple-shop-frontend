@@ -5,6 +5,13 @@ import { Localization } from '@core/localization/localization';
 import { LocalizationService } from '@core/localization/localization-service';
 import { Theme } from '@core/theme/theme';
 import { ThemeService } from '@core/theme/theme-service';
+import {
+  CHOOSE_LOCALIZATION_LABEL_KEY,
+  CHOOSE_THEME_LABEL_KEY,
+  LOCALIZATION_ENUM_KEY,
+  SETTINGS_HEADER_KEY,
+  THEME_ENUM_KEY,
+} from './settings-utils';
 
 const settingsContextSegment: string = 'settings';
 
@@ -31,39 +38,35 @@ export class SettingsComponent {
   > = computed(() => {
     const localizationList: Localization[] = Object.values(Localization);
     const options: LocalizedOption<Localization>[] = localizationList.map((t) => {
-      const localizationKey: string = 'app.global.enums.localization.' + t.localizationKey;
+      const localizationKey: string = LOCALIZATION_ENUM_KEY + t.localizationKey;
       const label: string = this.localizationService.getValue(localizationKey);
       return { object: t, localizedLabel: label };
     });
     return Object.freeze(options);
   });
-  protected readonly chooseLocalizationLabel: Signal<string> = computed(() => {
-    const chooseLocalizationLabelKey: string =
-      this.#settingsContextPath() + '.ui.localization.chooseLocalizationLabel';
-    return this.localizationService.getValue(chooseLocalizationLabelKey);
-  });
+  protected readonly chooseLocalizationLabel: Signal<string> = computed(() =>
+    this.localizationService.getValue(CHOOSE_LOCALIZATION_LABEL_KEY),
+  );
 
   protected themeService: ThemeService = inject(ThemeService);
   protected readonly localizedThemeOptions: Signal<readonly LocalizedOption<Theme>[]> = computed(
     () => {
       const themesList: Theme[] = Object.values(Theme);
       const options: LocalizedOption<Theme>[] = themesList.map((t) => {
-        const themeKey: string = 'app.global.enums.theme.' + t.localizationKey;
+        const themeKey: string = THEME_ENUM_KEY + t.localizationKey;
         const label: string = this.localizationService.getValue(themeKey);
         return { object: t, localizedLabel: label };
       });
       return Object.freeze(options);
     },
   );
-  protected readonly chooseThemeLabel: Signal<string> = computed(() => {
-    const chooseThemeLabelKey: string = this.#settingsContextPath() + '.ui.theme.chooseThemeLabel';
-    return this.localizationService.getValue(chooseThemeLabelKey);
-  });
+  protected readonly chooseThemeLabel: Signal<string> = computed(() =>
+    this.localizationService.getValue(CHOOSE_THEME_LABEL_KEY),
+  );
 
-  protected readonly settingsHeader: Signal<string> = computed(() => {
-    const settingsHeaderKey: string = this.#settingsContextPath() + '.header';
-    return this.localizationService.getValue(settingsHeaderKey);
-  });
+  protected readonly settingsHeader: Signal<string> = computed(() =>
+    this.localizationService.getValue(SETTINGS_HEADER_KEY),
+  );
 
   public constructor() {
     // Nothing to do so far
