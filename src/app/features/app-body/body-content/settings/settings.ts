@@ -1,4 +1,4 @@
-import { Component, computed, inject, input, InputSignal, signal, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { MatSelectModule } from '@angular/material/select';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { Localization } from '@core/localization/localization';
@@ -27,11 +27,6 @@ interface LocalizedOption<T> {
   styleUrl: './settings.scss',
 })
 export class SettingsComponent {
-  public readonly contextPath: InputSignal<string> = input('');
-  readonly #settingsContextPath: Signal<string> = computed(
-    () => this.contextPath() + '.' + settingsContextSegment,
-  );
-
   protected localizationService: LocalizationService = inject(LocalizationService);
   protected readonly localizedLocalizationOptions: Signal<
     readonly LocalizedOption<Localization>[]

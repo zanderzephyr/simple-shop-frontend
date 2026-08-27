@@ -3,7 +3,6 @@ import { Routes, CanActivateFn, Router } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
 import { SessionService } from '@core/session/session-service';
 import { SessionData } from '@core/session/session-data';
-import { APP_KEY } from '@core/utils/localization-utils';
 
 const isAdminGuard: CanActivateFn = () => {
   const router: Router = inject(Router);
@@ -63,9 +62,6 @@ export const routes: Routes = [
     path: 'settings',
     loadComponent: () =>
       import('@features/app-body/body-content/settings/settings').then((m) => m.SettingsComponent),
-    data: {
-      contextPath: APP_KEY,
-    },
   },
   {
     path: 'shopping-cart',
