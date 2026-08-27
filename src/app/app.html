@@ -1,5 +1,11 @@
-<div class="app-grid">
-  <app-header></app-header>
-  <app-footer></app-footer>
-  <app-body></app-body>
-</div>
+@if (isFullyInitialized()) {
+  <div class="app-grid">
+    <app-header></app-header>
+    <app-footer></app-footer>
+    <app-body></app-body>
+  </div>
+} @else {
+  <div class="app-loading-placeholder">
+    <mat-progress-spinner mode="indeterminate" diameter="40" />
+  </div>
+}

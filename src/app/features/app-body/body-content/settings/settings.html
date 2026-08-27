@@ -1,33 +1,29 @@
-@if (localizationService.isInitialized()()) {
-  <div class="settings-container">
-    <span class="settings-header">{{ settingsHeader() }}</span>
+<div class="settings-container">
+  <span class="settings-header">{{ settingsHeader() }}</span>
 
-    <div class="general-ui-settings-container">
-      <mat-form-field class="settings-localization-form-field" appearance="outline">
-        <mat-label>{{ chooseLocalizationLabel() }}</mat-label>
-        <mat-select
-          [value]="localizationService.getLocalization()().id"
-          (selectionChange)="updateSelectedLocalization($event.value)"
-        >
-          @for (option of localizedLocalizationOptions(); track option.object.id) {
-            <mat-option [value]="option.object.id">{{ option.localizedLabel }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
+  <div class="general-ui-settings-container">
+    <mat-form-field class="settings-localization-form-field" appearance="outline">
+      <mat-label>{{ chooseLocalizationLabel() }}</mat-label>
+      <mat-select
+        [value]="localizationService.getLocalization()().id"
+        (selectionChange)="updateSelectedLocalization($event.value)"
+      >
+        @for (option of localizedLocalizationOptions(); track option.object.id) {
+          <mat-option [value]="option.object.id">{{ option.localizedLabel }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
 
-      <mat-form-field class="settings-theme-form-field" appearance="outline">
-        <mat-label>{{ chooseThemeLabel() }}</mat-label>
-        <mat-select
-          [value]="themeService.getTheme()().id"
-          (selectionChange)="updateSelectedTheme($event.value)"
-        >
-          @for (option of localizedThemeOptions(); track option.object.id) {
-            <mat-option [value]="option.object.id">{{ option.localizedLabel }}</mat-option>
-          }
-        </mat-select>
-      </mat-form-field>
-    </div>
+    <mat-form-field class="settings-theme-form-field" appearance="outline">
+      <mat-label>{{ chooseThemeLabel() }}</mat-label>
+      <mat-select
+        [value]="themeService.getTheme()().id"
+        (selectionChange)="updateSelectedTheme($event.value)"
+      >
+        @for (option of localizedThemeOptions(); track option.object.id) {
+          <mat-option [value]="option.object.id">{{ option.localizedLabel }}</mat-option>
+        }
+      </mat-select>
+    </mat-form-field>
   </div>
-} @else {
-  <div class="settings-loading-placeholder"></div>
-}
+</div>
