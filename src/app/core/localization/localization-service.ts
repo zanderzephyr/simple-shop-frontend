@@ -8,10 +8,12 @@ import {
   Signal,
   WritableSignal,
 } from '@angular/core';
-import { firstValueFrom } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { firstValueFrom } from 'rxjs';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
 import { Localization } from './localization';
+import { MISSING_PLACEHOLDER_KEY } from './localization-utils';
+import { KEY_SEPARATOR } from '@core/utils/localization-utils';
 
 @Injectable({
   providedIn: 'root',
@@ -39,7 +41,6 @@ export abstract class LocalizationService {
   public abstract isInitialized(): Signal<boolean>;
 }
 
-const missingPlaceholderKey: string = 'app.global.localization.missingPlaceholder';
 const localizationKey: string = 'localization';
 const defaultLocalization: Localization = Localization.ENGLISH;
 
@@ -57,16 +58,24 @@ class CoreLocalizationService extends LocalizationService {
     () => this.#localizationMapping() !== undefined,
   );
 
+  #requestId: bigint = 0n;
+
   public constructor() {
     super();
 
     effect(() => {
       const currentLocalization: Localization = this.#activeLocalization();
+      const currentRequestId: bigint = ++this.#requestId;
 
       firstValueFrom(
         this.#http.get('localization/' + currentLocalization.id.toLowerCase() + '.json'),
       ).then(
-        (file) => this.#localizationMapping.set(file),
+        (file) => {
+          // Prevents an old change to overwrite a newer one (important for fast changes)
+          if (this.#requestId === currentRequestId) {
+            this.#localizationMapping.set(file);
+          }
+        },
         (reason) => console.error('Failed to load localization resource: ' + reason),
       );
 
@@ -99,7 +108,7 @@ class CoreLocalizationService extends LocalizationService {
 
     let mappedValue: unknown | undefined = this.#splitKeyAndRetrieveValue(key, localization);
     if (typeof mappedValue !== 'string') {
-      mappedValue = this.#splitKeyAndRetrieveValue(missingPlaceholderKey, localization);
+      mappedValue = this.#splitKeyAndRetrieveValue(MISSING_PLACEHOLDER_KEY, localization);
     }
     if (typeof mappedValue !== 'string') {
       mappedValue = 'No localization value available for ' + key + '!';
@@ -116,7 +125,7 @@ class CoreLocalizationService extends LocalizationService {
 
     try {
       mappedValue = key
-        .split('.')
+        .split(KEY_SEPARATOR)
         .reduce(
           (previousValue, currentValue) => previousValue?.[currentValue],
           localization as any,
