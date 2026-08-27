@@ -1,6 +1,13 @@
 {
   "app": {
     "feature": {
+      "footer": {},
+      "header": {
+        "companyLogo": {
+          "subheader": "Was Ihr Regal begehrt"
+        },
+        "session": {}
+      },
       "localization": {
         "missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
       },

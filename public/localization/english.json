@@ -1,6 +1,13 @@
 {
   "app": {
     "feature": {
+      "footer": {},
+      "header": {
+        "companyLogo": {
+          "subheader": "Whatever your shelf desires"
+        },
+        "session": {}
+      },
       "localization": {
         "missingPlaceholder": "No localization value available for '{key}'!"
       },
