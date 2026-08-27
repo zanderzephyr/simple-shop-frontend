@@ -9,7 +9,7 @@
 
   @if (isLoggedIn()) {
     <button class="header-session-menu-button" mat-flat-button [matMenuTriggerFor]="sessionMenu">
-      Session
+      {{ session() }}
     </button>
     <mat-menu #sessionMenu="matMenu">
       <button
@@ -17,23 +17,23 @@
         mat-menu-item
         (click)="onUserTransactionsClick()"
       >
-        <span>Transactions</span>
+        <span>{{ transactions() }}</span>
       </button>
 
       <button class="header-session-menu-profile" mat-menu-item (click)="onProfileClick()">
-        <span>Profile</span>
+        <span>{{ profile() }}</span>
       </button>
 
       @if (isAdmin()) {
         <mat-divider></mat-divider>
-        <div class="header-session-menu-admin-actions">Admin actions</div>
+        <div class="header-session-menu-management">{{ management() }}</div>
 
         <button
           class="header-session-menu-global-transactions"
           mat-menu-item
           (click)="onGlobalTransactionsClick()"
         >
-          <span>Global transactions</span>
+          <span>{{ globalTransactions() }}</span>
         </button>
 
         <button
@@ -41,11 +41,11 @@
           mat-menu-item
           (click)="onBookKeepingClick()"
         >
-          <span>Book keeping</span>
+          <span>{{ bookKeeping() }}</span>
         </button>
 
         <button class="header-session-menu-inventory" mat-menu-item (click)="onInventoryClick()">
-          <span>Inventory</span>
+          <span>{{ inventory() }}</span>
         </button>
 
         <button
@@ -53,16 +53,18 @@
           mat-menu-item
           (click)="onUserManagementClick()"
         >
-          <span>User management</span>
+          <span>{{ userManagement() }}</span>
         </button>
       }
 
       <mat-divider></mat-divider>
       <button class="header-session-menu-logout" mat-menu-item (click)="onLogoutClick()">
-        <span>Logout</span>
+        <span>{{ logout() }}</span>
       </button>
     </mat-menu>
   } @else {
-    <button class="header-session-login" mat-flat-button (click)="onLoginClick()">Login</button>
+    <button class="header-session-login" mat-flat-button (click)="onLoginClick()">
+      {{ login() }}
+    </button>
   }
 </div>

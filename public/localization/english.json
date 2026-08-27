@@ -6,7 +6,20 @@
         "companyLogo": {
           "subheader": "Whatever your shelf desires"
         },
-        "session": {}
+        "session": {
+          "menu": {
+            "bookKeeping": "Book keeping",
+            "globalTransactions": "Global transactions",
+            "inventory": "Inventory",
+            "login": "Login",
+            "logout": "Logout",
+            "management": "Management",
+            "profile": "Profile",
+            "session": "Session",
+            "transactions": "Transactions",
+            "userManagement": "User management"
+          }
+        }
       },
       "localization": {
         "missingPlaceholder": "No localization value available for '{key}'!"

@@ -4,10 +4,11 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
-import { UserService } from '@api/user/user-service';
 import { UserType } from '@api/user/model/user-type';
 import { SessionService } from '@core/session/session-service';
 import { SessionData } from '@core/session/session-data';
+import { LocalizationService } from '@core/localization/localization-service';
+import * as LocalizationKeys from './header-session-utils';
 
 @Component({
   selector: 'app-header-session',
@@ -17,7 +18,7 @@ import { SessionData } from '@core/session/session-data';
 })
 export class HeaderSessionComponent {
   readonly #sessionService: SessionService = inject(SessionService);
-  readonly #userService: UserService = inject(UserService);
+  readonly #localizationService: LocalizationService = inject(LocalizationService);
   readonly #router: Router = inject(Router);
 
   protected readonly isLoggedIn: Signal<boolean> = this.#sessionService.isLoggedIn();
@@ -27,16 +28,45 @@ export class HeaderSessionComponent {
     return sessionData !== undefined && sessionData.getUserType() === UserType.ADMIN;
   });
 
-  /*() => {
-    const sessionData: SessionData | null = this.#sessionService.getSessionData()();
-    if (sessionData) {
-      const userType: UserType | null = await this.#userService.getUserType(
-        sessionData.getUserId(),
-      );
-      return UserType.ADMIN === userType;
-    }
-    return false;
-  });*/
+  protected readonly bookKeeping: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.BOOK_KEEPING_KEY),
+  );
+
+  protected readonly globalTransactions: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.GLOBAL_TRANSACTIONS_KEY),
+  );
+
+  protected readonly inventory: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.INVENTORY_KEY),
+  );
+
+  protected readonly login: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.LOGIN_KEY),
+  );
+
+  protected readonly logout: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.LOGOUT_KEY),
+  );
+
+  protected readonly management: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.MANAGEMENT_KEY),
+  );
+
+  protected readonly profile: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.PROFILE_KEY),
+  );
+
+  protected readonly session: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.SESSION_KEY),
+  );
+
+  protected readonly transactions: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.TRANSACTIONS_KEY),
+  );
+
+  protected readonly userManagement: Signal<string> = computed(() =>
+    this.#localizationService.getValue(LocalizationKeys.USER_MANAGEMENT_KEY),
+  );
 
   constructor() {
     // Nothing to do so far
