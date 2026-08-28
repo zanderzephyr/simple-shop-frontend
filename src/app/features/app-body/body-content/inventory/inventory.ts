@@ -1,9 +1,10 @@
-import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, effect, inject, signal, Signal, WritableSignal } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { ItemService } from '@api/item/item-service';
 import { Item } from '@api/item/model/item';
+import { LocalizationService } from '@core/localization/localization-service';
 import { Consumer } from '@core/utils/functional-interfaces';
 import { Page } from '@core/utils/page/page';
 import { PageConfig } from '@core/utils/page/page-config';
@@ -21,6 +22,7 @@ import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
 import { ACTIONS, COVER, extractItemValue, inventoryColumnDescriptions } from './inventory-column-descriptions';
 import { InventoryTableAction } from './inventory-table-action';
+import * as Keys from './inventory-utils';
 import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-data';
 
 @Component({
@@ -32,6 +34,12 @@ import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-da
 export class InventoryComponent {
 	readonly #itemService: ItemService = inject(ItemService);
 	readonly #dialogService: DialogService = inject(DialogService);
+
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly refreshText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.REFRESH_KEY));
+	protected readonly createItemText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CREATE_ITEM_KEY));
+	readonly #createItemHeaderText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CREATE_ITEM_HEADER_KEY));
+	readonly #modifyItemHeaderText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MODIFY_ITEM_HEADER_KEY));
 
 	protected readonly table: Table = new DefaultTable(
 		/*
@@ -103,7 +111,7 @@ export class InventoryComponent {
 	}
 
 	protected async add(): Promise<void> {
-		const itemToCreate: Item | undefined = await this.#showDialog('Create Item', undefined);
+		const itemToCreate: Item | undefined = await this.#showDialog(this.#createItemHeaderText(), undefined);
 		if (itemToCreate) {
 			this.#itemService.createItem(itemToCreate).then((createdItem: Item) => this.refresh());
 		}
@@ -121,7 +129,7 @@ export class InventoryComponent {
 	}
 
 	async #modify(tableCellContext: TableCellContext, item: Item): Promise<void> {
-		const itemToModify: Item | undefined = await this.#showDialog('Modify Item', item);
+		const itemToModify: Item | undefined = await this.#showDialog(this.#modifyItemHeaderText(), item);
 		if (itemToModify) {
 			// TODO Performance: Simply use the resulting item and update the table instead of reloading the whole page.
 			this.#itemService.modifyItem(itemToModify).then((modifiedItem: Item) => this.refresh());

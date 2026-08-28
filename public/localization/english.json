@@ -23,7 +23,23 @@
 			},
 			"inventory": {
 				"refresh": "Refresh",
-				"createUser": "Create Item",
+				"createItem": "Create Item",
+				"dialog": {
+					"field": {
+						"imageUrl": "Image URL",
+						"imageUrlError": "Required! Must be under 2048 characters!",
+						"mediaType": "Media Type",
+						"mediaTypeError": "Required!",
+						"price": "Price",
+						"priceError": "Required! Must be &lt; 2147483647!",
+						"stock": "Stock",
+						"stockError": "Required! Must be &lt; 2147483647!",
+						"title": "Title",
+						"titleError": "Required! Must be under 400 characters!"
+					},
+					"headerCreate": "Create Item",
+					"headerModify": "Modify Item"
+				},
 				"table": {
 					"header": {
 						"title": {

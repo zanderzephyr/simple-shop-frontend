@@ -23,7 +23,23 @@
 			},
 			"inventory": {
 				"refresh": "Aktualisieren",
-				"createUser": "Item anlegen",
+				"createItem": "Item anlegen",
+				"dialog": {
+					"field": {
+						"imageUrl": "URL Titelbild",
+						"imageUrlError": "Required! Must be under 2048 characters!",
+						"mediaType": "Medienart",
+						"mediaTypeError": "Required!",
+						"price": "Preis",
+						"priceError": "Required! Must be &lt; 2147483647!",
+						"stock": "Auf Lager",
+						"stockError": "Required! Must be &lt; 2147483647!",
+						"title": "Titel",
+						"titleError": "Required! Must be under 400 characters!"
+					},
+					"headerCreate": "Item Anlegen",
+					"headerModify": "Item Ändern"
+				},
 				"table": {
 					"header": {
 						"title": {

@@ -4,6 +4,10 @@ const INVENTORY_KEY: string = FEATURE_KEY + KEY_SEPARATOR + 'inventory';
 export const REFRESH_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'refresh';
 export const CREATE_ITEM_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'createItem';
 
+const DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'dialog';
+export const CREATE_ITEM_HEADER_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'headerCreate';
+export const MODIFY_ITEM_HEADER_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'headerModify';
+
 const TABLE_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'table';
 const TABLE_HEADER_KEY: string = TABLE_KEY + KEY_SEPARATOR + 'header';
 const TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_KEY + KEY_SEPARATOR + 'title';

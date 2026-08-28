@@ -5,36 +5,36 @@
   (ngSubmit)="onConfirm()"
 >
   <mat-form-field class="item-form-title" appearance="outline">
-    <mat-label>Title</mat-label>
+    <mat-label>{{ titleText() }}</mat-label>
     <input matInput type="text" formControlName="title" />
-    <mat-error>Title must not be empty or &gt; 400 characters!</mat-error>
+    <mat-error>{{ titleErrorText() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="item-form-media-type" appearance="outline">
-    <mat-label>Media Type</mat-label>
+    <mat-label>{{ mediaTypeText() }}</mat-label>
     <mat-select formControlName="mediaType" [compareWith]="compareMediaTypes">
       @for (mediaType of mediaTypes(); track mediaType.id) {
         <mat-option [value]="mediaType">{{ mediaType.name }}</mat-option>
       }
     </mat-select>
-    <mat-error>Media type must not be empty!</mat-error>
+    <mat-error>{{ mediaTypeErrorText() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="item-form-stock" appearance="outline">
-    <mat-label>Stock</mat-label>
+    <mat-label>{{ stockText() }}</mat-label>
     <input matInput type="number" formControlName="stock" />
-    <mat-error>Stock {{ badIntErrorMessage }}</mat-error>
+    <mat-error>{{ stockErrorText() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="item-form-price" appearance="outline">
-    <mat-label>Price</mat-label>
+    <mat-label>{{ priceText() }}</mat-label>
     <input matInput type="number" formControlName="price" />
-    <mat-error>Price {{ badIntErrorMessage }}</mat-error>
+    <mat-error>{{ priceErrorText() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="item-form-image-url" appearance="outline">
-    <mat-label>Image URL</mat-label>
+    <mat-label>{{ imageUrlText() }}</mat-label>
     <input matInput type="text" formControlName="imageUrl" />
-    <mat-error>URL is required and must be &gt; 2048 characters!</mat-error>
+    <mat-error>{{ imageUrlErrorText() }}</mat-error>
   </mat-form-field>
 </form>
