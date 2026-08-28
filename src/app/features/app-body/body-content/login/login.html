@@ -1,28 +1,28 @@
 <!----
   [formGroup]="loginForm": Binds our component's 'loginForm' property to Angular's reactive form directive.
-  #formDirective="ngForm": Creates a template reference variable pointing to the underlying Angular directive instance 
+  #formDirective="ngForm": Creates a template reference variable pointing to the underlying Angular directive instance
                           instead of the raw DOM element. This allows us to reset Material's validation/submitted state.
 -->
 <form
-  class="session-login-form-container"
+  class="login-form-container"
   [formGroup]="loginForm"
   #formDirective="ngForm"
   (ngSubmit)="login()"
 >
-  <mat-form-field class="session-login-username" appearance="outline">
+  <mat-form-field class="login-username" appearance="outline">
     <mat-label>Username</mat-label>
     <input matInput type="text" formControlName="username" />
     <mat-error>Username must not be empty!</mat-error>
   </mat-form-field>
 
-  <mat-form-field class="session-login-password" appearance="outline">
+  <mat-form-field class="login-password" appearance="outline">
     <mat-label>Password</mat-label>
     <input matInput type="password" formControlName="password" />
     <mat-error>Password must not be empty!</mat-error>
   </mat-form-field>
 
   <button
-    class="session-login-discard"
+    class="login-discard"
     type="button"
     mat-stroked-button
     (click)="discard(formDirective)"
@@ -30,5 +30,5 @@
     Discard
   </button>
 
-  <button class="session-login-login" type="submit" mat-flat-button>Login</button>
+  <button class="login-login" type="submit" mat-flat-button>Login</button>
 </form>

@@ -1,4 +1,4 @@
-.session-login-form-container {
+.login-form-container {
 	display: grid;
 
 	grid-template-columns: 100px 100px;
@@ -12,7 +12,7 @@
 	margin: 0 auto;
 }
 
-.session-login-username {
+.login-username {
 	/*
 		  [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
 		  [n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
@@ -21,17 +21,17 @@
 	grid-row: 1;
 }
 
-.session-login-password {
+.login-password {
 	grid-column: 1 / span 2;
 	grid-row: 2;
 }
 
-button.session-login-discard {
+button.login-discard {
 	grid-column: 1;
 	grid-row: 3;
 }
 
-button.session-login-login {
+button.login-login {
 	grid-column: 2;
 	grid-row: 3;
 }

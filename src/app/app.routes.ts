@@ -42,15 +42,15 @@ export const routes: Routes = [
 	{
 		path: 'login',
 		loadComponent: () =>
-			import('@features/app-body/body-content/session-login/session-login').then(
-				(m) => m.SessionLoginComponent
+			import('@features/app-body/body-content/login/login').then(
+				(m) => m.LoginComponent
 			)
 	},
 	{
 		path: 'logout',
 		loadComponent: () =>
-			import('@features/app-body/body-content/session-logout/session-logout').then(
-				(m) => m.SessionLogoutComponent
+			import('@features/app-body/body-content/logout/logout').then(
+				(m) => m.LogoutComponent
 			)
 	},
 	{
