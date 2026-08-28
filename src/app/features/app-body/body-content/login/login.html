@@ -10,15 +10,15 @@
   (ngSubmit)="login()"
 >
   <mat-form-field class="login-username" appearance="outline">
-    <mat-label>Username</mat-label>
+    <mat-label>{{ usernameText() }}</mat-label>
     <input matInput type="text" formControlName="username" />
-    <mat-error>Username must not be empty!</mat-error>
+    <mat-error>{{ usernameErrorText() }}</mat-error>
   </mat-form-field>
 
   <mat-form-field class="login-password" appearance="outline">
-    <mat-label>Password</mat-label>
+    <mat-label>{{ passwordText() }}</mat-label>
     <input matInput type="password" formControlName="password" />
-    <mat-error>Password must not be empty!</mat-error>
+    <mat-error>{{ passwordErrorText() }}</mat-error>
   </mat-form-field>
 
   <button
@@ -27,8 +27,8 @@
     mat-stroked-button
     (click)="discard(formDirective)"
   >
-    Discard
+    {{ discardText() }}
   </button>
 
-  <button class="login-login" type="submit" mat-flat-button>Login</button>
+  <button class="login-login" type="submit" mat-flat-button>{{ loginText() }}</button>
 </form>

@@ -1,13 +1,15 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, Signal, WritableSignal } from '@angular/core';
 import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
 import { LoginRequest, LoginRequestBuilder } from '@core/api/auth/model/login-request';
+import { LocalizationService } from '@core/localization/localization-service';
 import { SessionService } from '@core/session/session-service';
 import { DialogService, openErrorDialog } from '@core/ui/dialog/interface/dialog-service';
 import { generateSha256Hash } from '@core/utils/crypto-utils';
+import * as Keys from './login-utils';
 
 interface LoginFormShape {
 	username: string | null;
@@ -25,6 +27,15 @@ export class LoginComponent {
 	readonly #sessionService: SessionService = inject(SessionService);
 	readonly #dialogService = inject(DialogService);
 	readonly #formBuilder: FormBuilder = inject(FormBuilder);
+
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly discardText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.DISCARD_FIELD_KEY));
+	protected readonly loginText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.LOGIN_FIELD_KEY));
+	readonly #loginFailedText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.LOGIN_FAILED_KEY));
+	protected readonly passwordText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PASSWORD_FIELD_KEY));
+	protected readonly passwordErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PASSWORD_FIELD_ERROR_KEY));
+	protected readonly usernameText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USERNAME_FIELD_KEY));
+	protected readonly usernameErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USERNAME_FIELD_ERROR_KEY));
 
 	protected readonly loginForm = this.#formBuilder.group({
 		username: [null, [Validators.required]],
@@ -58,7 +69,7 @@ export class LoginComponent {
 			if (loginSuccessful) {
 				this.#router.navigate(['/welcome']);
 			} else {
-				openErrorDialog(this.#dialogService, 'Login failed!');
+				openErrorDialog(this.#dialogService, this.#loginFailedText());
 			}
 		}
 	}

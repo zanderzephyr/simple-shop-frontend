@@ -56,6 +56,18 @@
 			"localization": {
 				"missingPlaceholder": "No localization value available for '{key}'!"
 			},
+			"login": {
+				"discard": "Discard",
+				"login": "Login",
+				"loginFailed": "Login failed!",
+				"password": "Password",
+				"passwordError": "Required!",
+				"username": "Username",
+				"usernameError": "Required!"
+			},
+			"logout": {
+				"logoutMessage": "Goodbye!"
+			},
 			"settings": {
 				"header": "Settings",
 				"ui": {

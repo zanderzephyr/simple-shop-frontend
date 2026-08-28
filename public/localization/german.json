@@ -56,6 +56,18 @@
 			"localization": {
 				"missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
 			},
+			"login": {
+				"discard": "Verwerfen",
+				"login": "Einloggen",
+				"loginFailed": "Einloggen fehlgeschlagen!",
+				"password": "Passwort",
+				"passwordError": "Pflichtfeld!",
+				"username": "Nutzername",
+				"usernameError": "Pflichtfeld!"
+			},
+			"logout": {
+				"logoutMessage": "Auf Wiedersehen!"
+			},
 			"settings": {
 				"header": "Einstellungen",
 				"ui": {
