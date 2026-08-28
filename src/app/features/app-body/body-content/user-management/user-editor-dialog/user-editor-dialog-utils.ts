@@ -1,0 +1,21 @@
+import { FEATURE_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
+
+const USER_MANAGEMENT_KEY: string = FEATURE_KEY + KEY_SEPARATOR + 'userManagement';
+const DIALOG_KEY: string = USER_MANAGEMENT_KEY + KEY_SEPARATOR + 'dialog';
+const DIALOG_FIELD_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'field';
+export const EMAIL_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'email';
+export const EMAIL_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'emailError';
+export const FIRST_NAME_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'firstName';
+export const FIRST_NAME_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'firstNameError';
+export const LAST_NAME_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'lastName';
+export const LAST_NAME_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'lastNameError';
+export const MIDDLE_NAMES_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'middleNames';
+export const MIDDLE_NAMES_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'middleNamesError';
+export const PASSWORD_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'password';
+export const PASSWORD_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'passwordError';
+export const PASSWORD_CONFIRMATION_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'passwordConfirmation';
+export const PASSWORD_CONFIRMATION_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'passwordConfirmationError';
+export const USERNAME_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'username';
+export const USERNAME_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'usernameError';
+export const USER_TYPE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'userType';
+export const USER_TYPE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'userTypeError';

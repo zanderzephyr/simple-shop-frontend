@@ -80,6 +80,28 @@
 							"userType": "User Type"
 						}
 					}
+				},
+				"dialog": {
+					"field": {
+						"email": "Email",
+						"emailError": "Required! Must be valid and under 254 characters!",
+						"firstName": "First name",
+						"firstNameError": "Required! Must be under 30 characters!",
+						"lastName": "Last name",
+						"lastNameError": "Required! Must be under 30 characters!",
+						"middleNames": "Middle names",
+						"middleNamesError": "Must be under 100 characters!",
+						"password": "Password",
+						"passwordError": "Required!",
+						"passwordConfirmation": "Confirm password",
+						"passwordConfirmationError": "Required! Must match the password!",
+						"username": "Username",
+						"usernameError": "Required! Must be under 30 characters!",
+						"userType": "User type",
+						"userTypeError": "Required!"
+					},
+					"headerCreate": "Create User",
+					"headerModify": "Modify User"
 				}
 			}
 		},

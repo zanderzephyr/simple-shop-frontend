@@ -27,15 +27,15 @@
 				"dialog": {
 					"field": {
 						"imageUrl": "URL Titelbild",
-						"imageUrlError": "Required! Must be under 2048 characters!",
+						"imageUrlError": "Pflichtfeld! Muss unter 2048 Zeichen sein!",
 						"mediaType": "Medienart",
-						"mediaTypeError": "Required!",
+						"mediaTypeError": "Pflichtfeld!",
 						"price": "Preis",
-						"priceError": "Required! Must be &lt; 2147483647!",
+						"priceError": "Pflichtfeld! Muss &lt; 2147483647 sein!",
 						"stock": "Auf Lager",
-						"stockError": "Required! Must be &lt; 2147483647!",
+						"stockError": "Pflichtfeld! Muss &lt; 2147483647 sein!",
 						"title": "Titel",
-						"titleError": "Required! Must be under 400 characters!"
+						"titleError": "Pflichtfeld! Muss unter 400 Zeichen sein!"
 					},
 					"headerCreate": "Item Anlegen",
 					"headerModify": "Item Ändern"
@@ -70,6 +70,28 @@
 			"userManagement": {
 				"refresh": "Aktualisieren",
 				"createUser": "Nutzer anlegen",
+				"dialog": {
+					"field": {
+						"email": "Email",
+						"emailError": "Pflichtfeld! Muss unter 254 Zeichen sein!",
+						"firstName": "Vorname",
+						"firstNameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
+						"lastName": "Nachname",
+						"lastNameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
+						"middleNames": "Mittlere Namen",
+						"middleNamesError": "Muss unter 100 Zeichen sein!",
+						"password": "Passwort",
+						"passwordError": "Pflichtfeld!",
+						"passwordConfirmation": "Passwort bestätigen",
+						"passwordConfirmationError": "Pflichtfeld! Muss dem Passwort entsprechen!",
+						"username": "Nutzername",
+						"usernameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
+						"userType": "Nutzertyp",
+						"userTypeError": "Pflichtfeld!"
+					},
+					"headerCreate": "Nutzer Anlegen",
+					"headerModify": "Nutzer Ändern"
+				},
 				"table": {
 					"header": {
 						"title": {

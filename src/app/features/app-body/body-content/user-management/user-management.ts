@@ -33,7 +33,20 @@ import * as Keys from './user-management-utils';
 export class UserManagementComponent {
 	readonly #userService: UserService = inject(UserService);
 	readonly #dialogService: DialogService = inject(DialogService);
+
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly createUserText: Signal<string> = computed(() =>
+		this.#localizationService.getValue(Keys.CREATE_USER_KEY)
+	);
+	protected readonly refreshText: Signal<string> = computed(() =>
+		this.#localizationService.getValue(Keys.REFRESH_KEY)
+	);
+	readonly #createUserHeaderText: Signal<string> = computed(() =>
+		this.#localizationService.getValue(Keys.CREATE_USER_HEADER_KEY)
+	);
+	readonly #modifyUserHeaderText: Signal<string> = computed(() =>
+		this.#localizationService.getValue(Keys.MODIFY_USER_HEADER_KEY)
+	);
 
 	protected readonly table: Table = new DefaultTable(
 		/*
@@ -53,13 +66,6 @@ export class UserManagementComponent {
 		() => this.#page()?.getPageMetaData().getTotalElements() ?? 0
 	);
 
-	protected readonly createUserText: Signal<string> = computed(() =>
-		this.#localizationService.getValue(Keys.CREATE_USER_KEY)
-	);
-
-	protected readonly refreshText: Signal<string> = computed(() =>
-		this.#localizationService.getValue(Keys.REFRESH_KEY)
-	);
 
 	public constructor() {
 		effect(() => {
@@ -111,7 +117,7 @@ export class UserManagementComponent {
 	}
 
 	protected async add(): Promise<void> {
-		const userToCreate: User | undefined = await this.#showDialog('Create User', undefined);
+		const userToCreate: User | undefined = await this.#showDialog(this.#createUserHeaderText(), undefined);
 		if (userToCreate) {
 			this.#userService.createUser(userToCreate).then((createdUser: User) => this.refresh());
 		}
@@ -130,7 +136,7 @@ export class UserManagementComponent {
 	}
 
 	async #modify(tableCellContext: TableCellContext, user: User): Promise<void> {
-		const userToModify: User | undefined = await this.#showDialog('Modify User', user);
+		const userToModify: User | undefined = await this.#showDialog(this.#modifyUserHeaderText(), user);
 		if (userToModify) {
 			// TODO Performance: Simply use the resulting user and update the table instead of reloading the whole page.
 			this.#userService.modifyUser(userToModify).then((modifiedUser: User) => this.refresh());

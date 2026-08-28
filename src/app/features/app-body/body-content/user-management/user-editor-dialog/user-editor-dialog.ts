@@ -1,4 +1,4 @@
-import { Component, inject, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, Signal, WritableSignal } from '@angular/core';
 import {
 	AbstractControl,
 	FormBuilder,
@@ -12,10 +12,13 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { User, UserBuilder } from '@api/user/model/user';
 import { compareUserTypes, UserType } from '@api/user/model/user-type';
+import { LocalizationService } from '@core/localization/localization-service';
 import { generateSha256Hash } from '@core/utils/crypto-utils';
 import { isBlank } from '@core/utils/string-utils';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
+import { first } from 'rxjs';
 import { UserManagementEditorDialogData } from './user-editor-dialog-data';
+import * as Keys from './user-editor-dialog-utils';
 
 interface UserShape {
 	username: string | null;
@@ -38,6 +41,24 @@ export class UserEditorDialogComponent extends GeneralDialogContentComponent<
 	UserManagementEditorDialogData,
 	User
 > {
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly emailText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.EMAIL_KEY));
+	protected readonly emailErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.EMAIL_ERROR_KEY));
+	protected readonly firstNameText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.FIRST_NAME_KEY));
+	protected readonly firstNameErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.FIRST_NAME_ERROR_KEY));
+	protected readonly lastNameText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.LAST_NAME_KEY));
+	protected readonly lastNameErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.LAST_NAME_ERROR_KEY));
+	protected readonly middleNamesText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MIDDLE_NAMES_KEY));
+	protected readonly middleNamesErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MIDDLE_NAMES_ERROR_KEY));
+	protected readonly passwordText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PASSWORD_KEY));
+	protected readonly passwordErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PASSWORD_ERROR_KEY));
+	protected readonly passwordConfirmationText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PASSWORD_CONFIRMATION_KEY));
+	protected readonly passwordConfirmationErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PASSWORD_CONFIRMATION_ERROR_KEY));
+	protected readonly usernameText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USERNAME_KEY));
+	protected readonly usernameErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USERNAME_ERROR_KEY));
+	protected readonly userTypeText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USER_TYPE_KEY));
+	protected readonly userTypeErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USER_TYPE_ERROR_KEY));
+
 	protected readonly userTypes: Signal<readonly UserType[]> = signal(
 		Object.freeze(Object.values(UserType))
 	).asReadonly();
@@ -169,4 +190,6 @@ export class UserEditorDialogComponent extends GeneralDialogContentComponent<
 
 		super.onCancel();
 	}
+
+	protected readonly first = first;
 }
