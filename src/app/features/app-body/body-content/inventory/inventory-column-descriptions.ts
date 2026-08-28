@@ -17,12 +17,13 @@ import { InventoryTableActionEditorComponent } from './inventory-table-action-ed
 import {
 	InventoryTableActionRendererComponent
 } from './inventory-table-action-renderer/inventory-table-action-renderer';
+import * as Keys from './inventory-utils';
 
 let modelIndex: number = 0;
 
 export const TITLE: TableColumnDescription<string> = new TableColumnDescriptionBuilder<string>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Title') //
+	.setTitle(Keys.TITLE_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.string()) //
 	.setRendererType(StringRendererComponent) //
 	.setEditorType(StringEditorComponent) //
@@ -31,7 +32,7 @@ export const TITLE: TableColumnDescription<string> = new TableColumnDescriptionB
 export const MEDIA_TYPE: TableColumnDescription<string> =
 	new TableColumnDescriptionBuilder<string>() //
 		.setModelIndex(modelIndex++) //
-		.setTitle('Media Type') //
+		.setTitle(Keys.MEDIA_TYPE_TABLE_HEADER_TITLE_KEY) //
 		.setTypeSchema(z.string()) //
 		.setRendererType(StringRendererComponent) //
 		.setEditorType(StringEditorComponent) //
@@ -39,7 +40,7 @@ export const MEDIA_TYPE: TableColumnDescription<string> =
 
 export const STOCK: TableColumnDescription<number> = new TableColumnDescriptionBuilder<number>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Stock') //
+	.setTitle(Keys.STOCK_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.number()) //
 	.setRendererType(NumberRendererComponent) //
 	.setEditorType(NumberEditorComponent) //
@@ -47,7 +48,7 @@ export const STOCK: TableColumnDescription<number> = new TableColumnDescriptionB
 
 export const PRICE: TableColumnDescription<number> = new TableColumnDescriptionBuilder<number>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Price') //
+	.setTitle(Keys.PRICE_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.number()) //
 	.setRendererType(NumberRendererComponent) //
 	.setEditorType(NumberEditorComponent) //
@@ -56,7 +57,7 @@ export const PRICE: TableColumnDescription<number> = new TableColumnDescriptionB
 export const COVER: TableColumnDescription<ImageRendererConfiguration> =
 	new TableColumnDescriptionBuilder<ImageRendererConfiguration>() //
 		.setModelIndex(modelIndex++) //
-		.setTitle('Cover') //
+		.setTitle(Keys.COVER_TABLE_HEADER_TITLE_KEY) //
 		.setTypeSchema(zodImageRendererConfiguration()) //
 		.setRendererType(ImageRendererComponent) //
 		.setEditorType(undefined) //
@@ -66,7 +67,7 @@ export const ACTIONS: TableColumnDescription<
 	Map<InventoryTableAction, Consumer<TableCellContext>>
 > = new TableColumnDescriptionBuilder<Map<InventoryTableAction, Consumer<TableCellContext>>>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Actions') //
+	.setTitle(Keys.ACTIONS_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.map(zodInventoryTableAction(), zodConsumer())) //
 	.setRendererType(InventoryTableActionRendererComponent) //
 	.setEditorType(InventoryTableActionEditorComponent) //

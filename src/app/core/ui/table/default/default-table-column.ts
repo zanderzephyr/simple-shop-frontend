@@ -1,4 +1,4 @@
-import { signal, Type, WritableSignal } from '@angular/core';
+import { Type } from '@angular/core';
 import { Editor } from '@ui/editor/editor';
 import { Renderer } from '@ui/renderer/renderer';
 import { TableColumn } from '@ui/table/interface/table-column';
@@ -11,8 +11,8 @@ import { ZodType } from 'zod';
 	source should be on server side, to prevent it from being lost on client resets.
 */
 export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
-	readonly #title: WritableSignal<string>;
-	readonly #hidden: WritableSignal<boolean>;
+	readonly #title: string;
+	readonly #hidden: boolean;
 	readonly #modelIndex: number;
 	readonly #typeSchema: ZodType<TYPE>;
 	readonly #rendererType: Type<Renderer<TYPE>>;
@@ -21,9 +21,9 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
 
 	public constructor(columnDescription: TableColumnDescription<TYPE>) {
 		this.#modelIndex = columnDescription.getModelIndex();
-		this.#title = signal(columnDescription.getTitle());
+		this.#title = columnDescription.getTitle();
 		this.#typeSchema = columnDescription.getTypeSchema();
-		this.#hidden = signal(false);
+		this.#hidden = false;
 		this.#rendererType = columnDescription.getRendererType();
 		this.#editorType = columnDescription.getEditorType();
 		this.#width = columnDescription.getWidth();
@@ -37,11 +37,11 @@ export class DefaultTableColumn<TYPE> implements TableColumn<TYPE> {
 		return this.#typeSchema;
 	}
 
-	public getHidden(): WritableSignal<boolean> {
+	public getHidden(): boolean {
 		return this.#hidden;
 	}
 
-	public getTitle(): WritableSignal<string> {
+	public getTitle(): string {
 		return this.#title;
 	}
 

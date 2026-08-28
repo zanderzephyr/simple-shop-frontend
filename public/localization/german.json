@@ -21,6 +21,22 @@
 					}
 				}
 			},
+			"inventory": {
+				"refresh": "Aktualisieren",
+				"createUser": "Item anlegen",
+				"table": {
+					"header": {
+						"title": {
+							"actions": "Aktivitäten",
+							"cover": "Titelbild",
+							"mediaType": "Medienart",
+							"price": "Preis",
+							"stock": "Auf Lager",
+							"title": "Titel"
+						}
+					}
+				}
+			},
 			"localization": {
 				"missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
 			},
@@ -37,7 +53,18 @@
 			},
 			"userManagement": {
 				"refresh": "Aktualisieren",
-				"createUser": "Nutzer anlegen"
+				"createUser": "Nutzer anlegen",
+				"table": {
+					"header": {
+						"title": {
+							"actions": "Aktivitäten",
+							"firstName": "Vorname",
+							"lastName": "Nachname",
+							"username": "Nutzername",
+							"userType": "Nutzertyp"
+						}
+					}
+				}
 			}
 		},
 		"global": {

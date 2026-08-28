@@ -160,7 +160,7 @@ export class TableColumnDescriptionBuilder<TYPE> {
 		}
 
 		if (this.#title === undefined || this.#title.trim().length === 0) {
-			throw new IllegalStateError('No item title!');
+			throw new IllegalStateError('No title!');
 		}
 
 		if (this.#typeSchema === undefined) {

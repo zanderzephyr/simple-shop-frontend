@@ -1,5 +1,6 @@
-import { Component, computed, Signal } from '@angular/core';
+import { Component, computed, inject, Signal } from '@angular/core';
 import { MatTableModule } from '@angular/material/table';
+import { LocalizationService } from '@core/localization/localization-service';
 import { createRange } from '@core/utils/array-utils';
 import { CommonTableComponent } from '@ui/table/interface/common-table-component';
 import { TableColumn } from '@ui/table/interface/table-column';
@@ -13,6 +14,8 @@ import { NgMatTableCellComponent } from '@ui/table/ng-mat-table/ng-mat-table-cel
 	styleUrl: './ng-mat-table.scss'
 })
 export class NgMatTableComponent extends CommonTableComponent {
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+
 	protected readonly tableColumns: Signal<readonly TableColumn<unknown>[]> = computed(() =>
 		this.tableColumnModel().getTableColumns()()
 	);
@@ -24,6 +27,17 @@ export class NgMatTableComponent extends CommonTableComponent {
 	protected readonly tableRowIds: Signal<readonly number[]> = computed(() => {
 		const rowCount: number = this.tableModel().getRowCount()();
 		return createRange(0, rowCount);
+	});
+
+	protected readonly tableColumnHeaderTitles: Signal<Map<number, string>> = computed(() => {
+		const map: Map<number, string> = new Map();
+
+		for (const tableColumn of this.tableColumns()) {
+			const title: string = this.#localizationService.getValue(tableColumn.getTitle());
+			map.set(tableColumn.getModelIndex(), title);
+		}
+
+		return map;
 	});
 
 	protected readonly tableColumnIdToWidth: Signal<Map<number, string | undefined>> = computed(

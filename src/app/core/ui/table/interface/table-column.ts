@@ -1,4 +1,4 @@
-import { Type, WritableSignal } from '@angular/core';
+import { Type } from '@angular/core';
 import { Editor } from '@ui/editor/editor';
 import { Renderer } from '@ui/renderer/renderer';
 import { ZodType } from 'zod';
@@ -17,9 +17,9 @@ export interface TableColumn<TYPE> {
 
 	getTypeSchema(): ZodType<TYPE>;
 
-	getHidden(): WritableSignal<boolean>;
+	getHidden(): boolean;
 
-	getTitle(): WritableSignal<string>;
+	getTitle(): string;
 
 	getRendererType(): Type<Renderer<TYPE>>;
 

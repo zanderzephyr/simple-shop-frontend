@@ -21,6 +21,22 @@
 					}
 				}
 			},
+			"inventory": {
+				"refresh": "Refresh",
+				"createUser": "Create Item",
+				"table": {
+					"header": {
+						"title": {
+							"actions": "Actions",
+							"cover": "Cover",
+							"mediaType": "Media Type",
+							"price": "Price",
+							"stock": "Stock",
+							"title": "Title"
+						}
+					}
+				}
+			},
 			"localization": {
 				"missingPlaceholder": "No localization value available for '{key}'!"
 			},
@@ -37,7 +53,18 @@
 			},
 			"userManagement": {
 				"refresh": "Refresh",
-				"createUser": "Create User"
+				"createUser": "Create User",
+				"table": {
+					"header": {
+						"title": {
+							"actions": "Actions",
+							"firstName": "First Name",
+							"lastName": "Last Name",
+							"username": "Username",
+							"userType": "User Type"
+						}
+					}
+				}
 			}
 		},
 		"global": {

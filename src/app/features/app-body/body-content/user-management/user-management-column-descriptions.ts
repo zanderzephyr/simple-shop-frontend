@@ -12,12 +12,13 @@ import {
 import {
 	UserManagementTableActionRendererComponent
 } from './user-management-table-action-renderer/user-management-table-action-renderer';
+import * as Keys from './user-management-utils';
 
 let modelIndex: number = 0;
 
 export const USERNAME: TableColumnDescription<string> = new TableColumnDescriptionBuilder<string>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Username') //
+	.setTitle(Keys.USERNAME_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.string()) //
 	.setRendererType(StringRendererComponent) //
 	.setEditorType(StringEditorComponent) //
@@ -25,7 +26,7 @@ export const USERNAME: TableColumnDescription<string> = new TableColumnDescripti
 
 export const USER_TYPE: TableColumnDescription<string> = new TableColumnDescriptionBuilder<string>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('User Type') //
+	.setTitle(Keys.USER_TYPE_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.string()) //
 	.setRendererType(StringRendererComponent) //
 	.setEditorType(StringEditorComponent) //
@@ -34,7 +35,7 @@ export const USER_TYPE: TableColumnDescription<string> = new TableColumnDescript
 export const FIRST_NAME: TableColumnDescription<string> =
 	new TableColumnDescriptionBuilder<string>() //
 		.setModelIndex(modelIndex++) //
-		.setTitle('First Name') //
+		.setTitle(Keys.FIRST_NAME_TABLE_HEADER_TITLE_KEY) //
 		.setTypeSchema(z.string()) //
 		.setRendererType(StringRendererComponent) //
 		.setEditorType(StringEditorComponent) //
@@ -42,7 +43,7 @@ export const FIRST_NAME: TableColumnDescription<string> =
 
 export const LAST_NAME: TableColumnDescription<string> = new TableColumnDescriptionBuilder<string>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Last Name') //
+	.setTitle(Keys.LAST_NAME_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.string()) //
 	.setRendererType(StringRendererComponent) //
 	.setEditorType(StringEditorComponent) //
@@ -52,7 +53,7 @@ export const ACTIONS: TableColumnDescription<
 	Map<UserManagementTableAction, Consumer<TableCellContext>>
 > = new TableColumnDescriptionBuilder<Map<UserManagementTableAction, Consumer<TableCellContext>>>() //
 	.setModelIndex(modelIndex++) //
-	.setTitle('Actions') //
+	.setTitle(Keys.ACTIONS_TABLE_HEADER_TITLE_KEY) //
 	.setTypeSchema(z.map(zodUserManagementTableAction(), zodConsumer())) //
 	.setRendererType(UserManagementTableActionRendererComponent) //
 	.setEditorType(UserManagementTableActionEditorComponent) //

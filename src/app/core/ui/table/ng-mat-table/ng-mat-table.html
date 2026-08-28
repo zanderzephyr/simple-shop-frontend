@@ -4,7 +4,7 @@
 		https://v12.material.angular.io/components/table/overview
 		in detail to understand better.
 
-		dataSource: Tells Angular where to get the table data, i.e. the rows. 
+		dataSource: Tells Angular where to get the table data, i.e. the rows.
 	 	We can pass pretty much anything in here and just have to adapt accordingly
 		in how we use it.
 
@@ -17,7 +17,7 @@
 		let columnIndex = $index) {
       <!-- matColumnDef: Creates an injection slot for a column. -->
       <ng-container [matColumnDef]="tableColumn.getModelIndex() + ''">
-        <!-- 
+        <!--
 					*matHeaderCellDef: Creates an injection slot for the column header.
 					The tag content is what's injected.
 				-->
@@ -27,7 +27,7 @@
           *matHeaderCellDef
           [style.width]="tableColumnIdToWidth().get(tableColumn.getModelIndex())"
         >
-          {{ tableColumn.getTitle()() }}
+          {{ tableColumnHeaderTitles().get(tableColumn.getModelIndex()) }}
         </th>
         <!--
 					*matCellDef: Creates an injection slot for a column data cell; this
@@ -52,7 +52,7 @@
 
     <!--
 			Spawns a table row container (<tr>) for every item provided by the dataSource.
-			For each row, it loops through the specified column IDs to extract and inject 
+			For each row, it loops through the specified column IDs to extract and inject
 			the matching data cell templates, passing the current item context down as 'row'.
     -->
     <tr class="ng-mat-table-data-row" mat-row *matRowDef="let row; columns: tableColumnIds()"></tr>
