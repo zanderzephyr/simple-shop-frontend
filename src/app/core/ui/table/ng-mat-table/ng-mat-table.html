@@ -12,11 +12,9 @@
 		Depends on if the table model supports stable row IDs or not.
 	-->
   <table class="ng-mat-table" mat-table [dataSource]="tableRowIds()">
-    @for (
-      tableColumn of tableColumns();
-      track tableColumn.getModelIndex();
-      let columnIndex = $index
-    ) {
+    @for (tableColumn of tableColumns();
+		track tableColumn.getModelIndex();
+		let columnIndex = $index) {
       <!-- matColumnDef: Creates an injection slot for a column. -->
       <ng-container [matColumnDef]="tableColumn.getModelIndex() + ''">
         <!-- 

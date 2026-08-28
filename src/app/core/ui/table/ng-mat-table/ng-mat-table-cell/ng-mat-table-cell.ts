@@ -1,13 +1,13 @@
 import {
-  ComponentRef,
-  Type,
-  Component,
-  effect,
-  Signal,
-  viewChild,
-  ViewContainerRef,
-  input,
-  InputSignal,
+	Component,
+	ComponentRef,
+	effect,
+	input,
+	InputSignal,
+	Signal,
+	Type,
+	viewChild,
+	ViewContainerRef
 } from '@angular/core';
 import { Table } from '@ui/table/interface/table';
 import { TableCellContext, TableCellContextBuilder } from '@ui/table/interface/table-cell-context';
@@ -22,72 +22,72 @@ import { Renderer } from '@ui/renderer/renderer';
  TODO Maybe create a proper abstract structure for content projection?
 */
 @Component({
-  selector: 'app-ng-mat-table-cell',
-  imports: [],
-  templateUrl: './ng-mat-table-cell.html',
-  styleUrl: './ng-mat-table-cell.css',
+	selector: 'app-ng-mat-table-cell',
+	imports: [],
+	templateUrl: './ng-mat-table-cell.html',
+	styleUrl: './ng-mat-table-cell.css'
 })
 export class NgMatTableCellComponent {
-  public readonly table: InputSignal<Table> = input.required<Table>();
+	public readonly table: InputSignal<Table> = input.required<Table>();
 
-  public readonly columnViewIndex: InputSignal<number> = input.required<number>();
+	public readonly columnViewIndex: InputSignal<number> = input.required<number>();
 
-  public readonly rowViewIndex: InputSignal<number> = input.required<number>();
+	public readonly rowViewIndex: InputSignal<number> = input.required<number>();
 
-  // TODO Maybe replace "content" with a unique string in the app, to prevent duplicates?
-  readonly content: Signal<ViewContainerRef | undefined> = viewChild('content', {
-    read: ViewContainerRef,
-  });
+	// TODO Maybe replace "content" with a unique string in the app, to prevent duplicates?
+	readonly content: Signal<ViewContainerRef | undefined> = viewChild('content', {
+		read: ViewContainerRef
+	});
 
-  // Keep a local reference to the active dynamic component instance
-  #currentComponentRef: ComponentRef<unknown> | undefined = undefined;
+	// Keep a local reference to the active dynamic component instance
+	#currentComponentRef: ComponentRef<unknown> | undefined = undefined;
 
-  public constructor() {
-    this.#init();
-  }
+	public constructor() {
+		this.#init();
+	}
 
-  #init(): void {
-    effect(() => {
-      // Immediately execute the signals to register the effect properly.
-      const column: TableColumn<unknown> = this.table().getTableColumnModel().getTableColumns()()[
-        this.columnViewIndex()
-      ];
+	#init(): void {
+		effect(() => {
+			// Immediately execute the signals to register the effect properly.
+			const column: TableColumn<unknown> = this.table().getTableColumnModel().getTableColumns()()[
+				this.columnViewIndex()
+				];
 
-      let viewContainer: ViewContainerRef | undefined = this.content();
-      if (!viewContainer) {
-        return; // Template isn't built yet; bail early safely
-      }
+			let viewContainer: ViewContainerRef | undefined = this.content();
+			if (!viewContainer) {
+				return; // Template isn't built yet; bail early safely
+			}
 
-      // TODO Properly recognize if we should choose the renderer or the editor.
+			// TODO Properly recognize if we should choose the renderer or the editor.
 
-      const type: Type<Renderer<unknown>> = column.getRendererType();
-      if (!this.#currentComponentRef || this.#currentComponentRef.componentType !== type) {
-        this.#clearComponent();
-        this.#currentComponentRef = viewContainer.createComponent(type);
-      }
+			const type: Type<Renderer<unknown>> = column.getRendererType();
+			if (!this.#currentComponentRef || this.#currentComponentRef.componentType !== type) {
+				this.#clearComponent();
+				this.#currentComponentRef = viewContainer.createComponent(type);
+			}
 
-      if (
-        this.#currentComponentRef.instance instanceof TableCellRendererComponent ||
-        this.#currentComponentRef.instance instanceof TableCellEditorComponent
-      ) {
-        const cellContext: TableCellContext = new TableCellContextBuilder()
-          .setTable(this.table())
-          .setColumnViewIndex(this.columnViewIndex())
-          .setRowViewIndex(this.rowViewIndex())
-          .build();
-        this.#currentComponentRef.setInput('context', cellContext);
-      } else {
-        const value: unknown = this.table().getValueAt(this.columnViewIndex(), this.rowViewIndex());
-        this.#currentComponentRef.setInput('valueInput', value);
-      }
-    });
-  }
+			if (
+				this.#currentComponentRef.instance instanceof TableCellRendererComponent ||
+				this.#currentComponentRef.instance instanceof TableCellEditorComponent
+			) {
+				const cellContext: TableCellContext = new TableCellContextBuilder()
+					.setTable(this.table())
+					.setColumnViewIndex(this.columnViewIndex())
+					.setRowViewIndex(this.rowViewIndex())
+					.build();
+				this.#currentComponentRef.setInput('context', cellContext);
+			} else {
+				const value: unknown = this.table().getValueAt(this.columnViewIndex(), this.rowViewIndex());
+				this.#currentComponentRef.setInput('valueInput', value);
+			}
+		});
+	}
 
-  #clearComponent(): void {
-    if (this.#currentComponentRef) {
-      this.#currentComponentRef.destroy();
-      this.#currentComponentRef = undefined;
-      this.content()!.clear();
-    }
-  }
+	#clearComponent(): void {
+		if (this.#currentComponentRef) {
+			this.#currentComponentRef.destroy();
+			this.#currentComponentRef = undefined;
+			this.content()!.clear();
+		}
+	}
 }

@@ -4,21 +4,21 @@ import { TableCellContext } from './table-cell-context';
 
 @Directive()
 export abstract class TableCellRendererComponent<TYPE> implements Renderer<TYPE> {
-  readonly interfaceTag: 'renderer' = 'renderer';
+	readonly interfaceTag: 'renderer' = 'renderer';
 
-  public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();
+	public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();
 
-  protected readonly value: Signal<TYPE> = computed(
-    () =>
-      this.context()
-        .getTable()
-        .getValueAt(
-          this.context().getColumnViewIndex(),
-          this.context().getRowViewIndex(),
-        )() as TYPE,
-  );
+	protected readonly value: Signal<TYPE> = computed(
+		() =>
+			this.context()
+				.getTable()
+				.getValueAt(
+					this.context().getColumnViewIndex(),
+					this.context().getRowViewIndex()
+				)() as TYPE
+	);
 
-  public constructor() {
-    // Nothing to do so far
-  }
+	public constructor() {
+		// Nothing to do so far
+	}
 }

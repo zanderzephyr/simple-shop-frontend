@@ -1,17 +1,17 @@
 import { z, ZodType } from 'zod';
 
 export class ImageRendererConfiguration {
-  readonly #url: string;
+	readonly #url: string;
 
-  constructor(url: string) {
-    this.#url = url;
-  }
+	constructor(url: string) {
+		this.#url = url;
+	}
 
-  public getUrl(): string {
-    return this.#url;
-  }
+	public getUrl(): string {
+		return this.#url;
+	}
 }
 
 export function zodImageRendererConfiguration(): ZodType<ImageRendererConfiguration> {
-  return z.instanceof(ImageRendererConfiguration);
+	return z.instanceof(ImageRendererConfiguration);
 }

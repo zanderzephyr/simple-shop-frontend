@@ -10,13 +10,13 @@ import { Component } from '@angular/core';
  * TODO Maybe place a button on this component to return to the landing page.
  */
 @Component({
-  selector: 'app-outage',
-  imports: [],
-  templateUrl: './outage.html',
-  styleUrl: './outage.scss',
+	selector: 'app-outage',
+	imports: [],
+	templateUrl: './outage.html',
+	styleUrl: './outage.scss'
 })
 export class OutageComponent {
-  public constructor() {
-    // Nothing to do so far
-  }
+	public constructor() {
+		// Nothing to do so far
+	}
 }

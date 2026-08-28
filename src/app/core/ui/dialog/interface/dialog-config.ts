@@ -1,5 +1,5 @@
 import { DialogContentComponent } from './dialog-content';
-import { Type, Injector } from '@angular/core';
+import { Injector, Type } from '@angular/core';
 
 /*
   Unlike Java (which infers types from class declarations), TypeScript uses 
@@ -8,101 +8,101 @@ import { Type, Injector } from '@angular/core';
   inferred by consumer services (like DialogService.open).
 */
 export class DialogConfig<DATA, RESULT> {
-  #width: string | undefined;
+	#width: string | undefined;
 
-  #height: string | undefined;
+	#height: string | undefined;
 
-  #disableClose: boolean = false;
+	#disableClose: boolean = false;
 
-  #restoreFocus: boolean = false;
+	#restoreFocus: boolean = false;
 
-  #contentComponentType: Type<DialogContentComponent<DATA, RESULT>>;
+	#contentComponentType: Type<DialogContentComponent<DATA, RESULT>>;
 
-  #dialogData: DATA;
+	#dialogData: DATA;
 
-  #injector: Injector | undefined;
+	#injector: Injector | undefined;
 
-  public constructor(
-    dialogData: DATA,
-    contentComponentType: Type<DialogContentComponent<DATA, RESULT>>,
-  ) {
-    this.#dialogData = dialogData;
-    this.#contentComponentType = contentComponentType;
-  }
+	public constructor(
+		dialogData: DATA,
+		contentComponentType: Type<DialogContentComponent<DATA, RESULT>>
+	) {
+		this.#dialogData = dialogData;
+		this.#contentComponentType = contentComponentType;
+	}
 
-  public getWidth(): string | undefined {
-    return this.#width;
-  }
+	public getWidth(): string | undefined {
+		return this.#width;
+	}
 
-  public setWidth(width: string | undefined): this {
-    this.#width = width;
+	public setWidth(width: string | undefined): this {
+		this.#width = width;
 
-    return this;
-  }
+		return this;
+	}
 
-  public getHeight(): string | undefined {
-    return this.#height;
-  }
+	public getHeight(): string | undefined {
+		return this.#height;
+	}
 
-  public setHeight(height: string | undefined): this {
-    this.#height = height;
+	public setHeight(height: string | undefined): this {
+		this.#height = height;
 
-    return this;
-  }
+		return this;
+	}
 
-  public getDisableClose(): boolean {
-    return this.#disableClose;
-  }
+	public getDisableClose(): boolean {
+		return this.#disableClose;
+	}
 
-  public setDisableClose(disableClose: boolean): this {
-    this.#disableClose = disableClose;
+	public setDisableClose(disableClose: boolean): this {
+		this.#disableClose = disableClose;
 
-    return this;
-  }
+		return this;
+	}
 
-  public getRestoreFocus(): boolean {
-    return this.#restoreFocus;
-  }
+	public getRestoreFocus(): boolean {
+		return this.#restoreFocus;
+	}
 
-  public setRestoreFocus(restoreFocus: boolean): this {
-    this.#restoreFocus = restoreFocus;
+	public setRestoreFocus(restoreFocus: boolean): this {
+		this.#restoreFocus = restoreFocus;
 
-    return this;
-  }
+		return this;
+	}
 
-  /*
-		Unlike Java's strict generic variance rules, TypeScript's structural type 
-   	system natively allows specific subclasses to satisfy this base type contract.
-	*/
-  public getContentComponentType(): Type<DialogContentComponent<DATA, RESULT>> {
-    return this.#contentComponentType;
-  }
+	/*
+		  Unlike Java's strict generic variance rules, TypeScript's structural type
+		 system natively allows specific subclasses to satisfy this base type contract.
+	  */
+	public getContentComponentType(): Type<DialogContentComponent<DATA, RESULT>> {
+		return this.#contentComponentType;
+	}
 
-  public setContentComponentType(
-    contentComponentType: Type<DialogContentComponent<DATA, RESULT>>,
-  ): this {
-    this.#contentComponentType = contentComponentType;
+	public setContentComponentType(
+		contentComponentType: Type<DialogContentComponent<DATA, RESULT>>
+	): this {
+		this.#contentComponentType = contentComponentType;
 
-    return this;
-  }
+		return this;
+	}
 
-  public getDialogData(): DATA {
-    return this.#dialogData;
-  }
+	public getDialogData(): DATA {
+		return this.#dialogData;
+	}
 
-  public setDialogData(dialogData: DATA): this {
-    this.#dialogData = dialogData;
+	public setDialogData(dialogData: DATA): this {
+		this.#dialogData = dialogData;
 
-    return this;
-  }
+		return this;
+	}
 
-  public getInjector(): Injector | undefined {
-    return this.#injector;
-  }
+	public getInjector(): Injector | undefined {
+		return this.#injector;
+	}
 
-  public setInjector(injector: Injector | undefined): this {
-    this.#injector = injector;
+	public setInjector(injector: Injector | undefined): this {
+		this.#injector = injector;
 
-    return this;
-  }
+		return this;
+	}
 }

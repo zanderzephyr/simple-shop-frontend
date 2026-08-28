@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'app-footer',
-  imports: [],
-  templateUrl: './app-footer.html',
-  styleUrl: './app-footer.scss',
+	selector: 'app-footer',
+	imports: [],
+	templateUrl: './app-footer.html',
+	styleUrl: './app-footer.scss'
 })
 export class AppFooterComponent {
-  constructor() {
-    // Nothing to do so far
-  }
+	constructor() {
+		// Nothing to do so far
+	}
 }

@@ -4,17 +4,17 @@ import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog
 import { MatIconModule } from '@angular/material/icon';
 
 @Component({
-  selector: 'app-info-dialog',
-  imports: [MatIconModule],
-  templateUrl: './info-dialog.html',
-  styleUrl: './info-dialog.scss',
+	selector: 'app-info-dialog',
+	imports: [MatIconModule],
+	templateUrl: './info-dialog.html',
+	styleUrl: './info-dialog.scss'
 })
 export class InfoDialogComponent extends MessageDialogComponent<InfoDialogComponent> {
-  public constructor() {
-    super();
-  }
+	public constructor() {
+		super();
+	}
 
-  public override createButtonConfigurations(): ButtonConfiguration[] {
-    return [this.getConfirmButtonConfiguration()];
-  }
+	public override createButtonConfigurations(): ButtonConfiguration[] {
+		return [this.getConfirmButtonConfiguration()];
+	}
 }

@@ -2,8 +2,8 @@
 const RENDERER_TYPE_SYMBOL = Symbol('RendererTypeSymbol');
 
 export interface Renderer<TYPE> {
-  readonly interfaceTag: 'renderer';
+	readonly interfaceTag: 'renderer';
 
-  // Ignore. Just for type safety.
-  [RENDERER_TYPE_SYMBOL]?(): TYPE;
+	// Ignore. Just for type safety.
+	[RENDERER_TYPE_SYMBOL]?(): TYPE;
 }

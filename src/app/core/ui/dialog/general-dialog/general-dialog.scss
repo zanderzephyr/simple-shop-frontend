@@ -1,18 +1,18 @@
 .general-dialog-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 10px 10px;
-  box-sizing: border-box;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	padding: 10px 10px;
+	box-sizing: border-box;
 }
 
 .title {
-  font-size: large;
-  text-align: center;
-  padding: 0 0 10px 0;
+	font-size: large;
+	text-align: center;
+	padding: 0 0 10px 0;
 }
 
 .general-dialog-container > .content {
-  width: 100%;
-  padding: 0 0 10px 0;
+	width: 100%;
+	padding: 0 0 10px 0;
 }

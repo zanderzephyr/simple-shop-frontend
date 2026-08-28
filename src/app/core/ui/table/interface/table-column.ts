@@ -13,17 +13,17 @@ import { ZodType } from 'zod';
 	TODO Add viewIndex I assume
 */
 export interface TableColumn<TYPE> {
-  getModelIndex(): number;
+	getModelIndex(): number;
 
-  getTypeSchema(): ZodType<TYPE>;
+	getTypeSchema(): ZodType<TYPE>;
 
-  getHidden(): WritableSignal<boolean>;
+	getHidden(): WritableSignal<boolean>;
 
-  getTitle(): WritableSignal<string>;
+	getTitle(): WritableSignal<string>;
 
-  getRendererType(): Type<Renderer<TYPE>>;
+	getRendererType(): Type<Renderer<TYPE>>;
 
-  getEditorType(): Type<Editor<TYPE>> | undefined;
+	getEditorType(): Type<Editor<TYPE>> | undefined;
 
-  getWidth(): string | undefined;
+	getWidth(): string | undefined;
 }

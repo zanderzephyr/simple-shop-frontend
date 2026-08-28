@@ -4,19 +4,19 @@ import { LocalizationService } from '@core/localization/localization-service';
 import * as LocalizationKeys from './header-company-logo-utils';
 
 @Component({
-  selector: 'app-header-company-logo',
-  imports: [RouterLink],
-  templateUrl: './header-company-logo.html',
-  styleUrl: './header-company-logo.scss',
+	selector: 'app-header-company-logo',
+	imports: [RouterLink],
+	templateUrl: './header-company-logo.html',
+	styleUrl: './header-company-logo.scss'
 })
 export class HeaderCompanyLogoComponent {
-  readonly #localizationService: LocalizationService = inject(LocalizationService);
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
 
-  protected readonly subheaderText: Signal<string> = computed(() =>
-    this.#localizationService.getValue(LocalizationKeys.SUBHEADER_KEY),
-  );
+	protected readonly subheaderText: Signal<string> = computed(() =>
+		this.#localizationService.getValue(LocalizationKeys.SUBHEADER_KEY)
+	);
 
-  constructor() {
-    // Nothing to do so far
-  }
+	constructor() {
+		// Nothing to do so far
+	}
 }

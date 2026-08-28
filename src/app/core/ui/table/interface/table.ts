@@ -3,9 +3,9 @@ import { TableColumnModel } from './table-column-model';
 import { TableModel } from './table-model';
 
 export interface Table {
-  getTableModel(): TableModel;
+	getTableModel(): TableModel;
 
-  getTableColumnModel(): TableColumnModel;
+	getTableColumnModel(): TableColumnModel;
 
-  getValueAt(columnViewIndex: number, rowViewIndex: number): Signal<unknown>;
+	getValueAt(columnViewIndex: number, rowViewIndex: number): Signal<unknown>;
 }

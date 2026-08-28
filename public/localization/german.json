@@ -1,56 +1,56 @@
 {
-  "app": {
-    "feature": {
-      "footer": {},
-      "header": {
-        "companyLogo": {
-          "subheader": "Was Ihr Regal begehrt"
-        },
-        "session": {
-          "menu": {
-            "bookKeeping": "Buchhaltung",
-            "globalTransactions": "Globale Transaktionen",
-            "inventory": "Inventar",
-            "login": "Anmelden",
-            "logout": "Abmelden",
-            "management": "Verwaltung",
-            "profile": "Profil",
-            "session": "Sitzung",
-            "transactions": "Transaktionen",
-            "userManagement": "Nutzerverwaltung"
-          }
-        }
-      },
-      "localization": {
-        "missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
-      },
-      "settings": {
-        "header": "Einstellungen",
-        "ui": {
-          "localization": {
-            "chooseLocalizationLabel": "Sprache wählen"
-          },
-          "theme": {
-            "chooseThemeLabel": "Design wählen"
-          }
-        }
-      },
-      "userManagement": {
-        "refresh": "Aktualisieren",
-        "createUser": "Nutzer anlegen"
-      }
-    },
-    "global": {
-      "enum": {
-        "localization": {
-          "english": "Englisch",
-          "german": "Deutsch"
-        },
-        "theme": {
-          "light": "Heller Modus",
-          "dark": "Dunkler Modus"
-        }
-      }
-    }
-  }
+	"app": {
+		"feature": {
+			"footer": {},
+			"header": {
+				"companyLogo": {
+					"subheader": "Was Ihr Regal begehrt"
+				},
+				"session": {
+					"menu": {
+						"bookKeeping": "Buchhaltung",
+						"globalTransactions": "Globale Transaktionen",
+						"inventory": "Inventar",
+						"login": "Anmelden",
+						"logout": "Abmelden",
+						"management": "Verwaltung",
+						"profile": "Profil",
+						"session": "Sitzung",
+						"transactions": "Transaktionen",
+						"userManagement": "Nutzerverwaltung"
+					}
+				}
+			},
+			"localization": {
+				"missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
+			},
+			"settings": {
+				"header": "Einstellungen",
+				"ui": {
+					"localization": {
+						"chooseLocalizationLabel": "Sprache wählen"
+					},
+					"theme": {
+						"chooseThemeLabel": "Design wählen"
+					}
+				}
+			},
+			"userManagement": {
+				"refresh": "Aktualisieren",
+				"createUser": "Nutzer anlegen"
+			}
+		},
+		"global": {
+			"enum": {
+				"localization": {
+					"english": "Englisch",
+					"german": "Deutsch"
+				},
+				"theme": {
+					"light": "Heller Modus",
+					"dark": "Dunkler Modus"
+				}
+			}
+		}
+	}
 }

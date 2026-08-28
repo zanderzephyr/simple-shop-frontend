@@ -5,15 +5,15 @@ import { RouterOutlet } from '@angular/router';
 
 // TODO Refactor using Angular Sidenav components
 @Component({
-  selector: 'app-body',
-  imports: [BodySidebarComponent, BodyContentComponent, RouterOutlet],
-  templateUrl: './app-body.html',
-  styleUrl: './app-body.scss',
+	selector: 'app-body',
+	imports: [BodySidebarComponent, BodyContentComponent, RouterOutlet],
+	templateUrl: './app-body.html',
+	styleUrl: './app-body.scss'
 })
 export class AppBodyComponent {
-  protected readonly sidebarVisible: WritableSignal<boolean> = signal<boolean>(false);
+	protected readonly sidebarVisible: WritableSignal<boolean> = signal<boolean>(false);
 
-  constructor() {
-    // nothing to do so far
-  }
+	constructor() {
+		// nothing to do so far
+	}
 }

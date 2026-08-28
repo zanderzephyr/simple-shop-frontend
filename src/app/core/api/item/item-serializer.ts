@@ -5,26 +5,26 @@ import { dateTimeFormatter, ItemDto } from './dto/item-dto';
 import { UnsupportedOperationError } from '@core/utils/common-errors';
 
 export class ItemSerializer {
-  constructor() {
-    throw new UnsupportedOperationError();
-  }
+	constructor() {
+		throw new UnsupportedOperationError();
+	}
 
-  public static serialize(item: Item): string {
-    const lastChange: LocalDateTime | undefined = item.getLastChange();
+	public static serialize(item: Item): string {
+		const lastChange: LocalDateTime | undefined = item.getLastChange();
 
-    const itemDto: ItemDto = {
-      id: item.getId()?.toString(),
-      title: item.getTitle(),
-      mediaType: item.getMediaType().id,
-      stock: item.getStock(),
-      price: item.getPrice(),
-      imageUrl: item.getImageUrl(),
-      lastChange: lastChange ? localDateTimeToString(lastChange, dateTimeFormatter) : undefined,
-      lastChangedBy: item.getLastChangedBy()?.toString(),
-      version: item.getVersion()?.toString(),
-    };
+		const itemDto: ItemDto = {
+			id: item.getId()?.toString(),
+			title: item.getTitle(),
+			mediaType: item.getMediaType().id,
+			stock: item.getStock(),
+			price: item.getPrice(),
+			imageUrl: item.getImageUrl(),
+			lastChange: lastChange ? localDateTimeToString(lastChange, dateTimeFormatter) : undefined,
+			lastChangedBy: item.getLastChangedBy()?.toString(),
+			version: item.getVersion()?.toString()
+		};
 
-    // TODO The replacer argument has a "this:any" parameter. Research how this works. It looks very mysterious / magical.
-    return JSON.stringify(itemDto);
-  }
+		// TODO The replacer argument has a "this:any" parameter. Research how this works. It looks very mysterious / magical.
+		return JSON.stringify(itemDto);
+	}
 }

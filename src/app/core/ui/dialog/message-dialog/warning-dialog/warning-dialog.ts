@@ -3,13 +3,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog';
 
 @Component({
-  selector: 'app-warning-dialog',
-  imports: [MatIconModule],
-  templateUrl: './warning-dialog.html',
-  styleUrl: './warning-dialog.scss',
+	selector: 'app-warning-dialog',
+	imports: [MatIconModule],
+	templateUrl: './warning-dialog.html',
+	styleUrl: './warning-dialog.scss'
 })
 export class WarningDialogComponent extends MessageDialogComponent<WarningDialogComponent> {
-  public constructor() {
-    super();
-  }
+	public constructor() {
+		super();
+	}
 }

@@ -2,7 +2,7 @@ import { MessageDialogData } from '@app/core/ui/dialog/message-dialog/message-di
 import { ErrorDialogComponent } from './error-dialog';
 
 export class ErrorDialogData extends MessageDialogData<ErrorDialogComponent> {
-  public constructor(message: string, title?: string) {
-    super(message, title ?? 'Error', ErrorDialogComponent);
-  }
+	public constructor(message: string, title?: string) {
+		super(message, title ?? 'Error', ErrorDialogComponent);
+	}
 }

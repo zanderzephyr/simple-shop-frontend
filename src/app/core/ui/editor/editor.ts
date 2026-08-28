@@ -2,8 +2,8 @@
 const EDITOR_TYPE_SYMBOL = Symbol('EditorTypeSymbol');
 
 export interface Editor<TYPE> {
-  readonly interfaceTag: 'editor';
+	readonly interfaceTag: 'editor';
 
-  // Ignore. Just for type safety.
-  [EDITOR_TYPE_SYMBOL]?(): TYPE;
+	// Ignore. Just for type safety.
+	[EDITOR_TYPE_SYMBOL]?(): TYPE;
 }

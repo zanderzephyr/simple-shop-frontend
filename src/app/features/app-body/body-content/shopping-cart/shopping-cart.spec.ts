@@ -3,20 +3,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ShoppingCartComponent } from './shopping-cart';
 
 describe('ShoppingCart', () => {
-  let component: ShoppingCartComponent;
-  let fixture: ComponentFixture<ShoppingCartComponent>;
+	let component: ShoppingCartComponent;
+	let fixture: ComponentFixture<ShoppingCartComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
-      imports: [ShoppingCartComponent],
-    }).compileComponents();
+	beforeEach(async () => {
+		await TestBed.configureTestingModule({
+			imports: [ShoppingCartComponent]
+		}).compileComponents();
 
-    fixture = TestBed.createComponent(ShoppingCartComponent);
-    component = fixture.componentInstance;
-    await fixture.whenStable();
-  });
+		fixture = TestBed.createComponent(ShoppingCartComponent);
+		component = fixture.componentInstance;
+		await fixture.whenStable();
+	});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+	it('should create', () => {
+		expect(component).toBeTruthy();
+	});
 });

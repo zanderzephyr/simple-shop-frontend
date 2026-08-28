@@ -1,56 +1,56 @@
 {
-  "app": {
-    "feature": {
-      "footer": {},
-      "header": {
-        "companyLogo": {
-          "subheader": "Whatever your shelf desires"
-        },
-        "session": {
-          "menu": {
-            "bookKeeping": "Book Keeping",
-            "globalTransactions": "Global Transactions",
-            "inventory": "Inventory",
-            "login": "Login",
-            "logout": "Logout",
-            "management": "Management",
-            "profile": "Profile",
-            "session": "Session",
-            "transactions": "Transactions",
-            "userManagement": "User Management"
-          }
-        }
-      },
-      "localization": {
-        "missingPlaceholder": "No localization value available for '{key}'!"
-      },
-      "settings": {
-        "header": "Settings",
-        "ui": {
-          "localization": {
-            "chooseLocalizationLabel": "Choose Language"
-          },
-          "theme": {
-            "chooseThemeLabel": "Choose Theme"
-          }
-        }
-      },
-      "userManagement": {
-        "refresh": "Refresh",
-        "createUser": "Create User"
-      }
-    },
-    "global": {
-      "enum": {
-        "localization": {
-          "english": "English",
-          "german": "German"
-        },
-        "theme": {
-          "light": "Light Mode",
-          "dark": "Dark Mode"
-        }
-      }
-    }
-  }
+	"app": {
+		"feature": {
+			"footer": {},
+			"header": {
+				"companyLogo": {
+					"subheader": "Whatever your shelf desires"
+				},
+				"session": {
+					"menu": {
+						"bookKeeping": "Book Keeping",
+						"globalTransactions": "Global Transactions",
+						"inventory": "Inventory",
+						"login": "Login",
+						"logout": "Logout",
+						"management": "Management",
+						"profile": "Profile",
+						"session": "Session",
+						"transactions": "Transactions",
+						"userManagement": "User Management"
+					}
+				}
+			},
+			"localization": {
+				"missingPlaceholder": "No localization value available for '{key}'!"
+			},
+			"settings": {
+				"header": "Settings",
+				"ui": {
+					"localization": {
+						"chooseLocalizationLabel": "Choose Language"
+					},
+					"theme": {
+						"chooseThemeLabel": "Choose Theme"
+					}
+				}
+			},
+			"userManagement": {
+				"refresh": "Refresh",
+				"createUser": "Create User"
+			}
+		},
+		"global": {
+			"enum": {
+				"localization": {
+					"english": "English",
+					"german": "German"
+				},
+				"theme": {
+					"light": "Light Mode",
+					"dark": "Dark Mode"
+				}
+			}
+		}
+	}
 }

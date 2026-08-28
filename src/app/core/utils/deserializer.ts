@@ -1,3 +1,3 @@
 export interface Deserializer<T> {
-  deserialize(json: string): T;
+	deserialize(json: string): T;
 }

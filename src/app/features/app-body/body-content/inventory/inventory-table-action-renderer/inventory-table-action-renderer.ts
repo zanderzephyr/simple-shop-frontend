@@ -7,28 +7,28 @@ import { TableCellRendererComponent } from '@ui/table/interface/table-cell-rende
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 
 @Component({
-  selector: 'app-inventory-table-action-renderer',
-  imports: [MatButtonModule, MatIconModule],
-  templateUrl: './inventory-table-action-renderer.html',
-  styleUrl: './inventory-table-action-renderer.scss',
+	selector: 'app-inventory-table-action-renderer',
+	imports: [MatButtonModule, MatIconModule],
+	templateUrl: './inventory-table-action-renderer.html',
+	styleUrl: './inventory-table-action-renderer.scss'
 })
 export class InventoryTableActionRendererComponent extends TableCellRendererComponent<
-  Map<InventoryTableAction, Consumer<TableCellContext>>
+	Map<InventoryTableAction, Consumer<TableCellContext>>
 > {
-  protected readonly InventoryTableAction = InventoryTableAction;
+	protected readonly InventoryTableAction = InventoryTableAction;
 
-  public constructor() {
-    super();
-  }
+	public constructor() {
+		super();
+	}
 
-  protected onActionButtonClick(action: InventoryTableAction): void {
-    const map: Map<InventoryTableAction, Consumer<TableCellContext>> = this.value();
+	protected onActionButtonClick(action: InventoryTableAction): void {
+		const map: Map<InventoryTableAction, Consumer<TableCellContext>> = this.value();
 
-    const callback: Consumer<TableCellContext> | undefined = map.get(action);
-    if (callback) {
-      callback(this.context());
-    } else {
-      console.warn(`No callback found for action ${action}`);
-    }
-  }
+		const callback: Consumer<TableCellContext> | undefined = map.get(action);
+		if (callback) {
+			callback(this.context());
+		} else {
+			console.warn(`No callback found for action ${action}`);
+		}
+	}
 }

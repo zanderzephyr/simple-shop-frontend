@@ -3,7 +3,7 @@ import { FlexDirection } from '@ui/layout/flex-direction';
 import { Signal } from '@angular/core';
 
 export interface ButtonBarConfiguration {
-  getButtonConfigurations(): Signal<ButtonConfiguration[]>;
+	getButtonConfigurations(): Signal<ButtonConfiguration[]>;
 
-  getFlexDirection(): Signal<FlexDirection>;
+	getFlexDirection(): Signal<FlexDirection>;
 }

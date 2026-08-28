@@ -5,21 +5,21 @@ import { Directive } from '@angular/core';
 
 @Directive()
 export abstract class MessageDialogComponent<
-  CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,
+	CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,
 > extends GeneralDialogContentComponent<MessageDialogData<CONTENT_TYPE>, MessageDialogResult> {
-  public constructor() {
-    super();
-  }
+	public constructor() {
+		super();
+	}
 
-  protected override onConfirm(): void {
-    this.setResult(MessageDialogResult.CONFIRM);
+	protected override onConfirm(): void {
+		this.setResult(MessageDialogResult.CONFIRM);
 
-    super.onConfirm();
-  }
+		super.onConfirm();
+	}
 
-  protected override onCancel(): void {
-    this.setResult(MessageDialogResult.CANCEL);
+	protected override onCancel(): void {
+		this.setResult(MessageDialogResult.CANCEL);
 
-    super.onCancel();
-  }
+		super.onCancel();
+	}
 }

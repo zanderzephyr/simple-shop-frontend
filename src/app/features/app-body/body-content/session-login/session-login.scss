@@ -1,37 +1,37 @@
 .session-login-form-container {
-  display: grid;
+	display: grid;
 
-  grid-template-columns: 100px 100px;
-  grid-template-rows: auto auto auto;
+	grid-template-columns: 100px 100px;
+	grid-template-rows: auto auto auto;
 
-  gap: 10px;
+	gap: 10px;
 
-  /* Sum of content widths */
-  width: 210px;
+	/* Sum of content widths */
+	width: 210px;
 
-  margin: 0 auto;
+	margin: 0 auto;
 }
 
 .session-login-username {
-  /*
-		[n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
-		[n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
-	 */
-  grid-column: 1 / span 2;
-  grid-row: 1;
+	/*
+		  [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
+		  [n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
+	   */
+	grid-column: 1 / span 2;
+	grid-row: 1;
 }
 
 .session-login-password {
-  grid-column: 1 / span 2;
-  grid-row: 2;
+	grid-column: 1 / span 2;
+	grid-row: 2;
 }
 
 button.session-login-discard {
-  grid-column: 1;
-  grid-row: 3;
+	grid-column: 1;
+	grid-row: 3;
 }
 
 button.session-login-login {
-  grid-column: 2;
-  grid-row: 3;
+	grid-column: 2;
+	grid-row: 3;
 }

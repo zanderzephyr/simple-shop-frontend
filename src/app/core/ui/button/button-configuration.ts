@@ -2,9 +2,9 @@ import { Runnable } from '@core/utils/functional-interfaces';
 import { Signal } from '@angular/core';
 
 export interface ButtonConfiguration {
-  getText(): Signal<string>;
+	getText(): Signal<string>;
 
-  getEnabled(): Signal<boolean>;
+	getEnabled(): Signal<boolean>;
 
-  getActionCallback(): Signal<Runnable>;
+	getActionCallback(): Signal<Runnable>;
 }

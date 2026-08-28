@@ -3,19 +3,19 @@ import { UserEditorDialogComponent } from './user-editor-dialog';
 import { User } from '@api/user/model/user';
 
 export class UserManagementEditorDialogData extends GeneralDialogData<
-  UserManagementEditorDialogData,
-  User,
-  UserEditorDialogComponent
+	UserManagementEditorDialogData,
+	User,
+	UserEditorDialogComponent
 > {
-  readonly #user: User | undefined;
+	readonly #user: User | undefined;
 
-  public constructor(user: User | undefined, title: string) {
-    super(title, UserEditorDialogComponent);
+	public constructor(user: User | undefined, title: string) {
+		super(title, UserEditorDialogComponent);
 
-    this.#user = user;
-  }
+		this.#user = user;
+	}
 
-  public getUser(): User | undefined {
-    return this.#user;
-  }
+	public getUser(): User | undefined {
+		return this.#user;
+	}
 }

@@ -2,98 +2,98 @@ import { TableColumnModel } from '@ui/table/interface/table-column-model';
 import { TableColumnDescription } from '@ui/table/interface/table-column-description';
 import { TableColumn } from '@ui/table/interface/table-column';
 import { DefaultTableColumn } from './default-table-column';
-import { computed, WritableSignal, Signal, signal } from '@angular/core';
+import { computed, Signal, signal, WritableSignal } from '@angular/core';
 import { IllegalArgumentError, IllegalStateError } from '@core/utils/common-errors';
 import { TableWidthPolicy } from '@ui/table/interface/table-width-policy';
 
 export class DefaultTableColumnModel implements TableColumnModel {
-  /**
-   * Table columns in view order.
-   */
-  readonly #tableColumns: WritableSignal<TableColumn<unknown>[]>;
-  readonly #tableColumnsPublic: Signal<readonly TableColumn<unknown>[]> = computed(() => {
-    const copy: TableColumn<unknown>[] = [...this.#tableColumns()];
-    return Object.freeze(copy);
-  });
+	/**
+	 * Table columns in view order.
+	 */
+	readonly #tableColumns: WritableSignal<TableColumn<unknown>[]>;
+	readonly #tableColumnsPublic: Signal<readonly TableColumn<unknown>[]> = computed(() => {
+		const copy: TableColumn<unknown>[] = [...this.#tableColumns()];
+		return Object.freeze(copy);
+	});
 
-  #tableWidthPolicy: TableWidthPolicy = TableWidthPolicy.EQUAL_SHARES;
+	#tableWidthPolicy: TableWidthPolicy = TableWidthPolicy.EQUAL_SHARES;
 
-  public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
-    this.#tableColumns = signal(this.#createTableColumns(columnDescriptions));
-  }
+	public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
+		this.#tableColumns = signal(this.#createTableColumns(columnDescriptions));
+	}
 
-  #createTableColumns(
-    columnDescriptions: readonly TableColumnDescription<unknown>[],
-  ): TableColumn<unknown>[] {
-    const columns: TableColumn<unknown>[] = [];
+	#createTableColumns(
+		columnDescriptions: readonly TableColumnDescription<unknown>[]
+	): TableColumn<unknown>[] {
+		const columns: TableColumn<unknown>[] = [];
 
-    for (const columnDescription of columnDescriptions) {
-      columns.push(new DefaultTableColumn<unknown>(columnDescription));
-    }
+		for (const columnDescription of columnDescriptions) {
+			columns.push(new DefaultTableColumn<unknown>(columnDescription));
+		}
 
-    return columns;
-  }
+		return columns;
+	}
 
-  public getTableColumns(): Signal<readonly TableColumn<unknown>[]> {
-    return this.#tableColumnsPublic;
-  }
+	public getTableColumns(): Signal<readonly TableColumn<unknown>[]> {
+		return this.#tableColumnsPublic;
+	}
 
-  public changeColumnOrder(fromViewIndex: number, toViewIndex: number): this {
-    this.#validateViewIndex(fromViewIndex);
-    this.#validateViewIndex(toViewIndex);
+	public changeColumnOrder(fromViewIndex: number, toViewIndex: number): this {
+		this.#validateViewIndex(fromViewIndex);
+		this.#validateViewIndex(toViewIndex);
 
-    this.#tableColumns.update((tableColumns) => {
-      const removedColumns: TableColumn<unknown>[] = tableColumns.splice(fromViewIndex, 1);
-      tableColumns.splice(toViewIndex, 0, removedColumns[0]);
-      return tableColumns;
-    });
+		this.#tableColumns.update((tableColumns) => {
+			const removedColumns: TableColumn<unknown>[] = tableColumns.splice(fromViewIndex, 1);
+			tableColumns.splice(toViewIndex, 0, removedColumns[0]);
+			return tableColumns;
+		});
 
-    return this;
-  }
+		return this;
+	}
 
-  public convertToModelIndex(columnViewIndex: number): number {
-    this.#validateViewIndex(columnViewIndex);
-    return this.#tableColumns()[columnViewIndex].getModelIndex();
-  }
+	public convertToModelIndex(columnViewIndex: number): number {
+		this.#validateViewIndex(columnViewIndex);
+		return this.#tableColumns()[columnViewIndex].getModelIndex();
+	}
 
-  public convertToViewIndex(columnModelIndex: number): number {
-    const columns: TableColumn<unknown>[] = [...this.#tableColumns()];
-    const column: TableColumn<unknown> = this.#getColumnViaModelIndex(columnModelIndex, columns);
-    for (let i: number = 0; i < columns.length; i++) {
-      if (column.getModelIndex() === columns[i].getModelIndex()) {
-        return i;
-      }
-    }
+	public convertToViewIndex(columnModelIndex: number): number {
+		const columns: TableColumn<unknown>[] = [...this.#tableColumns()];
+		const column: TableColumn<unknown> = this.#getColumnViaModelIndex(columnModelIndex, columns);
+		for (let i: number = 0; i < columns.length; i++) {
+			if (column.getModelIndex() === columns[i].getModelIndex()) {
+				return i;
+			}
+		}
 
-    // can't happen - we previously found it. Just for the compiler.
-    throw new IllegalStateError("Column wasn't found!");
-  }
+		// can't happen - we previously found it. Just for the compiler.
+		throw new IllegalStateError('Column wasn\'t found!');
+	}
 
-  #getColumnViaModelIndex(
-    columnModelIndex: number,
-    columns: TableColumn<unknown>[],
-  ): TableColumn<unknown> {
-    for (const column of columns) {
-      if (column.getModelIndex() === columnModelIndex) {
-        return column;
-      }
-    }
-    throw new IllegalArgumentError("Column model index doesn't exist: " + columnModelIndex);
-  }
+	#getColumnViaModelIndex(
+		columnModelIndex: number,
+		columns: TableColumn<unknown>[]
+	): TableColumn<unknown> {
+		for (const column of columns) {
+			if (column.getModelIndex() === columnModelIndex) {
+				return column;
+			}
+		}
+		throw new IllegalArgumentError('Column model index doesn\'t exist: ' + columnModelIndex);
+	}
 
-  #validateViewIndex(columnViewIndex: number): void {
-    if (columnViewIndex < 0 || columnViewIndex >= this.#tableColumns().length) {
-      throw new IllegalArgumentError('Indexes out of range: ' + columnViewIndex);
-    }
-  }
+	#validateViewIndex(columnViewIndex: number): void {
+		if (columnViewIndex < 0 || columnViewIndex >= this.#tableColumns().length) {
+			throw new IllegalArgumentError('Indexes out of range: ' + columnViewIndex);
+		}
+	}
 
-  public getTableWidthPolicy(): TableWidthPolicy {
-    return this.#tableWidthPolicy;
-  }
+	public getTableWidthPolicy(): TableWidthPolicy {
+		return this.#tableWidthPolicy;
+	}
 
-  public setTableWidthPolicy(tableWidthPolicy: TableWidthPolicy): this {
-    this.#tableWidthPolicy = tableWidthPolicy;
+	public setTableWidthPolicy(tableWidthPolicy: TableWidthPolicy): this {
+		this.#tableWidthPolicy = tableWidthPolicy;
 
-    return this;
-  }
+		return this;
+	}
 }

@@ -11,9 +11,10 @@ import { Consumer } from '@core/utils/functional-interfaces';
 
 @Injectable()
 export abstract class DialogService {
-  public constructor() {}
+	public constructor() {
+	}
 
-  public abstract open<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): DialogReference<RESULT>;
+	public abstract open<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): DialogReference<RESULT>;
 }
 
 /*
@@ -29,12 +30,12 @@ Example code:
   }
 */
 export function openInfoDialog(
-  dialogService: DialogService,
-  message: string,
-  configurer?: Consumer<DialogConfig<InfoDialogData, MessageDialogResult>>,
+	dialogService: DialogService,
+	message: string,
+	configurer?: Consumer<DialogConfig<InfoDialogData, MessageDialogResult>>
 ): DialogReference<MessageDialogResult> {
-  const dialogData: InfoDialogData = new InfoDialogData(message);
-  return openDialog(dialogService, dialogData, configurer);
+	const dialogData: InfoDialogData = new InfoDialogData(message);
+	return openDialog(dialogService, dialogData, configurer);
 }
 
 /*
@@ -50,12 +51,12 @@ Example code:
   }
 */
 export function openWarningDialog(
-  dialogService: DialogService,
-  message: string,
-  configurer?: Consumer<DialogConfig<WarningDialogData, MessageDialogResult>>,
+	dialogService: DialogService,
+	message: string,
+	configurer?: Consumer<DialogConfig<WarningDialogData, MessageDialogResult>>
 ): DialogReference<MessageDialogResult> {
-  const dialogData: WarningDialogData = new WarningDialogData(message);
-  return openDialog(dialogService, dialogData, configurer);
+	const dialogData: WarningDialogData = new WarningDialogData(message);
+	return openDialog(dialogService, dialogData, configurer);
 }
 
 /*
@@ -71,29 +72,29 @@ Example code:
   }
 */
 export function openErrorDialog(
-  dialogService: DialogService,
-  message: string,
-  configurer?: Consumer<DialogConfig<ErrorDialogData, MessageDialogResult>>,
+	dialogService: DialogService,
+	message: string,
+	configurer?: Consumer<DialogConfig<ErrorDialogData, MessageDialogResult>>
 ): DialogReference<MessageDialogResult> {
-  const dialogData: ErrorDialogData = new ErrorDialogData(message);
-  return openDialog(dialogService, dialogData, configurer);
+	const dialogData: ErrorDialogData = new ErrorDialogData(message);
+	return openDialog(dialogService, dialogData, configurer);
 }
 
 function openDialog<DATA extends MessageDialogData<any>>(
-  dialogService: DialogService,
-  dialogData: DATA,
-  configurer?: Consumer<DialogConfig<DATA, MessageDialogResult>>,
+	dialogService: DialogService,
+	dialogData: DATA,
+	configurer?: Consumer<DialogConfig<DATA, MessageDialogResult>>
 ): DialogReference<MessageDialogResult> {
-  const dialogConfiguration = new DialogConfig<DATA, MessageDialogResult>(
-    dialogData,
-    GeneralDialogComponent,
-  );
+	const dialogConfiguration = new DialogConfig<DATA, MessageDialogResult>(
+		dialogData,
+		GeneralDialogComponent
+	);
 
-  if (configurer) {
-    configurer(dialogConfiguration);
-  }
+	if (configurer) {
+		configurer(dialogConfiguration);
+	}
 
-  const dialogReference = dialogService.open(dialogConfiguration);
+	const dialogReference = dialogService.open(dialogConfiguration);
 
-  return dialogReference;
+	return dialogReference;
 }

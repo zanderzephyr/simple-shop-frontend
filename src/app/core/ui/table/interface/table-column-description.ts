@@ -12,170 +12,171 @@ const secretKey: symbol = Symbol('secretKey');
  being exported.
  */
 interface TableColumnDescriptionData<TYPE> {
-  [secretKey]: true; // Marker to prevent external construction
-  modelIndex: number;
-  title: string;
-  typeSchema: ZodType<TYPE>;
-  rendererType: Type<Renderer<TYPE>>;
-  editorType?: Type<Editor<TYPE>>;
-  width?: string;
+	[secretKey]: true; // Marker to prevent external construction
+	modelIndex: number;
+	title: string;
+	typeSchema: ZodType<TYPE>;
+	rendererType: Type<Renderer<TYPE>>;
+	editorType?: Type<Editor<TYPE>>;
+	width?: string;
 }
 
 export class TableColumnDescription<TYPE> {
-  readonly #modelIndex: number;
+	readonly #modelIndex: number;
 
-  readonly #title: string;
+	readonly #title: string;
 
-  readonly #typeSchema: ZodType<TYPE>;
+	readonly #typeSchema: ZodType<TYPE>;
 
-  readonly #rendererType: Type<Renderer<TYPE>>;
+	readonly #rendererType: Type<Renderer<TYPE>>;
 
-  readonly #editorType?: Type<Editor<TYPE>>;
+	readonly #editorType?: Type<Editor<TYPE>>;
 
-  readonly #width?: string;
+	readonly #width?: string;
 
-  public constructor(data: TableColumnDescriptionData<TYPE>) {
-    this.#modelIndex = data.modelIndex;
-    this.#title = data.title;
-    this.#typeSchema = data.typeSchema;
-    this.#rendererType = data.rendererType;
-    this.#editorType = data.editorType;
-    this.#width = data.width;
-  }
+	public constructor(data: TableColumnDescriptionData<TYPE>) {
+		this.#modelIndex = data.modelIndex;
+		this.#title = data.title;
+		this.#typeSchema = data.typeSchema;
+		this.#rendererType = data.rendererType;
+		this.#editorType = data.editorType;
+		this.#width = data.width;
+	}
 
-  public getModelIndex(): number {
-    return this.#modelIndex;
-  }
+	public getModelIndex(): number {
+		return this.#modelIndex;
+	}
 
-  public getTitle(): string {
-    return this.#title;
-  }
+	public getTitle(): string {
+		return this.#title;
+	}
 
-  public getTypeSchema(): z.ZodType<TYPE> {
-    return this.#typeSchema;
-  }
+	public getTypeSchema(): z.ZodType<TYPE> {
+		return this.#typeSchema;
+	}
 
-  public getRendererType(): Type<Renderer<TYPE>> {
-    return this.#rendererType;
-  }
+	public getRendererType(): Type<Renderer<TYPE>> {
+		return this.#rendererType;
+	}
 
-  public getEditorType(): Type<Editor<TYPE>> | undefined {
-    return this.#editorType;
-  }
+	public getEditorType(): Type<Editor<TYPE>> | undefined {
+		return this.#editorType;
+	}
 
-  public getWidth(): string | undefined {
-    return this.#width;
-  }
+	public getWidth(): string | undefined {
+		return this.#width;
+	}
 }
 
 export class TableColumnDescriptionBuilder<TYPE> {
-  #modelIndex?: number;
+	#modelIndex?: number;
 
-  #title?: string;
+	#title?: string;
 
-  #typeSchema?: ZodType<TYPE>;
+	#typeSchema?: ZodType<TYPE>;
 
-  #rendererType?: Type<Renderer<TYPE>>;
+	#rendererType?: Type<Renderer<TYPE>>;
 
-  #editorType?: Type<Editor<TYPE>>;
+	#editorType?: Type<Editor<TYPE>>;
 
-  #width?: string;
+	#width?: string;
 
-  public constructor() {
-    // Nothing to do so far
-  }
+	public constructor() {
+		// Nothing to do so far
+	}
 
-  public getModelIndex(): number | undefined {
-    return this.#modelIndex;
-  }
-  public setModelIndex(modelIndex: number): this {
-    this.#modelIndex = modelIndex;
-    return this;
-  }
+	public getModelIndex(): number | undefined {
+		return this.#modelIndex;
+	}
 
-  public getTitle(): string | undefined {
-    return this.#title;
-  }
+	public setModelIndex(modelIndex: number): this {
+		this.#modelIndex = modelIndex;
+		return this;
+	}
 
-  public setTitle(title: string): this {
-    this.#title = title;
-    return this;
-  }
+	public getTitle(): string | undefined {
+		return this.#title;
+	}
 
-  public getTypeSchema(): ZodType<TYPE> | undefined {
-    return this.#typeSchema;
-  }
+	public setTitle(title: string): this {
+		this.#title = title;
+		return this;
+	}
 
-  public setTypeSchema(typeSchema: ZodType<TYPE>): this {
-    this.#typeSchema = typeSchema;
-    return this;
-  }
+	public getTypeSchema(): ZodType<TYPE> | undefined {
+		return this.#typeSchema;
+	}
 
-  public getRendererType(): Type<Renderer<TYPE>> | undefined {
-    return this.#rendererType;
-  }
+	public setTypeSchema(typeSchema: ZodType<TYPE>): this {
+		this.#typeSchema = typeSchema;
+		return this;
+	}
 
-  public setRendererType(rendererType: Type<Renderer<TYPE>>): this {
-    this.#rendererType = rendererType;
-    return this;
-  }
+	public getRendererType(): Type<Renderer<TYPE>> | undefined {
+		return this.#rendererType;
+	}
 
-  public getEditorType(): Type<Editor<TYPE>> | undefined {
-    return this.#editorType;
-  }
+	public setRendererType(rendererType: Type<Renderer<TYPE>>): this {
+		this.#rendererType = rendererType;
+		return this;
+	}
 
-  public setEditorType(editorType: Type<Editor<TYPE>> | undefined): this {
-    this.#editorType = editorType;
-    return this;
-  }
+	public getEditorType(): Type<Editor<TYPE>> | undefined {
+		return this.#editorType;
+	}
 
-  public getWidth(): string | undefined {
-    return this.#width;
-  }
+	public setEditorType(editorType: Type<Editor<TYPE>> | undefined): this {
+		this.#editorType = editorType;
+		return this;
+	}
 
-  public setWidth(width: string | undefined): this {
-    this.#width = width;
-    return this;
-  }
+	public getWidth(): string | undefined {
+		return this.#width;
+	}
 
-  #createTableColumnDescriptionData(): TableColumnDescriptionData<TYPE> {
-    this.#validate();
+	public setWidth(width: string | undefined): this {
+		this.#width = width;
+		return this;
+	}
 
-    // Existence of fields relies on the validation above.
-    return {
-      [secretKey]: true,
-      modelIndex: this.#modelIndex!,
-      title: this.#title!,
-      typeSchema: this.#typeSchema!,
-      rendererType: this.#rendererType!,
-      editorType: this.#editorType,
-      width: this.#width,
-    };
-  }
+	#createTableColumnDescriptionData(): TableColumnDescriptionData<TYPE> {
+		this.#validate();
 
-  #validate(): void {
-    if (this.#modelIndex === undefined || this.#modelIndex < 0) {
-      throw new IllegalStateError('Invalid model index!');
-    }
+		// Existence of fields relies on the validation above.
+		return {
+			[secretKey]: true,
+			modelIndex: this.#modelIndex!,
+			title: this.#title!,
+			typeSchema: this.#typeSchema!,
+			rendererType: this.#rendererType!,
+			editorType: this.#editorType,
+			width: this.#width
+		};
+	}
 
-    if (this.#title === undefined || this.#title.trim().length === 0) {
-      throw new IllegalStateError('No item title!');
-    }
+	#validate(): void {
+		if (this.#modelIndex === undefined || this.#modelIndex < 0) {
+			throw new IllegalStateError('Invalid model index!');
+		}
 
-    if (this.#typeSchema === undefined) {
-      throw new IllegalStateError('No type schema!');
-    }
+		if (this.#title === undefined || this.#title.trim().length === 0) {
+			throw new IllegalStateError('No item title!');
+		}
 
-    if (this.#rendererType === undefined) {
-      throw new IllegalStateError('No renderer type!');
-    }
+		if (this.#typeSchema === undefined) {
+			throw new IllegalStateError('No type schema!');
+		}
 
-    if (this.#width !== undefined && this.#width.trim().length === 0) {
-      throw new IllegalStateError('No width!');
-    }
-  }
+		if (this.#rendererType === undefined) {
+			throw new IllegalStateError('No renderer type!');
+		}
 
-  public build(): TableColumnDescription<TYPE> {
-    return new TableColumnDescription<TYPE>(this.#createTableColumnDescriptionData());
-  }
+		if (this.#width !== undefined && this.#width.trim().length === 0) {
+			throw new IllegalStateError('No width!');
+		}
+	}
+
+	public build(): TableColumnDescription<TYPE> {
+		return new TableColumnDescription<TYPE>(this.#createTableColumnDescriptionData());
+	}
 }

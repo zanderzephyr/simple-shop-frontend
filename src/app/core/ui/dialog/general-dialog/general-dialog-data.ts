@@ -2,30 +2,30 @@ import { GeneralDialogContentComponent } from './general-dialog-content';
 import { signal, Signal, Type, WritableSignal } from '@angular/core';
 
 export abstract class GeneralDialogData<
-  DATA,
-  RESULT,
-  CONTENT_TYPE extends GeneralDialogContentComponent<DATA, RESULT>,
+	DATA,
+	RESULT,
+	CONTENT_TYPE extends GeneralDialogContentComponent<DATA, RESULT>,
 > {
-  readonly #title: WritableSignal<string>;
+	readonly #title: WritableSignal<string>;
 
-  readonly #childContentType: Type<CONTENT_TYPE>;
+	readonly #childContentType: Type<CONTENT_TYPE>;
 
-  public constructor(title: string, childContentType: Type<CONTENT_TYPE>) {
-    this.#title = signal(title);
-    this.#childContentType = childContentType;
-  }
+	public constructor(title: string, childContentType: Type<CONTENT_TYPE>) {
+		this.#title = signal(title);
+		this.#childContentType = childContentType;
+	}
 
-  public getTitle(): Signal<string> {
-    return this.#title.asReadonly();
-  }
+	public getTitle(): Signal<string> {
+		return this.#title.asReadonly();
+	}
 
-  public setTitle(title: string): this {
-    this.#title.set(title);
+	public setTitle(title: string): this {
+		this.#title.set(title);
 
-    return this;
-  }
+		return this;
+	}
 
-  public getChildContentType(): Type<CONTENT_TYPE> {
-    return this.#childContentType;
-  }
+	public getChildContentType(): Type<CONTENT_TYPE> {
+		return this.#childContentType;
+	}
 }

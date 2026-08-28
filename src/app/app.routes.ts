@@ -1,132 +1,132 @@
 import { inject } from '@angular/core';
-import { Routes, CanActivateFn, Router } from '@angular/router';
+import { CanActivateFn, Router, Routes } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
 import { SessionService } from '@core/session/session-service';
 import { SessionData } from '@core/session/session-data';
 
 const isAdminGuard: CanActivateFn = () => {
-  const router: Router = inject(Router);
-  const sessionService: SessionService = inject(SessionService);
+	const router: Router = inject(Router);
+	const sessionService: SessionService = inject(SessionService);
 
-  const sessionData: SessionData | undefined = sessionService.getSessionData()();
-  if (sessionData != undefined) {
-    const userType: UserType = sessionData.getUserType();
-    if (UserType.ADMIN === userType) {
-      return true;
-    }
-  }
+	const sessionData: SessionData | undefined = sessionService.getSessionData()();
+	if (sessionData != undefined) {
+		const userType: UserType = sessionData.getUserType();
+		if (UserType.ADMIN === userType) {
+			return true;
+		}
+	}
 
-  // TODO Maybe better redirect to a "not authorized" page instead of the welcome page.
-  return router.createUrlTree(['/']);
+	// TODO Maybe better redirect to a "not authorized" page instead of the welcome page.
+	return router.createUrlTree(['/']);
 };
 
 const isLoggedInGuard: CanActivateFn = () => {
-  const router: Router = inject(Router);
-  const sessionService: SessionService = inject(SessionService);
+	const router: Router = inject(Router);
+	const sessionService: SessionService = inject(SessionService);
 
-  if (sessionService.isLoggedIn()()) {
-    return true;
-  }
+	if (sessionService.isLoggedIn()()) {
+		return true;
+	}
 
-  // TODO Maybe better redirect to a "not authorized" page instead of the welcome page.
-  return router.createUrlTree(['/']);
+	// TODO Maybe better redirect to a "not authorized" page instead of the welcome page.
+	return router.createUrlTree(['/']);
 };
 
 export const routes: Routes = [
-  {
-    path: '',
-    redirectTo: 'welcome',
-    pathMatch: 'full',
-  },
+	{
+		path: '',
+		redirectTo: 'welcome',
+		pathMatch: 'full'
+	},
 
-  {
-    path: 'login',
-    loadComponent: () =>
-      import('@features/app-body/body-content/session-login/session-login').then(
-        (m) => m.SessionLoginComponent,
-      ),
-  },
-  {
-    path: 'logout',
-    loadComponent: () =>
-      import('@features/app-body/body-content/session-logout/session-logout').then(
-        (m) => m.SessionLogoutComponent,
-      ),
-  },
-  {
-    path: 'outage',
-    loadComponent: () =>
-      import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent),
-  },
-  {
-    path: 'settings',
-    loadComponent: () =>
-      import('@features/app-body/body-content/settings/settings').then((m) => m.SettingsComponent),
-  },
-  {
-    path: 'shopping-cart',
-    loadComponent: () =>
-      import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
-        (m) => m.ShoppingCartComponent,
-      ),
-  },
-  {
-    path: 'welcome',
-    loadComponent: () =>
-      import('@features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent),
-  },
+	{
+		path: 'login',
+		loadComponent: () =>
+			import('@features/app-body/body-content/session-login/session-login').then(
+				(m) => m.SessionLoginComponent
+			)
+	},
+	{
+		path: 'logout',
+		loadComponent: () =>
+			import('@features/app-body/body-content/session-logout/session-logout').then(
+				(m) => m.SessionLogoutComponent
+			)
+	},
+	{
+		path: 'outage',
+		loadComponent: () =>
+			import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent)
+	},
+	{
+		path: 'settings',
+		loadComponent: () =>
+			import('@features/app-body/body-content/settings/settings').then((m) => m.SettingsComponent)
+	},
+	{
+		path: 'shopping-cart',
+		loadComponent: () =>
+			import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
+				(m) => m.ShoppingCartComponent
+			)
+	},
+	{
+		path: 'welcome',
+		loadComponent: () =>
+			import('@features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent)
+	},
 
-  {
-    path: '',
-    canActivate: [isLoggedInGuard],
-    children: [
-      {
-        path: 'profile',
-        loadComponent: () =>
-          import('@features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent),
-      },
-      {
-        path: 'user-transactions',
-        loadComponent: () =>
-          import('@features/app-body/body-content/user-transactions/user-transactions').then(
-            (m) => m.UserTransactionsComponent,
-          ),
-      },
+	{
+		path: '',
+		canActivate: [isLoggedInGuard],
+		children: [
+			{
+				path: 'profile',
+				loadComponent: () =>
+					import('@features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent)
+			},
+			{
+				path: 'user-transactions',
+				loadComponent: () =>
+					import('@features/app-body/body-content/user-transactions/user-transactions').then(
+						(m) => m.UserTransactionsComponent
+					)
+			},
 
-      {
-        path: '',
-        canActivate: [isAdminGuard],
-        children: [
-          {
-            path: 'book-keeping',
-            loadComponent: () =>
-              import('@features/app-body/body-content/book-keeping/book-keeping').then(
-                (m) => m.BookKeepingComponent,
-              ),
-          },
-          {
-            path: 'global-transactions',
-            loadComponent: () =>
-              import('@features/app-body/body-content/global-transactions/global-transactions').then(
-                (m) => m.GlobalTransactionsComponent,
-              ),
-          },
-          {
-            path: 'inventory',
-            loadComponent: () =>
-              import('@features/app-body/body-content/inventory/inventory').then(
-                (m) => m.InventoryComponent,
-              ),
-          },
-          {
-            path: 'user-management',
-            loadComponent: () =>
-              import('@features/app-body/body-content/user-management/user-management').then(
-                (m) => m.UserManagementComponent,
-              ),
-          },
-        ],
-      },
-    ],
-  },
+			{
+				path: '',
+				canActivate: [isAdminGuard],
+				children: [
+					{
+						path: 'book-keeping',
+						loadComponent: () =>
+							import('@features/app-body/body-content/book-keeping/book-keeping').then(
+								(m) => m.BookKeepingComponent
+							)
+					},
+					{
+						path: 'global-transactions',
+						loadComponent: () =>
+							import('@features/app-body/body-content/global-transactions/global-transactions').then(
+								(m) => m.GlobalTransactionsComponent
+							)
+					},
+					{
+						path: 'inventory',
+						loadComponent: () =>
+							import('@features/app-body/body-content/inventory/inventory').then(
+								(m) => m.InventoryComponent
+							)
+					},
+					{
+						path: 'user-management',
+						loadComponent: () =>
+							import('@features/app-body/body-content/user-management/user-management').then(
+								(m) => m.UserManagementComponent
+							)
+					}
+				]
+			}
+		]
+	}
 ];

@@ -1,9 +1,9 @@
 import {
-  ApplicationConfig,
-  ErrorHandler,
-  provideBrowserGlobalErrorListeners,
-  inject,
-  provideAppInitializer,
+	ApplicationConfig,
+	ErrorHandler,
+	inject,
+	provideAppInitializer,
+	provideBrowserGlobalErrorListeners
 } from '@angular/core';
 import { provideHttpClient, withXsrfConfiguration } from '@angular/common/http';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
@@ -14,26 +14,26 @@ import { SessionService } from '@core/session/session-service';
 import { GlobalErrorHandler } from '@core/global-error-handler';
 
 export const appConfig: ApplicationConfig = {
-  providers: [
-    provideBrowserGlobalErrorListeners(),
+	providers: [
+		provideBrowserGlobalErrorListeners(),
 
-    provideRouter(routes, withComponentInputBinding()),
+		provideRouter(routes, withComponentInputBinding()),
 
-    { provide: DialogService, useClass: NgMatDialogService },
+		{ provide: DialogService, useClass: NgMatDialogService },
 
-    provideHttpClient(
-      // Configures Angular to read the gateway's CSRF cookie and append the requested header
-      withXsrfConfiguration({
-        cookieName: 'XSRF-TOKEN',
-        headerName: 'X-XSRF-TOKEN', // default value used by Spring Security
-      }),
-    ),
+		provideHttpClient(
+			// Configures Angular to read the gateway's CSRF cookie and append the requested header
+			withXsrfConfiguration({
+				cookieName: 'XSRF-TOKEN',
+				headerName: 'X-XSRF-TOKEN' // default value used by Spring Security
+			})
+		),
 
-    provideAppInitializer(() => {
-      const sessionService: SessionService = inject(SessionService);
-      return sessionService.initSession();
-    }),
+		provideAppInitializer(() => {
+			const sessionService: SessionService = inject(SessionService);
+			return sessionService.initSession();
+		}),
 
-    { provide: ErrorHandler, useClass: GlobalErrorHandler },
-  ],
+		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
+	]
 };

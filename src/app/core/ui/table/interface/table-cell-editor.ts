@@ -4,11 +4,11 @@ import { TableCellContext } from './table-cell-context';
 
 @Directive()
 export abstract class TableCellEditorComponent<TYPE> implements Editor<TYPE> {
-  readonly interfaceTag: 'editor' = 'editor';
+	readonly interfaceTag: 'editor' = 'editor';
 
-  public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();
+	public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();
 
-  public constructor() {
-    // Nothing to do so far
-  }
+	public constructor() {
+		// Nothing to do so far
+	}
 }

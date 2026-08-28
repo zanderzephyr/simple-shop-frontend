@@ -8,27 +8,27 @@ import { LocalizationService } from '@core/localization/localization-service';
 import { ThemeService } from '@core/theme/theme-service';
 
 @Component({
-  selector: 'app-root',
-  imports: [AppHeaderComponent, AppBodyComponent, AppFooterComponent, MatProgressSpinnerModule],
-  templateUrl: './app.html',
-  styleUrl: './app.scss',
+	selector: 'app-root',
+	imports: [AppHeaderComponent, AppBodyComponent, AppFooterComponent, MatProgressSpinnerModule],
+	templateUrl: './app.html',
+	styleUrl: './app.scss'
 })
 export class AppComponent {
-  readonly #titleService: Title = inject(Title);
-  readonly #title: Signal<string> = signal('Shelf Indulgence').asReadonly();
+	readonly #titleService: Title = inject(Title);
+	readonly #title: Signal<string> = signal('Shelf Indulgence').asReadonly();
 
-  readonly #localizationService: LocalizationService = inject(LocalizationService);
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
 
-  protected readonly isFullyInitialized: Signal<boolean> = computed(() =>
-    this.#localizationService.isInitialized()(),
-  );
+	protected readonly isFullyInitialized: Signal<boolean> = computed(() =>
+		this.#localizationService.isInitialized()()
+	);
 
-  constructor() {
-    // Initializes the stored or default theme
-    inject(ThemeService);
+	constructor() {
+		// Initializes the stored or default theme
+		inject(ThemeService);
 
-    effect(() => {
-      this.#titleService.setTitle(this.#title());
-    });
-  }
+		effect(() => {
+			this.#titleService.setTitle(this.#title());
+		});
+	}
 }

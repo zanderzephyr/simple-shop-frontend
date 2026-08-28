@@ -37,29 +37,29 @@ right now. Therefore, we accept Angular Material themes as a
 core aspect of the application.)
 */
 :root {
-  --app-global-font-main: var(--mat-sys-body-medium-font);
-  /* Background Layers */
-  --app-global-color-background-bottom: var(--mat-sys-surface);
-  --app-global-color-background-intermediate: var(--mat-sys-surface-container);
-  --app-global-color-background-high: var(--mat-sys-surface-container-high);
-  /* Interactive Background Accents */
-  --app-global-color-background-primary: var(--mat-sys-primary);
-  /*
-	TODO
-	This is currently experimental: Gemini proposed this algorithm
-	to calculate the hover background color just as Angular Material
-	does. Not sure if it's really functional. Research the this code,
-	how Angular Material actually does this and if it works nicely.
-	*/
-  --app-global-color-background-primary-hover: color-mix(
-    in srgb,
-    var(--app-global-color-foreground-primary) 8%,
-    var(--app-global-color-background-primary)
-  );
-  /* Foreground Content / Text Layers */
-  --app-global-color-foreground-main: var(--mat-sys-on-surface);
-  --app-global-color-foreground-secondary: var(--mat-sys-on-surface-variant);
-  --app-global-color-foreground-primary: var(--mat-sys-on-primary);
-  /* Structural Separators */
-  --app-global-color-border: var(--mat-sys-outline);
+	--app-global-font-main: var(--mat-sys-body-medium-font);
+	/* Background Layers */
+	--app-global-color-background-bottom: var(--mat-sys-surface);
+	--app-global-color-background-intermediate: var(--mat-sys-surface-container);
+	--app-global-color-background-high: var(--mat-sys-surface-container-high);
+	/* Interactive Background Accents */
+	--app-global-color-background-primary: var(--mat-sys-primary);
+	/*
+	  TODO
+	  This is currently experimental: Gemini proposed this algorithm
+	  to calculate the hover background color just as Angular Material
+	  does. Not sure if it's really functional. Research the this code,
+	  how Angular Material actually does this and if it works nicely.
+	  */
+	--app-global-color-background-primary-hover: color-mix(
+		in srgb,
+		var(--app-global-color-foreground-primary) 8%,
+		var(--app-global-color-background-primary)
+	);
+	/* Foreground Content / Text Layers */
+	--app-global-color-foreground-main: var(--mat-sys-on-surface);
+	--app-global-color-foreground-secondary: var(--mat-sys-on-surface-variant);
+	--app-global-color-foreground-primary: var(--mat-sys-on-primary);
+	/* Structural Separators */
+	--app-global-color-border: var(--mat-sys-outline);
 }
