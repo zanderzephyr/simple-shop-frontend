@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { MatTooltipModule } from '@angular/material/tooltip';
 import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
 import { ImageRendererConfiguration } from './image-renderer-configuration';
-import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
 	selector: 'app-image-renderer',

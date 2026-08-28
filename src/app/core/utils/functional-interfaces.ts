@@ -1,5 +1,5 @@
-import { ZodType } from 'zod';
 import { createFunctionSchema } from '@core/utils/type-utils';
+import { ZodType } from 'zod';
 
 export type Function<T, U> = (t: T) => U;
 

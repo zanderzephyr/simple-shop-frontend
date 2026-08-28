@@ -1,6 +1,6 @@
 import { UnsupportedOperationError } from '@core/utils/common-errors';
-import { LoginRequest } from './model/login-request';
 import { LoginRequestDto } from './dto/login-request-dto';
+import { LoginRequest } from './model/login-request';
 
 export class LoginRequestSerializer {
 	constructor() {

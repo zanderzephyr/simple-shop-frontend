@@ -1,13 +1,13 @@
-import { forwardRef, inject, Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { forwardRef, inject, Injectable } from '@angular/core';
+import { executeApiCall, UnauthorizedError } from '@core/utils/api-errors';
 import { Observable } from 'rxjs';
+import { LoginRequestSerializer } from './auth-serializer';
+import { CurrentUserDto } from './dto/current-user-dto';
+import { LoginResponseDto } from './dto/login-response-dto';
+import { CurrentUser, zodCurrentUser } from './model/current-user';
 import { LoginRequest } from './model/login-request';
 import { LoginResponse, zodLoginResponse } from './model/login-response';
-import { LoginResponseDto } from './dto/login-response-dto';
-import { LoginRequestSerializer } from './auth-serializer';
-import { CurrentUser, zodCurrentUser } from './model/current-user';
-import { CurrentUserDto } from './dto/current-user-dto';
-import { executeApiCall, UnauthorizedError } from '@core/utils/api-errors';
 
 @Injectable({
 	providedIn: 'root',

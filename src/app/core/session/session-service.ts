@@ -1,12 +1,12 @@
 import { computed, forwardRef, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { SessionData, SessionDataBuilder } from './session-data';
 import { AuthService } from '@api/auth/auth.service';
-import { LoginResponse } from '@api/auth/model/login-response';
-import { LoginRequest } from '@api/auth/model/login-request';
 import { CurrentUser } from '@api/auth/model/current-user';
-import { UserService } from '@api/user/user-service';
+import { LoginRequest } from '@api/auth/model/login-request';
+import { LoginResponse } from '@api/auth/model/login-response';
 import { User } from '@api/user/model/user';
+import { UserService } from '@api/user/user-service';
 import { ObjectNotFoundError } from '@core/utils/api-errors';
+import { SessionData, SessionDataBuilder } from './session-data';
 
 @Injectable({
 	providedIn: 'root',

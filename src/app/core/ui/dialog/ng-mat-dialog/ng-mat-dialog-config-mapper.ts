@@ -1,5 +1,5 @@
-import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { MatDialogConfig } from '@angular/material/dialog';
+import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 
 /**
  * Only to be used by the NgMatDialogService.

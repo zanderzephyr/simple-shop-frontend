@@ -1,22 +1,22 @@
-import { TableColumnDescription, TableColumnDescriptionBuilder } from '@ui/table/interface/table-column-description';
-import { TableCellContext } from '@ui/table/interface/table-cell-context';
-import { Consumer, Function, zodConsumer } from '@core/utils/functional-interfaces';
 import { Item } from '@api/item/model/item';
-import { StringEditorComponent } from '@ui/editor/string-editor/string-editor';
-import { StringRendererComponent } from '@ui/renderer/string-renderer/string-renderer';
+import { Consumer, Function, zodConsumer } from '@core/utils/functional-interfaces';
 import { NumberEditorComponent } from '@ui/editor/number-editor/number-editor';
-import { NumberRendererComponent } from '@ui/renderer/number-renderer/number-renderer';
+import { StringEditorComponent } from '@ui/editor/string-editor/string-editor';
 import { ImageRendererComponent } from '@ui/renderer/image-renderer/image-renderer';
 import {
 	ImageRendererConfiguration,
 	zodImageRendererConfiguration
 } from '@ui/renderer/image-renderer/image-renderer-configuration';
+import { NumberRendererComponent } from '@ui/renderer/number-renderer/number-renderer';
+import { StringRendererComponent } from '@ui/renderer/string-renderer/string-renderer';
+import { TableCellContext } from '@ui/table/interface/table-cell-context';
+import { TableColumnDescription, TableColumnDescriptionBuilder } from '@ui/table/interface/table-column-description';
+import { z } from 'zod';
 import { InventoryTableAction, zodInventoryTableAction } from './inventory-table-action';
 import { InventoryTableActionEditorComponent } from './inventory-table-action-editor/inventory-table-action-editor';
 import {
 	InventoryTableActionRendererComponent
 } from './inventory-table-action-renderer/inventory-table-action-renderer';
-import { z } from 'zod';
 
 let modelIndex: number = 0;
 

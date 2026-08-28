@@ -1,13 +1,13 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LoginRequest, LoginRequestBuilder } from '@core/api/auth/model/login-request';
-import { generateSha256Hash } from '@core/utils/crypto-utils';
 import { SessionService } from '@core/session/session-service';
 import { DialogService, openErrorDialog } from '@core/ui/dialog/interface/dialog-service';
+import { generateSha256Hash } from '@core/utils/crypto-utils';
 
 interface LoginFormShape {
 	username: string | null;

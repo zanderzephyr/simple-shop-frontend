@@ -1,5 +1,5 @@
-import { GeneralDialogContentComponent } from './general-dialog-content';
 import { signal, Signal, Type, WritableSignal } from '@angular/core';
+import { GeneralDialogContentComponent } from './general-dialog-content';
 
 export abstract class GeneralDialogData<
 	DATA,

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { HeaderSearchBarComponent } from './header-search-bar/header-search-bar';
 import { HeaderCompanyLogoComponent } from './header-company-logo/header-company-logo';
+import { HeaderSearchBarComponent } from './header-search-bar/header-search-bar';
 import { HeaderSessionComponent } from './header-session/header-session';
 
 @Component({

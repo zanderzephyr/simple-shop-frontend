@@ -9,12 +9,12 @@ import {
 	viewChild,
 	ViewContainerRef
 } from '@angular/core';
+import { Renderer } from '@ui/renderer/renderer';
 import { Table } from '@ui/table/interface/table';
 import { TableCellContext, TableCellContextBuilder } from '@ui/table/interface/table-cell-context';
-import { TableColumn } from '@ui/table/interface/table-column';
-import { TableCellRendererComponent } from '@ui/table/interface/table-cell-renderer';
 import { TableCellEditorComponent } from '@ui/table/interface/table-cell-editor';
-import { Renderer } from '@ui/renderer/renderer';
+import { TableCellRendererComponent } from '@ui/table/interface/table-cell-renderer';
+import { TableColumn } from '@ui/table/interface/table-column';
 
 /*
  TODO On click, replace renderer by editor.

@@ -1,8 +1,4 @@
 import { Component, inject, signal, Signal, WritableSignal } from '@angular/core';
-import { compareUserTypes, UserType } from '@api/user/model/user-type';
-import { User, UserBuilder } from '@api/user/model/user';
-import { UserManagementEditorDialogData } from './user-editor-dialog-data';
-import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import {
 	AbstractControl,
 	FormBuilder,
@@ -14,8 +10,12 @@ import {
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { User, UserBuilder } from '@api/user/model/user';
+import { compareUserTypes, UserType } from '@api/user/model/user-type';
 import { generateSha256Hash } from '@core/utils/crypto-utils';
 import { isBlank } from '@core/utils/string-utils';
+import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
+import { UserManagementEditorDialogData } from './user-editor-dialog-data';
 
 interface UserShape {
 	username: string | null;

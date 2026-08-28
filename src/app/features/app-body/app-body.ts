@@ -1,7 +1,7 @@
-import { BodySidebarComponent } from './body-sidebar/body-sidebar';
-import { BodyContentComponent } from './body-content/body-content';
 import { Component, signal, WritableSignal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { BodyContentComponent } from './body-content/body-content';
+import { BodySidebarComponent } from './body-sidebar/body-sidebar';
 
 // TODO Refactor using Angular Sidenav components
 @Component({

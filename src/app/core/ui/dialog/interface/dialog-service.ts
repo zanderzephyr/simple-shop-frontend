@@ -1,13 +1,13 @@
-import { DialogReference } from './dialog-reference';
-import { DialogConfig } from './dialog-config';
 import { Injectable } from '@angular/core';
 import { GeneralDialogComponent } from '@app/core/ui/dialog/general-dialog/general-dialog';
-import { InfoDialogData } from '@app/core/ui/dialog/message-dialog/info-dialog/info-dialog-data';
-import { WarningDialogData } from '@app/core/ui/dialog/message-dialog/warning-dialog/warning-dialog-data';
 import { ErrorDialogData } from '@app/core/ui/dialog/message-dialog/error-dialog/error-dialog-data';
+import { InfoDialogData } from '@app/core/ui/dialog/message-dialog/info-dialog/info-dialog-data';
 import { MessageDialogData } from '@app/core/ui/dialog/message-dialog/message-dialog-data';
-import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
+import { WarningDialogData } from '@app/core/ui/dialog/message-dialog/warning-dialog/warning-dialog-data';
 import { Consumer } from '@core/utils/functional-interfaces';
+import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
+import { DialogConfig } from './dialog-config';
+import { DialogReference } from './dialog-reference';
 
 @Injectable()
 export abstract class DialogService {

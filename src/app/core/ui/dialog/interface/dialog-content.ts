@@ -1,6 +1,6 @@
+import { Directive, inject } from '@angular/core';
 import { DialogReference } from './dialog-reference';
 import { DIALOG_CONTENT_DATA } from './dialog-tokens';
-import { Directive, inject } from '@angular/core';
 
 @Directive()
 export abstract class DialogContentComponent<DATA, RESULT> {

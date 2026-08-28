@@ -3,11 +3,11 @@ import { FormBuilder, FormGroupDirective, ReactiveFormsModule, Validators } from
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
-import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
-import { ItemEditorDialogData } from './item-editor-dialog-data';
 import { Item, ItemBuilder } from '@api/item/model/item';
 import { compareMediaTypes, MediaType } from '@api/item/model/media-type';
 import { JAVA_MAX_INT_VALUE } from '@core/utils/data-type-utils';
+import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
+import { ItemEditorDialogData } from './item-editor-dialog-data';
 
 interface ItemShape {
 	title: string | null;

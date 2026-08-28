@@ -1,7 +1,7 @@
+import { Directive } from '@angular/core';
+import { GeneralDialogContentComponent } from '@app/core/ui/dialog/general-dialog/general-dialog-content';
 import { MessageDialogData } from './message-dialog-data';
 import { MessageDialogResult } from './message-dialog-result';
-import { GeneralDialogContentComponent } from '@app/core/ui/dialog/general-dialog/general-dialog-content';
-import { Directive } from '@angular/core';
 
 @Directive()
 export abstract class MessageDialogComponent<

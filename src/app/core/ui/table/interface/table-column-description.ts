@@ -1,8 +1,8 @@
 import { Type } from '@angular/core';
+import { IllegalStateError } from '@core/utils/common-errors';
 import { Editor } from '@ui//editor/editor';
 import { Renderer } from '@ui/renderer/renderer';
 import { z, ZodType } from 'zod';
-import { IllegalStateError } from '@core/utils/common-errors';
 
 const secretKey: symbol = Symbol('secretKey');
 

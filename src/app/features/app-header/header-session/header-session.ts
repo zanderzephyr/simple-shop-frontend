@@ -5,9 +5,9 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { Router } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
-import { SessionService } from '@core/session/session-service';
-import { SessionData } from '@core/session/session-data';
 import { LocalizationService } from '@core/localization/localization-service';
+import { SessionData } from '@core/session/session-data';
+import { SessionService } from '@core/session/session-service';
 import * as LocalizationKeys from './header-session-utils';
 
 @Component({

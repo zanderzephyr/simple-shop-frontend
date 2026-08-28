@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { MessageDialogComponent } from '@ui/dialog/message-dialog/message-dialog';
-import { MatIconModule } from '@angular/material/icon';
 
 @Component({
 	selector: 'app-info-dialog',

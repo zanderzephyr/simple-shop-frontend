@@ -1,10 +1,3 @@
-import { ButtonBarComponent } from '@ui/button-bar/button-bar';
-import { ButtonConfiguration } from '@ui/button/button-configuration';
-import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration';
-import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
-import { FlexDirection } from '@ui/layout/flex-direction';
-import { GeneralDialogContentComponent } from './general-dialog-content';
-import { GeneralDialogData } from './general-dialog-data';
 import {
 	Component,
 	ComponentRef,
@@ -17,6 +10,13 @@ import {
 	ViewContainerRef,
 	WritableSignal
 } from '@angular/core';
+import { ButtonBarComponent } from '@ui/button-bar/button-bar';
+import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration';
+import { ButtonConfiguration } from '@ui/button/button-configuration';
+import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
+import { FlexDirection } from '@ui/layout/flex-direction';
+import { GeneralDialogContentComponent } from './general-dialog-content';
+import { GeneralDialogData } from './general-dialog-data';
 
 @Component({
 	selector: 'app-general-dialog',

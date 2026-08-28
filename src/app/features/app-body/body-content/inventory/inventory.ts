@@ -1,27 +1,27 @@
 import { Component, computed, effect, inject, signal, WritableSignal } from '@angular/core';
-import { ACTIONS, COVER, extractItemValue, inventoryColumnDescriptions } from './inventory-column-descriptions';
-import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
-import { DefaultTableModel } from '@ui/table/default/default-table-model';
-import { DefaultTableColumnModel } from '@ui/table/default/default-table-column-model';
-import { Table } from '@ui/table/interface/table';
-import { TableCellContext } from '@ui/table/interface/table-cell-context';
-import { DefaultTable } from '@ui/table/default/default-table';
-import { ItemService } from '@api/item/item-service';
-import { Item } from '@api/item/model/item';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
-import { InventoryTableAction } from './inventory-table-action';
-import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
+import { ItemService } from '@api/item/item-service';
+import { Item } from '@api/item/model/item';
 import { Consumer } from '@core/utils/functional-interfaces';
 import { Page } from '@core/utils/page/page';
 import { PageConfig } from '@core/utils/page/page-config';
+import { GeneralDialogComponent } from '@ui/dialog/general-dialog/general-dialog';
+import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DialogService, openWarningDialog } from '@ui/dialog/interface/dialog-service';
-import { DialogConfig } from '@ui/dialog/interface/dialog-config';
-import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-data';
-import { GeneralDialogComponent } from '@ui/dialog/general-dialog/general-dialog';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
+import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
+import { DefaultTable } from '@ui/table/default/default-table';
+import { DefaultTableColumnModel } from '@ui/table/default/default-table-column-model';
+import { DefaultTableModel } from '@ui/table/default/default-table-model';
+import { Table } from '@ui/table/interface/table';
+import { TableCellContext } from '@ui/table/interface/table-cell-context';
+import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
+import { ACTIONS, COVER, extractItemValue, inventoryColumnDescriptions } from './inventory-column-descriptions';
+import { InventoryTableAction } from './inventory-table-action';
+import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-data';
 
 @Component({
 	selector: 'app-inventory',

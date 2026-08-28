@@ -1,11 +1,11 @@
 import { Component, computed, effect, inject, Signal, signal } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Title } from '@angular/platform-browser';
+import { LocalizationService } from '@core/localization/localization-service';
+import { ThemeService } from '@core/theme/theme-service';
 import { AppBodyComponent } from '@features/app-body/app-body';
 import { AppFooterComponent } from '@features/app-footer/app-footer';
 import { AppHeaderComponent } from '@features/app-header/app-header';
-import { LocalizationService } from '@core/localization/localization-service';
-import { ThemeService } from '@core/theme/theme-service';
 
 @Component({
 	selector: 'app-root',

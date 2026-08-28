@@ -1,8 +1,8 @@
+import { UnsupportedOperationError } from '@core/utils/common-errors';
 import { localDateTimeToString } from '@core/utils/data-type-utils';
 import { LocalDateTime } from '@js-joda/core';
-import { Item } from './model/item';
 import { dateTimeFormatter, ItemDto } from './dto/item-dto';
-import { UnsupportedOperationError } from '@core/utils/common-errors';
+import { Item } from './model/item';
 
 export class ItemSerializer {
 	constructor() {

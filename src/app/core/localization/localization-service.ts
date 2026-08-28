@@ -1,10 +1,10 @@
-import { computed, effect, forwardRef, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { firstValueFrom } from 'rxjs';
+import { computed, effect, forwardRef, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
+import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { firstValueFrom } from 'rxjs';
 import { Localization } from './localization';
 import { MISSING_PLACEHOLDER_KEY } from './localization-utils';
-import { KEY_SEPARATOR } from '@core/utils/localization-utils';
 
 @Injectable({
 	providedIn: 'root',

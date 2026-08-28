@@ -1,5 +1,5 @@
-import { DialogContentComponent } from './dialog-content';
 import { Injector, Type } from '@angular/core';
+import { DialogContentComponent } from './dialog-content';
 
 /*
   Unlike Java (which infers types from class declarations), TypeScript uses 

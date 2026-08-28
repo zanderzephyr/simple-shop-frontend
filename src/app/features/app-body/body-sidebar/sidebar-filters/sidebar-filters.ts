@@ -1,7 +1,7 @@
 import { Component, computed, effect, inject, output, OutputEmitterRef, Signal } from '@angular/core';
+import { ItemSearchResults } from '@core/item-search-results';
 import { MediaTypeSidebarFilterComponent } from './media-type-sidebar-filter/media-type-sidebar-filter';
 import { PriceSidebarFilterComponent } from './price-sidebar-filter/price-sidebar-filter';
-import { ItemSearchResults } from '@core/item-search-results';
 
 @Component({
 	selector: 'app-sidebar-filters',

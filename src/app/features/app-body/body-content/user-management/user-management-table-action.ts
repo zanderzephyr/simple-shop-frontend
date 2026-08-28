@@ -1,5 +1,5 @@
-import { ZodType } from 'zod';
 import { createEnumSchema } from '@core/utils/type-utils';
+import { ZodType } from 'zod';
 
 export const UserManagementTableAction = {
 	ADD: { id: 'ADD' },

@@ -1,6 +1,6 @@
+import { Signal, signal } from '@angular/core';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
-import { Signal, signal } from '@angular/core';
 
 export abstract class GeneralDialogContentComponent<DATA, RESULT> extends DialogContentComponent<
 	DATA,

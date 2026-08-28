@@ -1,11 +1,11 @@
-import { DialogService } from '@ui/dialog/interface/dialog-service';
+import { inject, Injectable, Injector } from '@angular/core';
+import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
-import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
+import { DialogReference } from '@ui/dialog/interface/dialog-reference';
+import { DialogService } from '@ui/dialog/interface/dialog-service';
 import { DIALOG_CONTENT_DATA } from '@ui/dialog/interface/dialog-tokens';
 import { mapToNgMatConfig as mapToNgMatDialogConfig } from './ng-mat-dialog-config-mapper';
-import { MatDialog, MatDialogConfig, MatDialogRef } from '@angular/material/dialog';
-import { inject, Injectable, Injector } from '@angular/core';
 
 @Injectable()
 export class NgMatDialogService extends DialogService {

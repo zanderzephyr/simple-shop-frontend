@@ -1,15 +1,15 @@
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { forwardRef, inject, Injectable } from '@angular/core';
 import { User, zodUser } from '@api/user/model/user';
 import { UserDto } from '@app/core/api/user/dto/user-dto';
-import { forwardRef, inject, Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { PageConfig } from '@core/utils/page/page-config';
-import { Page, PageDto, zodPage } from '@core/utils/page/page';
-import { UserSerializer } from './user-serializer';
-import { Observable } from 'rxjs';
-import { IllegalArgumentError } from '@core/utils/common-errors';
-import { UserType } from './model/user-type';
-import { convertStringToEnum } from '@core/utils/data-type-utils';
 import { executeApiCall, ObjectNotFoundError } from '@core/utils/api-errors';
+import { IllegalArgumentError } from '@core/utils/common-errors';
+import { convertStringToEnum } from '@core/utils/data-type-utils';
+import { Page, PageDto, zodPage } from '@core/utils/page/page';
+import { PageConfig } from '@core/utils/page/page-config';
+import { Observable } from 'rxjs';
+import { UserType } from './model/user-type';
+import { UserSerializer } from './user-serializer';
 
 @Injectable({
 	providedIn: 'root',

@@ -1,5 +1,5 @@
-import { PageMetaData, PageMetaDataDto, zodPageMetaData } from './page-meta-data';
 import { z, ZodType } from 'zod';
+import { PageMetaData, PageMetaDataDto, zodPageMetaData } from './page-meta-data';
 
 export class Page<T> {
 	readonly #content: T[];

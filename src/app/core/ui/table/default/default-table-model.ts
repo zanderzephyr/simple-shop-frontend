@@ -1,7 +1,7 @@
 import { computed, Signal, signal, WritableSignal } from '@angular/core';
-import { TableModel } from '@ui/table/interface/table-model';
 import { IllegalArgumentError, IndexOutOfBoundsError } from '@core/utils/common-errors';
 import { TableColumnDescription } from '@ui/table/interface/table-column-description';
+import { TableModel } from '@ui/table/interface/table-model';
 import { ZodSafeParseResult, ZodType } from 'zod';
 
 export class DefaultTableModel implements TableModel {

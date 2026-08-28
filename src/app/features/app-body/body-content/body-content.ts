@@ -1,10 +1,10 @@
 import { Component, inject } from '@angular/core';
-import { ItemService } from '@api/item/item-service';
-import { ItemSearchResults } from '@core/item-search-results';
 import { MatButtonModule } from '@angular/material/button';
+import { ItemService } from '@api/item/item-service';
 import { Item } from '@api/item/model/item';
 
 import { PageConfig } from '@app/core/utils/page/page-config';
+import { ItemSearchResults } from '@core/item-search-results';
 
 @Component({
 	selector: 'app-body-content',

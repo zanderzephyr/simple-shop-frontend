@@ -1,8 +1,8 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router, Routes } from '@angular/router';
 import { UserType } from '@api/user/model/user-type';
-import { SessionService } from '@core/session/session-service';
 import { SessionData } from '@core/session/session-data';
+import { SessionService } from '@core/session/session-service';
 
 const isAdminGuard: CanActivateFn = () => {
 	const router: Router = inject(Router);

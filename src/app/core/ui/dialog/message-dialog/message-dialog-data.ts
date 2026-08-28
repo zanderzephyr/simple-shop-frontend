@@ -1,7 +1,7 @@
-import { MessageDialogResult } from './message-dialog-result';
-import { MessageDialogComponent } from './message-dialog';
-import { GeneralDialogData } from '@ui/dialog/general-dialog/general-dialog-data';
 import { signal, Signal, Type, WritableSignal } from '@angular/core';
+import { GeneralDialogData } from '@ui/dialog/general-dialog/general-dialog-data';
+import { MessageDialogComponent } from './message-dialog';
+import { MessageDialogResult } from './message-dialog-result';
 
 export class MessageDialogData<
 	CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,

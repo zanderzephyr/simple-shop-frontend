@@ -1,7 +1,7 @@
 import { computed, Directive, input, InputSignal, Signal } from '@angular/core';
-import { TableModel } from '@ui/table/interface/table-model';
-import { TableColumnModel } from '@ui/table/interface/table-column-model';
 import { Table } from '@ui/table/interface/table';
+import { TableColumnModel } from '@ui/table/interface/table-column-model';
+import { TableModel } from '@ui/table/interface/table-model';
 
 @Directive()
 export abstract class CommonTableComponent {

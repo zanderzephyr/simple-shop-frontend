@@ -1,6 +1,6 @@
+import { User } from '@api/user/model/user';
 import { GeneralDialogData } from '@ui/dialog/general-dialog/general-dialog-data';
 import { UserEditorDialogComponent } from './user-editor-dialog';
-import { User } from '@api/user/model/user';
 
 export class UserManagementEditorDialogData extends GeneralDialogData<
 	UserManagementEditorDialogData,

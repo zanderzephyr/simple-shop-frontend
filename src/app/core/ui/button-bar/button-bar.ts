@@ -1,6 +1,6 @@
 import { Component, input, InputSignal } from '@angular/core';
-import { ButtonBarConfiguration } from './button-bar-configuration';
 import { MatButtonModule } from '@angular/material/button';
+import { ButtonBarConfiguration } from './button-bar-configuration';
 
 @Component({
 	selector: 'app-button-bar',

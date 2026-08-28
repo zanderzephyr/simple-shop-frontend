@@ -1,8 +1,8 @@
 import { signal, Type, WritableSignal } from '@angular/core';
-import { TableColumnDescription } from '@ui/table/interface/table-column-description';
-import { TableColumn } from '@ui/table/interface/table-column';
 import { Editor } from '@ui/editor/editor';
 import { Renderer } from '@ui/renderer/renderer';
+import { TableColumn } from '@ui/table/interface/table-column';
+import { TableColumnDescription } from '@ui/table/interface/table-column-description';
 import { ZodType } from 'zod';
 
 /*

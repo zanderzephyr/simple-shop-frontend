@@ -1,10 +1,10 @@
-import { TableColumnModel } from '@ui/table/interface/table-column-model';
-import { TableColumnDescription } from '@ui/table/interface/table-column-description';
-import { TableColumn } from '@ui/table/interface/table-column';
-import { DefaultTableColumn } from './default-table-column';
 import { computed, Signal, signal, WritableSignal } from '@angular/core';
 import { IllegalArgumentError, IllegalStateError } from '@core/utils/common-errors';
+import { TableColumn } from '@ui/table/interface/table-column';
+import { TableColumnDescription } from '@ui/table/interface/table-column-description';
+import { TableColumnModel } from '@ui/table/interface/table-column-model';
 import { TableWidthPolicy } from '@ui/table/interface/table-width-policy';
+import { DefaultTableColumn } from './default-table-column';
 
 export class DefaultTableColumnModel implements TableColumnModel {
 	/**

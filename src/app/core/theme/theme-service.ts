@@ -1,7 +1,7 @@
 import { effect, forwardRef, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { IllegalArgumentError } from '@core/utils/common-errors';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
 import { Theme } from './theme';
-import { IllegalArgumentError } from '@core/utils/common-errors';
 
 @Injectable({
 	providedIn: 'root',
