@@ -1,7 +1,7 @@
 <div class="welcome-container">
   @if (isLoggedIn()) {
-    <div class="welcome-message">Welcome to Shelf Indulgence, {{ username() }}!</div>
+    <div class="welcome-message">{{ username() }}{{ welcomeMessageWithSessionText() }}</div>
   } @else {
-    <div class="welcome-message">Welcome to Shelf Indulgence!</div>
+    <div class="welcome-message">{{ welcomeMessageNoSessionText() }}</div>
   }
 </div>

@@ -115,6 +115,10 @@
 						}
 					}
 				}
+			},
+			"welcome": {
+				"welcomeMessageNoSession": "Willkommen auf Shelf Indulgence!",
+				"welcomeMessageWithSession": ", willkommen auf Shelf Indulgence!"
 			}
 		},
 		"global": {

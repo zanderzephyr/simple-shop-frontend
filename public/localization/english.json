@@ -115,6 +115,10 @@
 					"headerCreate": "Create User",
 					"headerModify": "Modify User"
 				}
+			},
+			"welcome": {
+				"welcomeMessageNoSession": "Welcome to Shelf Indulgence!",
+				"welcomeMessageWithSession": ", welcome to Shelf Indulgence!"
 			}
 		},
 		"global": {
