@@ -1,14 +1,26 @@
-import { effect, forwardRef, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
+import {
+	DestroyRef,
+	effect,
+	forwardRef,
+	inject,
+	Injectable,
+	PLATFORM_ID,
+	signal,
+	Signal,
+	WritableSignal
+} from '@angular/core';
 import { IllegalArgumentError } from '@core/utils/common-errors';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
+import { Consumer } from '@core/utils/functional-interfaces';
 import { Theme } from './theme';
 
 @Injectable({
 	providedIn: 'root',
-	useClass: forwardRef(() => NgMatThemeService)
+	useClass: forwardRef(() => CoreThemeService)
 })
 export abstract class ThemeService {
-	public constructor() {
+	protected constructor() {
 		// Nothing to do so far
 	}
 
@@ -20,10 +32,14 @@ export abstract class ThemeService {
 const themeKey: string = 'theme';
 const defaultTheme: Theme = Theme.LIGHT;
 
-// TODO Init from OS preference
 @Injectable()
-class NgMatThemeService extends ThemeService {
-	readonly #activeTheme: WritableSignal<Theme> = signal(this.#init());
+class CoreThemeService extends ThemeService {
+	readonly #document: Document = inject(DOCUMENT);
+	readonly #platformId: Object = inject(PLATFORM_ID);
+	readonly #destroyRef: DestroyRef = inject(DestroyRef);
+	readonly #isBrowser: boolean = isPlatformBrowser(this.#platformId);
+
+	readonly #activeTheme: WritableSignal<Theme> = signal(this.#determineInitialTheme());
 
 	public constructor() {
 		super();
@@ -31,11 +47,32 @@ class NgMatThemeService extends ThemeService {
 		effect(() => {
 			const currentTheme: Theme = this.#activeTheme();
 
-			let colorSchemeValue: string = this.#mapThemeToNgMatColorSchemeValue(currentTheme);
-			document.documentElement.style.colorScheme = colorSchemeValue;
+			const colorSchemeValue: string = this.#mapThemeToNgMatColorSchemeValue(currentTheme);
+			this.#document.documentElement.style.colorScheme = colorSchemeValue;
 
-			localStorage.setItem(themeKey, currentTheme.id);
+			if (this.#isBrowser) {
+				localStorage.setItem(themeKey, currentTheme.id);
+			}
 		});
+
+		this.#setUpStorageListener();
+	}
+
+	#setUpStorageListener(): void {
+		if (!this.#isBrowser) {
+			return;
+		}
+
+		const handleStorageChange: Consumer<StorageEvent> = (event: StorageEvent): void => {
+			if (event.key === themeKey) {
+				const theme: Theme = this.#parseTheme(event.newValue);
+				this.#activeTheme.set(theme);
+			}
+		};
+
+		window.addEventListener('storage', handleStorageChange);
+
+		this.#destroyRef.onDestroy(() => window.removeEventListener('storage', handleStorageChange));
 	}
 
 	#mapThemeToNgMatColorSchemeValue(theme: Theme): string {
@@ -52,8 +89,21 @@ class NgMatThemeService extends ThemeService {
 		return colorSchemeValue;
 	}
 
-	#init(): Theme {
-		let themeString: string | null = localStorage.getItem(themeKey);
+	#determineInitialTheme(): Theme {
+		let themeString: string | null = null;
+		if (this.#isBrowser) {
+			themeString = localStorage.getItem(themeKey);
+
+			if (themeString === null) {
+				const prefersDark: boolean = window.matchMedia('(prefers-color-scheme: dark)').matches;
+				themeString = prefersDark ? Theme.DARK.id : Theme.LIGHT.id;
+			}
+		}
+
+		return this.#parseTheme(themeString);
+	}
+
+	#parseTheme(themeString: string | null): Theme {
 		if (themeString === null) {
 			themeString = defaultTheme.id;
 		}

@@ -1,6 +1,19 @@
+import { DOCUMENT, isPlatformBrowser } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
-import { computed, effect, forwardRef, inject, Injectable, signal, Signal, WritableSignal } from '@angular/core';
+import {
+	computed,
+	DestroyRef,
+	effect,
+	forwardRef,
+	inject,
+	Injectable,
+	PLATFORM_ID,
+	signal,
+	Signal,
+	WritableSignal
+} from '@angular/core';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
+import { Consumer } from '@core/utils/functional-interfaces';
 import { KEY_SEPARATOR } from '@core/utils/localization-utils';
 import { firstValueFrom } from 'rxjs';
 import { Localization } from './localization';
@@ -11,7 +24,7 @@ import { MISSING_PLACEHOLDER_KEY } from './localization-utils';
 	useClass: forwardRef(() => CoreLocalizationService)
 })
 export abstract class LocalizationService {
-	public constructor() {
+	protected constructor() {
 		// Nothing to do so far
 	}
 
@@ -36,12 +49,15 @@ const localizationKey: string = 'localization';
 const defaultLocalization: Localization = Localization.ENGLISH;
 
 // TODO Does ng mat theming need to be updated?
-// TODO Init from OS preference if possible
 @Injectable()
 class CoreLocalizationService extends LocalizationService {
+	readonly #document: Document = inject(DOCUMENT);
+	readonly #platformId: Object = inject(PLATFORM_ID);
+	readonly #destroyRef: DestroyRef = inject(DestroyRef);
 	readonly #http: HttpClient = inject(HttpClient);
+	readonly #isBrowser: boolean = isPlatformBrowser(this.#platformId);
 
-	readonly #activeLocalization: WritableSignal<Localization> = signal(this.#init());
+	readonly #activeLocalization: WritableSignal<Localization> = signal(this.#determineInitialLocalization());
 
 	readonly #localizationMapping: WritableSignal<unknown | undefined> = signal(undefined);
 
@@ -70,12 +86,45 @@ class CoreLocalizationService extends LocalizationService {
 				(reason) => console.error('Failed to load localization resource: ' + reason)
 			);
 
-			localStorage.setItem(localizationKey, currentLocalization.id);
+			if (this.#isBrowser) {
+				localStorage.setItem(localizationKey, currentLocalization.id);
+			}
 		});
+
+		this.#setUpStorageListener();
 	}
 
-	#init(): Localization {
-		let localizationString: string | null = localStorage.getItem(localizationKey);
+	#setUpStorageListener(): void {
+		if (!this.#isBrowser) {
+			return;
+		}
+
+		const handleStorageChange: Consumer<StorageEvent> = (event: StorageEvent): void => {
+			if (event.key === localizationKey) {
+				const localization: Localization = this.#parseLocalization(event.newValue);
+				this.#activeLocalization.set(localization);
+			}
+		};
+
+		window.addEventListener('storage', handleStorageChange);
+
+		this.#destroyRef.onDestroy(() => window.removeEventListener('storage', handleStorageChange));
+	}
+
+	#determineInitialLocalization(): Localization {
+		let localizationString: string | null = null;
+		if (this.#isBrowser) {
+			localizationString = localStorage.getItem(localizationKey);
+
+			if (localizationString === null) {
+				// TODO Switch to OS language if possible
+			}
+		}
+
+		return this.#parseLocalization(localizationString);
+	}
+
+	#parseLocalization(localizationString: string | null): Localization {
 		if (localizationString === null) {
 			localizationString = defaultLocalization.id;
 		}
