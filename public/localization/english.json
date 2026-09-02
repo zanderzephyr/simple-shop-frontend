@@ -54,8 +54,8 @@
 						"title": "Title",
 						"titleError": "Required! Must be under 400 characters!"
 					},
-					"headerCreate": "Create Item",
-					"headerModify": "Modify Item"
+					"titleCreate": "Create Item",
+					"titleModify": "Modify Item"
 				},
 				"table": {
 					"header": {
@@ -129,8 +129,8 @@
 						"userType": "User type",
 						"userTypeError": "Required!"
 					},
-					"headerCreate": "Create User",
-					"headerModify": "Modify User"
+					"titleCreate": "Create User",
+					"titleModify": "Modify User"
 				}
 			},
 			"welcome": {

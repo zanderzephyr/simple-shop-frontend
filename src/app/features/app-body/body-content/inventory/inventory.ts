@@ -38,8 +38,6 @@ export class InventoryComponent {
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
 	protected readonly refreshText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.REFRESH_KEY));
 	protected readonly createItemText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CREATE_ITEM_KEY));
-	readonly #createItemHeaderText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CREATE_ITEM_HEADER_KEY));
-	readonly #modifyItemHeaderText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MODIFY_ITEM_HEADER_KEY));
 
 	protected readonly table: Table = new DefaultTable(
 		/*
@@ -111,7 +109,7 @@ export class InventoryComponent {
 	}
 
 	protected async add(): Promise<void> {
-		const itemToCreate: Item | undefined = await this.#showDialog(this.#createItemHeaderText(), undefined);
+		const itemToCreate: Item | undefined = await this.#showDialog(Keys.CREATE_ITEM_TITLE_KEY, undefined);
 		if (itemToCreate) {
 			this.#itemService.createItem(itemToCreate).then((createdItem: Item) => this.refresh());
 		}
@@ -129,7 +127,7 @@ export class InventoryComponent {
 	}
 
 	async #modify(tableCellContext: TableCellContext, item: Item): Promise<void> {
-		const itemToModify: Item | undefined = await this.#showDialog(this.#modifyItemHeaderText(), item);
+		const itemToModify: Item | undefined = await this.#showDialog(Keys.MODIFY_ITEM_TITLE_KEY, item);
 		if (itemToModify) {
 			// TODO Performance: Simply use the resulting item and update the table instead of reloading the whole page.
 			this.#itemService.modifyItem(itemToModify).then((modifiedItem: Item) => this.refresh());

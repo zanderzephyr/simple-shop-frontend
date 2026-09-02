@@ -5,8 +5,8 @@ export const REFRESH_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'refresh';
 export const CREATE_ITEM_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'createItem';
 
 const DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'dialog';
-export const CREATE_ITEM_HEADER_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'headerCreate';
-export const MODIFY_ITEM_HEADER_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'headerModify';
+export const CREATE_ITEM_TITLE_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'titleCreate';
+export const MODIFY_ITEM_TITLE_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'titleModify';
 
 const TABLE_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'table';
 const TABLE_HEADER_KEY: string = TABLE_KEY + KEY_SEPARATOR + 'header';

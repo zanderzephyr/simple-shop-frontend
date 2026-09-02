@@ -54,8 +54,8 @@
 						"title": "Titel",
 						"titleError": "Pflichtfeld! Muss unter 400 Zeichen sein!"
 					},
-					"headerCreate": "Item Anlegen",
-					"headerModify": "Item Ändern"
+					"titleCreate": "Item Anlegen",
+					"titleModify": "Item Ändern"
 				},
 				"table": {
 					"header": {
@@ -118,8 +118,8 @@
 						"userType": "Nutzertyp",
 						"userTypeError": "Pflichtfeld!"
 					},
-					"headerCreate": "Nutzer Anlegen",
-					"headerModify": "Nutzer Ändern"
+					"titleCreate": "Nutzer Anlegen",
+					"titleModify": "Nutzer Ändern"
 				},
 				"table": {
 					"header": {
