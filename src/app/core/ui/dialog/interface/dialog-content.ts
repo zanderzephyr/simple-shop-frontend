@@ -2,6 +2,9 @@ import { Directive, inject } from '@angular/core';
 import { DialogReference } from './dialog-reference';
 import { DIALOG_CONTENT_DATA } from './dialog-tokens';
 
+/**
+ * This is the main component of each dialog. It contains the component defined by the client.
+ */
 @Directive()
 export abstract class DialogContentComponent<DATA, RESULT> {
 	readonly #dialogData: DATA = inject(DIALOG_CONTENT_DATA) as DATA;
@@ -11,7 +14,8 @@ export abstract class DialogContentComponent<DATA, RESULT> {
 	 */
 	#dialogReference: DialogReference<RESULT> | undefined;
 
-	public constructor() {
+	protected constructor() {
+		// Nothing to do so far
 	}
 
 	/**

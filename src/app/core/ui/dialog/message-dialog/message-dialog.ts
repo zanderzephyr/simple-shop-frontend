@@ -7,7 +7,7 @@ import { MessageDialogResult } from './message-dialog-result';
 export abstract class MessageDialogComponent<
 	CONTENT_TYPE extends MessageDialogComponent<CONTENT_TYPE>,
 > extends GeneralDialogContentComponent<MessageDialogData<CONTENT_TYPE>, MessageDialogResult> {
-	public constructor() {
+	protected constructor() {
 		super();
 	}
 
