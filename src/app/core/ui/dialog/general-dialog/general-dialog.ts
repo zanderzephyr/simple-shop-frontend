@@ -3,6 +3,7 @@ import {
 	ComponentRef,
 	computed,
 	effect,
+	inject,
 	signal,
 	Signal,
 	Type,
@@ -10,6 +11,7 @@ import {
 	ViewContainerRef,
 	WritableSignal
 } from '@angular/core';
+import { LocalizationService } from '@core/localization/localization-service';
 import { ButtonBarComponent } from '@ui/button-bar/button-bar';
 import { ButtonBarConfiguration } from '@ui/button-bar/button-bar-configuration';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
@@ -29,6 +31,8 @@ export class GeneralDialogComponent<
 	RESULT,
 	CONTENT extends GeneralDialogContentComponent<DATA, RESULT>,
 > extends DialogContentComponent<DATA, RESULT> {
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+
 	readonly contentChild: Signal<ViewContainerRef | undefined> = viewChild('content', {
 		read: ViewContainerRef
 	});
@@ -38,11 +42,17 @@ export class GeneralDialogComponent<
 
 	readonly #buttonConfigurations: Signal<ButtonConfiguration[]> = computed(() => {
 		const componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
-		if (componentRef) {
+		if (componentRef !== undefined) {
 			return componentRef.instance.getButtonConfigurations();
 		}
 		return [];
 	});
+
+	protected readonly title: Signal<string> = computed(() => {
+			const t: string = this.getDialogData().getTitle()();
+			return this.#localizationService.getValue(t);
+		}
+	);
 
 	protected readonly buttonBarConfiguration: Signal<ButtonBarConfiguration> = computed(() => {
 		const buttonConfigurations: Signal<ButtonConfiguration[]> = this.#buttonConfigurations;
@@ -61,12 +71,13 @@ export class GeneralDialogComponent<
 
 	#init(): void {
 		effect(() => {
-			// Register signals
+			// Register signal
 			const viewContainer: ViewContainerRef | undefined = this.contentChild();
+
 			const type: Type<CONTENT> = this.getDialogData().getChildContentType();
 
 			// Only do that if the template is already built
-			if (viewContainer) {
+			if (viewContainer !== undefined) {
 				let componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
 				if (!componentRef || componentRef.componentType !== type) {
 					this.#clearComponent();

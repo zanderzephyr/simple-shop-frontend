@@ -68,6 +68,17 @@
 			"logout": {
 				"logoutMessage": "Auf Wiedersehen!"
 			},
+			"messageDialog": {
+				"error": {
+					"title": "Fehler!"
+				},
+				"info": {
+					"title": "Information"
+				},
+				"warning": {
+					"title": "Warnung!"
+				}
+			},
 			"settings": {
 				"header": "Einstellungen",
 				"ui": {

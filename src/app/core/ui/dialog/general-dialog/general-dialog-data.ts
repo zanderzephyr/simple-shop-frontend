@@ -10,7 +10,7 @@ export abstract class GeneralDialogData<
 
 	readonly #childContentType: Type<CONTENT_TYPE>;
 
-	public constructor(title: string, childContentType: Type<CONTENT_TYPE>) {
+	protected constructor(title: string, childContentType: Type<CONTENT_TYPE>) {
 		this.#title = signal(title);
 		this.#childContentType = childContentType;
 	}
