@@ -24,7 +24,8 @@ export class ItemSerializer {
 			version: item.getVersion()?.toString()
 		};
 
-		// TODO The replacer argument has a "this:any" parameter. Research how this works. It looks very mysterious / magical.
+		// TODO The replacer argument has a "this:any" parameter. Research how this works. It looks very mysterious /
+		// magical.
 		return JSON.stringify(itemDto);
 	}
 }
