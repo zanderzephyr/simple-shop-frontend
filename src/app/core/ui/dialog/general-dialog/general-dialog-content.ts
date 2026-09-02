@@ -1,11 +1,15 @@
-import { Signal, signal } from '@angular/core';
+import { computed, inject, Signal, signal } from '@angular/core';
+import { LocalizationService } from '@core/localization/localization-service';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { DialogContentComponent } from '@ui/dialog/interface/dialog-content';
+import * as Keys from './general-dialog-utils';
 
 export abstract class GeneralDialogContentComponent<DATA, RESULT> extends DialogContentComponent<
 	DATA,
 	RESULT
 > {
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+
 	readonly #confirmButtonConfiguration: ButtonConfiguration =
 		this.#createConfirmButtonConfiguration();
 
@@ -16,14 +20,14 @@ export abstract class GeneralDialogContentComponent<DATA, RESULT> extends Dialog
 
 	#result: RESULT | undefined;
 
-	public constructor() {
+	protected constructor() {
 		super();
 	}
 
 	#createConfirmButtonConfiguration(): ButtonConfiguration {
 		const actionCallbackSignal: Signal<() => void> = signal(this.onConfirm.bind(this));
 		const enabledSignal: Signal<boolean> = signal(true);
-		const textSignal: Signal<string> = signal('Confirm');
+		const textSignal: Signal<string> = computed(() => this.#localizationService.getValue(Keys.OK_BUTTON_KEY));
 		return {
 			getActionCallback: () => actionCallbackSignal,
 			getEnabled: () => enabledSignal,
@@ -34,7 +38,7 @@ export abstract class GeneralDialogContentComponent<DATA, RESULT> extends Dialog
 	#createCancelButtonConfiguration(): ButtonConfiguration {
 		const actionCallbackSignal: Signal<() => void> = signal(this.onCancel.bind(this));
 		const enabledSignal: Signal<boolean> = signal(true);
-		const textSignal: Signal<string> = signal('Cancel');
+		const textSignal: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CANCEL_BUTTON_KEY));
 		return {
 			getActionCallback: () => actionCallbackSignal,
 			getEnabled: () => enabledSignal,
@@ -55,7 +59,7 @@ export abstract class GeneralDialogContentComponent<DATA, RESULT> extends Dialog
 	}
 
 	/**
-	 * Overrrite to define specific buttons.
+	 * Override to define specific buttons.
 	 */
 	protected createButtonConfigurations(): ButtonConfiguration[] {
 		return [this.getCancelButtonConfiguration(), this.getConfirmButtonConfiguration()];

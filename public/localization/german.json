@@ -1,6 +1,23 @@
 {
 	"app": {
 		"feature": {
+			"dialog": {
+				"button": {
+					"cancel": "Abbrechen",
+					"ok": "OK"
+				},
+				"messageDialog": {
+					"error": {
+						"title": "Fehler!"
+					},
+					"info": {
+						"title": "Information"
+					},
+					"warning": {
+						"title": "Warnung!"
+					}
+				}
+			},
 			"footer": {},
 			"header": {
 				"companyLogo": {
@@ -67,17 +84,6 @@
 			},
 			"logout": {
 				"logoutMessage": "Auf Wiedersehen!"
-			},
-			"messageDialog": {
-				"error": {
-					"title": "Fehler!"
-				},
-				"info": {
-					"title": "Information"
-				},
-				"warning": {
-					"title": "Warnung!"
-				}
 			},
 			"settings": {
 				"header": "Einstellungen",
