@@ -4,7 +4,7 @@ import { LocalizationService } from '@core/localization/localization-service';
 import * as Keys from './paginator-utils';
 
 @Injectable()
-export class NgMatPaginatorLocalization extends MatPaginatorIntl {
+export class NgMatPaginatorLocalizationService extends MatPaginatorIntl {
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
 
 	readonly #itemsPerPageText: Signal<string> = computed(() =>

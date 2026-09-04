@@ -13,7 +13,7 @@ import { GlobalErrorHandler } from '@core/global-error-handler';
 import { SessionService } from '@core/session/session-service';
 import { DialogService } from '@ui/dialog/interface/dialog-service';
 import { NgMatDialogService } from '@ui/dialog/ng-mat-dialog/ng-mat-dialog-service';
-import { NgMatPaginatorLocalization } from '@ui/paginator/ng-mat-paginator-localization';
+import { NgMatPaginatorLocalizationService } from '@ui/paginator/ng-mat-paginator-localization.service';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -38,6 +38,6 @@ export const appConfig: ApplicationConfig = {
 
 		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
 
-		{ provide: MatPaginatorIntl, useClass: NgMatPaginatorLocalization }
+		{ provide: MatPaginatorIntl, useClass: NgMatPaginatorLocalizationService }
 	]
 };
