@@ -36,11 +36,10 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 	protected readonly mediaTypeErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MEDIA_TYPE_ERROR_KEY));
 	protected readonly priceText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PRICE_KEY));
 	protected readonly priceErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PRICE_ERROR_KEY));
-	protected readonly stockText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_KEY));
-	protected readonly stockErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_ERROR_KEY));
-	protected readonly titleText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.STOCK_KEY));
-	protected readonly titleErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.STOCK_ERROR_KEY));
-
+	protected readonly stockText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.STOCK_KEY));
+	protected readonly stockErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.STOCK_ERROR_KEY));
+	protected readonly titleText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_KEY));
+	protected readonly titleErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_ERROR_KEY));
 
 	protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(
 		Object.freeze(Object.values(MediaType))

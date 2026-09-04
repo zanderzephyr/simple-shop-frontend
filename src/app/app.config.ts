@@ -6,12 +6,14 @@ import {
 	provideAppInitializer,
 	provideBrowserGlobalErrorListeners
 } from '@angular/core';
+import { MatPaginatorIntl } from '@angular/material/paginator';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from '@app/app.routes';
 import { GlobalErrorHandler } from '@core/global-error-handler';
 import { SessionService } from '@core/session/session-service';
 import { DialogService } from '@ui/dialog/interface/dialog-service';
 import { NgMatDialogService } from '@ui/dialog/ng-mat-dialog/ng-mat-dialog-service';
+import { NgMatPaginatorLocalization } from '@ui/paginator/ng-mat-paginator-localization';
 
 export const appConfig: ApplicationConfig = {
 	providers: [
@@ -34,6 +36,8 @@ export const appConfig: ApplicationConfig = {
 			return sessionService.initSession();
 		}),
 
-		{ provide: ErrorHandler, useClass: GlobalErrorHandler }
+		{ provide: ErrorHandler, useClass: GlobalErrorHandler },
+
+		{ provide: MatPaginatorIntl, useClass: NgMatPaginatorLocalization }
 	]
 };

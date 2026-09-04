@@ -1,23 +1,6 @@
 {
 	"app": {
 		"feature": {
-			"dialog": {
-				"button": {
-					"cancel": "Abbrechen",
-					"ok": "OK"
-				},
-				"messageDialog": {
-					"error": {
-						"title": "Fehler!"
-					},
-					"info": {
-						"title": "Information"
-					},
-					"warning": {
-						"title": "Warnung!"
-					}
-				}
-			},
 			"footer": {},
 			"header": {
 				"companyLogo": {
@@ -48,9 +31,9 @@
 						"mediaType": "Medienart",
 						"mediaTypeError": "Pflichtfeld!",
 						"price": "Preis",
-						"priceError": "Pflichtfeld! Muss &lt; 2147483647 sein!",
+						"priceError": "Pflichtfeld! Muss unter 2147483647 sein!",
 						"stock": "Auf Lager",
-						"stockError": "Pflichtfeld! Muss &lt; 2147483647 sein!",
+						"stockError": "Pflichtfeld! Muss unter 2147483647 sein!",
 						"title": "Titel",
 						"titleError": "Pflichtfeld! Muss unter 400 Zeichen sein!"
 					},
@@ -139,6 +122,23 @@
 			}
 		},
 		"global": {
+			"dialog": {
+				"button": {
+					"cancel": "Abbrechen",
+					"ok": "OK"
+				},
+				"messageDialog": {
+					"error": {
+						"title": "Fehler!"
+					},
+					"info": {
+						"title": "Information"
+					},
+					"warning": {
+						"title": "Warnung!"
+					}
+				}
+			},
 			"enum": {
 				"localization": {
 					"english": "Englisch",
@@ -148,6 +148,11 @@
 					"light": "Heller Modus",
 					"dark": "Dunkler Modus"
 				}
+			},
+			"paginator": {
+				"itemsPerPage": "Einträge pro Seite",
+				"of": "von",
+				"page": "Seite"
 			}
 		}
 	}

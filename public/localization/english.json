@@ -1,23 +1,6 @@
 {
 	"app": {
 		"feature": {
-			"dialog": {
-				"button": {
-					"cancel": "Cancel",
-					"ok": "OK"
-				},
-				"messageDialog": {
-					"error": {
-						"title": "Error!"
-					},
-					"info": {
-						"title": "Information"
-					},
-					"warning": {
-						"title": "Warning!"
-					}
-				}
-			},
 			"footer": {},
 			"header": {
 				"companyLogo": {
@@ -48,9 +31,9 @@
 						"mediaType": "Media Type",
 						"mediaTypeError": "Required!",
 						"price": "Price",
-						"priceError": "Required! Must be &lt; 2147483647!",
+						"priceError": "Required! Must be under 2147483647!",
 						"stock": "Stock",
-						"stockError": "Required! Must be &lt; 2147483647!",
+						"stockError": "Required! Must be under 2147483647!",
 						"title": "Title",
 						"titleError": "Required! Must be under 400 characters!"
 					},
@@ -139,6 +122,23 @@
 			}
 		},
 		"global": {
+			"dialog": {
+				"button": {
+					"cancel": "Cancel",
+					"ok": "OK"
+				},
+				"messageDialog": {
+					"error": {
+						"title": "Error!"
+					},
+					"info": {
+						"title": "Information"
+					},
+					"warning": {
+						"title": "Warning!"
+					}
+				}
+			},
 			"enum": {
 				"localization": {
 					"english": "English",
@@ -148,6 +148,11 @@
 					"light": "Light Mode",
 					"dark": "Dark Mode"
 				}
+			},
+			"paginator": {
+				"itemsPerPage": "Entries per page",
+				"of": "of",
+				"page": "Page"
 			}
 		}
 	}
