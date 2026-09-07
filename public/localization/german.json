@@ -6,6 +6,9 @@
 				"companyLogo": {
 					"subheader": "Was Ihr Regal begehrt!"
 				},
+				"search": {
+					"searchButtonLabel": "Suche"
+				},
 				"session": {
 					"menu": {
 						"bookKeeping": "Buchhaltung",

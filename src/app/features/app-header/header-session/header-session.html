@@ -1,14 +1,14 @@
 <div class="header-session-container">
-  <button class="header-session-shopping-cart" mat-icon-button (click)="onShoppingCartClick()">
+  <button class="header-session-shopping-cart" matMiniFab (click)="onShoppingCartClick()">
     <mat-icon>shopping_cart</mat-icon>
   </button>
 
-  <button class="header-session-settings" mat-icon-button (click)="onSettingsClick()">
+  <button class="header-session-settings" matMiniFab (click)="onSettingsClick()">
     <mat-icon>settings</mat-icon>
   </button>
 
   @if (isLoggedIn()) {
-    <button class="header-session-menu-button" mat-flat-button [matMenuTriggerFor]="sessionMenu">
+    <button class="header-session-menu-button" matButton="outlined" [matMenuTriggerFor]="sessionMenu">
       {{ sessionText() }}
     </button>
     <mat-menu #sessionMenu="matMenu">
@@ -63,7 +63,7 @@
       </button>
     </mat-menu>
   } @else {
-    <button class="header-session-login" mat-flat-button (click)="onLoginClick()">
+    <button class="header-session-login" matButton="outlined" (click)="onLoginClick()">
       {{ loginText() }}
     </button>
   }

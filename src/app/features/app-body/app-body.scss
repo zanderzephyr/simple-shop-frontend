@@ -7,7 +7,7 @@
 }
 
 app-body-sidebar {
-	/* All properties are changed in 0.3s by starting and ending slowly and being the fastest in the middle. */
+	// All properties are changed in 0.3s by starting and ending slowly and being the fastest in the middle.
 	transition: all 0.3s ease-in-out;
 }
 
@@ -15,7 +15,7 @@ app-body-sidebar.sidebar-invisible {
 	flex: 0 0 0;
 	width: 0;
 
-	/* Hides content of the sidebar, when it exists but the sidebar has no rendering area. */
+	// Hides content of the sidebar, when it exists but the sidebar has no rendering area.
 	overflow: hidden;
 }
 

@@ -2,10 +2,10 @@
 	display: flex;
 	flex-direction: column;
 
-	/* Changes the mouse cursor to a pointer hand when hovering */
+	// Changes the mouse cursor to a pointer hand when hovering
 	cursor: pointer;
 
-	/*  Prevents text from highlighting if a user double-clicks the header */
+	// Prevents text from highlighting if a user double-clicks the header
 	user-select: none;
 }
 

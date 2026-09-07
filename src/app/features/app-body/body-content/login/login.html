@@ -23,12 +23,12 @@
 
   <button
     class="login-discard"
+    matButton="outlined"
     type="button"
-    mat-stroked-button
     (click)="discard(formDirective)"
   >
     {{ discardText() }}
   </button>
 
-  <button class="login-login" type="submit" mat-flat-button>{{ loginText() }}</button>
+  <button class="login-login" matButton="outlined" type="submit">{{ loginText() }}</button>
 </form>

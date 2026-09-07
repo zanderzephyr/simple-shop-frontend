@@ -11,12 +11,12 @@
     </mat-paginator>
 
     <div class="inventory-container-header-buttons">
-      <button class="inventory-container-refresh-button" mat-stroked-button (click)="refresh()">
+      <button class="inventory-container-refresh-button" matButton="outlined" (click)="refresh()">
         <mat-icon>refresh</mat-icon>
         <span>{{ refreshText() }}</span>
       </button>
 
-      <button class="inventory-container-add-button" mat-stroked-button (click)="add()">
+      <button class="inventory-container-add-button" matButton="outlined" (click)="add()">
         <mat-icon>add</mat-icon>
         <span>{{ createItemText() }}</span>
       </button>

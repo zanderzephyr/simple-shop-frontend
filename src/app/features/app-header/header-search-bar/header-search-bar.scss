@@ -1,0 +1,13 @@
+.search-form {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+}
+
+.search-text {
+	flex: auto;
+	min-width: 30ch;
+	max-width: 60ch;
+}

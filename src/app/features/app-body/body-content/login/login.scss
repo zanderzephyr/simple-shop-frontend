@@ -6,17 +6,15 @@
 
 	gap: 10px;
 
-	/* Sum of content widths */
+	// Sum of content widths
 	width: 210px;
 
 	margin: 0 auto;
 }
 
 .login-username {
-	/*
-		  [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
-		  [n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
-	   */
+	// [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
+	// [n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
 	grid-column: 1 / span 2;
 	grid-row: 1;
 }

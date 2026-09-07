@@ -6,6 +6,9 @@
 				"companyLogo": {
 					"subheader": "Whatever your shelf desires!"
 				},
+				"search": {
+					"searchButtonLabel": "Search"
+				},
 				"session": {
 					"menu": {
 						"bookKeeping": "Book Keeping",

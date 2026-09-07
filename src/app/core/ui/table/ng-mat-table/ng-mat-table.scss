@@ -1,5 +1,5 @@
 .ng-mat-table {
-	/* width is mandatory for table-layout "fixed" to work */
+	// width is mandatory for table-layout "fixed" to work
 	width: 100%;
 	table-layout: fixed;
 }
@@ -9,5 +9,6 @@
 }
 
 .ng-mat-table-data-cell {
-	overflow-wrap: break-word; /* Breaks long words so they don't clip */
+	// Breaks long words so they don't clip
+	overflow-wrap: break-word;
 }

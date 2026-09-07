@@ -2,10 +2,8 @@
 	font-size: large;
 }
 
-/*
-	Manual component indexing could be done with the "order" property of
-	the flex elements, but the focus order is the HTML element order.
-*/
+// Manual component indexing could be done with the "order" property of
+// the flex elements, but the focus order is the HTML element order.
 .slider-container {
 	display: flex;
 	align-items: center;
