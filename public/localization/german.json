@@ -1,10 +1,123 @@
 {
 	"app": {
 		"feature": {
+			"body": {
+				"inventory": {
+					"refresh": "Aktualisieren",
+					"createItem": "Item anlegen",
+					"dialog": {
+						"field": {
+							"imageUrl": "URL Titelbild",
+							"imageUrlError": "Pflichtfeld! Muss unter 2048 Zeichen sein!",
+							"mediaType": "Medienart",
+							"mediaTypeError": "Pflichtfeld!",
+							"price": "Preis",
+							"priceError": "Pflichtfeld! Muss unter 2147483647 sein!",
+							"stock": "Auf Lager",
+							"stockError": "Pflichtfeld! Muss unter 2147483647 sein!",
+							"title": "Titel",
+							"titleError": "Pflichtfeld! Muss unter 400 Zeichen sein!"
+						},
+						"titleCreate": "Item Anlegen",
+						"titleModify": "Item Ändern"
+					},
+					"table": {
+						"header": {
+							"title": {
+								"actions": "Aktivitäten",
+								"cover": "Titelbild",
+								"mediaType": "Medienart",
+								"price": "Preis",
+								"stock": "Auf Lager",
+								"title": "Titel"
+							}
+						}
+					}
+				},
+				"login": {
+					"discard": "Verwerfen",
+					"login": "Einloggen",
+					"loginFailed": "Einloggen fehlgeschlagen!",
+					"password": "Passwort",
+					"passwordError": "Pflichtfeld!",
+					"username": "Nutzername",
+					"usernameError": "Pflichtfeld!"
+				},
+				"logout": {
+					"logoutMessage": "Auf Wiedersehen!"
+				},
+				"settings": {
+					"title": "Einstellungen",
+					"ui": {
+						"localization": {
+							"chooseLocalizationLabel": "Sprache wählen"
+						},
+						"theme": {
+							"chooseThemeLabel": "Design wählen"
+						}
+					}
+				},
+				"sidebar": {
+					"filters": {
+						"mediaTypeFilter": {
+							"allTypesLabel": "Alle Arten",
+							"chooseMediaTypeLabel": "Medienart wählen",
+							"title": "Medienart"
+						},
+						"priceFilter": {
+							"maxValueLabel": "Max (EUR)",
+							"minValueLabel": "Min (EUR)",
+							"title": "Preis"
+						},
+						"title": "Filter"
+					}
+				},
+				"userManagement": {
+					"refresh": "Aktualisieren",
+					"createUser": "Nutzer anlegen",
+					"dialog": {
+						"field": {
+							"email": "Email",
+							"emailError": "Pflichtfeld! Muss unter 254 Zeichen sein!",
+							"firstName": "Vorname",
+							"firstNameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
+							"lastName": "Nachname",
+							"lastNameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
+							"middleNames": "Mittlere Namen",
+							"middleNamesError": "Muss unter 100 Zeichen sein!",
+							"password": "Passwort",
+							"passwordError": "Pflichtfeld!",
+							"passwordConfirmation": "Passwort bestätigen",
+							"passwordConfirmationError": "Pflichtfeld! Muss dem Passwort entsprechen!",
+							"username": "Nutzername",
+							"usernameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
+							"userType": "Nutzertyp",
+							"userTypeError": "Pflichtfeld!"
+						},
+						"titleCreate": "Nutzer Anlegen",
+						"titleModify": "Nutzer Ändern"
+					},
+					"table": {
+						"header": {
+							"title": {
+								"actions": "Aktivitäten",
+								"firstName": "Vorname",
+								"lastName": "Nachname",
+								"username": "Nutzername",
+								"userType": "Nutzertyp"
+							}
+						}
+					}
+				},
+				"welcome": {
+					"welcomeMessageNoSession": "Willkommen auf Shelf Indulgence!",
+					"welcomeMessageWithSession": ", willkommen auf Shelf Indulgence!"
+				}
+			},
 			"footer": {},
 			"header": {
 				"companyLogo": {
-					"subheader": "Was Ihr Regal begehrt!"
+					"subtitle": "Was Ihr Regal begehrt!"
 				},
 				"search": {
 					"searchButtonLabel": "Suche"
@@ -24,104 +137,8 @@
 					}
 				}
 			},
-			"inventory": {
-				"refresh": "Aktualisieren",
-				"createItem": "Item anlegen",
-				"dialog": {
-					"field": {
-						"imageUrl": "URL Titelbild",
-						"imageUrlError": "Pflichtfeld! Muss unter 2048 Zeichen sein!",
-						"mediaType": "Medienart",
-						"mediaTypeError": "Pflichtfeld!",
-						"price": "Preis",
-						"priceError": "Pflichtfeld! Muss unter 2147483647 sein!",
-						"stock": "Auf Lager",
-						"stockError": "Pflichtfeld! Muss unter 2147483647 sein!",
-						"title": "Titel",
-						"titleError": "Pflichtfeld! Muss unter 400 Zeichen sein!"
-					},
-					"titleCreate": "Item Anlegen",
-					"titleModify": "Item Ändern"
-				},
-				"table": {
-					"header": {
-						"title": {
-							"actions": "Aktivitäten",
-							"cover": "Titelbild",
-							"mediaType": "Medienart",
-							"price": "Preis",
-							"stock": "Auf Lager",
-							"title": "Titel"
-						}
-					}
-				}
-			},
 			"localization": {
 				"missingPlaceholder": "Kein Lokalisierungswert verfügbar für '{key}'!"
-			},
-			"login": {
-				"discard": "Verwerfen",
-				"login": "Einloggen",
-				"loginFailed": "Einloggen fehlgeschlagen!",
-				"password": "Passwort",
-				"passwordError": "Pflichtfeld!",
-				"username": "Nutzername",
-				"usernameError": "Pflichtfeld!"
-			},
-			"logout": {
-				"logoutMessage": "Auf Wiedersehen!"
-			},
-			"settings": {
-				"header": "Einstellungen",
-				"ui": {
-					"localization": {
-						"chooseLocalizationLabel": "Sprache wählen"
-					},
-					"theme": {
-						"chooseThemeLabel": "Design wählen"
-					}
-				}
-			},
-			"userManagement": {
-				"refresh": "Aktualisieren",
-				"createUser": "Nutzer anlegen",
-				"dialog": {
-					"field": {
-						"email": "Email",
-						"emailError": "Pflichtfeld! Muss unter 254 Zeichen sein!",
-						"firstName": "Vorname",
-						"firstNameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
-						"lastName": "Nachname",
-						"lastNameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
-						"middleNames": "Mittlere Namen",
-						"middleNamesError": "Muss unter 100 Zeichen sein!",
-						"password": "Passwort",
-						"passwordError": "Pflichtfeld!",
-						"passwordConfirmation": "Passwort bestätigen",
-						"passwordConfirmationError": "Pflichtfeld! Muss dem Passwort entsprechen!",
-						"username": "Nutzername",
-						"usernameError": "Pflichtfeld! Muss unter 30 Zeichen sein!",
-						"userType": "Nutzertyp",
-						"userTypeError": "Pflichtfeld!"
-					},
-					"titleCreate": "Nutzer Anlegen",
-					"titleModify": "Nutzer Ändern"
-				},
-				"table": {
-					"header": {
-						"title": {
-							"actions": "Aktivitäten",
-							"firstName": "Vorname",
-							"lastName": "Nachname",
-							"username": "Nutzername",
-							"userType": "Nutzertyp"
-						}
-					}
-				}
-			},
-			"welcome": {
-				"welcomeMessageNoSession": "Willkommen auf Shelf Indulgence!",
-				"welcomeMessageWithSession": ", willkommen auf Shelf Indulgence!"
 			}
 		},
 		"global": {

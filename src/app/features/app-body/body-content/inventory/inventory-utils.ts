@@ -1,6 +1,7 @@
-import { FEATURE_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { BODY_KEY } from '@features/app-body/app-body-utils';
 
-const INVENTORY_KEY: string = FEATURE_KEY + KEY_SEPARATOR + 'inventory';
+const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
 export const REFRESH_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'refresh';
 export const CREATE_ITEM_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'createItem';
 

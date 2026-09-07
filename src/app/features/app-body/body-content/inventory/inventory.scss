@@ -1,21 +1,32 @@
-.inventory-container-header {
+:host {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-}
+	align-items: stretch;
+	justify-content: stretch;
 
-.inventory-container-header-buttons {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-}
+	.inventory-container {
+		flex: auto;
 
-.inventory-container-add-button {
-	display: flex;
-	flex-direction: row;
-}
+		.inventory-container-header {
+			display: flex;
+			flex-direction: row;
+			justify-content: space-between;
+		}
 
-.inventory-container-refresh-button {
-	display: flex;
-	flex-direction: row;
+		.inventory-container-header-buttons {
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+
+			.inventory-container-add-button {
+				display: flex;
+				flex-direction: row;
+			}
+
+			.inventory-container-refresh-button {
+				display: flex;
+				flex-direction: row;
+			}
+		}
+	}
 }

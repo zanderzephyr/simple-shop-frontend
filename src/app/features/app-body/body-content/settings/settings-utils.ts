@@ -1,11 +1,12 @@
-import { ENUM_KEY, FEATURE_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { ENUM_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { BODY_KEY } from '@features/app-body/app-body-utils';
 
 export const LOCALIZATION_ENUM_KEY: string =
 	ENUM_KEY + KEY_SEPARATOR + 'localization' + KEY_SEPARATOR;
 export const THEME_ENUM_KEY: string = ENUM_KEY + KEY_SEPARATOR + 'theme' + KEY_SEPARATOR;
 
-const SETTINGS_FEATURE_KEY: string = FEATURE_KEY + KEY_SEPARATOR + 'settings';
-export const SETTINGS_HEADER_KEY: string = SETTINGS_FEATURE_KEY + KEY_SEPARATOR + 'header';
+const SETTINGS_FEATURE_KEY: string = BODY_KEY + KEY_SEPARATOR + 'settings';
+export const SETTINGS_HEADER_KEY: string = SETTINGS_FEATURE_KEY + KEY_SEPARATOR + 'title';
 
 const UI_SETTINGS_KEY: string = SETTINGS_FEATURE_KEY + KEY_SEPARATOR + 'ui';
 

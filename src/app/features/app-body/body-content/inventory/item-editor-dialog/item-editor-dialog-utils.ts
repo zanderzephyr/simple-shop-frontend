@@ -1,6 +1,7 @@
-import { FEATURE_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { BODY_KEY } from '@features/app-body/app-body-utils';
 
-const INVENTORY_KEY: string = FEATURE_KEY + KEY_SEPARATOR + 'inventory';
+const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
 
 const DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'dialog';
 const DIALOG_FIELD_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'field';

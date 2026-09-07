@@ -1,7 +1,9 @@
-import { Component, signal, Signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, signal, Signal, WritableSignal } from '@angular/core';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MediaType } from '@api/item/model/media-type';
+import { LocalizationService } from '@core/localization/localization-service';
+import * as Keys from './media-type-sidebar-filter-utils';
 
 @Component({
 	selector: 'app-media-type-sidebar-filter',
@@ -10,6 +12,11 @@ import { MediaType } from '@api/item/model/media-type';
 	styleUrl: './media-type-sidebar-filter.scss'
 })
 export class MediaTypeSidebarFilterComponent {
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly filterTitleText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_KEY));
+	protected readonly chooseMediaTypeLabelText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CHOOSE_MEDIA_TYPE_LABEL_KEY));
+	protected readonly allTypesLabelText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.ALL_TYPES_LABEL_KEY));
+
 	readonly #allMediaTypeValue: string = 'All';
 
 	protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(

@@ -1,10 +1,123 @@
 {
 	"app": {
 		"feature": {
+			"body": {
+				"inventory": {
+					"refresh": "Refresh",
+					"createItem": "Create Item",
+					"dialog": {
+						"field": {
+							"imageUrl": "Image URL",
+							"imageUrlError": "Required! Must be under 2048 characters!",
+							"mediaType": "Media Type",
+							"mediaTypeError": "Required!",
+							"price": "Price",
+							"priceError": "Required! Must be under 2147483647!",
+							"stock": "Stock",
+							"stockError": "Required! Must be under 2147483647!",
+							"title": "Title",
+							"titleError": "Required! Must be under 400 characters!"
+						},
+						"titleCreate": "Create Item",
+						"titleModify": "Modify Item"
+					},
+					"table": {
+						"header": {
+							"title": {
+								"actions": "Actions",
+								"cover": "Cover",
+								"mediaType": "Media Type",
+								"price": "Price",
+								"stock": "Stock",
+								"title": "Title"
+							}
+						}
+					}
+				},
+				"login": {
+					"discard": "Discard",
+					"login": "Login",
+					"loginFailed": "Login failed!",
+					"password": "Password",
+					"passwordError": "Required!",
+					"username": "Username",
+					"usernameError": "Required!"
+				},
+				"logout": {
+					"logoutMessage": "Goodbye!"
+				},
+				"settings": {
+					"title": "Settings",
+					"ui": {
+						"localization": {
+							"chooseLocalizationLabel": "Choose Language"
+						},
+						"theme": {
+							"chooseThemeLabel": "Choose Theme"
+						}
+					}
+				},
+				"sidebar": {
+					"filters": {
+						"mediaTypeFilter": {
+							"allTypesLabel": "All types",
+							"chooseMediaTypeLabel": "Choose Media Type",
+							"title": "Media Type"
+						},
+						"priceFilter": {
+							"maxValueLabel": "Max (EUR)",
+							"minValueLabel": "Min (EUR)",
+							"title": "Price"
+						},
+						"title": "Filters"
+					}
+				},
+				"userManagement": {
+					"refresh": "Refresh",
+					"createUser": "Create User",
+					"table": {
+						"header": {
+							"title": {
+								"actions": "Actions",
+								"firstName": "First Name",
+								"lastName": "Last Name",
+								"username": "Username",
+								"userType": "User Type"
+							}
+						}
+					},
+					"dialog": {
+						"field": {
+							"email": "Email",
+							"emailError": "Required! Must be valid and under 254 characters!",
+							"firstName": "First name",
+							"firstNameError": "Required! Must be under 30 characters!",
+							"lastName": "Last name",
+							"lastNameError": "Required! Must be under 30 characters!",
+							"middleNames": "Middle names",
+							"middleNamesError": "Must be under 100 characters!",
+							"password": "Password",
+							"passwordError": "Required!",
+							"passwordConfirmation": "Confirm password",
+							"passwordConfirmationError": "Required! Must match the password!",
+							"username": "Username",
+							"usernameError": "Required! Must be under 30 characters!",
+							"userType": "User type",
+							"userTypeError": "Required!"
+						},
+						"titleCreate": "Create User",
+						"titleModify": "Modify User"
+					}
+				},
+				"welcome": {
+					"welcomeMessageNoSession": "Welcome to Shelf Indulgence!",
+					"welcomeMessageWithSession": ", welcome to Shelf Indulgence!"
+				}
+			},
 			"footer": {},
 			"header": {
 				"companyLogo": {
-					"subheader": "Whatever your shelf desires!"
+					"subtitle": "Whatever your shelf desires!"
 				},
 				"search": {
 					"searchButtonLabel": "Search"
@@ -24,104 +137,8 @@
 					}
 				}
 			},
-			"inventory": {
-				"refresh": "Refresh",
-				"createItem": "Create Item",
-				"dialog": {
-					"field": {
-						"imageUrl": "Image URL",
-						"imageUrlError": "Required! Must be under 2048 characters!",
-						"mediaType": "Media Type",
-						"mediaTypeError": "Required!",
-						"price": "Price",
-						"priceError": "Required! Must be under 2147483647!",
-						"stock": "Stock",
-						"stockError": "Required! Must be under 2147483647!",
-						"title": "Title",
-						"titleError": "Required! Must be under 400 characters!"
-					},
-					"titleCreate": "Create Item",
-					"titleModify": "Modify Item"
-				},
-				"table": {
-					"header": {
-						"title": {
-							"actions": "Actions",
-							"cover": "Cover",
-							"mediaType": "Media Type",
-							"price": "Price",
-							"stock": "Stock",
-							"title": "Title"
-						}
-					}
-				}
-			},
 			"localization": {
 				"missingPlaceholder": "No localization value available for '{key}'!"
-			},
-			"login": {
-				"discard": "Discard",
-				"login": "Login",
-				"loginFailed": "Login failed!",
-				"password": "Password",
-				"passwordError": "Required!",
-				"username": "Username",
-				"usernameError": "Required!"
-			},
-			"logout": {
-				"logoutMessage": "Goodbye!"
-			},
-			"settings": {
-				"header": "Settings",
-				"ui": {
-					"localization": {
-						"chooseLocalizationLabel": "Choose Language"
-					},
-					"theme": {
-						"chooseThemeLabel": "Choose Theme"
-					}
-				}
-			},
-			"userManagement": {
-				"refresh": "Refresh",
-				"createUser": "Create User",
-				"table": {
-					"header": {
-						"title": {
-							"actions": "Actions",
-							"firstName": "First Name",
-							"lastName": "Last Name",
-							"username": "Username",
-							"userType": "User Type"
-						}
-					}
-				},
-				"dialog": {
-					"field": {
-						"email": "Email",
-						"emailError": "Required! Must be valid and under 254 characters!",
-						"firstName": "First name",
-						"firstNameError": "Required! Must be under 30 characters!",
-						"lastName": "Last name",
-						"lastNameError": "Required! Must be under 30 characters!",
-						"middleNames": "Middle names",
-						"middleNamesError": "Must be under 100 characters!",
-						"password": "Password",
-						"passwordError": "Required!",
-						"passwordConfirmation": "Confirm password",
-						"passwordConfirmationError": "Required! Must match the password!",
-						"username": "Username",
-						"usernameError": "Required! Must be under 30 characters!",
-						"userType": "User type",
-						"userTypeError": "Required!"
-					},
-					"titleCreate": "Create User",
-					"titleModify": "Modify User"
-				}
-			},
-			"welcome": {
-				"welcomeMessageNoSession": "Welcome to Shelf Indulgence!",
-				"welcomeMessageWithSession": ", welcome to Shelf Indulgence!"
 			}
 		},
 		"global": {

@@ -1,21 +1,30 @@
-.user-management-container-header {
+:host {
 	display: flex;
 	flex-direction: row;
-	justify-content: space-between;
-}
+	align-items: stretch;
+	justify-content: stretch;
 
-.user-management-container-header-buttons {
-	display: flex;
-	flex-direction: row;
-	gap: 10px;
-}
+	.user-management-container-header {
+		flex: auto;
 
-.user-management-container-add-button {
-	display: flex;
-	flex-direction: row;
-}
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+	}
 
-.user-management-container-refresh-button {
-	display: flex;
-	flex-direction: row;
+	.user-management-container-header-buttons {
+		display: flex;
+		flex-direction: row;
+		gap: 10px;
+
+		.user-management-container-add-button {
+			display: flex;
+			flex-direction: row;
+		}
+
+		.user-management-container-refresh-button {
+			display: flex;
+			flex-direction: row;
+		}
+	}
 }

@@ -1,7 +1,9 @@
 import { Component, computed, effect, inject, output, OutputEmitterRef, Signal } from '@angular/core';
 import { ItemSearchResults } from '@core/item-search-results';
+import { LocalizationService } from '@core/localization/localization-service';
 import { MediaTypeSidebarFilterComponent } from './media-type-sidebar-filter/media-type-sidebar-filter';
 import { PriceSidebarFilterComponent } from './price-sidebar-filter/price-sidebar-filter';
+import * as Keys from './sidebar-filters-utils';
 
 @Component({
 	selector: 'app-sidebar-filters',
@@ -10,6 +12,10 @@ import { PriceSidebarFilterComponent } from './price-sidebar-filter/price-sideba
 	styleUrl: './sidebar-filters.scss'
 })
 export class SidebarFiltersComponent {
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+
+	protected readonly filtersTitleText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.FILTERS_TITLE_KEY));
+
 	/*
 	   This is the Angular way of implementing an obversable pattern.
 	   We define an output emitter here, that emits booleans. A signal
@@ -27,7 +33,7 @@ export class SidebarFiltersComponent {
 		() => this.#itemSearchResults.getSearchResults()().length > 0
 	);
 
-	constructor() {
+	public constructor() {
 		effect(() => {
 			this.visibilityChange.emit(this.#isVisible());
 		});

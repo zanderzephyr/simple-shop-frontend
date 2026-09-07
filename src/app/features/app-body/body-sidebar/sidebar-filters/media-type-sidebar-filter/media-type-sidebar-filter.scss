@@ -1,11 +1,24 @@
-.header {
-	font-size: large;
-}
+:host {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: stretch;
 
-.media-type-filter-container {
-	width: 100%;
-}
+	.media-type-sidebar-filter-title {
+		flex: 0 0 auto;
+		font-size: large;
+	}
 
-.media-type-form-field {
-	width: 100%;
+	.media-type-filter-container {
+		flex: auto;
+
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: stretch;
+
+		.media-type-form-field {
+			flex: auto;
+		}
+	}
 }

@@ -1,7 +1,14 @@
-.filters-container {
-	width: 100%;
-}
+:host {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: stretch;
 
-.header {
-	font-size: x-large;
+	.filters-container {
+		flex: auto;
+
+		.filters-title {
+			font-size: x-large;
+		}
+	}
 }

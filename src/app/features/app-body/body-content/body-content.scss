@@ -1,5 +1,10 @@
-.body-content-container {
+:host {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
 	align-items: stretch;
+	justify-content: stretch;
+
+	.body-content-container {
+		flex: auto;
+	}
 }

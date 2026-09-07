@@ -1,5 +1,12 @@
-.logout-message {
-	font-size: large;
-	font-style: italic;
-	text-align: center;
+:host {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: stretch;
+
+	.logout-message {
+		font-size: large;
+		font-style: italic;
+		text-align: center;
+	}
 }

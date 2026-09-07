@@ -1,25 +1,31 @@
-.header-company-logo-container {
+:host {
 	display: flex;
-	flex-direction: column;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: stretch;
 
-	// Changes the mouse cursor to a pointer hand when hovering
-	cursor: pointer;
+	.header-company-logo-container {
+		flex: auto;
 
-	// Prevents text from highlighting if a user double-clicks the header
-	user-select: none;
-}
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
 
-.company-logo-header {
-	flex: 0 0 auto;
-	font-size: xx-large;
-}
+		// Changes the mouse cursor to a pointer hand when hovering
+		cursor: pointer;
 
-.company-logo-gap {
-	flex: 0 0 10px;
-}
+		// Prevents text from highlighting if a user double-clicks the header
+		user-select: none;
 
-.company-logo-subheader {
-	flex: 0 0 auto;
-	font-size: medium;
-	font-style: italic;
+		.company-logo-header {
+			flex: 0 0 auto;
+			font-size: xx-large;
+		}
+
+		.company-logo-subheader {
+			flex: 0 0 auto;
+			font-size: medium;
+			font-style: italic;
+		}
+	}
 }

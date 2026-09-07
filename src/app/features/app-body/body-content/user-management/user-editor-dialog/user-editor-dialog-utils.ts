@@ -1,6 +1,7 @@
-import { FEATURE_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { BODY_KEY } from '@features/app-body/app-body-utils';
 
-const USER_MANAGEMENT_KEY: string = FEATURE_KEY + KEY_SEPARATOR + 'userManagement';
+const USER_MANAGEMENT_KEY: string = BODY_KEY + KEY_SEPARATOR + 'userManagement';
 const DIALOG_KEY: string = USER_MANAGEMENT_KEY + KEY_SEPARATOR + 'dialog';
 const DIALOG_FIELD_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'field';
 export const EMAIL_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'email';

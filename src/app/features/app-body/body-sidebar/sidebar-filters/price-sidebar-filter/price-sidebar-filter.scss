@@ -1,24 +1,35 @@
-.header {
-	font-size: large;
-}
-
-// Manual component indexing could be done with the "order" property of
-// the flex elements, but the focus order is the HTML element order.
-.slider-container {
+:host {
 	display: flex;
-	align-items: center;
-	gap: 10px;
-	width: 100%;
-}
+	flex-direction: column;
+	align-items: stretch;
+	justify-content: stretch;
 
-.min-input {
-	width: 100px;
-}
+	.price-sidebar-filter-title {
+		flex: 0 0 auto;
+		font-size: large;
+	}
 
-.slider {
-	flex: 1;
-}
+	// Manual component indexing could be done with the "order" property of
+	// the flex elements, but the focus order is the HTML element order.
+	.price-sidebar-filter-container {
+		flex: auto;
 
-.max-input {
-	width: 100px;
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: center;
+		gap: 10px;
+
+		.min-input {
+			width: 100px;
+		}
+
+		.slider {
+			flex: auto;
+		}
+
+		.max-input {
+			width: 100px;
+		}
+	}
 }
