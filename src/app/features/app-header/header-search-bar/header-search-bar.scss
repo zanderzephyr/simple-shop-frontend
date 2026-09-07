@@ -1,13 +1,36 @@
-.search-form {
+:host {
 	display: flex;
 	flex-direction: row;
-	align-items: center;
-	justify-content: center;
-	gap: 10px;
-}
+	align-items: stretch;
+	justify-content: stretch;
 
-.search-text {
-	flex: auto;
-	min-width: 30ch;
-	max-width: 60ch;
+	.header-search-container {
+		flex: auto;
+
+		display: flex;
+		flex-direction: row;
+		align-items: stretch;
+		justify-content: center;
+
+		.search-form {
+			flex: auto;
+
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			justify-content: center;
+			gap: 10px;
+
+			.search-text {
+				flex: auto;
+				min-width: 30ch;
+				max-width: 60ch;
+			}
+
+			.search-button {
+				// Especially relevant for buttons in the flex stretch context, as the button gets negatively vertically restricted.
+				height: auto;
+			}
+		}
+	}
 }
