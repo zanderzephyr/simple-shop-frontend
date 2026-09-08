@@ -1,44 +1,44 @@
+@use 'layout-utils' as layout-utils;
+
 :host {
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
-	justify-content: stretch;
+	@include layout-utils.fill-parent-slot;
 
 	.login-form-container {
 		flex: auto;
 
-		display: grid;
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
 
-		grid-template-columns: 100px 100px;
-		grid-template-rows: auto auto auto;
+		.login-form {
+			display: grid;
+			grid-template-columns: 100px 100px;
+			grid-template-rows: auto auto auto;
+			// 1. rows gap, 2. columns gap
+			gap: 10px 10px;
 
-		gap: 10px;
+			.login-username {
+				// [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
+				// [n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
+				grid-column: 1 / span 2;
+				grid-row: 1;
+			}
 
-		// Sum of content widths
-		width: 210px;
+			.login-password {
+				grid-column: 1 / span 2;
+				grid-row: 2;
+			}
 
-		margin: 0 auto;
+			button.login-discard {
+				grid-column: 1;
+				grid-row: 3;
+			}
 
-		.login-username {
-			// [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
-			// [n] / span [m]: We start at the left edge of column n and span to the right edge of column m. Like [n,m]
-			grid-column: 1 / span 2;
-			grid-row: 1;
-		}
-
-		.login-password {
-			grid-column: 1 / span 2;
-			grid-row: 2;
-		}
-
-		button.login-discard {
-			grid-column: 1;
-			grid-row: 3;
-		}
-
-		button.login-login {
-			grid-column: 2;
-			grid-row: 3;
+			button.login-login {
+				grid-column: 2;
+				grid-row: 3;
+			}
 		}
 	}
 }

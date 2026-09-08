@@ -1,8 +1,7 @@
+@use 'layout-utils' as layout-utils;
+
 :host {
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
-	justify-content: stretch;
+	@include layout-utils.fill-parent-slot;
 
 	.inventory-container {
 		flex: auto;

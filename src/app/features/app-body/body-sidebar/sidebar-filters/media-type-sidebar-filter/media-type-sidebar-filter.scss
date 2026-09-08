@@ -1,24 +1,32 @@
-:host {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	justify-content: stretch;
+@use "layout-utils" as layout-utils;
 
-	.media-type-sidebar-filter-title {
-		flex: 0 0 auto;
-		font-size: large;
-	}
+:host {
+	@include layout-utils.fill-parent-slot;
 
 	.media-type-filter-container {
 		flex: auto;
 
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		align-items: stretch;
 		justify-content: stretch;
 
-		.media-type-form-field {
+		.media-type-sidebar-filter-title {
+			flex: 0 0 auto;
+			font-size: large;
+		}
+
+		.media-type-filter {
 			flex: auto;
+
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			justify-content: stretch;
+
+			.media-type-form-field {
+				flex: auto;
+			}
 		}
 	}
 }

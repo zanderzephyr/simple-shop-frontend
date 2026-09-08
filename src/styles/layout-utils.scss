@@ -1,0 +1,14 @@
+@mixin fill-parent-slot {
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: stretch;
+
+	// Fill horizontal space with browser fallbacks
+	width: -webkit-fill-available;
+	width: stretch;
+
+	// Fill vertical space with browser fallbacks
+	height: -webkit-fill-available;
+	height: stretch;
+}

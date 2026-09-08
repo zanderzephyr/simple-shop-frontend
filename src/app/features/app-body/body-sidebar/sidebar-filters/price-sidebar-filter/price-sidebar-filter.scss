@@ -1,35 +1,39 @@
+@use "layout-utils" as layout-utils;
+
 :host {
-	display: flex;
-	flex-direction: column;
-	align-items: stretch;
-	justify-content: stretch;
+	@include layout-utils.fill-parent-slot;
 
-	.price-sidebar-filter-title {
-		flex: 0 0 auto;
-		font-size: large;
-	}
-
-	// Manual component indexing could be done with the "order" property of
-	// the flex elements, but the focus order is the HTML element order.
 	.price-sidebar-filter-container {
 		flex: auto;
 
 		display: flex;
-		flex-direction: row;
+		flex-direction: column;
 		align-items: stretch;
-		justify-content: center;
-		gap: 10px;
+		justify-content: stretch;
 
-		.min-input {
-			width: 100px;
+		.price-sidebar-filter-title {
+			flex: 0 0 auto;
+			font-size: large;
 		}
 
-		.slider {
-			flex: auto;
-		}
+		.price-filter {
+			display: flex;
+			flex-direction: row;
+			align-items: stretch;
+			justify-content: center;
+			gap: 10px;
 
-		.max-input {
-			width: 100px;
+			.min-input {
+				width: 100px;
+			}
+
+			.slider {
+				flex: auto;
+			}
+
+			.max-input {
+				width: 100px;
+			}
 		}
 	}
 }

@@ -1,12 +1,22 @@
-:host {
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
-	justify-content: stretch;
+@use 'layout-utils' as layout-utils;
 
-	.logout-message {
-		font-size: large;
-		font-style: italic;
-		text-align: center;
+:host {
+	@include layout-utils.fill-parent-slot;
+
+	.logout-container {
+		flex: auto;
+
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		justify-content: center;
+
+		.logout-message {
+			flex: auto;
+
+			text-align: center;
+			font-size: large;
+			font-style: italic;
+		}
 	}
 }

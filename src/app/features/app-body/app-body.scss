@@ -1,14 +1,15 @@
+@use "layout-utils" as layout-utils;
+
 :host {
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
-	justify-content: stretch;
+	@include layout-utils.fill-parent-slot;
 
 	.app-body-container {
 		flex: auto;
 
 		display: flex;
 		flex-direction: row;
+		align-items: stretch;
+		justify-content: stretch;
 
 		app-body-sidebar {
 			// All properties are changed in 0.3s by starting and ending slowly and being the fastest in the middle.
@@ -30,8 +31,6 @@
 
 		app-body-content {
 			flex: auto;
-
-			display: block;
 		}
 	}
 }
