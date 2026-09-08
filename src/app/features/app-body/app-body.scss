@@ -14,6 +14,8 @@
 		app-body-sidebar {
 			// All properties are changed in 0.3s by starting and ending slowly and being the fastest in the middle.
 			transition: all 0.3s ease-in-out;
+
+			overflow-y: auto;
 		}
 
 		app-body-sidebar.sidebar-invisible {
@@ -25,12 +27,14 @@
 		}
 
 		app-body-sidebar.sidebar-visible {
-			flex: 0 0 350px;
-			width: 350px;
+			flex: 0 0 370px;
+			width: 370px;
 		}
 
 		app-body-content {
 			flex: auto;
+
+			overflow-y: auto;
 		}
 	}
 }
