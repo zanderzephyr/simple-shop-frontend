@@ -4,11 +4,11 @@
 	align-items: stretch;
 	justify-content: stretch;
 
-	// Fill horizontal space with browser fallbacks
-	width: -webkit-fill-available;
-	width: stretch;
+	width: 100%;
+	max-width: 100%;
 
-	// Fill vertical space with browser fallbacks
-	height: -webkit-fill-available;
-	height: stretch;
+	height: 100%;
+	max-height: 100%;
+
+	box-sizing: border-box;
 }

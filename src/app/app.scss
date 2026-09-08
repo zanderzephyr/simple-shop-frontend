@@ -1,20 +1,29 @@
-@use "layout-utils" as layout-utils;
-
 :host {
-	@include layout-utils.fill-parent-slot;
+	display: flex;
+	flex-direction: row;
+	align-items: stretch;
+	justify-content: center;
+
+	// Initial height setting, which is dynamically split up and handed down later. We have to set it here, as height
+	// would otherwise only be determined by the content's height.
+	// Using dvh and not % as unit to address some special cases.
+	height: 100dvh;
+	// Inherits host of parent (body) which takes vertical scrollbar existence into account. Setting it explicitly to
+	// be more expressive. Width is maximum available space per default for block-level elements (which an element with
+	// flex layout is).
+	width: 100%;
 
 	.app-grid {
 		flex: auto;
 
 		display: grid;
-
 		grid-template-columns: 1fr;
-		grid-template-rows: 80px 10px auto 10px 80px;
+		grid-template-rows: 80px 10px 1fr 10px 80px;
 
+		min-height: 600px;
+		min-width: 1024px;
 		max-width: 1920px;
-		// 100 dvh: 100% of the viewport height, accounting for mobile browser UI.
-		// Makes this page vertically scrollable if content exceeds the viewport height.
-		min-height: 100dvh;
+		overflow: hidden;
 
 		app-header {
 			grid-column: 1;
@@ -24,6 +33,8 @@
 		app-body {
 			grid-column: 1;
 			grid-row: 3;
+
+			overflow-y: auto;
 		}
 
 		app-footer {
