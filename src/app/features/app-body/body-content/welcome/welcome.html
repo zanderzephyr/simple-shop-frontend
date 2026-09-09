@@ -1,7 +1,5 @@
-<div class="welcome-container">
-  @if (isLoggedIn()) {
-    <div class="welcome-message">{{ username() }}{{ welcomeMessageWithSessionText() }}</div>
-  } @else {
-    <div class="welcome-message">{{ welcomeMessageNoSessionText() }}</div>
-  }
-</div>
+@if (isLoggedIn()) {
+  <div class="welcome-message">{{ username() }}{{ welcomeMessageWithSessionText() }}</div>
+} @else {
+  <div class="welcome-message">{{ welcomeMessageNoSessionText() }}</div>
+}

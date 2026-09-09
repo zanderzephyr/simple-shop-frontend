@@ -1,13 +1,24 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 10px auto 10px auto;
+	align-content: start;
 
-	.filters-container {
-		flex: auto;
+	.filters-title {
+		grid-column: 1;
+		grid-row: 1;
 
-		.filters-title {
-			font-size: x-large;
-		}
+		font-size: x-large;
+	}
+
+	app-media-type-sidebar-filter {
+		grid-column: 1;
+		grid-row: 3;
+	}
+
+	app-price-sidebar-filter {
+		grid-column: 1;
+		grid-row: 5;
 	}
 }

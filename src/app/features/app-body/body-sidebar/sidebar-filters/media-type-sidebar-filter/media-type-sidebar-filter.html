@@ -1,18 +1,14 @@
-<div class="media-type-filter-container">
-  <p class="media-type-sidebar-filter-title">{{ filterTitleText() }}</p>
+<div class="media-type-sidebar-filter-title">{{ filterTitleText() }}</div>
 
-  <div class="media-type-filter">
-    <mat-form-field class="media-type-form-field" appearance="outline">
-      <mat-label>{{ chooseMediaTypeLabelText() }}</mat-label>
-      <mat-select
-        [value]="selectedMediaType()"
-        (selectionChange)="updateSelectedMediaType($event.value)"
-      >
-        @for (mediaType of mediaTypes(); track mediaType.id) {
-          <mat-option [value]="mediaType.id">{{ mediaType.name }}</mat-option>
-        }
-        <mat-option [value]="getAllMediaTypesValue()">{{ allTypesLabelText() }}</mat-option>
-      </mat-select>
-    </mat-form-field>
-  </div>
-</div>
+<mat-form-field class="media-type-form-field" appearance="outline" subscriptSizing="dynamic">
+  <mat-label>{{ chooseMediaTypeLabelText() }}</mat-label>
+  <mat-select
+    [value]="selectedMediaType()"
+    (selectionChange)="updateSelectedMediaType($event.value)"
+  >
+    @for (mediaType of mediaTypes(); track mediaType.id) {
+      <mat-option [value]="mediaType.id">{{ mediaType.name }}</mat-option>
+    }
+    <mat-option [value]="getAllMediaTypesValue()">{{ allTypesLabelText() }}</mat-option>
+  </mat-select>
+</mat-form-field>

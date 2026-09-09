@@ -1,32 +1,18 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 10px auto;
 
-	.media-type-filter-container {
-		flex: auto;
+	.media-type-sidebar-filter-title {
+		grid-column: 1;
+		grid-row: 1;
 
-		display: flex;
-		flex-direction: column;
-		align-items: stretch;
-		justify-content: stretch;
+		font-size: large;
+	}
 
-		.media-type-sidebar-filter-title {
-			flex: 0 0 auto;
-			font-size: large;
-		}
-
-		.media-type-filter {
-			flex: auto;
-
-			display: flex;
-			flex-direction: row;
-			align-items: stretch;
-			justify-content: stretch;
-
-			.media-type-form-field {
-				flex: auto;
-			}
-		}
+	.media-type-form-field {
+		grid-column: 1;
+		grid-row: 3;
 	}
 }

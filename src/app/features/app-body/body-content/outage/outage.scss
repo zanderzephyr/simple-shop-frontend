@@ -1,7 +1,7 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
 
 	.outage-container {
 		flex: auto;

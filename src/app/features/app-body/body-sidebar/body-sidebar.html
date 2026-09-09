@@ -1,8 +1,6 @@
-<div class="sidebar-container">
-  <!-- TODO Pass/Use the selector name of the parent and suffix it with "-filters". -->
-  <app-sidebar-filters
-    [style.display]="filtersVisible() ? 'block' : 'none'"
-    (visibilityChange)="filtersVisible.set($event)"
-  >
-  </app-sidebar-filters>
-</div>
+<!-- TODO Pass/Use the selector name of the parent and suffix it with "-filters". -->
+<app-sidebar-filters
+  [hidden]="!filtersVisible()"
+  (visibilityChange)="filtersVisible.set($event)"
+>
+</app-sidebar-filters>

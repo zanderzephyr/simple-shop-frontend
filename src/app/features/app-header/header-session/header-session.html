@@ -1,70 +1,68 @@
-<div class="header-session-container">
-  <button class="header-session-shopping-cart" matFab (click)="onShoppingCartClick()">
-    <mat-icon>shopping_cart</mat-icon>
-  </button>
+<button class="header-session-shopping-cart" matFab (click)="onShoppingCartClick()">
+  <mat-icon>shopping_cart</mat-icon>
+</button>
 
-  <button class="header-session-settings" matFab (click)="onSettingsClick()">
-    <mat-icon>settings</mat-icon>
-  </button>
+<button class="header-session-settings" matFab (click)="onSettingsClick()">
+  <mat-icon>settings</mat-icon>
+</button>
 
-  @if (isLoggedIn()) {
-    <button class="header-session-menu-button" matButton="outlined" [matMenuTriggerFor]="sessionMenu">
-      {{ sessionText() }}
+@if (isLoggedIn()) {
+  <button class="header-session-menu-button" matButton="outlined" [matMenuTriggerFor]="sessionMenu">
+    {{ sessionText() }}
+  </button>
+  <mat-menu #sessionMenu="matMenu">
+    <button
+      class="header-session-menu-user-transactions"
+      mat-menu-item
+      (click)="onUserTransactionsClick()"
+    >
+      <span>{{ transactionsText() }}</span>
     </button>
-    <mat-menu #sessionMenu="matMenu">
-      <button
-        class="header-session-menu-user-transactions"
-        mat-menu-item
-        (click)="onUserTransactionsClick()"
-      >
-        <span>{{ transactionsText() }}</span>
-      </button>
 
-      <button class="header-session-menu-profile" mat-menu-item (click)="onProfileClick()">
-        <span>{{ profileText() }}</span>
-      </button>
+    <button class="header-session-menu-profile" mat-menu-item (click)="onProfileClick()">
+      <span>{{ profileText() }}</span>
+    </button>
 
-      @if (isAdmin()) {
-        <mat-divider></mat-divider>
-        <div class="header-session-menu-management">{{ managementText() }}</div>
-
-        <button
-          class="header-session-menu-global-transactions"
-          mat-menu-item
-          (click)="onGlobalTransactionsClick()"
-        >
-          <span>{{ globalTransactionsText() }}</span>
-        </button>
-
-        <button
-          class="header-session-menu-book-keeping"
-          mat-menu-item
-          (click)="onBookKeepingClick()"
-        >
-          <span>{{ bookKeepingText() }}</span>
-        </button>
-
-        <button class="header-session-menu-inventory" mat-menu-item (click)="onInventoryClick()">
-          <span>{{ inventoryText() }}</span>
-        </button>
-
-        <button
-          class="header-session-menu-user-management"
-          mat-menu-item
-          (click)="onUserManagementClick()"
-        >
-          <span>{{ userManagementText() }}</span>
-        </button>
-      }
-
+    @if (isAdmin()) {
       <mat-divider></mat-divider>
-      <button class="header-session-menu-logout" mat-menu-item (click)="onLogoutClick()">
-        <span>{{ logoutText() }}</span>
+      <div class="header-session-menu-management">{{ managementText() }}</div>
+
+      <button
+        class="header-session-menu-global-transactions"
+        mat-menu-item
+        (click)="onGlobalTransactionsClick()"
+      >
+        <span>{{ globalTransactionsText() }}</span>
       </button>
-    </mat-menu>
-  } @else {
-    <button class="header-session-login" matButton="outlined" (click)="onLoginClick()">
-      {{ loginText() }}
+
+      <button
+        class="header-session-menu-book-keeping"
+        mat-menu-item
+        (click)="onBookKeepingClick()"
+      >
+        <span>{{ bookKeepingText() }}</span>
+      </button>
+
+      <button class="header-session-menu-inventory" mat-menu-item (click)="onInventoryClick()">
+        <span>{{ inventoryText() }}</span>
+      </button>
+
+      <button
+        class="header-session-menu-user-management"
+        mat-menu-item
+        (click)="onUserManagementClick()"
+      >
+        <span>{{ userManagementText() }}</span>
+      </button>
+    }
+
+    <mat-divider></mat-divider>
+    <button class="header-session-menu-logout" mat-menu-item (click)="onLogoutClick()">
+      <span>{{ logoutText() }}</span>
     </button>
-  }
-</div>
+  </mat-menu>
+} @else {
+  <button class="header-session-login" matButton="outlined" (click)="onLoginClick()">
+    {{ loginText() }}
+  </button>
+}

@@ -1,29 +1,37 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 1fr;
 
 	.user-management-container-header {
-		flex: auto;
+		grid-column: 1;
+		grid-row: 1;
 
 		display: flex;
 		flex-direction: row;
 		justify-content: space-between;
+
+		.user-management-container-header-buttons {
+			display: flex;
+			flex-direction: row;
+			gap: 10px;
+
+			.user-management-container-add-button {
+				display: flex;
+				flex-direction: row;
+			}
+
+			.user-management-container-refresh-button {
+				display: flex;
+				flex-direction: row;
+			}
+		}
 	}
 
-	.user-management-container-header-buttons {
-		display: flex;
-		flex-direction: row;
-		gap: 10px;
+	.user-management-container-table {
+		grid-column: 1;
+		grid-row: 2;
 
-		.user-management-container-add-button {
-			display: flex;
-			flex-direction: row;
-		}
-
-		.user-management-container-refresh-button {
-			display: flex;
-			flex-direction: row;
-		}
 	}
 }

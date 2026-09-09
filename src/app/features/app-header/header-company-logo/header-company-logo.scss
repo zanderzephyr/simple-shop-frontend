@@ -1,30 +1,27 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 10px auto;
 
-	.header-company-logo-container {
-		flex: auto;
+	// Changes the mouse cursor to a pointer hand when hovering
+	cursor: pointer;
 
-		display: flex;
-		flex-direction: column;
-		gap: 10px;
+	// Prevents text from highlighting if a user double-clicks the header
+	user-select: none;
 
-		// Changes the mouse cursor to a pointer hand when hovering
-		cursor: pointer;
+	.company-logo-header {
+		grid-column: 1;
+		grid-row: 1;
 
-		// Prevents text from highlighting if a user double-clicks the header
-		user-select: none;
+		font-size: xx-large;
+	}
 
-		.company-logo-header {
-			flex: 0 0 auto;
-			font-size: xx-large;
-		}
+	.company-logo-subheader {
+		grid-column: 1;
+		grid-row: 3;
 
-		.company-logo-subheader {
-			flex: 0 0 auto;
-			font-size: medium;
-			font-style: italic;
-		}
+		font-size: medium;
+		font-style: italic;
 	}
 }

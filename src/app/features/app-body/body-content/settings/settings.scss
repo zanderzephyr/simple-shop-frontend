@@ -1,24 +1,23 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 20px 1fr;
 
-	.settings-container {
-		flex: auto;
+	.settings-title {
+		grid-column: 1;
+		grid-row: 1;
+
+		font-size: x-large;
+	}
+
+	.general-ui-settings-container {
+		grid-column: 1;
+		grid-row: 3;
 
 		display: flex;
 		flex-direction: column;
-		gap: 30px;
-
-		.settings-title {
-			font-size: x-large;
-		}
-
-		.general-ui-settings-container {
-			display: flex;
-			flex-direction: column;
-			align-items: start;
-			gap: 20px;
-		}
+		align-items: start;
+		gap: 20px;
 	}
 }

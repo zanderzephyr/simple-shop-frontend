@@ -1,40 +1,41 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
 
-	.app-body-container {
-		flex: auto;
+	&:has(app-body-sidebar.sidebar-visible) {
+		grid-template-columns: 370px 5px 1fr;
+	}
 
-		display: flex;
-		flex-direction: row;
-		align-items: stretch;
-		justify-content: stretch;
+	&:has(app-body-sidebar.sidebar-invisible) {
+		grid-template-columns: 0 0 1fr;
+	}
 
-		app-body-sidebar {
-			// All properties are changed in 0.3s by starting and ending slowly and being the fastest in the middle.
-			transition: all 0.3s ease-in-out;
+	transition: grid-template-columns 0.3s ease-in-out;
 
-			overflow-y: auto;
-		}
+	app-body-sidebar {
+		grid-column: 1;
+		grid-row: 1;
 
-		app-body-sidebar.sidebar-invisible {
-			flex: 0 0 0;
-			width: 0;
+		overflow-y: auto;
 
-			// Hides content of the sidebar, when it exists but the sidebar has no rendering area.
-			overflow: hidden;
-		}
+		width: 370px;
+		min-width: 0; // makes it shrinkable even with content. default auto would prevent it otherwise.
+	}
 
-		app-body-sidebar.sidebar-visible {
-			flex: 0 0 370px;
-			width: 370px;
-		}
+	app-body-sidebar.sidebar-invisible {
+		visibility: hidden;
+		overflow: hidden;
+	}
 
-		app-body-content {
-			flex: auto;
+	app-body-sidebar.sidebar-visible {
+		visibility: visible;
+	}
 
-			overflow-y: auto;
-		}
+	app-body-content {
+		grid-column: 3;
+		grid-row: 1;
+
+		overflow-y: auto;
 	}
 }

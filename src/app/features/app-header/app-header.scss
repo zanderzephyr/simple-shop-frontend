@@ -1,33 +1,24 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	// Adding 10px as padding around the header, without using the padding property to not mess up the grid size
+	// calculations
+	grid-template-columns: 10px auto 1fr auto 1fr auto 10px;
+	grid-template-rows: 10px auto 10px;
 
-	.app-header-container {
-		flex: auto;
+	.app-header-company-logo {
+		grid-column: 2;
+		grid-row: 2;
+	}
 
-		display: flex;
-		flex-direction: row;
-		align-items: stretch;
-		justify-content: space-between;
-		gap: 10px;
+	.app-header-search-bar {
+		grid-column: 4;
+		grid-row: 2;
+	}
 
-		padding: 10px 10px;
-
-		// Drags the padding into this component, rather than having it applied to the outside
-		// of this component. This prevents components from growing out of their parents.
-		box-sizing: border-box;
-
-		.app-header-company-logo {
-			flex: 0 0 content;
-		}
-
-		.app-header-search-bar {
-			flex: 0 0 content;
-		}
-
-		.app-header-session {
-			flex: 0 0 content;
-		}
+	.app-header-session {
+		grid-column: 6;
+		grid-row: 2;
 	}
 }

@@ -1,16 +1,16 @@
 @use 'layout-utils' as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 1fr;
 
-	.inventory-container {
-		flex: auto;
+	.inventory-container-header {
+		grid-column: 1;
+		grid-row: 1;
 
-		.inventory-container-header {
-			display: flex;
-			flex-direction: row;
-			justify-content: space-between;
-		}
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
 
 		.inventory-container-header-buttons {
 			display: flex;
@@ -27,5 +27,10 @@
 				flex-direction: row;
 			}
 		}
+	}
+
+	.inventory-container-table {
+		grid-column: 1;
+		grid-row: 2;
 	}
 }

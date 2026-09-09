@@ -1,39 +1,30 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-rows: auto 10px auto;
 
-	.price-sidebar-filter-container {
-		flex: auto;
+	.price-sidebar-filter-title {
+		grid-column: 1;
+		grid-row: 1;
+
+		font-size: large;
+	}
+
+	.price-filter {
+		grid-column: 1;
+		grid-row: 3;
 
 		display: flex;
-		flex-direction: column;
-		align-items: stretch;
-		justify-content: stretch;
+		flex-direction: row;
+		gap: 10px;
 
-		.price-sidebar-filter-title {
-			flex: 0 0 auto;
-			font-size: large;
+		.min-input {
+			width: 100px;
 		}
 
-		.price-filter {
-			display: flex;
-			flex-direction: row;
-			align-items: stretch;
-			justify-content: center;
-			gap: 10px;
-
-			.min-input {
-				width: 100px;
-			}
-
-			.slider {
-				flex: auto;
-			}
-
-			.max-input {
-				width: 100px;
-			}
+		.max-input {
+			width: 100px;
 		}
 	}
 }

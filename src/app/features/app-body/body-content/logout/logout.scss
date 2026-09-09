@@ -1,22 +1,14 @@
 @use 'layout-utils' as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	place-items: center;
 
-	.logout-container {
-		flex: auto;
+	.logout-message {
+		grid-column: 1;
+		grid-row: 1;
 
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-
-		.logout-message {
-			flex: auto;
-
-			text-align: center;
-			font-size: large;
-			font-style: italic;
-		}
+		font-size: large;
+		font-style: italic;
 	}
 }

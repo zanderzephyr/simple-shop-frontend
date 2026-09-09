@@ -1,25 +1,26 @@
 :host {
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
-	justify-content: center;
+	// Change from default inline to block, so that height and width are respected.
+	display: block;
 
 	// Initial height setting, which is dynamically split up and handed down later. We have to set it here, as height
 	// would otherwise only be determined by the content's height.
 	// Using dvh and not % as unit to address some special cases.
 	height: 100dvh;
+
 	// Inherits host of parent (body) which takes vertical scrollbar existence into account. Setting it explicitly to
 	// be more expressive. Width is maximum available space per default for block-level elements (which an element with
 	// flex layout is).
 	width: 100%;
 
-	.app-grid {
-		flex: auto;
+	overflow: auto;
 
+	.app-grid {
 		display: grid;
 		grid-template-columns: 1fr;
 		grid-template-rows: 80px 10px 1fr 10px 80px;
 
+		height: 100%;
+		width: 100%;
 		min-height: 600px;
 		min-width: 1024px;
 		max-width: 1920px;
@@ -42,11 +43,12 @@
 	}
 
 	.app-loading-placeholder {
-		flex: auto;
-
 		display: flex;
 		flex-direction: row;
 		justify-content: center;
 		align-items: center;
+
+		height: 100%;
+		width: 100%;
 	}
 }

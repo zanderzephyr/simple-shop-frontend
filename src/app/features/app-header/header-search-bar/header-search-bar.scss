@@ -1,35 +1,26 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
 
-	.header-search-container {
-		flex: auto;
+	.search-form {
+		grid-column: 1;
+		grid-row: 1;
 
 		display: flex;
 		flex-direction: row;
 		align-items: stretch;
 		justify-content: center;
+		gap: 10px;
 
-		.search-form {
+		.search-text {
 			flex: auto;
+			min-width: 30ch;
+			max-width: 60ch;
+		}
 
-			display: flex;
-			flex-direction: row;
-			align-items: stretch;
-			justify-content: center;
-			gap: 10px;
-
-			.search-text {
-				flex: auto;
-				min-width: 30ch;
-				max-width: 60ch;
-			}
-
-			.search-button {
-				// Especially relevant for buttons in the flex stretch context, as the button gets negatively vertically restricted.
-				height: auto;
-			}
+		.search-button {
+			height: auto;
 		}
 	}
 }

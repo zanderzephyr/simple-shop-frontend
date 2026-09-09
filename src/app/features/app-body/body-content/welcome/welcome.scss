@@ -1,20 +1,14 @@
 @use 'layout-utils' as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	place-items: center;
 
-	.welcome-container {
-		flex: auto;
+	.welcome-message {
+		grid-column: 1;
+		grid-row: 1;
 
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-
-		.welcome-message {
-			text-align: center;
-			font-size: large;
-			font-style: italic;
-		}
+		font-size: large;
+		font-style: italic;
 	}
 }

@@ -1,9 +1,10 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
 
 	.body-content-container {
-		flex: auto;
+		grid-column: 1;
+		grid-row: 1;
 	}
 }

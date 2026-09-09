@@ -1,19 +1,24 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-parent-slot;
+	@include layout-utils.fill-grid-slot;
+	grid-template-columns: auto 10px auto 10px auto;
 
-	.header-session-container {
-		flex: auto;
+	.header-session-shopping-cart {
+		grid-column: 1;
+		grid-row: 1;
+		height: 100%;
+	}
 
-		display: flex;
-		flex-direction: row;
-		align-items: stretch;
-		justify-content: start;
-		gap: 10px;
+	.header-session-settings {
+		grid-column: 3;
+		grid-row: 1;
+		height: 100%;
+	}
 
-		> * {
-			height: auto;
-		}
+	.header-session-menu-button, .header-session-login {
+		grid-column: 5;
+		grid-row: 1;
+		height: 100%;
 	}
 }
