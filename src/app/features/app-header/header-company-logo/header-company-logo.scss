@@ -1,8 +1,9 @@
 @use "layout-utils" as layout-utils;
 
 :host {
-	@include layout-utils.fill-grid-slot;
-	grid-template-rows: auto 10px auto;
+	display: flex;
+	flex-direction: column;
+	gap: 10px;
 
 	// Changes the mouse cursor to a pointer hand when hovering
 	cursor: pointer;
@@ -11,15 +12,13 @@
 	user-select: none;
 
 	.company-logo-header {
-		grid-column: 1;
-		grid-row: 1;
+		flex: auto;
 
 		font-size: xx-large;
 	}
 
 	.company-logo-subheader {
-		grid-column: 1;
-		grid-row: 3;
+		flex: auto;
 
 		font-size: medium;
 		font-style: italic;
