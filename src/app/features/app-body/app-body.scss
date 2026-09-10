@@ -17,7 +17,7 @@
 		grid-column: 1;
 		grid-row: 1;
 
-		overflow-y: auto;
+		overflow: auto;
 
 		width: 370px;
 		min-width: 0; // makes it shrinkable even with content. default auto would prevent it otherwise.
@@ -36,6 +36,6 @@
 		grid-column: 3;
 		grid-row: 1;
 
-		overflow-y: auto;
+		overflow: auto;
 	}
 }

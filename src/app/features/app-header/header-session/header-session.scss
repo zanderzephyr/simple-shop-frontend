@@ -2,10 +2,16 @@
 
 :host {
 	display: flex;
-	flex-direction: row;
 	gap: 10px;
 
-	.header-session-shopping-cart, .header-session-settings, .header-session-menu-button, .header-session-login {
+	// When the fab buttons grow, their ratio should be fixed
+	.header-session-shopping-cart, .header-session-settings {
+		aspect-ratio: 1/1;
+		width: auto;
+	}
+
+	// Angular material buttons need a bit more care so that they respect layouts, sadly.
+	> * {
 		height: 100%;
 	}
 }

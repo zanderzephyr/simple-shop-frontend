@@ -9,22 +9,18 @@
 		grid-row: 1;
 
 		display: flex;
-		flex-direction: row;
 		justify-content: space-between;
 
 		.user-management-container-header-buttons {
 			display: flex;
-			flex-direction: row;
 			gap: 10px;
 
 			.user-management-container-add-button {
 				display: flex;
-				flex-direction: row;
 			}
 
 			.user-management-container-refresh-button {
 				display: flex;
-				flex-direction: row;
 			}
 		}
 	}

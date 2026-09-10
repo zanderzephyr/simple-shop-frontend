@@ -1,20 +1,20 @@
 @use "layout-utils" as layout-utils;
 
 .search-form {
-	display: flex;
-	flex-direction: row;
-	align-items: stretch;
-	justify-content: center;
-	gap: 10px;
+	// When in a grid cell, to interpret height:100% it is allowed to break through the barrier of an inline element
+	// parent. The height of the grid cell is the base value for that.
 	height: 100%;
 
-	.search-text {
-		flex: auto;
-		min-width: 30ch;
-		max-width: 60ch;
+	display: flex;
+	gap: 10px;
+
+	// Angular Material buttons need help to grow properly
+	.search-button {
+		height: 100%;
 	}
 
-	.search-button {
-		height: auto;
+	.search-text {
+		min-width: 30ch;
+		max-width: 60ch;
 	}
 }
