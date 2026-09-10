@@ -120,7 +120,8 @@
 					"subtitle": "Was Ihr Regal begehrt!"
 				},
 				"search": {
-					"searchButtonLabel": "Suche"
+					"searchButtonLabel": "Los",
+					"searchTextFieldPlaceholder": "Suche..."
 				},
 				"session": {
 					"menu": {

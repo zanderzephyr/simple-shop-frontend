@@ -8,7 +8,7 @@
   layout changes. We have no hints here.
   -->
   <mat-form-field class="search-text" appearance="outline" subscriptSizing="dynamic">
-    <input matInput type="text" formControlName="searchText" />
+    <input matInput type="text" placeholder="{{searchTextFieldPlaceholderText()}}" formControlName="searchText" />
   </mat-form-field>
 
   <button class="search-button" matButton="outlined" type="submit">{{ searchButtonText() }}

@@ -120,7 +120,8 @@
 					"subtitle": "Whatever your shelf desires!"
 				},
 				"search": {
-					"searchButtonLabel": "Search"
+					"searchButtonLabel": "Go",
+					"searchTextFieldPlaceholder": "Search..."
 				},
 				"session": {
 					"menu": {

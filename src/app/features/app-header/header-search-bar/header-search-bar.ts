@@ -22,6 +22,7 @@ export class HeaderSearchBarComponent {
 	});
 
 	protected readonly searchButtonText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.SEARCH_BUTTON_LABEL_KEY));
+	protected readonly searchTextFieldPlaceholderText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.SEARCH_TEXT_FIELD_PLACEHOLDER_KEY));
 
 	constructor() {
 		// Nothing to do so far
