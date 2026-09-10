@@ -73,15 +73,15 @@ export class HeaderSessionComponent {
 	}
 
 	protected onBookKeepingClick(): void {
-		this.#router.navigate(['/book-keeping']);
+		void this.#router.navigate(['/book-keeping']);
 	}
 
 	protected onGlobalTransactionsClick(): void {
-		this.#router.navigate(['/global-transactions']);
+		void this.#router.navigate(['/global-transactions']);
 	}
 
 	protected onInventoryClick(): void {
-		this.#router.navigate(['/inventory']);
+		void this.#router.navigate(['/inventory']);
 	}
 
 	protected onLoginClick(): void {
@@ -92,32 +92,32 @@ export class HeaderSessionComponent {
 		 *	prevent malicious JS to sniff at the DOM. That content must be outside of the actual
 		 *	app.
 		 */
-		this.#router.navigate(['/login']);
+		void this.#router.navigate(['/login']);
 	}
 
 	protected async onLogoutClick(): Promise<void> {
 		await this.#sessionService.logout();
 
-		this.#router.navigate(['/logout']);
+		void this.#router.navigate(['/logout']);
 	}
 
 	protected onProfileClick(): void {
-		this.#router.navigate(['/profile']);
+		void this.#router.navigate(['/profile']);
 	}
 
 	protected onSettingsClick(): void {
-		this.#router.navigate(['/settings']);
+		void this.#router.navigate(['/settings']);
 	}
 
 	protected onShoppingCartClick(): void {
-		this.#router.navigate(['/shopping-cart']);
+		void this.#router.navigate(['/shopping-cart']);
 	}
 
 	protected onUserManagementClick(): void {
-		this.#router.navigate(['/user-management']);
+		void this.#router.navigate(['/user-management']);
 	}
 
 	protected onUserTransactionsClick(): void {
-		this.#router.navigate(['/user-transactions']);
+		void this.#router.navigate(['/user-transactions']);
 	}
 }

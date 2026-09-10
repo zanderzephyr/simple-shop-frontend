@@ -10,7 +10,7 @@ import { HeaderSessionComponent } from './header-session/header-session';
 	styleUrl: './app-header.scss'
 })
 export class AppHeaderComponent {
-	constructor() {
+	public constructor() {
 		// Nothing to do so far
 	}
 }

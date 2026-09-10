@@ -15,12 +15,12 @@ export class GlobalErrorHandler implements ErrorHandler {
 	public handleError(error: unknown): void {
 		// Critical System Outages / Availability Issues
 		if (error instanceof AvailabilityError) {
-			this.#router.navigateByUrl('/outage');
+			void this.#router.navigateByUrl('/outage');
 		}
 		// Session expired?
 		else if (error instanceof UnauthorizedError) {
-			this.#sessionService.logout();
-			this.#router.navigateByUrl('/login');
+			void this.#sessionService.logout();
+			void this.#router.navigateByUrl('/login');
 		}
 		// Anything unexpected
 		else {

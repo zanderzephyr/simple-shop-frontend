@@ -1,9 +1,13 @@
 @use "layout-utils" as layout-utils;
 
-:host {
+.logo-link {
 	display: flex;
 	flex-direction: column;
 	gap: 10px;
+
+	// Prevents hyperlink markup
+	text-decoration: none;
+	color: inherit;
 
 	// Changes the mouse cursor to a pointer hand when hovering
 	cursor: pointer;

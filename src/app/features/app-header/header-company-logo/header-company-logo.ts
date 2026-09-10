@@ -1,10 +1,11 @@
 import { Component, computed, inject, Signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { LocalizationService } from '@core/localization/localization-service';
 import * as LocalizationKeys from './header-company-logo-utils';
 
 @Component({
 	selector: 'app-header-company-logo',
-	imports: [],
+	imports: [RouterLink],
 	templateUrl: './header-company-logo.html',
 	styleUrl: './header-company-logo.scss'
 })
@@ -15,7 +16,7 @@ export class HeaderCompanyLogoComponent {
 		this.#localizationService.getValue(LocalizationKeys.SUBHEADER_KEY)
 	);
 
-	constructor() {
+	public constructor() {
 		// Nothing to do so far
 	}
 }
