@@ -3,6 +3,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MediaType } from '@api/item/model/media-type';
 import { LocalizationService } from '@core/localization/localization-service';
+import { LocalizedObject } from '@core/utils/localization-utils';
 import * as Keys from './media-type-sidebar-filter-utils';
 
 @Component({
@@ -19,9 +20,17 @@ export class MediaTypeSidebarFilterComponent {
 
 	readonly #allMediaTypeValue: string = 'All';
 
-	protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(
-		Object.freeze(Object.values(MediaType))
-	).asReadonly();
+	protected readonly localizedMediaTypes: Signal<readonly LocalizedObject<MediaType>[]> = computed(
+		() => {
+			const mediaTypes: MediaType[] = Object.values(MediaType);
+			const options: LocalizedObject<MediaType>[] = mediaTypes.map((t) => {
+				const mediaTypeKey: string = Keys.MEDIA_TYPE_ENUM_KEY + t.id.toLowerCase();
+				const label: string = this.#localizationService.getValue(mediaTypeKey);
+				return { object: t, localizedLabel: label };
+			});
+			return Object.freeze(options);
+		}
+	);
 
 	protected readonly selectedMediaType: WritableSignal<string> = signal<string>(
 		this.#allMediaTypeValue

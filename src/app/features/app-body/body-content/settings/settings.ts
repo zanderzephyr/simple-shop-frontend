@@ -20,8 +20,8 @@ export class SettingsComponent {
 	protected readonly localizedLocalizations: Signal<
 		readonly LocalizedObject<Localization>[]
 	> = computed(() => {
-		const localizationList: Localization[] = Object.values(Localization);
-		const options: LocalizedObject<Localization>[] = localizationList.map((t) => {
+		const localizations: Localization[] = Object.values(Localization);
+		const options: LocalizedObject<Localization>[] = localizations.map((t) => {
 			const localizationKey: string = LocalizationKeys.LOCALIZATION_ENUM_KEY + t.id.toLowerCase();
 			const label: string = this.localizationService.getValue(localizationKey);
 			return { object: t, localizedLabel: label };
@@ -35,8 +35,8 @@ export class SettingsComponent {
 	protected themeService: ThemeService = inject(ThemeService);
 	protected readonly localizedThemes: Signal<readonly LocalizedObject<Theme>[]> = computed(
 		() => {
-			const themesList: Theme[] = Object.values(Theme);
-			const options: LocalizedObject<Theme>[] = themesList.map((t) => {
+			const themes: Theme[] = Object.values(Theme);
+			const options: LocalizedObject<Theme>[] = themes.map((t) => {
 				const themeKey: string = LocalizationKeys.THEME_ENUM_KEY + t.id.toLowerCase();
 				const label: string = this.localizationService.getValue(themeKey);
 				return { object: t, localizedLabel: label };

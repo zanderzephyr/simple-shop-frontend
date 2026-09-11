@@ -6,8 +6,8 @@
     [value]="selectedMediaType()"
     (selectionChange)="updateSelectedMediaType($event.value)"
   >
-    @for (mediaType of mediaTypes(); track mediaType.id) {
-      <mat-option [value]="mediaType.id">{{ mediaType.id }}</mat-option>
+    @for (mediaType of localizedMediaTypes(); track mediaType.object.id) {
+      <mat-option [value]="mediaType.object.id">{{ mediaType.localizedLabel }}</mat-option>
     }
     <mat-option [value]="getAllMediaTypesValue()">{{ allTypesLabelText() }}</mat-option>
   </mat-select>
