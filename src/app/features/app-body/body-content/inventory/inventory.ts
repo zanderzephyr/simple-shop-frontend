@@ -13,14 +13,13 @@ import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
 import { DialogService, openWarningDialog } from '@ui/dialog/interface/dialog-service';
 import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
-import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { DefaultTable } from '@ui/table/default/default-table';
 import { DefaultTableColumnModel } from '@ui/table/default/default-table-column-model';
 import { DefaultTableModel } from '@ui/table/default/default-table-model';
 import { Table } from '@ui/table/interface/table';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { NgMatTableComponent } from '@ui/table/ng-mat-table/ng-mat-table';
-import { ACTIONS, COVER, extractItemValue, inventoryColumnDescriptions } from './inventory-column-descriptions';
+import { ACTIONS, extractItemValue, inventoryColumnDescriptions } from './inventory-column-descriptions';
 import { InventoryTableAction } from './inventory-table-action';
 import * as Keys from './inventory-utils';
 import { ItemEditorDialogData } from './item-editor-dialog/item-editor-dialog-data';
@@ -77,8 +76,6 @@ export class InventoryComponent {
 		for (const columnDescription of inventoryColumnDescriptions) {
 			if (columnDescription === ACTIONS) {
 				row.push(this.#createActionCallbackMap(item));
-			} else if (columnDescription === COVER) {
-				row.push(new ImageRendererConfiguration(item.getImageUrl()));
 			} else {
 				row.push(extractItemValue(item, columnDescription));
 			}

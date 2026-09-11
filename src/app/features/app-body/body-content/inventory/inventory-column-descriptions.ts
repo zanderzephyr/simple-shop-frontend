@@ -36,6 +36,7 @@ export const MEDIA_TYPE: TableColumnDescription<string> =
 		.setTypeSchema(z.string()) //
 		.setRendererType(StringRendererComponent) //
 		.setEditorType(StringEditorComponent) //
+		.setValuesNeedLocalization(true) //
 		.build();
 
 export const STOCK: TableColumnDescription<number> = new TableColumnDescriptionBuilder<number>() //
@@ -102,8 +103,8 @@ function createColumnDescriptionToItemValueExtractorMap(): Map<
 		Function<Item, unknown>
 	>();
 
-	map.set(COVER, (item) => item.getImageUrl());
-	map.set(MEDIA_TYPE, (item) => item.getMediaType().name);
+	map.set(COVER, (item) => new ImageRendererConfiguration(item.getImageUrl()));
+	map.set(MEDIA_TYPE, (item) => Keys.MEDIA_TYPE_ENUM_KEY + item.getMediaType().id.toLowerCase());
 	map.set(PRICE, (item) => item.getPrice());
 	map.set(STOCK, (item) => item.getStock());
 	map.set(TITLE, (item) => item.getTitle());

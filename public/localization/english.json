@@ -165,9 +165,18 @@
 					"english": "English",
 					"german": "German"
 				},
+				"mediaType": {
+					"book": "Book",
+					"game": "Game",
+					"Movie": "Movie"
+				},
 				"theme": {
 					"light": "Light Mode",
 					"dark": "Dark Mode"
+				},
+				"userType": {
+					"admin": "Admin",
+					"customer": "Customer"
 				}
 			},
 			"paginator": {

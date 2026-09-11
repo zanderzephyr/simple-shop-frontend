@@ -165,9 +165,18 @@
 					"english": "Englisch",
 					"german": "Deutsch"
 				},
+				"mediaType": {
+					"book": "Buch",
+					"game": "Spiel",
+					"Movie": "Film"
+				},
 				"theme": {
 					"light": "Heller Modus",
 					"dark": "Dunkler Modus"
+				},
+				"userType": {
+					"admin": "Admin",
+					"customer": "Kunde"
 				}
 			},
 			"paginator": {

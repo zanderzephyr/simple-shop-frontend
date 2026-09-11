@@ -2,7 +2,7 @@ import { Type } from '@angular/core';
 import { IllegalStateError } from '@core/utils/common-errors';
 import { Editor } from '@ui//editor/editor';
 import { Renderer } from '@ui/renderer/renderer';
-import { z, ZodType } from 'zod';
+import { ZodString, ZodType } from 'zod';
 
 const secretKey: symbol = Symbol('secretKey');
 
@@ -19,6 +19,7 @@ interface TableColumnDescriptionData<TYPE> {
 	rendererType: Type<Renderer<TYPE>>;
 	editorType?: Type<Editor<TYPE>>;
 	width?: string;
+	valuesNeedLocalization: boolean;
 }
 
 export class TableColumnDescription<TYPE> {
@@ -34,6 +35,8 @@ export class TableColumnDescription<TYPE> {
 
 	readonly #width?: string;
 
+	readonly #valuesNeedLocalization: boolean;
+
 	public constructor(data: TableColumnDescriptionData<TYPE>) {
 		this.#modelIndex = data.modelIndex;
 		this.#title = data.title;
@@ -41,6 +44,7 @@ export class TableColumnDescription<TYPE> {
 		this.#rendererType = data.rendererType;
 		this.#editorType = data.editorType;
 		this.#width = data.width;
+		this.#valuesNeedLocalization = data.valuesNeedLocalization;
 	}
 
 	public getModelIndex(): number {
@@ -51,7 +55,7 @@ export class TableColumnDescription<TYPE> {
 		return this.#title;
 	}
 
-	public getTypeSchema(): z.ZodType<TYPE> {
+	public getTypeSchema(): ZodType<TYPE> {
 		return this.#typeSchema;
 	}
 
@@ -65,6 +69,10 @@ export class TableColumnDescription<TYPE> {
 
 	public getWidth(): string | undefined {
 		return this.#width;
+	}
+
+	public getValuesNeedLocalization(): boolean {
+		return this.#valuesNeedLocalization;
 	}
 }
 
@@ -80,6 +88,8 @@ export class TableColumnDescriptionBuilder<TYPE> {
 	#editorType?: Type<Editor<TYPE>>;
 
 	#width?: string;
+
+	#valuesNeedLocalization: boolean = false;
 
 	public constructor() {
 		// Nothing to do so far
@@ -139,6 +149,16 @@ export class TableColumnDescriptionBuilder<TYPE> {
 		return this;
 	}
 
+	public getValuesNeedLocalization(): boolean {
+		return this.#valuesNeedLocalization;
+	}
+
+	public setValuesNeedLocalization(valuesNeedLocalization: boolean): this {
+		this.#valuesNeedLocalization = valuesNeedLocalization;
+
+		return this;
+	}
+
 	#createTableColumnDescriptionData(): TableColumnDescriptionData<TYPE> {
 		this.#validate();
 
@@ -150,7 +170,8 @@ export class TableColumnDescriptionBuilder<TYPE> {
 			typeSchema: this.#typeSchema!,
 			rendererType: this.#rendererType!,
 			editorType: this.#editorType,
-			width: this.#width
+			width: this.#width,
+			valuesNeedLocalization: this.#valuesNeedLocalization
 		};
 	}
 
@@ -173,6 +194,10 @@ export class TableColumnDescriptionBuilder<TYPE> {
 
 		if (this.#width !== undefined && this.#width.trim().length === 0) {
 			throw new IllegalStateError('No width!');
+		}
+
+		if (this.#valuesNeedLocalization && !(this.#typeSchema instanceof ZodString)) {
+			throw new IllegalStateError('Only string columns can be localized!');
 		}
 	}
 

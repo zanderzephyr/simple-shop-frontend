@@ -1,4 +1,4 @@
-import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { ENUM_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
 import { BODY_KEY } from '@features/app-body/app-body-utils';
 
 const USER_MANAGEMENT_KEY: string = BODY_KEY + KEY_SEPARATOR + 'userManagement';
@@ -17,3 +17,5 @@ export const FIRST_NAME_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY 
 export const LAST_NAME_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY + KEY_SEPARATOR + 'lastName';
 export const USERNAME_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY + KEY_SEPARATOR + 'username';
 export const USER_TYPE_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY + KEY_SEPARATOR + 'userType';
+
+export const USER_TYPE_ENUM_KEY: string = ENUM_KEY + KEY_SEPARATOR + 'userType' + KEY_SEPARATOR;

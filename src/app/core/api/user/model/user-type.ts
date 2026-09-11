@@ -1,6 +1,6 @@
 export const UserType = {
-	ADMIN: { id: 'ADMIN', name: 'Admin' },
-	CUSTOMER: { id: 'CUSTOMER', name: 'Customer' }
+	ADMIN: { id: 'ADMIN' },
+	CUSTOMER: { id: 'CUSTOMER' }
 } as const;
 type ValueOf<T> = T[keyof T];
 export type UserType = ValueOf<typeof UserType>;

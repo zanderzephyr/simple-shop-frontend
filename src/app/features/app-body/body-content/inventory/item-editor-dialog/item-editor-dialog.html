@@ -14,7 +14,7 @@
     <mat-label>{{ mediaTypeText() }}</mat-label>
     <mat-select formControlName="mediaType" [compareWith]="compareMediaTypes">
       @for (mediaType of mediaTypes(); track mediaType.id) {
-        <mat-option [value]="mediaType">{{ mediaType.name }}</mat-option>
+        <mat-option [value]="mediaType">{{ mediaType.id }}</mat-option>
       }
     </mat-select>
     <mat-error>{{ mediaTypeErrorText() }}</mat-error>

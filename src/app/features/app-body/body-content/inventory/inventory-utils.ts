@@ -1,4 +1,4 @@
-import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { ENUM_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
 import { BODY_KEY } from '@features/app-body/app-body-utils';
 
 const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
@@ -18,3 +18,5 @@ export const MEDIA_TYPE_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY 
 export const PRICE_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY + KEY_SEPARATOR + 'price';
 export const STOCK_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY + KEY_SEPARATOR + 'stock';
 export const TITLE_TABLE_HEADER_TITLE_KEY: string = TABLE_HEADER_TITLE_KEY + KEY_SEPARATOR + 'title';
+
+export const MEDIA_TYPE_ENUM_KEY: string = ENUM_KEY + KEY_SEPARATOR + 'mediaType' + KEY_SEPARATOR;

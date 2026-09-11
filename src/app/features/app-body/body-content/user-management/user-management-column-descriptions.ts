@@ -30,6 +30,7 @@ export const USER_TYPE: TableColumnDescription<string> = new TableColumnDescript
 	.setTypeSchema(z.string()) //
 	.setRendererType(StringRendererComponent) //
 	.setEditorType(StringEditorComponent) //
+	.setValuesNeedLocalization(true) //
 	.build();
 
 export const FIRST_NAME: TableColumnDescription<string> =
@@ -88,7 +89,7 @@ function createColumnDescriptionToUserValueExtractorMap(): Map<
 	>();
 
 	map.set(USERNAME, (user) => user.getUsername());
-	map.set(USER_TYPE, (user) => user.getUserType().name);
+	map.set(USER_TYPE, (user) => Keys.USER_TYPE_ENUM_KEY + user.getUserType().id.toLowerCase());
 	map.set(FIRST_NAME, (user) => user.getFirstName());
 	map.set(LAST_NAME, (user) => user.getLastName());
 

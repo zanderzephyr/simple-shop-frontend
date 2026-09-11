@@ -38,7 +38,7 @@
     <mat-label>{{ userTypeText() }}</mat-label>
     <mat-select formControlName="userType" [compareWith]="compareUserTypes">
       @for (userType of userTypes(); track userType.id) {
-        <mat-option [value]="userType">{{ userType.name }}</mat-option>
+        <mat-option [value]="userType">{{ userType.id }}</mat-option>
       }
     </mat-select>
     <mat-error>{{ userTypeErrorText() }}</mat-error>

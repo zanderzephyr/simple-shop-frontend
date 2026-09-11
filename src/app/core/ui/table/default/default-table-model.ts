@@ -1,35 +1,38 @@
-import { computed, Signal, signal, WritableSignal } from '@angular/core';
+import { computed, Directive, inject, Signal, signal, WritableSignal } from '@angular/core';
+import { LocalizationService } from '@core/localization/localization-service';
+import { WritableComputedSignal } from '@core/utils/angular/writable-computed-signal';
 import { IllegalArgumentError, IndexOutOfBoundsError } from '@core/utils/common-errors';
 import { TableColumnDescription } from '@ui/table/interface/table-column-description';
 import { TableModel } from '@ui/table/interface/table-model';
 import { ZodSafeParseResult, ZodType } from 'zod';
 
+@Directive({})
 export class DefaultTableModel implements TableModel {
-	readonly #tableData: WritableSignal<WritableSignal<unknown>[][]> = signal([]);
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+
+	readonly #tableData: WritableSignal<WritableComputedSignal<unknown, unknown>[][]> = signal([]);
 
 	readonly #columnCount: Signal<number> = computed(() => this.#tableData().length);
 
 	readonly #rowCount: Signal<number> = computed(() => {
-		const tableData: WritableSignal<unknown>[][] = this.#tableData();
+		const tableData: WritableComputedSignal<unknown, unknown>[][] = this.#tableData();
 		if (this.#columnCount() > 0 && tableData[0] !== undefined) {
 			return tableData[0].length;
 		}
 		return 0;
 	});
 
-	readonly #columnTypeSchemas: ZodType<unknown>[] = [];
+	readonly #columnDescriptions: readonly TableColumnDescription<unknown>[];
 
 	public constructor(columnDescriptions: readonly TableColumnDescription<unknown>[]) {
+		this.#columnDescriptions = [...columnDescriptions];
+
 		this.#initColumns(columnDescriptions);
 	}
 
 	#initColumns(columnDescriptions: readonly TableColumnDescription<unknown>[]): void {
-		const columns: WritableSignal<unknown>[][] = [];
-		for (const columnDescription of columnDescriptions) {
-			this.#columnTypeSchemas.push(columnDescription.getTypeSchema());
+		const columns: WritableComputedSignal<unknown, unknown>[][] = new Array(columnDescriptions.length).fill([]);
 
-			columns.push([]);
-		}
 		this.#tableData.set(columns);
 	}
 
@@ -46,9 +49,18 @@ export class DefaultTableModel implements TableModel {
 		this.#validateRow(row);
 
 		this.#tableData.update((tableData) => {
-			const newTableData: WritableSignal<unknown>[][] = [];
+			const newTableData: WritableComputedSignal<unknown, unknown>[][] = [];
 			for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
-				newTableData.push([...tableData[columnIndex], signal(row[columnIndex])]);
+				const rowValue: unknown = row[columnIndex];
+
+				let cellValueSignal: WritableComputedSignal<unknown, unknown>;
+				if (this.#columnDescriptions[columnIndex].getValuesNeedLocalization()) {
+					cellValueSignal = new WritableComputedSignal(rowValue as string, s => this.#localizationService.getValue(s));
+				} else {
+					cellValueSignal = new WritableComputedSignal(rowValue, v => v);
+				}
+
+				newTableData.push([...tableData[columnIndex], cellValueSignal]);
 			}
 			return newTableData;
 		});
@@ -60,9 +72,9 @@ export class DefaultTableModel implements TableModel {
 		this.#validateRowIndex(rowModelIndex);
 
 		this.#tableData.update((tableData) => {
-			const newTableData: WritableSignal<unknown>[][] = [];
+			const newTableData: WritableComputedSignal<unknown, unknown>[][] = [];
 			for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
-				const column: WritableSignal<unknown>[] = [...tableData[columnIndex]];
+				const column: WritableComputedSignal<unknown, unknown>[] = [...tableData[columnIndex]];
 				column.splice(rowModelIndex, 1);
 				newTableData.push(column);
 			}
@@ -79,7 +91,7 @@ export class DefaultTableModel implements TableModel {
 	): Signal<T> {
 		this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
-		const rawValue: Signal<unknown> = this.#tableData()[columnModelIndex][rowModelIndex];
+		const rawValue: Signal<unknown> = this.#tableData()[columnModelIndex][rowModelIndex].getValue();
 		const parsingResult: ZodSafeParseResult<T> = this.#parseValue(rawValue(), columnTypeSchema);
 		this.#validateParsingResult(parsingResult);
 		return rawValue as unknown as Signal<T>;
@@ -88,11 +100,11 @@ export class DefaultTableModel implements TableModel {
 	public setValueAt(value: unknown, columnModelIndex: number, rowModelIndex: number): this {
 		this.#validateCoordinates(columnModelIndex, rowModelIndex);
 
-		const columnTypeSchema: ZodType<unknown> = this.#columnTypeSchemas[columnModelIndex];
+		const columnTypeSchema: ZodType<unknown> = this.#columnDescriptions[columnModelIndex].getTypeSchema();
 		const parsingResult: ZodSafeParseResult<unknown> = this.#parseValue(value, columnTypeSchema);
 		this.#validateParsingResult(parsingResult);
 
-		this.#tableData()[columnModelIndex][rowModelIndex].set(value);
+		this.#tableData()[columnModelIndex][rowModelIndex].setValue(value);
 
 		return this;
 	}
@@ -106,7 +118,7 @@ export class DefaultTableModel implements TableModel {
 
 	removeAllRows(): void {
 		this.#tableData.update((tableData) => {
-			const newTableData: WritableSignal<unknown>[][] = [];
+			const newTableData: WritableComputedSignal<unknown, unknown>[][] = [];
 			for (let columnIndex: number = 0; columnIndex < tableData.length; columnIndex++) {
 				newTableData.push([]);
 			}
@@ -131,7 +143,7 @@ export class DefaultTableModel implements TableModel {
 		for (let i: number = 0; i < row.length; i++) {
 			const parsingResult: ZodSafeParseResult<unknown> = this.#parseValue(
 				row[i],
-				this.#columnTypeSchemas[i]
+				this.#columnDescriptions[i].getTypeSchema()
 			);
 			this.#validateParsingResult(parsingResult);
 		}
