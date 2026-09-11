@@ -168,7 +168,7 @@
 				"mediaType": {
 					"book": "Buch",
 					"game": "Spiel",
-					"Movie": "Film"
+					"movie": "Film"
 				},
 				"theme": {
 					"light": "Heller Modus",

@@ -14,6 +14,7 @@ import { User, UserBuilder } from '@api/user/model/user';
 import { compareUserTypes, UserType } from '@api/user/model/user-type';
 import { LocalizationService } from '@core/localization/localization-service';
 import { generateSha256Hash } from '@core/utils/crypto-utils';
+import { LocalizedObject } from '@core/utils/localization-utils';
 import { isBlank } from '@core/utils/string-utils';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { first } from 'rxjs';
@@ -59,9 +60,17 @@ export class UserEditorDialogComponent extends GeneralDialogContentComponent<
 	protected readonly userTypeText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USER_TYPE_KEY));
 	protected readonly userTypeErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.USER_TYPE_ERROR_KEY));
 
-	protected readonly userTypes: Signal<readonly UserType[]> = signal(
-		Object.freeze(Object.values(UserType))
-	).asReadonly();
+	protected readonly localizedUserTypes: Signal<
+		readonly LocalizedObject<UserType>[]
+	> = computed(() => {
+		const userTypes: UserType[] = Object.values(UserType);
+		const options: LocalizedObject<UserType>[] = userTypes.map((t) => {
+			const localizationKey: string = Keys.USER_TYPE_ENUM_KEY + t.id.toLowerCase();
+			const label: string = this.#localizationService.getValue(localizationKey);
+			return { object: t, localizedLabel: label };
+		});
+		return Object.freeze(options);
+	});
 
 	readonly #formBuilder: FormBuilder = inject(FormBuilder);
 

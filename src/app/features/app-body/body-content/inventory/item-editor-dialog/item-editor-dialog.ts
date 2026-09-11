@@ -7,6 +7,7 @@ import { Item, ItemBuilder } from '@api/item/model/item';
 import { compareMediaTypes, MediaType } from '@api/item/model/media-type';
 import { LocalizationService } from '@core/localization/localization-service';
 import { JAVA_MAX_INT_VALUE } from '@core/utils/data-type-utils';
+import { LocalizedObject } from '@core/utils/localization-utils';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { ItemEditorDialogData } from './item-editor-dialog-data';
 import * as Keys from './item-editor-dialog-utils';
@@ -41,9 +42,17 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 	protected readonly titleText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_KEY));
 	protected readonly titleErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.TITLE_ERROR_KEY));
 
-	protected readonly mediaTypes: Signal<readonly MediaType[]> = signal(
-		Object.freeze(Object.values(MediaType))
-	).asReadonly();
+	protected readonly localizedMediaTypes: Signal<
+		readonly LocalizedObject<MediaType>[]
+	> = computed(() => {
+		const mediaTypes: MediaType[] = Object.values(MediaType);
+		const options: LocalizedObject<MediaType>[] = mediaTypes.map((t) => {
+			const localizationKey: string = Keys.MEDIA_TYPE_ENUM_KEY + t.id.toLowerCase();
+			const label: string = this.#localizationService.getValue(localizationKey);
+			return { object: t, localizedLabel: label };
+		});
+		return Object.freeze(options);
+	});
 
 	readonly #formBuilder: FormBuilder = inject(FormBuilder);
 

@@ -37,8 +37,8 @@
   <mat-form-field class="user-form-user-type" appearance="outline">
     <mat-label>{{ userTypeText() }}</mat-label>
     <mat-select formControlName="userType" [compareWith]="compareUserTypes">
-      @for (userType of userTypes(); track userType.id) {
-        <mat-option [value]="userType">{{ userType.id }}</mat-option>
+      @for (userType of localizedUserTypes(); track userType.object.id) {
+        <mat-option [value]="userType.object">{{ userType.localizedLabel }}</mat-option>
       }
     </mat-select>
     <mat-error>{{ userTypeErrorText() }}</mat-error>

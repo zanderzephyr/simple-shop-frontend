@@ -1,4 +1,4 @@
-import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { ENUM_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
 import { BODY_KEY } from '@features/app-body/app-body-utils';
 
 const USER_MANAGEMENT_KEY: string = BODY_KEY + KEY_SEPARATOR + 'userManagement';
@@ -20,3 +20,5 @@ export const USERNAME_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'username
 export const USERNAME_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'usernameError';
 export const USER_TYPE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'userType';
 export const USER_TYPE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'userTypeError';
+
+export const USER_TYPE_ENUM_KEY: string = ENUM_KEY + KEY_SEPARATOR + 'userType' + KEY_SEPARATOR;

@@ -1,4 +1,4 @@
-import { KEY_SEPARATOR } from '@core/utils/localization-utils';
+import { ENUM_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
 import { BODY_KEY } from '@features/app-body/app-body-utils';
 
 const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
@@ -15,3 +15,5 @@ export const STOCK_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'stock';
 export const STOCK_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'stockError';
 export const TITLE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'title';
 export const TITLE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'titleError';
+
+export const MEDIA_TYPE_ENUM_KEY: string = ENUM_KEY + KEY_SEPARATOR + 'mediaType' + KEY_SEPARATOR;

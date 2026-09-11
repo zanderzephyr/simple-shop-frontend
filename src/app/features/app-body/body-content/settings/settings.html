@@ -7,8 +7,8 @@
       [value]="localizationService.getLocalization()().id"
       (selectionChange)="updateSelectedLocalization($event.value)"
     >
-      @for (option of localizedLocalizationOptions(); track option.object.id) {
-        <mat-option [value]="option.object.id">{{ option.localizedLabel }}</mat-option>
+      @for (option of localizedLocalizations(); track option.object.id) {
+        <mat-option [value]="option.object">{{ option.localizedLabel }}</mat-option>
       }
     </mat-select>
   </mat-form-field>
@@ -19,8 +19,8 @@
       [value]="themeService.getTheme()().id"
       (selectionChange)="updateSelectedTheme($event.value)"
     >
-      @for (option of localizedThemeOptions(); track option.object.id) {
-        <mat-option [value]="option.object.id">{{ option.localizedLabel }}</mat-option>
+      @for (option of localizedThemes(); track option.object.id) {
+        <mat-option [value]="option.object">{{ option.localizedLabel }}</mat-option>
       }
     </mat-select>
   </mat-form-field>

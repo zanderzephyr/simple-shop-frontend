@@ -168,7 +168,7 @@
 				"mediaType": {
 					"book": "Book",
 					"game": "Game",
-					"Movie": "Movie"
+					"movie": "Movie"
 				},
 				"theme": {
 					"light": "Light Mode",
