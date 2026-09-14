@@ -108,10 +108,6 @@
 						"titleCreate": "Create User",
 						"titleModify": "Modify User"
 					}
-				},
-				"welcome": {
-					"welcomeMessageNoSession": "Welcome to Shelf Indulgence!",
-					"welcomeMessageWithSession": ", welcome to Shelf Indulgence!"
 				}
 			},
 			"footer": {},
@@ -127,6 +123,7 @@
 					"menu": {
 						"bookKeeping": "Book Keeping",
 						"globalTransactions": "Global Transactions",
+						"hello": "Hello",
 						"inventory": "Inventory",
 						"login": "Login",
 						"logout": "Logout",

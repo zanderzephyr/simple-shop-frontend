@@ -11,6 +11,9 @@
     {{ sessionText() }}
   </button>
   <mat-menu #sessionMenu="matMenu">
+    <div class="header-session-menu-welcome">{{ helloText() }} {{ username() }}!</div>
+    <mat-divider></mat-divider>
+
     <button
       class="header-session-menu-user-transactions"
       mat-menu-item

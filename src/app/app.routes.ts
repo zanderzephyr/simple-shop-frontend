@@ -35,10 +35,11 @@ const isLoggedInGuard: CanActivateFn = () => {
 export const routes: Routes = [
 	{
 		path: '',
-		redirectTo: 'welcome',
-		pathMatch: 'full'
+		loadComponent: () =>
+			import('@features/app-body/body-content/landing/landing').then(
+				(m) => m.LandingComponent
+			)
 	},
-
 	{
 		path: 'login',
 		loadComponent: () =>
@@ -69,11 +70,6 @@ export const routes: Routes = [
 			import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
 				(m) => m.ShoppingCartComponent
 			)
-	},
-	{
-		path: 'welcome',
-		loadComponent: () =>
-			import('@features/app-body/body-content/welcome/welcome').then((m) => m.WelcomeComponent)
 	},
 
 	{

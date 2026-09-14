@@ -31,41 +31,37 @@ export class HeaderSessionComponent {
 	protected readonly bookKeepingText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.BOOK_KEEPING_KEY)
 	);
-
 	protected readonly globalTransactionsText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.GLOBAL_TRANSACTIONS_KEY)
 	);
-
+	protected readonly helloText: Signal<string> = computed(() => this.#localizationService.getValue(LocalizationKeys.HELLO_KEY));
 	protected readonly inventoryText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.INVENTORY_KEY)
 	);
-
 	protected readonly loginText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.LOGIN_KEY)
 	);
-
 	protected readonly logoutText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.LOGOUT_KEY)
 	);
-
 	protected readonly managementText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.MANAGEMENT_KEY)
 	);
-
 	protected readonly profileText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.PROFILE_KEY)
 	);
-
 	protected readonly sessionText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.SESSION_KEY)
 	);
-
 	protected readonly transactionsText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.TRANSACTIONS_KEY)
 	);
-
 	protected readonly userManagementText: Signal<string> = computed(() =>
 		this.#localizationService.getValue(LocalizationKeys.USER_MANAGEMENT_KEY)
+	);
+
+	protected readonly username: Signal<string | undefined> = computed(() =>
+		this.#sessionService.getSessionData()()?.getUsername()
 	);
 
 	constructor() {

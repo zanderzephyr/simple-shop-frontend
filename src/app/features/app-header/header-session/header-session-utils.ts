@@ -7,6 +7,7 @@ const SESSION_MENU_KEY: string = SESSION_COMPONENT_KEY + KEY_SEPARATOR + 'menu';
 export const BOOK_KEEPING_KEY: string = SESSION_MENU_KEY + KEY_SEPARATOR + 'bookKeeping';
 export const GLOBAL_TRANSACTIONS_KEY: string =
 	SESSION_MENU_KEY + KEY_SEPARATOR + 'globalTransactions';
+export const HELLO_KEY: string = SESSION_MENU_KEY + KEY_SEPARATOR + 'hello';
 export const INVENTORY_KEY: string = SESSION_MENU_KEY + KEY_SEPARATOR + 'inventory';
 export const LOGIN_KEY: string = SESSION_MENU_KEY + KEY_SEPARATOR + 'login';
 export const LOGOUT_KEY: string = SESSION_MENU_KEY + KEY_SEPARATOR + 'logout';
