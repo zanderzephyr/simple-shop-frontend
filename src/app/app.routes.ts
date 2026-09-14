@@ -9,7 +9,7 @@ const isAdminGuard: CanActivateFn = () => {
 	const sessionService: SessionService = inject(SessionService);
 
 	const sessionData: SessionData | undefined = sessionService.getSessionData()();
-	if (sessionData != undefined) {
+	if (sessionData !== undefined) {
 		const userType: UserType = sessionData.getUserType();
 		if (UserType.ADMIN === userType) {
 			return true;
@@ -32,19 +32,24 @@ const isLoggedInGuard: CanActivateFn = () => {
 	return router.createUrlTree(['/']);
 };
 
+const isLoggedOutGuard: CanActivateFn = () => {
+	const router: Router = inject(Router);
+	const sessionService: SessionService = inject(SessionService);
+
+	if (sessionService.isLoggedIn()()) {
+		return router.createUrlTree(['/']);
+	}
+
+	return true;
+};
+
 export const routes: Routes = [
 	{
 		path: '',
+		pathMatch: 'full',
 		loadComponent: () =>
 			import('@features/app-body/body-content/landing/landing').then(
 				(m) => m.LandingComponent
-			)
-	},
-	{
-		path: 'login',
-		loadComponent: () =>
-			import('@features/app-body/body-content/login/login').then(
-				(m) => m.LoginComponent
 			)
 	},
 	{
@@ -70,6 +75,20 @@ export const routes: Routes = [
 			import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
 				(m) => m.ShoppingCartComponent
 			)
+	},
+
+	{
+		path: '',
+		canActivate: [isLoggedOutGuard],
+		children: [
+			{
+				path: 'login',
+				loadComponent: () =>
+					import('@features/app-body/body-content/login/login').then(
+						(m) => m.LoginComponent
+					)
+			}
+		]
 	},
 
 	{
@@ -124,5 +143,10 @@ export const routes: Routes = [
 				]
 			}
 		]
+	},
+
+	{
+		path: '**',
+		redirectTo: ''
 	}
 ];
