@@ -53,6 +53,38 @@ export const routes: Routes = [
 			)
 	},
 	{
+		path: 'book-keeping',
+		canActivate: [isAdminGuard],
+		loadComponent: () =>
+			import('@features/app-body/body-content/book-keeping/book-keeping').then(
+				(m) => m.BookKeepingComponent
+			)
+	},
+	{
+		path: 'global-transactions',
+		canActivate: [isAdminGuard],
+		loadComponent: () =>
+			import('@features/app-body/body-content/global-transactions/global-transactions').then(
+				(m) => m.GlobalTransactionsComponent
+			)
+	},
+	{
+		path: 'inventory',
+		canActivate: [isAdminGuard],
+		loadComponent: () =>
+			import('@features/app-body/body-content/inventory/inventory').then(
+				(m) => m.InventoryComponent
+			)
+	},
+	{
+		path: 'login',
+		canActivate: [isLoggedOutGuard],
+		loadComponent: () =>
+			import('@features/app-body/body-content/login/login').then(
+				(m) => m.LoginComponent
+			)
+	},
+	{
 		path: 'logout',
 		loadComponent: () =>
 			import('@features/app-body/body-content/logout/logout').then(
@@ -63,6 +95,12 @@ export const routes: Routes = [
 		path: 'outage',
 		loadComponent: () =>
 			import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent)
+	},
+	{
+		path: 'profile',
+		canActivate: [isLoggedInGuard],
+		loadComponent: () =>
+			import('@features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent)
 	},
 	{
 		path: 'settings',
@@ -76,75 +114,22 @@ export const routes: Routes = [
 				(m) => m.ShoppingCartComponent
 			)
 	},
-
 	{
-		path: '',
-		canActivate: [isLoggedOutGuard],
-		children: [
-			{
-				path: 'login',
-				loadComponent: () =>
-					import('@features/app-body/body-content/login/login').then(
-						(m) => m.LoginComponent
-					)
-			}
-		]
+		path: 'user-management',
+		canActivate: [isAdminGuard],
+		loadComponent: () =>
+			import('@features/app-body/body-content/user-management/user-management').then(
+				(m) => m.UserManagementComponent
+			)
 	},
-
 	{
-		path: '',
+		path: 'user-transactions',
 		canActivate: [isLoggedInGuard],
-		children: [
-			{
-				path: 'profile',
-				loadComponent: () =>
-					import('@features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent)
-			},
-			{
-				path: 'user-transactions',
-				loadComponent: () =>
-					import('@features/app-body/body-content/user-transactions/user-transactions').then(
-						(m) => m.UserTransactionsComponent
-					)
-			},
-
-			{
-				path: '',
-				canActivate: [isAdminGuard],
-				children: [
-					{
-						path: 'book-keeping',
-						loadComponent: () =>
-							import('@features/app-body/body-content/book-keeping/book-keeping').then(
-								(m) => m.BookKeepingComponent
-							)
-					},
-					{
-						path: 'global-transactions',
-						loadComponent: () =>
-							import('@features/app-body/body-content/global-transactions/global-transactions').then(
-								(m) => m.GlobalTransactionsComponent
-							)
-					},
-					{
-						path: 'inventory',
-						loadComponent: () =>
-							import('@features/app-body/body-content/inventory/inventory').then(
-								(m) => m.InventoryComponent
-							)
-					},
-					{
-						path: 'user-management',
-						loadComponent: () =>
-							import('@features/app-body/body-content/user-management/user-management').then(
-								(m) => m.UserManagementComponent
-							)
-					}
-				]
-			}
-		]
+		loadComponent: () =>
+			import('@features/app-body/body-content/user-transactions/user-transactions').then(
+				(m) => m.UserTransactionsComponent
+			)
 	},
-
 	{
 		path: '**',
 		redirectTo: ''
