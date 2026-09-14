@@ -67,7 +67,7 @@ export class LoginComponent {
 
 			const loginSuccessful: boolean = await this.#sessionService.login(loginCredentials);
 			if (loginSuccessful) {
-				void this.#router.navigate(['/welcome']);
+				void this.#router.navigate(['/']);
 			} else {
 				openErrorDialog(this.#dialogService, this.#loginFailedText());
 			}
