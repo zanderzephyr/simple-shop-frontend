@@ -15,7 +15,7 @@ import * as LocalizationKeys from './settings-utils';
 	styleUrl: './settings.scss'
 })
 export class SettingsComponent {
-	protected localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly localizationService: LocalizationService = inject(LocalizationService);
 
 	protected readonly localizedLocalizations: Signal<
 		readonly LocalizedObject<Localization>[]
