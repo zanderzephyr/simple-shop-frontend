@@ -34,6 +34,9 @@
 						}
 					}
 				},
+				"landing": {
+					"specialDiscountsTitle": "Current Discounts"
+				},
 				"login": {
 					"discard": "Discard",
 					"login": "Login",

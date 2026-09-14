@@ -34,6 +34,9 @@
 						}
 					}
 				},
+				"landing": {
+					"specialDiscountsTitle": "Aktuelle TOP-Rabatte"
+				},
 				"login": {
 					"discard": "Verwerfen",
 					"login": "Einloggen",

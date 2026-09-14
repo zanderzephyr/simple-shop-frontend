@@ -3,6 +3,11 @@ export class PageConfig {
 
 	readonly #pageSize: number;
 
+	/**
+	 *
+	 * @param pageIndex 0-based
+	 * @param pageSize
+	 */
 	public constructor(pageIndex: number, pageSize: number) {
 		this.#pageIndex = pageIndex;
 		this.#pageSize = pageSize;

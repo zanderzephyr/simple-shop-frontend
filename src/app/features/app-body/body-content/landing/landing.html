@@ -1,1 +1,13 @@
-<p>landing works!</p>
+<div class="landing-container">
+  <div class="landing-special-discounts-container">
+    <div class="landing-special-discounts-title">
+      {{ specialDiscountsTitleText() }}
+    </div>
+
+    <div class="landing-special-discounts-items">
+      @for (itemData of specialItemDiscountData(); track itemData.getItem().getId()) {
+        <app-item-overview></app-item-overview>
+      }
+    </div>
+  </div>
+</div>

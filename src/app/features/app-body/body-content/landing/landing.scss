@@ -1,0 +1,31 @@
+.landing-container {
+	display: grid;
+	grid-template-columns: 10px 1fr 10px;
+	grid-template-rows: auto;
+
+	.landing-special-discounts-container {
+		grid-column: 2;
+		grid-row: 1;
+
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-template-rows: auto 5px auto;
+
+		.landing-special-discounts-title {
+			grid-column: 1;
+			grid-row: 1;
+
+			font-size: x-large;
+		}
+
+		.landing-special-discounts-items {
+			grid-column: 1;
+			grid-row: 3;
+
+			display: grid;
+			grid-template-columns: repeat(5, auto);
+			grid-template-rows: repeat(2, auto);
+			gap: 5px;
+		}
+	}
+}
