@@ -2,17 +2,17 @@
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 10px 10px;
+	padding: var(--app-large-padding) var(--app-large-padding);
 	box-sizing: border-box;
+
+	.content {
+		width: 100%;
+		padding: 0 0 var(--app-large-padding) 0;
+	}
 }
 
 .title {
-	font-size: large;
+	font-size: var(--app-subtitle-font-size);
 	text-align: center;
-	padding: 0 0 10px 0;
-}
-
-.general-dialog-container > .content {
-	width: 100%;
-	padding: 0 0 10px 0;
+	padding: 0 0 var(--app-large-padding) 0;
 }

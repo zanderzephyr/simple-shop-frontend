@@ -1,6 +1,6 @@
 .landing-container {
 	display: grid;
-	grid-template-columns: 10px 1fr 10px;
+	grid-template-columns: var(--app-large-padding) 1fr var(--app-large-padding);
 	grid-template-rows: auto;
 
 	.landing-special-discounts-container {
@@ -9,13 +9,13 @@
 
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: auto 5px auto;
+		grid-template-rows: auto var(--app-small-padding) auto;
 
 		.landing-special-discounts-title {
 			grid-column: 1;
 			grid-row: 1;
 
-			font-size: x-large;
+			font-size: var(--app-title-font-size);
 		}
 
 		.landing-special-discounts-items {
@@ -23,8 +23,8 @@
 			grid-row: 3;
 
 			display: grid;
-			grid-template-columns: repeat(4, auto 5px) auto;
-			grid-template-rows: auto 5px auto; // grid-auto-rows if it gets more dynamic
+			grid-template-columns: repeat(4, auto var(--app-small-padding)) auto;
+			grid-template-rows: auto var(--app-small-padding) auto; // grid-auto-rows if it gets more dynamic
 		}
 	}
 }

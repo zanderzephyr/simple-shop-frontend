@@ -1,3 +1,5 @@
+// Angular material mapping
+//
 // Variable meaning:
 // app-global-color-background-bottom: Main background color
 // app-global-color-background-intermediate: Main segment background color
@@ -58,4 +60,16 @@
 	--app-global-color-foreground-primary: var(--mat-sys-on-primary);
 	// Structural Separators
 	--app-global-color-border: var(--mat-sys-outline);
+}
+
+// Paddings
+:root {
+	--app-small-padding: 5px;
+	--app-large-padding: 10px;
+}
+
+// Font stuff
+:root {
+	--app-title-font-size: x-large;
+	--app-subtitle-font-size: large;
 }

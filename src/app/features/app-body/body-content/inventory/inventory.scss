@@ -13,7 +13,7 @@
 
 		.inventory-container-header-buttons {
 			display: flex;
-			gap: 10px;
+			gap: var(--app-large-padding);
 
 			.inventory-container-add-button {
 				display: flex;

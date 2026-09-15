@@ -2,13 +2,13 @@
 
 :host {
 	@include layout-utils.fill-grid-slot;
-	grid-template-rows: auto 10px auto;
+	grid-template-rows: auto var(--app-large-padding) auto;
 
 	.media-type-sidebar-filter-title {
 		grid-column: 1;
 		grid-row: 1;
 
-		font-size: large;
+		font-size: var(--app-subtitle-font-size);
 	}
 
 	.media-type-form-field {

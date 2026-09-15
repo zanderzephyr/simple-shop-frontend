@@ -4,8 +4,8 @@
 	@include layout-utils.fill-grid-slot;
 	// Adding 10px as padding around the header, without using the padding property to not mess up the grid size
 	// calculations
-	grid-template-columns: 10px auto 1fr auto 1fr auto 10px;
-	grid-template-rows: 10px 1fr 10px;
+	grid-template-columns: var(--app-large-padding) auto 1fr auto 1fr auto var(--app-large-padding);
+	grid-template-rows: var(--app-large-padding) 1fr var(--app-large-padding);
 
 	.app-header-company-logo {
 		grid-column: 2;

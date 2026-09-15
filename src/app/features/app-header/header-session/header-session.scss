@@ -2,7 +2,7 @@
 
 :host {
 	display: flex;
-	gap: 10px;
+	gap: var(--app-large-padding);
 
 	// When the fab buttons grow, their ratio should be fixed
 	.header-session-shopping-cart, .header-session-settings {

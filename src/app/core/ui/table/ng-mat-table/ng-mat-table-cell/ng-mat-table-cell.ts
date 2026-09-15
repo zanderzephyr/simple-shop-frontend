@@ -25,7 +25,7 @@ import { TableColumn } from '@ui/table/interface/table-column';
 	selector: 'app-ng-mat-table-cell',
 	imports: [],
 	templateUrl: './ng-mat-table-cell.html',
-	styleUrl: './ng-mat-table-cell.css'
+	styleUrl: './ng-mat-table-cell.scss'
 })
 export class NgMatTableCellComponent {
 	public readonly table: InputSignal<Table> = input.required<Table>();

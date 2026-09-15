@@ -17,7 +17,7 @@
 	.app-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: 80px 10px 1fr 10px 80px;
+		grid-template-rows: 80px var(--app-large-padding) 1fr var(--app-large-padding) 80px;
 
 		height: 100%;
 		width: 100%;

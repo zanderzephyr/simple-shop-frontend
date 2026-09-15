@@ -6,7 +6,7 @@
 	height: 100%;
 
 	display: flex;
-	gap: 10px;
+	gap: var(--app-large-padding);
 
 	// Angular Material buttons need help to grow properly
 	.search-button {

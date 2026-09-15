@@ -4,7 +4,7 @@
 	@include layout-utils.fill-grid-slot;
 
 	&:has(app-body-sidebar.sidebar-visible) {
-		grid-template-columns: 370px 5px 1fr;
+		grid-template-columns: 370px var(--app-small-padding) 1fr;
 	}
 
 	&:has(app-body-sidebar.sidebar-invisible) {
