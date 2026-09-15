@@ -49,7 +49,7 @@ export function drawRandomSublist<T>(list: readonly T[], sublistLength: number):
 	const listCopy: T[] = [...list];
 	const sampleSize: number = Math.min(sublistLength, listCopy.length);
 	for (let i: number = 0; i < sampleSize; i++) {
-		const index: number = generateRandomIndex(0, sampleSize - i);
+		const index: number = generateRandomIndex(0, listCopy.length);
 		sublist.push(listCopy.splice(index, 1)[0]);
 	}
 
