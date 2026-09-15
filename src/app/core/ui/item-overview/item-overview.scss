@@ -1,0 +1,29 @@
+@use "layout-utils" as layout-utils;
+
+:host {
+	@include layout-utils.fill-grid-slot;
+
+	grid-template-columns: 300px;
+	grid-template-rows: 300px var(--app-small-padding) auto var(--app-small-padding) auto;
+
+	background-color: var(--app-global-color-background-intermediate);
+
+	.item-overview-cover {
+		grid-column: 1;
+		grid-row: 1;
+		aspect-ratio: 1 / 1;
+	}
+
+	.item-overview-title {
+		grid-column: 1;
+		grid-row: 3;
+	}
+
+	.item-overview-price-and-discount {
+		grid-column: 1;
+		grid-row: 5;
+
+		display: flex;
+		gap: var(--app-small-padding);
+	}
+}

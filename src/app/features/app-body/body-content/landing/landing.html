@@ -1,23 +1,21 @@
-<div class="landing-container">
-	<div class="landing-special-discounts-container">
-		<div class="landing-special-discounts-title">
-			{{ specialDiscountsTitleText() }}
-		</div>
+<div class="landing-special-discounts-container">
+	<div class="landing-special-discounts-title">
+		{{ specialDiscountsTitleText() }}
+	</div>
 
-		<div class="landing-special-discounts-items">
-			@let columnCount = 5;
-			@for (itemData of specialItemDiscountData(); track itemData.getItem().getId(); let index = $index) {
-				@let columnOffset = index % columnCount;
-				@let columnIndex = (columnOffset + 1) * 2 - 1;
-				@let rowOffset = math.floor(index / columnCount);
-				@let rowIndex = (rowOffset + 1) * 2 - 1;
+	<div class="landing-special-discounts-items">
+		@let columnCount = 5;
+		@for (itemData of specialItemDiscountData(); track itemData.getItem().getId(); let index = $index) {
+			@let columnOffset = index % columnCount;
+			@let columnIndex = (columnOffset + 1) * 2 - 1;
+			@let rowOffset = math.floor(index / columnCount);
+			@let rowIndex = (rowOffset + 1) * 2 - 1;
 
-				<app-item-overview
-					[style.grid-column]="columnIndex"
-					[style.grid-row]="rowIndex"
-					[data]="itemData">
-				</app-item-overview>
-			}
-		</div>
+			<app-item-overview
+				[style.grid-column]="columnIndex"
+				[style.grid-row]="rowIndex"
+				[data]="itemData">
+			</app-item-overview>
+		}
 	</div>
 </div>

@@ -1,14 +1,15 @@
-.landing-container {
-	display: grid;
+@use "layout-utils" as layout-utils;
+
+:host {
+	@include layout-utils.fill-grid-slot;
 	grid-template-columns: var(--app-large-padding) 1fr var(--app-large-padding);
-	grid-template-rows: auto;
+	grid-template-rows: auto var(--app-small-padding) 1fr;
 
 	.landing-special-discounts-container {
 		grid-column: 2;
 		grid-row: 1;
 
-		display: grid;
-		grid-template-columns: 1fr;
+		@include layout-utils.fill-grid-slot;
 		grid-template-rows: auto var(--app-small-padding) auto;
 
 		.landing-special-discounts-title {
@@ -23,7 +24,7 @@
 			grid-row: 3;
 
 			display: grid;
-			grid-template-columns: repeat(4, auto var(--app-small-padding)) auto;
+			grid-template-columns: repeat(4, 1fr var(--app-small-padding)) 1fr;
 			grid-template-rows: auto var(--app-small-padding) auto; // grid-auto-rows if it gets more dynamic
 		}
 	}
