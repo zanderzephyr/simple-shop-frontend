@@ -1,60 +1,60 @@
 <div class="ng-mat-table-container">
-  <!--
-		This content is a bit complicated. Analyze
-		https://v12.material.angular.io/components/table/overview
-		in detail to understand better.
+	<!--
+		  This content is a bit complicated. Analyze
+		  https://v12.material.angular.io/components/table/overview
+		  in detail to understand better.
 
-		dataSource: Tells Angular where to get the table data, i.e. the rows.
-	 	We can pass pretty much anything in here and just have to adapt accordingly
-		in how we use it.
+		  dataSource: Tells Angular where to get the table data, i.e. the rows.
+		   We can pass pretty much anything in here and just have to adapt accordingly
+		  in how we use it.
 
-		TODO Maybe also add row tracking: [trackBy]="trackRowIndex"
-		Depends on if the table model supports stable row IDs or not.
-	-->
-  <table class="ng-mat-table" mat-table [dataSource]="tableRowIds()">
-    @for (tableColumn of tableColumns();
-		track tableColumn.getModelIndex();
-		let columnIndex = $index) {
-      <!-- matColumnDef: Creates an injection slot for a column. -->
-      <ng-container [matColumnDef]="tableColumn.getModelIndex() + ''">
-        <!--
-					*matHeaderCellDef: Creates an injection slot for the column header.
-					The tag content is what's injected.
-				-->
-        <th
-          class="ng-mat-table-header-cell"
-          mat-header-cell
-          *matHeaderCellDef
-          [style.width]="tableColumnIdToWidth().get(tableColumn.getModelIndex())"
-        >
-          {{ tableColumnHeaderTitles().get(tableColumn.getModelIndex()) }}
-        </th>
-        <!--
-					*matCellDef: Creates an injection slot for a column data cell; this
-					is done for each row. The tag content is what's injected.
-				-->
-        <td class="ng-mat-table-data-cell" mat-cell *matCellDef="let row">
-          <!-- TODO Is it necessary to sort of track the component and prevent it from being created too often? -->
-          <app-ng-mat-table-cell
-            [table]="table()"
-            [columnViewIndex]="columnIndex"
-            [rowViewIndex]="row"
-          />
-        </td>
-      </ng-container>
-    }
+		  TODO Maybe also add row tracking: [trackBy]="trackRowIndex"
+		  Depends on if the table model supports stable row IDs or not.
+	  -->
+	<table class="ng-mat-table" mat-table [dataSource]="tableRowIds()">
+		@for (tableColumn of tableColumns();
+			track tableColumn.getModelIndex();
+			let columnIndex = $index) {
+			<!-- matColumnDef: Creates an injection slot for a column. -->
+			<ng-container [matColumnDef]="tableColumn.getModelIndex() + ''">
+				<!--
+							*matHeaderCellDef: Creates an injection slot for the column header.
+							The tag content is what's injected.
+						-->
+				<th
+					class="ng-mat-table-header-cell"
+					mat-header-cell
+					*matHeaderCellDef
+					[style.width]="tableColumnIdToWidth().get(tableColumn.getModelIndex())"
+				>
+					{{ tableColumnHeaderTitles().get(tableColumn.getModelIndex()) }}
+				</th>
+				<!--
+							*matCellDef: Creates an injection slot for a column data cell; this
+							is done for each row. The tag content is what's injected.
+						-->
+				<td class="ng-mat-table-data-cell" mat-cell *matCellDef="let row">
+					<!-- TODO Is it necessary to sort of track the component and prevent it from being created too often? -->
+					<app-ng-mat-table-cell
+						[table]="table()"
+						[columnViewIndex]="columnIndex"
+						[rowViewIndex]="row"
+					/>
+				</td>
+			</ng-container>
+		}
 
-    <!--
-			Performs the actual injection into the previously created injection slots for the header.
-			Done for each column.
+		<!--
+				Performs the actual injection into the previously created injection slots for the header.
+				Done for each column.
+			-->
+		<tr class="ng-mat-table-header-row" mat-header-row *matHeaderRowDef="tableColumnIds()"></tr>
+
+		<!--
+				Spawns a table row container (<tr>) for every item provided by the dataSource.
+				For each row, it loops through the specified column IDs to extract and inject
+				the matching data cell templates, passing the current item context down as 'row'.
 		-->
-    <tr class="ng-mat-table-header-row" mat-header-row *matHeaderRowDef="tableColumnIds()"></tr>
-
-    <!--
-			Spawns a table row container (<tr>) for every item provided by the dataSource.
-			For each row, it loops through the specified column IDs to extract and inject
-			the matching data cell templates, passing the current item context down as 'row'.
-    -->
-    <tr class="ng-mat-table-data-row" mat-row *matRowDef="let row; columns: tableColumnIds()"></tr>
-  </table>
+		<tr class="ng-mat-table-data-row" mat-row *matRowDef="let row; columns: tableColumnIds()"></tr>
+	</table>
 </div>

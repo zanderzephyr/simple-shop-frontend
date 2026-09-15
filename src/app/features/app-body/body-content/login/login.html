@@ -4,31 +4,31 @@
                           instead of the raw DOM element. This allows us to reset Material's validation/submitted state.
 -->
 <form
-  class="login-form"
-  [formGroup]="loginForm"
-  #formDirective="ngForm"
-  (ngSubmit)="login()"
+	class="login-form"
+	[formGroup]="loginForm"
+	#formDirective="ngForm"
+	(ngSubmit)="login()"
 >
-  <mat-form-field class="login-username" appearance="outline">
-    <mat-label>{{ usernameText() }}</mat-label>
-    <input matInput type="text" formControlName="username" />
-    <mat-error>{{ usernameErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="login-username" appearance="outline">
+		<mat-label>{{ usernameText() }}</mat-label>
+		<input matInput type="text" formControlName="username" />
+		<mat-error>{{ usernameErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="login-password" appearance="outline">
-    <mat-label>{{ passwordText() }}</mat-label>
-    <input matInput type="password" formControlName="password" />
-    <mat-error>{{ passwordErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="login-password" appearance="outline">
+		<mat-label>{{ passwordText() }}</mat-label>
+		<input matInput type="password" formControlName="password" />
+		<mat-error>{{ passwordErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <button
-    class="login-discard"
-    matButton="outlined"
-    type="button"
-    (click)="discard(formDirective)"
-  >
-    {{ discardText() }}
-  </button>
+	<button
+		class="login-discard"
+		matButton="outlined"
+		type="button"
+		(click)="discard(formDirective)"
+	>
+		{{ discardText() }}
+	</button>
 
-  <button class="login-login" matButton="outlined" type="submit">{{ loginText() }}</button>
+	<button class="login-login" matButton="outlined" type="submit">{{ loginText() }}</button>
 </form>

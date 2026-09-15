@@ -60,7 +60,6 @@ export class UserManagementComponent {
 		() => this.#page()?.getPageMetaData().getTotalElements() ?? 0
 	);
 
-
 	public constructor() {
 		effect(() => {
 			const page: Page<User> | undefined = this.#page();

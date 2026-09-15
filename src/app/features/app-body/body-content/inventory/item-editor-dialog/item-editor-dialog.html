@@ -1,40 +1,40 @@
 <form
-  class="item-form-container"
-  [formGroup]="itemForm"
-  #formDirective="ngForm"
-  (ngSubmit)="onConfirm()"
+	class="item-form-container"
+	[formGroup]="itemForm"
+	#formDirective="ngForm"
+	(ngSubmit)="onConfirm()"
 >
-  <mat-form-field class="item-form-title" appearance="outline">
-    <mat-label>{{ titleText() }}</mat-label>
-    <input matInput type="text" formControlName="title" />
-    <mat-error>{{ titleErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="item-form-title" appearance="outline">
+		<mat-label>{{ titleText() }}</mat-label>
+		<input matInput type="text" formControlName="title" />
+		<mat-error>{{ titleErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="item-form-media-type" appearance="outline">
-    <mat-label>{{ mediaTypeText() }}</mat-label>
-    <mat-select formControlName="mediaType" [compareWith]="compareMediaTypes">
-      @for (mediaType of localizedMediaTypes(); track mediaType.object.id) {
-        <mat-option [value]="mediaType.object">{{ mediaType.localizedLabel }}</mat-option>
-      }
-    </mat-select>
-    <mat-error>{{ mediaTypeErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="item-form-media-type" appearance="outline">
+		<mat-label>{{ mediaTypeText() }}</mat-label>
+		<mat-select formControlName="mediaType" [compareWith]="compareMediaTypes">
+			@for (mediaType of localizedMediaTypes(); track mediaType.object.id) {
+				<mat-option [value]="mediaType.object">{{ mediaType.localizedLabel }}</mat-option>
+			}
+		</mat-select>
+		<mat-error>{{ mediaTypeErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="item-form-stock" appearance="outline">
-    <mat-label>{{ stockText() }}</mat-label>
-    <input matInput type="number" formControlName="stock" />
-    <mat-error>{{ stockErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="item-form-stock" appearance="outline">
+		<mat-label>{{ stockText() }}</mat-label>
+		<input matInput type="number" formControlName="stock" />
+		<mat-error>{{ stockErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="item-form-price" appearance="outline">
-    <mat-label>{{ priceText() }}</mat-label>
-    <input matInput type="number" formControlName="price" />
-    <mat-error>{{ priceErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="item-form-price" appearance="outline">
+		<mat-label>{{ priceText() }}</mat-label>
+		<input matInput type="number" formControlName="price" />
+		<mat-error>{{ priceErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="item-form-image-url" appearance="outline">
-    <mat-label>{{ imageUrlText() }}</mat-label>
-    <input matInput type="text" formControlName="imageUrl" />
-    <mat-error>{{ imageUrlErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="item-form-image-url" appearance="outline">
+		<mat-label>{{ imageUrlText() }}</mat-label>
+		<input matInput type="text" formControlName="imageUrl" />
+		<mat-error>{{ imageUrlErrorText() }}</mat-error>
+	</mat-form-field>
 </form>

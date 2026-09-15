@@ -1,14 +1,14 @@
 <div class="media-type-sidebar-filter-title">{{ filterTitleText() }}</div>
 
 <mat-form-field class="media-type-form-field" appearance="outline" subscriptSizing="dynamic">
-  <mat-label>{{ chooseMediaTypeLabelText() }}</mat-label>
-  <mat-select
-    [value]="selectedMediaType()"
-    (selectionChange)="updateSelectedMediaType($event.value)"
-  >
-    @for (mediaType of localizedMediaTypes(); track mediaType.object.id) {
-      <mat-option [value]="mediaType.object.id">{{ mediaType.localizedLabel }}</mat-option>
-    }
-    <mat-option [value]="getAllMediaTypesValue()">{{ allTypesLabelText() }}</mat-option>
-  </mat-select>
+	<mat-label>{{ chooseMediaTypeLabelText() }}</mat-label>
+	<mat-select
+		[value]="selectedMediaType()"
+		(selectionChange)="updateSelectedMediaType($event.value)"
+	>
+		@for (mediaType of localizedMediaTypes(); track mediaType.object.id) {
+			<mat-option [value]="mediaType.object.id">{{ mediaType.localizedLabel }}</mat-option>
+		}
+		<mat-option [value]="getAllMediaTypesValue()">{{ allTypesLabelText() }}</mat-option>
+	</mat-select>
 </mat-form-field>

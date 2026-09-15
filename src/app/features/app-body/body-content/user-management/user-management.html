@@ -1,29 +1,29 @@
 <div class="user-management-container-header">
-  <mat-paginator
-    class="user-management-container-paginator"
-    [length]="totalUsers()"
-    [pageSize]="pageSize()"
-    [pageIndex]="pageIndex()"
-    [pageSizeOptions]="[10, 20, 50, 100]"
-    (page)="onPageChange($event)"
-  >
-  </mat-paginator>
+	<mat-paginator
+		class="user-management-container-paginator"
+		[length]="totalUsers()"
+		[pageSize]="pageSize()"
+		[pageIndex]="pageIndex()"
+		[pageSizeOptions]="[10, 20, 50, 100]"
+		(page)="onPageChange($event)"
+	>
+	</mat-paginator>
 
-  <div class="user-management-container-header-buttons">
-    <button
-      class="user-management-container-refresh-button"
-      matButton="outlined"
-      (click)="refresh()"
-    >
-      <mat-icon>refresh</mat-icon>
-      <span>{{ refreshText() }}</span>
-    </button>
+	<div class="user-management-container-header-buttons">
+		<button
+			class="user-management-container-refresh-button"
+			matButton="outlined"
+			(click)="refresh()"
+		>
+			<mat-icon>refresh</mat-icon>
+			<span>{{ refreshText() }}</span>
+		</button>
 
-    <button class="user-management-container-add-button" matButton="outlined" (click)="add()">
-      <mat-icon>add</mat-icon>
-      <span>{{ createUserText() }}</span>
-    </button>
-  </div>
+		<button class="user-management-container-add-button" matButton="outlined" (click)="add()">
+			<mat-icon>add</mat-icon>
+			<span>{{ createUserText() }}</span>
+		</button>
+	</div>
 </div>
 
 <app-ng-mat-table class="user-management-container-table" [table]="table"></app-ng-mat-table>

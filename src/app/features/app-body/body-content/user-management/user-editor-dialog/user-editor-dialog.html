@@ -1,58 +1,58 @@
 <form
-  class="user-form-container"
-  [formGroup]="userForm"
-  #formDirective="ngForm"
-  (ngSubmit)="onConfirm()"
+	class="user-form-container"
+	[formGroup]="userForm"
+	#formDirective="ngForm"
+	(ngSubmit)="onConfirm()"
 >
-  <mat-form-field class="user-form-username" appearance="outline">
-    <mat-label>{{ usernameText() }}</mat-label>
-    <input matInput type="text" formControlName="username" />
-    <mat-error>{{ usernameErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-username" appearance="outline">
+		<mat-label>{{ usernameText() }}</mat-label>
+		<input matInput type="text" formControlName="username" />
+		<mat-error>{{ usernameErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-first-name" appearance="outline">
-    <mat-label>{{ firstNameText() }}</mat-label>
-    <input matInput type="text" formControlName="firstName" />
-    <mat-error>{{ firstNameErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-first-name" appearance="outline">
+		<mat-label>{{ firstNameText() }}</mat-label>
+		<input matInput type="text" formControlName="firstName" />
+		<mat-error>{{ firstNameErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-middle-names" appearance="outline">
-    <mat-label>{{ middleNamesText() }}</mat-label>
-    <input matInput type="text" formControlName="middleNames" />
-    <mat-error>{{ middleNamesErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-middle-names" appearance="outline">
+		<mat-label>{{ middleNamesText() }}</mat-label>
+		<input matInput type="text" formControlName="middleNames" />
+		<mat-error>{{ middleNamesErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-last-name" appearance="outline">
-    <mat-label>{{ lastNameText() }}</mat-label>
-    <input matInput type="text" formControlName="lastName" />
-    <mat-error>{{ lastNameErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-last-name" appearance="outline">
+		<mat-label>{{ lastNameText() }}</mat-label>
+		<input matInput type="text" formControlName="lastName" />
+		<mat-error>{{ lastNameErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-email" appearance="outline">
-    <mat-label>{{ emailText() }}</mat-label>
-    <input matInput type="text" formControlName="email" />
-    <mat-error>{{ emailErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-email" appearance="outline">
+		<mat-label>{{ emailText() }}</mat-label>
+		<input matInput type="text" formControlName="email" />
+		<mat-error>{{ emailErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-user-type" appearance="outline">
-    <mat-label>{{ userTypeText() }}</mat-label>
-    <mat-select formControlName="userType" [compareWith]="compareUserTypes">
-      @for (userType of localizedUserTypes(); track userType.object.id) {
-        <mat-option [value]="userType.object">{{ userType.localizedLabel }}</mat-option>
-      }
-    </mat-select>
-    <mat-error>{{ userTypeErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-user-type" appearance="outline">
+		<mat-label>{{ userTypeText() }}</mat-label>
+		<mat-select formControlName="userType" [compareWith]="compareUserTypes">
+			@for (userType of localizedUserTypes(); track userType.object.id) {
+				<mat-option [value]="userType.object">{{ userType.localizedLabel }}</mat-option>
+			}
+		</mat-select>
+		<mat-error>{{ userTypeErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-password" appearance="outline">
-    <mat-label>{{ passwordText() }}</mat-label>
-    <input matInput type="password" formControlName="password" />
-    <mat-error>{{ passwordErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-password" appearance="outline">
+		<mat-label>{{ passwordText() }}</mat-label>
+		<input matInput type="password" formControlName="password" />
+		<mat-error>{{ passwordErrorText() }}</mat-error>
+	</mat-form-field>
 
-  <mat-form-field class="user-form-password-confirmation" appearance="outline">
-    <mat-label>{{ passwordConfirmationText() }}</mat-label>
-    <input matInput type="password" formControlName="passwordConfirmation" />
-    <mat-error>{{ passwordConfirmationErrorText() }}</mat-error>
-  </mat-form-field>
+	<mat-form-field class="user-form-password-confirmation" appearance="outline">
+		<mat-label>{{ passwordConfirmationText() }}</mat-label>
+		<input matInput type="password" formControlName="passwordConfirmation" />
+		<mat-error>{{ passwordConfirmationErrorText() }}</mat-error>
+	</mat-form-field>
 </form>

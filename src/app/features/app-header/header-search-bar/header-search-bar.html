@@ -1,17 +1,17 @@
 <form
-  class="search-form"
-  [formGroup]="searchForm"
-  (ngSubmit)="search()"
+	class="search-form"
+	[formGroup]="searchForm"
+	(ngSubmit)="search()"
 >
-  <!--
-  subscriptSizing: Prevents space reservation for hints. When hints appear in that mode, the
-  layout changes. We have no hints here.
-  -->
-  <mat-form-field class="search-text" appearance="outline" subscriptSizing="dynamic">
-    <input matInput type="text" placeholder="{{searchTextFieldPlaceholderText()}}" formControlName="searchText" />
-  </mat-form-field>
+	<!--
+	subscriptSizing: Prevents space reservation for hints. When hints appear in that mode, the
+	layout changes. We have no hints here.
+	-->
+	<mat-form-field class="search-text" appearance="outline" subscriptSizing="dynamic">
+		<input matInput type="text" placeholder="{{searchTextFieldPlaceholderText()}}" formControlName="searchText" />
+	</mat-form-field>
 
-  <button class="search-button" matButton="outlined" type="submit">{{ searchButtonText() }}
-    <mat-icon>search</mat-icon>
-  </button>
+	<button class="search-button" matButton="outlined" type="submit">{{ searchButtonText() }}
+		<mat-icon>search</mat-icon>
+	</button>
 </form>
