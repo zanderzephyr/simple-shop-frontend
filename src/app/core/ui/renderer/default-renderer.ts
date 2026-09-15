@@ -5,10 +5,11 @@ import { Renderer } from './renderer';
 export abstract class DefaultRendererComponent<TYPE> implements Renderer<TYPE> {
 	readonly interfaceTag: 'renderer' = 'renderer';
 
-	protected readonly valueInput: InputSignal<Signal<TYPE>> = input.required<Signal<TYPE>>();
+	public readonly valueInput: InputSignal<Signal<TYPE>> = input.required<Signal<TYPE>>();
 
 	protected readonly value: Signal<TYPE> = computed(() => this.valueInput()());
 
-	public constructor() {
+	protected constructor() {
+		// Nothing to do so far
 	}
 }
