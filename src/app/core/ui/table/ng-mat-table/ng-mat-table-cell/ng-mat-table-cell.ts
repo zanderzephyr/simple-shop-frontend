@@ -9,6 +9,7 @@ import {
 	viewChild,
 	ViewContainerRef
 } from '@angular/core';
+import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
 import { Renderer } from '@ui/renderer/renderer';
 import { Table } from '@ui/table/interface/table';
 import { TableCellContext, TableCellContextBuilder } from '@ui/table/interface/table-cell-context';
@@ -54,18 +55,20 @@ export class NgMatTableCellComponent {
 				];
 
 			let viewContainer: ViewContainerRef | undefined = this.content();
-			if (!viewContainer) {
+			if (viewContainer === undefined) {
 				return; // Template isn't built yet; bail early safely
 			}
 
 			// TODO Properly recognize if we should choose the renderer or the editor.
 
 			const type: Type<Renderer<unknown>> = column.getRendererType();
-			if (!this.#currentComponentRef || this.#currentComponentRef.componentType !== type) {
+			if (this.#currentComponentRef === undefined || this.#currentComponentRef.componentType !== type) {
 				this.#clearComponent();
 				this.#currentComponentRef = viewContainer.createComponent(type);
 			}
 
+			// TODO This isn't good yet. The table should have its own abstraction layer to pass stuff to. It shouldn't
+			// work with all kinds of possible renderers / editors etc. here. It shouldn't even know they exist.
 			if (
 				this.#currentComponentRef.instance instanceof TableCellRendererComponent ||
 				this.#currentComponentRef.instance instanceof TableCellEditorComponent
@@ -76,7 +79,7 @@ export class NgMatTableCellComponent {
 					.setRowViewIndex(this.rowViewIndex())
 					.build();
 				this.#currentComponentRef.setInput('context', cellContext);
-			} else {
+			} else if (this.#currentComponentRef.instance instanceof DefaultRendererComponent) {
 				const value: unknown = this.table().getValueAt(this.columnViewIndex(), this.rowViewIndex());
 				this.#currentComponentRef.setInput('valueInput', value);
 			}
@@ -84,7 +87,7 @@ export class NgMatTableCellComponent {
 	}
 
 	#clearComponent(): void {
-		if (this.#currentComponentRef) {
+		if (this.#currentComponentRef !== undefined) {
 			this.#currentComponentRef.destroy();
 			this.#currentComponentRef = undefined;
 			this.content()!.clear();

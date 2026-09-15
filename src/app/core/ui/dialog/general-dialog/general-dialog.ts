@@ -79,7 +79,7 @@ export class GeneralDialogComponent<
 			// Only do that if the template is already built
 			if (viewContainer !== undefined) {
 				let componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
-				if (!componentRef || componentRef.componentType !== type) {
+				if (componentRef === undefined || componentRef.componentType !== type) {
 					this.#clearComponent();
 					this.#contentChildComponentRef.set(viewContainer.createComponent(type));
 					componentRef = this.#contentChildComponentRef();
@@ -91,7 +91,7 @@ export class GeneralDialogComponent<
 
 	#clearComponent(): void {
 		const componentRef: ComponentRef<CONTENT> | undefined = this.#contentChildComponentRef();
-		if (componentRef) {
+		if (componentRef !== undefined) {
 			componentRef.destroy();
 			this.#contentChildComponentRef.set(undefined);
 			this.contentChild()!.clear();
