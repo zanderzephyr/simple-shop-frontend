@@ -23,9 +23,8 @@
 			grid-row: 3;
 
 			display: grid;
-			grid-template-columns: repeat(5, auto);
-			grid-template-rows: repeat(2, auto);
-			gap: 5px;
+			grid-template-columns: repeat(4, auto 5px) auto;
+			grid-template-rows: auto 5px auto; // grid-auto-rows if it gets more dynamic
 		}
 	}
 }
