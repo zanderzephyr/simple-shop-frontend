@@ -1,1 +1,17 @@
-<p>item-overview works!</p>
+<div class="item-overview-image">
+	<app-image-renderer [valueInput]="urlImageRendererConfiguration"></app-image-renderer>
+</div>
+<div class="item-overview-title">{{ data().getItem().getTitle() }}</div>
+
+@let discount = data().getDiscount();
+@let price = data().getItem().getPrice();
+@if (discount !== undefined) {
+	<div class="item-overview-discount">{{ discount }}</div>
+
+	@let discountedPrice = price * discount;
+	<div class="item-overview-price">
+		{{ (math.round(discountedPrice) / 100).toFixed(2) }}
+	</div>
+} @else {
+	<div class="item-overview-price">{{ (price / 100).toFixed(2) }}</div>
+}

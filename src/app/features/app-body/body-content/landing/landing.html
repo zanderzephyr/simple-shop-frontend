@@ -9,7 +9,7 @@
 			@for (itemData of specialItemDiscountData(); track itemData.getItem().getId(); let index = $index) {
 				@let columnOffset = index % columnCount;
 				@let columnIndex = (columnOffset + 1) * 2 - 1;
-				@let rowOffset = Math.floor(index / columnCount);
+				@let rowOffset = math.floor(index / columnCount);
 				@let rowIndex = (rowOffset + 1) * 2 - 1;
 
 				<app-item-overview

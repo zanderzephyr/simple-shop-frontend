@@ -21,7 +21,7 @@ export class LandingComponent {
 	readonly #itemService: ItemService = inject(ItemService);
 	protected readonly specialItemDiscountData: WritableSignal<ItemOverviewData[]> = signal([]);
 
-	protected readonly Math: Math = Math;
+	protected readonly math: Math = Math;
 
 	public constructor() {
 		this.#init();
