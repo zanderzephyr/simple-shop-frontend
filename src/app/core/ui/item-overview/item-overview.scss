@@ -3,27 +3,27 @@
 :host {
 	@include layout-utils.fill-grid-slot;
 
-	grid-template-columns: 300px;
+	grid-template-columns: var(--app-small-padding) 1fr 300px 1fr var(--app-small-padding);
 	grid-template-rows: 300px var(--app-small-padding) auto var(--app-small-padding) auto;
 
 	background-color: var(--app-global-color-background-intermediate);
 
 	.item-overview-cover {
-		grid-column: 1;
+		grid-column: 3;
 		grid-row: 1;
 		aspect-ratio: 1 / 1;
 	}
 
 	.item-overview-title {
-		grid-column: 1;
+		grid-column: 2 / span 3;
 		grid-row: 3;
+		text-align: center;
 	}
 
 	.item-overview-price-and-discount {
-		grid-column: 1;
+		grid-column: 2 / span 3;
 		grid-row: 5;
 
-		display: flex;
-		gap: var(--app-small-padding);
+		text-align: right;
 	}
 }

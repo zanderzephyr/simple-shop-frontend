@@ -8,12 +8,9 @@
 	@let discount = data().getDiscount();
 	@let price = data().getItem().getPrice();
 	@if (discount === undefined) {
-		<div class="item-overview-price">{{ (price / 100).toFixed(2) }} EUR</div>
+		{{ (price / 100).toFixed(2) }} EUR
 	} @else {
 		@let discountedPrice = price * (1 - discount);
-		<div class="item-overview-price">
-			{{ (math.round(discountedPrice) / 100).toFixed(2) }} EUR
-		</div>
-		<div class="item-overview-discount">-({{ discount * 100 }}%)</div>
+		{{ (math.round(discountedPrice) / 100).toFixed(2) }} EUR -({{ discount * 100 }}%)
 	}
 </div>
