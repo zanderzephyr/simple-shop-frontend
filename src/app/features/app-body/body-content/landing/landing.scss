@@ -24,8 +24,9 @@
 			grid-row: 3;
 
 			display: grid;
-			grid-template-columns: repeat(4, 1fr var(--app-small-padding)) 1fr;
-			grid-template-rows: auto var(--app-small-padding) auto; // grid-auto-rows if it gets more dynamic
+			grid-template-columns: repeat(5, 1fr );
+			grid-template-rows: auto auto; // grid-auto-rows if it gets more dynamic
+			gap: var(--app-small-padding);
 		}
 	}
 }
