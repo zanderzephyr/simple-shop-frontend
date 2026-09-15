@@ -6,7 +6,6 @@
 
     <div class="landing-special-discounts-items">
       @let columnCount = 5;
-      @let rowCount = 2;
       @for (itemData of specialItemDiscountData(); track itemData.getItem().getId(); let index = $index) {
         @let columnOffset = index % columnCount;
         @let columnIndex = (columnOffset + 1) * 2 - 1;

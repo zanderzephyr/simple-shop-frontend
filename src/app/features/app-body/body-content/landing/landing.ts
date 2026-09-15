@@ -4,11 +4,8 @@ import { Item } from '@api/item/model/item';
 import { LocalizationService } from '@core/localization/localization-service';
 import { PageConfig } from '@core/utils/page/page-config';
 import { drawRandomSublist } from '@core/utils/random-utils';
-import { ItemOverviewComponent } from '@features/app-body/body-content/item-overview/item-overview';
-import {
-	ItemOverviewData,
-	ItemOverviewDataBuilder
-} from '@features/app-body/body-content/item-overview/item-overview-data';
+import { ItemOverviewComponent } from '@ui/item-overview/item-overview';
+import { ItemOverviewData, ItemOverviewDataBuilder } from '@ui/item-overview/item-overview-data';
 import * as LocalizationKeys from './landing-utils';
 
 @Component({
