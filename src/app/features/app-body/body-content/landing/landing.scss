@@ -2,7 +2,7 @@
 
 :host {
 	@include layout-utils.fill-grid-slot;
-	grid-template-rows: auto;
+	grid-template-rows: auto; // Not needed so far, just as preparation for later content on the landing page.
 
 	.landing-special-discounts-container {
 		grid-column: 1;
@@ -22,12 +22,14 @@
 
 		.landing-special-discounts-items {
 			grid-column: 1;
-			grid-row: 3;
+			grid-row: 2;
 
-			display: grid;
-			grid-template-columns: repeat(5, 1fr );
-			grid-template-rows: auto auto; // grid-auto-rows if it gets more dynamic
+			display: flex;
 			gap: var(--app-small-padding);
+
+			> * {
+				border-radius: 15px;
+			}
 		}
 	}
 }

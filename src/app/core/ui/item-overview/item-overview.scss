@@ -2,28 +2,33 @@
 
 :host {
 	@include layout-utils.fill-grid-slot;
-
-	grid-template-columns: var(--app-small-padding) 1fr 300px 1fr var(--app-small-padding);
-	grid-template-rows: 300px var(--app-small-padding) auto var(--app-small-padding) auto;
+	grid-template-columns: 300px;
+	grid-template-rows: auto 40px 20px;
+	gap: var(--app-small-padding);
 
 	background-color: var(--app-global-color-background-intermediate);
 
 	.item-overview-cover {
-		grid-column: 3;
+		grid-column: 1;
 		grid-row: 1;
-		aspect-ratio: 1 / 1;
+		width: 200px;
+		height: 200px;
+		place-self: center;
 	}
 
+	// TODO Shorten the title if it's too long.
 	.item-overview-title {
-		grid-column: 2 / span 3;
-		grid-row: 3;
-		text-align: center;
+		grid-column: 1;
+		grid-row: 2;
+		place-self: center;
+		text-align: center; // Effective for multiple-line headers
+		overflow: hidden;
 	}
 
+	// TODO Render this as a label on the cover (with background so it's always visible)
 	.item-overview-price-and-discount {
-		grid-column: 2 / span 3;
-		grid-row: 5;
-
-		text-align: right;
+		grid-column: 1;
+		grid-row: 3;
+		place-self: center;
 	}
 }
