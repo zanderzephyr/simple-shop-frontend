@@ -33,7 +33,7 @@ export class GeneralDialogComponent<
 > extends DialogContentComponent<DATA, RESULT> {
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
 
-	readonly contentChild: Signal<ViewContainerRef | undefined> = viewChild('content', {
+	public readonly contentChild: Signal<ViewContainerRef | undefined> = viewChild('content', {
 		read: ViewContainerRef
 	});
 
