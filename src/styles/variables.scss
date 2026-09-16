@@ -39,9 +39,9 @@
 :root {
 	--app-global-font-main: var(--mat-sys-body-medium-font);
 	// Background Layers
-	--app-global-color-background-bottom: var(--mat-sys-surface);
+	--app-global-color-background-bottom: var(--mat-sys-surface-container-lowest);
 	--app-global-color-background-intermediate: var(--mat-sys-surface-container);
-	--app-global-color-background-high: var(--mat-sys-surface-container-high);
+	--app-global-color-background-high: var(--mat-sys-surface-container-highest);
 	// Interactive Background Accents
 	--app-global-color-background-primary: var(--mat-sys-primary);
 	//  TODO

@@ -29,6 +29,13 @@
 
 			> * {
 				border-radius: 15px;
+
+				box-shadow: none;
+				transition: box-shadow 0.2s ease;
+
+				&:hover {
+					box-shadow: 0 0 5px var(--app-global-color-background-high);
+				}
 			}
 		}
 	}
