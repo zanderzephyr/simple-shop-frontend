@@ -28,11 +28,13 @@
 			gap: var(--app-small-padding);
 
 			> * {
+				cursor: pointer;
+				user-select: none;
+
 				border-radius: 15px; // rounds the corners
 
 				box-shadow: none;
 				transition: box-shadow 0.2s ease;
-
 				// On mouse over, show a shadow
 				&:hover {
 					// 1. offset-x, 2. offset-y, 3. blur radius, 4. spread radius
