@@ -1,0 +1,29 @@
+<div class="carousel-container"
+	 [class.horizontal]="scrollHorizontally()"
+	 [class.vertical]="!scrollHorizontally()">
+
+	@if (scrollHorizontally()) {
+		<button class="carousel-left" matFab (click)="onLeftClick()">
+			<mat-icon>arrow_left</mat-icon>
+		</button>
+	} @else {
+		<button class="carousel-up" matFab (click)="onUpClick()">
+			<mat-icon>arrow_drop_up</mat-icon>
+		</button>
+	}
+
+	<div class="carousel-content">
+		<ng-content></ng-content>
+	</div>
+
+	@if (scrollHorizontally()) {
+		<button class="carousel-right" matFab (click)="onRightClick()">
+			<mat-icon>arrow_right</mat-icon>
+		</button>
+	} @else {
+		<button class="carousel-down" matFab (click)="onDownClick()">
+			<mat-icon>arrow_drop_down</mat-icon>
+		</button>
+	}
+
+</div>

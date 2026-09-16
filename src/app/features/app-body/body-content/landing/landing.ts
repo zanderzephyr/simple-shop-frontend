@@ -4,13 +4,14 @@ import { Item } from '@api/item/model/item';
 import { LocalizationService } from '@core/localization/localization-service';
 import { PageConfig } from '@core/utils/page/page-config';
 import { drawRandomSublist } from '@core/utils/random-utils';
+import { CarouselComponent } from '@ui/carousel/carousel';
 import { ItemOverviewComponent } from '@ui/item-overview/item-overview';
 import { ItemOverviewData, ItemOverviewDataBuilder } from '@ui/item-overview/item-overview-data';
 import * as LocalizationKeys from './landing-utils';
 
 @Component({
 	selector: 'app-landing',
-	imports: [ItemOverviewComponent],
+	imports: [ItemOverviewComponent, CarouselComponent],
 	templateUrl: './landing.html',
 	styleUrl: './landing.scss'
 })

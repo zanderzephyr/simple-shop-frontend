@@ -1,0 +1,64 @@
+@use "layout-utils" as layout-utils;
+
+:host {
+	@include layout-utils.fill-grid-slot;
+
+	.carousel-container {
+		display: grid;
+		@include layout-utils.fill-grid-slot;
+		gap: var(--app-small-padding);
+
+		--min-height-horizontal: 56px; // one mat fab button has this fixed size
+		--min-width-horizontal: 150px; // two mat fab buttons plus at least some space for content
+
+		.carousel-content {
+			overflow: hidden;
+		}
+
+		&.horizontal {
+			grid-template-columns: auto 1fr auto;
+			grid-template-rows: 1fr;
+			align-items: center;
+			min-height: var(--min-height-horizontal);
+			min-width: var(--min-width-horizontal);
+
+			.carousel-left {
+				grid-column: 1;
+				grid-row: 1;
+			}
+
+			.carousel-content {
+				grid-column: 2;
+				grid-row: 1;
+			}
+
+			.carousel-right {
+				grid-column: 3;
+				grid-row: 1;
+			}
+		}
+
+		&.vertical {
+			grid-template-columns: 1fr;
+			grid-template-rows: auto 1fr auto;
+			justify-items: center;
+			min-height: var(--min-width-horizontal);
+			min-width: var(--min-height-horizontal);
+
+			.carousel-up {
+				grid-column: 1;
+				grid-row: 1;
+			}
+
+			.carousel-content {
+				grid-column: 1;
+				grid-row: 2;
+			}
+
+			.carousel-down {
+				grid-column: 1;
+				grid-row: 3;
+			}
+		}
+	}
+}
