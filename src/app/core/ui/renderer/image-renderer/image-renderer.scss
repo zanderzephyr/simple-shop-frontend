@@ -1,0 +1,11 @@
+@use "layout-utils" as layout-utils;
+
+:host {
+	@include layout-utils.fill-grid-slot;
+
+	.image-renderer-text-placeholder {
+		grid-column: 1;
+		grid-row: 1;
+		place-self: center;
+	}
+}
