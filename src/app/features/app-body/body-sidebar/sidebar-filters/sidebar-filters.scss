@@ -2,8 +2,9 @@
 
 :host {
 	@include layout-utils.fill-grid-slot;
-	grid-template-rows: auto var(--app-large-padding) auto var(--app-large-padding) auto;
+	grid-template-rows: auto auto auto;
 	align-content: start;
+	gap: var(--app-large-padding);
 
 	.filters-title {
 		grid-column: 1;
@@ -14,11 +15,11 @@
 
 	app-media-type-sidebar-filter {
 		grid-column: 1;
-		grid-row: 3;
+		grid-row: 2;
 	}
 
 	app-price-sidebar-filter {
 		grid-column: 1;
-		grid-row: 5;
+		grid-row: 3;
 	}
 }

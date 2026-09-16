@@ -11,8 +11,7 @@
 		display: grid;
 		grid-template-columns: 100px 100px;
 		grid-template-rows: auto auto auto;
-		// 1. rows gap, 2. columns gap
-		gap: var(--app-large-padding) var(--app-large-padding);
+		gap: var(--app-large-padding);
 
 		.login-username {
 			// [n] / [m]: We start at the left edge of column n and span to the left edge of column m. Like [n,m)
