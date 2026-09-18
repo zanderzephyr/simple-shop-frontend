@@ -11,6 +11,10 @@
 		display: flex;
 		justify-content: space-between;
 
+		.user-management-container-paginator {
+			background-color: inherit;
+		}
+
 		.user-management-container-header-buttons {
 			display: flex;
 			gap: var(--app-large-padding);
@@ -28,6 +32,5 @@
 	.user-management-container-table {
 		grid-column: 1;
 		grid-row: 2;
-
 	}
 }

@@ -2,13 +2,15 @@
 	// width is mandatory for table-layout "fixed" to work
 	width: 100%;
 	table-layout: fixed;
-}
 
-.ng-mat-table-header-cell {
-	text-align: center;
-}
+	background-color: inherit;
 
-.ng-mat-table-data-cell {
-	// Breaks long words so they don't clip
-	overflow-wrap: break-word;
+	.ng-mat-table-header-cell {
+		text-align: center;
+	}
+
+	.ng-mat-table-data-cell {
+		// Breaks long words so they don't clip
+		overflow-wrap: break-word;
+	}
 }

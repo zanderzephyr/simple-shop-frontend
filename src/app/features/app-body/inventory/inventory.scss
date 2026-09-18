@@ -11,6 +11,10 @@
 		display: flex;
 		justify-content: space-between;
 
+		.inventory-container-paginator {
+			background-color: inherit;
+		}
+
 		.inventory-container-header-buttons {
 			display: flex;
 			gap: var(--app-large-padding);
