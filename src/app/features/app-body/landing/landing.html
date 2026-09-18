@@ -3,7 +3,7 @@
 		{{ specialDiscountsTitleText() }}
 	</div>
 
-	<app-carousel class="special-discounts-carousel">
+	<app-carousel class="special-discounts-carousel" [scrollStep]="200">
 		<div class="landing-special-discounts-items">
 			@for (itemData of specialItemDiscountData(); track itemData.getItem().getId()) {
 				<app-item-overview
