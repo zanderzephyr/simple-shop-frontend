@@ -3,41 +3,8 @@
 :host {
 	@include layout-utils.fill-grid-slot;
 
-	&:has(app-body-sidebar.sidebar-visible) {
-		grid-template-columns: 370px 1fr;
-		gap: var(--app-small-padding);
-	}
-
-	&:has(app-body-sidebar.sidebar-invisible) {
-		grid-template-columns: 0 1fr;
-		gap: 0;
-	}
-
-	transition: grid-template-columns 0.3s ease-in-out;
-
-	app-body-sidebar {
+	app-body-content {
 		grid-column: 1;
 		grid-row: 1;
-
-		overflow: auto;
-
-		width: 370px;
-		min-width: 0; // makes it shrinkable even with content. default auto would prevent it otherwise.
-	}
-
-	app-body-sidebar.sidebar-invisible {
-		visibility: hidden;
-		overflow: hidden;
-	}
-
-	app-body-sidebar.sidebar-visible {
-		visibility: visible;
-	}
-
-	app-body-content {
-		grid-column: 2;
-		grid-row: 1;
-
-		overflow: auto;
 	}
 }

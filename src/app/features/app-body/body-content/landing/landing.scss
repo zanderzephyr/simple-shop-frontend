@@ -2,11 +2,25 @@
 
 :host {
 	@include layout-utils.fill-grid-slot;
+	// All further elements on the landing page have to be of the same width as the discounts element or they have to be
+	// pushed together in a single row. They must not all have different widths, so that the page doesn't look totally
+	// messy.
+	// Also, the color model should actually give some kind of "anchor" around the centered component, to not look weirdly
+	// flying / positioned. This sort of stuff is very artistic and it has to severely take the content/ into account,
+	// which is very time-consuming, so I skip this for now.
+	// This sort of stuff could be done in a general way for every body component, but it might be too bold to assume,
+	// it would actually be possible to solve everything the same way. When I look at amazon, they use different main
+	// component widths for different things they solve in the same shop. This is my example to learn from for now, so I
+	// decide: Every component has to pick its own approach to fill the horizontal width.
+	grid-template-columns: 1fr auto 1fr;
 	grid-template-rows: auto; // Not needed so far, just as preparation for later content on the landing page.
 
 	.landing-special-discounts-container {
-		grid-column: 1;
+		grid-column: 2;
 		grid-row: 1;
+
+		max-width: var(--app-max-body-width);
+		background-color: var(--app-global-color-background-lowest);
 
 		@include layout-utils.fill-grid-slot;
 		grid-template-rows: auto auto;
@@ -29,6 +43,8 @@
 				gap: var(--app-small-padding);
 
 				> * {
+					background-color: var(--app-global-color-background-low);
+
 					cursor: pointer;
 					user-select: none;
 
@@ -39,7 +55,7 @@
 					// On mouse over, show a shadow
 					&:hover {
 						// 1. offset-x, 2. offset-y, 3. blur radius, 4. spread radius
-						box-shadow: 0 0 2px 3px var(--app-global-color-background-intermediate);
+						box-shadow: 0 0 2px 3px var(--app-global-color-background-low);
 					}
 				}
 			}

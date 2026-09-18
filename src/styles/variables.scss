@@ -1,6 +1,6 @@
 // Angular material mapping
 //
-// Variable meaning:
+// Variable meaning (TODO Update to current state):
 // app-global-color-background-bottom: Main background color
 // app-global-color-background-intermediate: Main segment background color
 // app-global-color-background-high: Elevated element background color for e.g. dialogs, popup menus, ...
@@ -39,9 +39,11 @@
 :root {
 	--app-global-font-main: var(--mat-sys-body-medium-font);
 	// Background Layers
-	--app-global-color-background-bottom: var(--mat-sys-surface-container-lowest);
-	--app-global-color-background-intermediate: var(--mat-sys-surface-container);
-	--app-global-color-background-high: var(--mat-sys-surface-container-highest);
+	--app-global-color-background-lowest: var(--mat-sys-surface-container-lowest);
+	--app-global-color-background-low: var(--mat-sys-surface-container-low);
+	--app-global-color-background-medium: var(--mat-sys-surface-container);
+	--app-global-color-background-high: var(--mat-sys-surface-container-high);
+	--app-global-color-background-highest: var(--mat-sys-surface-container-highest);
 	// Interactive Background Accents
 	--app-global-color-background-primary: var(--mat-sys-primary);
 	//  TODO
@@ -72,4 +74,9 @@
 :root {
 	--app-title-font-size: x-large;
 	--app-subtitle-font-size: large;
+}
+
+// Sizes
+:root {
+	--app-max-body-width: 1920px;
 }

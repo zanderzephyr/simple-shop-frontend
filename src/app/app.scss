@@ -14,10 +14,12 @@
 
 	overflow: auto;
 
+	background-color: var(--app-global-color-background-lowest);
+
 	.app-grid {
 		display: grid;
 		grid-template-columns: 1fr;
-		grid-template-rows: 60px 1fr 80px;
+		grid-template-rows: 60px auto 80px;
 		gap: var(--app-large-padding);
 		padding: var(--app-large-padding);
 		box-sizing: border-box;
@@ -26,7 +28,6 @@
 		width: 100%;
 		min-height: 600px;
 		min-width: 1024px;
-		overflow: hidden;
 
 		app-header {
 			grid-column: 1;

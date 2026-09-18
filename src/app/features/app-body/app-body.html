@@ -1,9 +1,3 @@
-<app-body-sidebar
-	(visibilityChange)="sidebarVisible.set($event)"
-	[class.sidebar-visible]="sidebarVisible()"
-	[class.sidebar-invisible]="!sidebarVisible()"
-></app-body-sidebar>
-
 <app-body-content>
 	<router-outlet />
 </app-body-content>
