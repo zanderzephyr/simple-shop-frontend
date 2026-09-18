@@ -3,7 +3,7 @@
 :host {
 	@include layout-utils.fill-grid-slot;
 
-	app-body-content {
+	.body-content-container {
 		grid-column: 1;
 		grid-row: 1;
 	}
