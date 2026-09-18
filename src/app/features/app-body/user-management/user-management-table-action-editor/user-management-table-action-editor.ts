@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import {
-	UserManagementTableAction
-} from '@features/app-body/body-content/user-management/user-management-table-action';
+import { UserManagementTableAction } from '@features/app-body/user-management/user-management-table-action';
 import { TableCellEditorComponent } from '@ui/table/interface/table-cell-editor';
 
 @Component({

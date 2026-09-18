@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BodySidebarComponent } from './body-sidebar';
+import { ItemSearchSidebarComponent } from './item-search-sidebar';
 
 describe('BodySidebar', () => {
-	let component: BodySidebarComponent;
-	let fixture: ComponentFixture<BodySidebarComponent>;
+	let component: ItemSearchSidebarComponent;
+	let fixture: ComponentFixture<ItemSearchSidebarComponent>;
 
 	beforeEach(async () => {
 		await TestBed.configureTestingModule({
-			imports: [BodySidebarComponent]
+			imports: [ItemSearchSidebarComponent]
 		}).compileComponents();
 
-		fixture = TestBed.createComponent(BodySidebarComponent);
+		fixture = TestBed.createComponent(ItemSearchSidebarComponent);
 		component = fixture.componentInstance;
 		await fixture.whenStable();
 	});

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { InventoryTableAction } from '@features/app-body/body-content/inventory/inventory-table-action';
+import { InventoryTableAction } from '@features/app-body/inventory/inventory-table-action';
 import { TableCellEditorComponent } from '@ui/table/interface/table-cell-editor';
 
 @Component({

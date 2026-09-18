@@ -34,6 +34,23 @@
 						}
 					}
 				},
+				"itemSearch": {
+					"sidebar": {
+						"filters": {
+							"mediaTypeFilter": {
+								"allTypesLabel": "All types",
+								"chooseMediaTypeLabel": "Choose Media Type",
+								"title": "Media Type"
+							},
+							"priceFilter": {
+								"maxValueLabel": "Max (EUR)",
+								"minValueLabel": "Min (EUR)",
+								"title": "Price"
+							},
+							"title": "Filters"
+						}
+					}
+				},
 				"landing": {
 					"specialDiscountsTitle": "Current Discounts"
 				},
@@ -58,21 +75,6 @@
 						"theme": {
 							"chooseThemeLabel": "Choose Theme"
 						}
-					}
-				},
-				"sidebar": {
-					"filters": {
-						"mediaTypeFilter": {
-							"allTypesLabel": "All types",
-							"chooseMediaTypeLabel": "Choose Media Type",
-							"title": "Media Type"
-						},
-						"priceFilter": {
-							"maxValueLabel": "Max (EUR)",
-							"minValueLabel": "Min (EUR)",
-							"title": "Price"
-						},
-						"title": "Filters"
 					}
 				},
 				"userManagement": {

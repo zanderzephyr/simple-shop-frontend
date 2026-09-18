@@ -1,14 +1,13 @@
 import { Component, computed, effect, output, OutputEmitterRef, signal, Signal, WritableSignal } from '@angular/core';
 import { SidebarFiltersComponent } from './sidebar-filters/sidebar-filters';
 
-// TODO Move this component to under the search component, when the search component is created.
 @Component({
-	selector: 'app-body-sidebar',
+	selector: 'app-item-search-sidebar',
 	imports: [SidebarFiltersComponent],
-	templateUrl: './body-sidebar.html',
-	styleUrl: './body-sidebar.scss'
+	templateUrl: './item-search-sidebar.html',
+	styleUrl: './item-search-sidebar.scss'
 })
-export class BodySidebarComponent {
+export class ItemSearchSidebarComponent {
 	public readonly visibilityChange: OutputEmitterRef<boolean> = output<boolean>();
 
 	protected readonly filtersVisible: WritableSignal<boolean> = signal<boolean>(false);

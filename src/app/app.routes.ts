@@ -48,7 +48,7 @@ export const routes: Routes = [
 		path: '',
 		pathMatch: 'full',
 		loadComponent: () =>
-			import('@features/app-body/body-content/landing/landing').then(
+			import('@features/app-body/landing/landing').then(
 				(m) => m.LandingComponent
 			)
 	},
@@ -56,7 +56,7 @@ export const routes: Routes = [
 		path: 'book-keeping',
 		canActivate: [isAdminGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/book-keeping/book-keeping').then(
+			import('@features/app-body/book-keeping/book-keeping').then(
 				(m) => m.BookKeepingComponent
 			)
 	},
@@ -64,7 +64,7 @@ export const routes: Routes = [
 		path: 'global-transactions',
 		canActivate: [isAdminGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/global-transactions/global-transactions').then(
+			import('@features/app-body/global-transactions/global-transactions').then(
 				(m) => m.GlobalTransactionsComponent
 			)
 	},
@@ -72,7 +72,7 @@ export const routes: Routes = [
 		path: 'inventory',
 		canActivate: [isAdminGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/inventory/inventory').then(
+			import('@features/app-body/inventory/inventory').then(
 				(m) => m.InventoryComponent
 			)
 	},
@@ -80,37 +80,37 @@ export const routes: Routes = [
 		path: 'login',
 		canActivate: [isLoggedOutGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/login/login').then(
+			import('@features/app-body/login/login').then(
 				(m) => m.LoginComponent
 			)
 	},
 	{
 		path: 'logout',
 		loadComponent: () =>
-			import('@features/app-body/body-content/logout/logout').then(
+			import('@features/app-body/logout/logout').then(
 				(m) => m.LogoutComponent
 			)
 	},
 	{
 		path: 'outage',
 		loadComponent: () =>
-			import('@features/app-body/body-content/outage/outage').then((m) => m.OutageComponent)
+			import('@features/app-body/outage/outage').then((m) => m.OutageComponent)
 	},
 	{
 		path: 'profile',
 		canActivate: [isLoggedInGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/profile/profile').then((m) => m.ProfileComponent)
+			import('@features/app-body/profile/profile').then((m) => m.ProfileComponent)
 	},
 	{
 		path: 'settings',
 		loadComponent: () =>
-			import('@features/app-body/body-content/settings/settings').then((m) => m.SettingsComponent)
+			import('@features/app-body/settings/settings').then((m) => m.SettingsComponent)
 	},
 	{
 		path: 'shopping-cart',
 		loadComponent: () =>
-			import('@features/app-body/body-content/shopping-cart/shopping-cart').then(
+			import('@features/app-body/shopping-cart/shopping-cart').then(
 				(m) => m.ShoppingCartComponent
 			)
 	},
@@ -118,7 +118,7 @@ export const routes: Routes = [
 		path: 'user-management',
 		canActivate: [isAdminGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/user-management/user-management').then(
+			import('@features/app-body/user-management/user-management').then(
 				(m) => m.UserManagementComponent
 			)
 	},
@@ -126,7 +126,7 @@ export const routes: Routes = [
 		path: 'user-transactions',
 		canActivate: [isLoggedInGuard],
 		loadComponent: () =>
-			import('@features/app-body/body-content/user-transactions/user-transactions').then(
+			import('@features/app-body/user-transactions/user-transactions').then(
 				(m) => m.UserTransactionsComponent
 			)
 	},

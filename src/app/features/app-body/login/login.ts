@@ -4,10 +4,10 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { Router } from '@angular/router';
-import { LoginRequest, LoginRequestBuilder } from '@core/api/auth/model/login-request';
+import { LoginRequest, LoginRequestBuilder } from '@api/auth/model/login-request';
 import { LocalizationService } from '@core/localization/localization-service';
 import { SessionService } from '@core/session/session-service';
-import { DialogService, openErrorDialog } from '@core/ui/dialog/interface/dialog-service';
+import { DialogService, openErrorDialog } from '@ui/dialog/interface/dialog-service';
 import { generateSha256Hash } from '@core/utils/crypto-utils';
 import * as Keys from './login-utils';
 

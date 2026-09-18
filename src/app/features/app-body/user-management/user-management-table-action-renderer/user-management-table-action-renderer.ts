@@ -2,9 +2,7 @@ import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { Consumer } from '@core/utils/functional-interfaces';
-import {
-	UserManagementTableAction
-} from '@features/app-body/body-content/user-management/user-management-table-action';
+import { UserManagementTableAction } from '@features/app-body/user-management/user-management-table-action';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
 import { TableCellRendererComponent } from '@ui/table/interface/table-cell-renderer';
 
