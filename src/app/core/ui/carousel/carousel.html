@@ -4,11 +4,17 @@
 
 	@if (scrollButtonsVisible()) {
 		@if (scrollHorizontally()) {
-			<button class="carousel-left" matFab (click)="onLeftClick()">
+			<button class="carousel-left" matFab
+					(mousedown)="startScrolling(ScrollDirection.BACKWARD)"
+					(mouseenter)="onMouseEnter(ScrollDirection.BACKWARD)"
+					(mouseleave)="onMouseLeave()">
 				<mat-icon>arrow_left</mat-icon>
 			</button>
 		} @else {
-			<button class="carousel-up" matFab (click)="onUpClick()">
+			<button class="carousel-up" matFab
+					(mousedown)="startScrolling(ScrollDirection.BACKWARD)"
+					(mouseenter)="onMouseEnter(ScrollDirection.BACKWARD)"
+					(mouseleave)="onMouseLeave()">
 				<mat-icon>arrow_drop_up</mat-icon>
 			</button>
 		}
@@ -21,11 +27,17 @@
 
 	@if (scrollButtonsVisible()) {
 		@if (scrollHorizontally()) {
-			<button class="carousel-right" matFab (click)="onRightClick()">
+			<button class="carousel-right" matFab
+					(mousedown)="startScrolling(ScrollDirection.FORWARD)"
+					(mouseenter)="onMouseEnter(ScrollDirection.FORWARD)"
+					(mouseleave)="onMouseLeave()">
 				<mat-icon>arrow_right</mat-icon>
 			</button>
 		} @else {
-			<button class="carousel-down" matFab (click)="onDownClick()">
+			<button class="carousel-down" matFab
+					(mousedown)="startScrolling(ScrollDirection.FORWARD)"
+					(mouseenter)="onMouseEnter(ScrollDirection.FORWARD)"
+					(mouseleave)="onMouseLeave()">
 				<mat-icon>arrow_drop_down</mat-icon>
 			</button>
 		}
