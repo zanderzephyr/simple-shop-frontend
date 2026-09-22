@@ -13,7 +13,7 @@ import { SessionData, SessionDataBuilder } from './session-data';
 	useClass: forwardRef(() => CoreSessionService)
 })
 export abstract class SessionService {
-	public constructor() {
+	protected constructor() {
 	}
 
 	/**

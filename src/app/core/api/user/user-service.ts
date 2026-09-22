@@ -16,7 +16,7 @@ import { UserSerializer } from './user-serializer';
 	useClass: forwardRef(() => ApiUserService)
 })
 export abstract class UserService {
-	public constructor() {
+	protected constructor() {
 	}
 
 	/**

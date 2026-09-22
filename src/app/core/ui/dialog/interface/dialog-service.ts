@@ -11,7 +11,7 @@ import { DialogReference } from './dialog-reference';
 
 @Injectable()
 export abstract class DialogService {
-	public constructor() {
+	protected constructor() {
 	}
 
 	public abstract open<DATA, RESULT>(config: DialogConfig<DATA, RESULT>): DialogReference<RESULT>;

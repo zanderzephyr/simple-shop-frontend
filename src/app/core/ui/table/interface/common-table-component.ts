@@ -13,7 +13,7 @@ export abstract class CommonTableComponent {
 		this.table().getTableColumnModel()
 	);
 
-	public constructor() {
+	protected constructor() {
 		// Nothing to do so far
 	}
 }

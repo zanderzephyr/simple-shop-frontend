@@ -14,7 +14,7 @@ import { LoginResponse, zodLoginResponse } from './model/login-response';
 	useClass: forwardRef(() => ApiAuthService)
 })
 export abstract class AuthService {
-	public constructor() {
+	protected constructor() {
 	}
 
 	/**

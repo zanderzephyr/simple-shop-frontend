@@ -14,7 +14,7 @@ import { ItemSerializer } from './item-serializer';
 	useClass: forwardRef(() => ApiItemService)
 })
 export abstract class ItemService {
-	public constructor() {
+	protected constructor() {
 	}
 
 	/**
