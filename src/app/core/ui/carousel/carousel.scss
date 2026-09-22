@@ -1,5 +1,9 @@
 @use "layout-utils" as layout-utils;
 
+// TODO There's a known problem with angular material here. When a user holds down a scroll button until it is disabled
+// (via reaching the element's "edge"), this button is hovered and disabled. For a short time, at least Chrome renders
+// the button's background color in a weird ghost state, i.e. it gets a disabled hovered mix color, which shouldn't
+// exist actually. ~0.5s or so later, the color is corrected. It's annoying and difficult to fix.
 :host {
 	@include layout-utils.fill-grid-slot;
 
