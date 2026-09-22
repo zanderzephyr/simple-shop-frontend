@@ -8,7 +8,7 @@ export abstract class TableCellEditorComponent<TYPE> implements Editor<TYPE> {
 
 	public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();
 
-	public constructor() {
+	protected constructor() {
 		// Nothing to do so far
 	}
 }

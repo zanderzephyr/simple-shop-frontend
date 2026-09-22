@@ -10,6 +10,6 @@ export abstract class DefaultEditor<TYPE> implements Editor<TYPE> {
 
 	protected readonly value: Signal<TYPE> = computed(() => this.valueInput()());
 
-	public constructor() {
+	protected constructor() {
 	}
 }

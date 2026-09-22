@@ -9,6 +9,7 @@ import {
 	viewChild,
 	ViewContainerRef
 } from '@angular/core';
+import { IllegalArgumentError } from '@core/utils/common-errors';
 import { DefaultRendererComponent } from '@ui/renderer/default-renderer';
 import { Renderer } from '@ui/renderer/renderer';
 import { Table } from '@ui/table/interface/table';
@@ -31,9 +32,23 @@ import { TableColumn } from '@ui/table/interface/table-column';
 export class NgMatTableCellComponent {
 	public readonly table: InputSignal<Table> = input.required<Table>();
 
-	public readonly columnViewIndex: InputSignal<number> = input.required<number>();
+	public readonly columnViewIndex: InputSignal<number> = input.required<number, number>({
+		transform: (value: number): number => {
+			if (value < 0 || value >= this.table().getTableModel().getColumnCount()()) {
+				throw new IllegalArgumentError('Column view index is out of range: ' + value);
+			}
+			return value;
+		}
+	});
 
-	public readonly rowViewIndex: InputSignal<number> = input.required<number>();
+	public readonly rowViewIndex: InputSignal<number> = input.required<number, number>({
+		transform: (value: number): number => {
+			if (value < 0 || value >= this.table().getTableModel().getRowCount()()) {
+				throw new IllegalArgumentError('Row view index is out of range: ' + value);
+			}
+			return value;
+		}
+	});
 
 	// TODO Maybe replace "content" with a unique string in the app, to prevent duplicates?
 	readonly content: Signal<ViewContainerRef | undefined> = viewChild('content', {

@@ -18,7 +18,7 @@ export abstract class TableCellRendererComponent<TYPE> implements Renderer<TYPE>
 				)() as TYPE
 	);
 
-	public constructor() {
+	protected constructor() {
 		// Nothing to do so far
 	}
 }
