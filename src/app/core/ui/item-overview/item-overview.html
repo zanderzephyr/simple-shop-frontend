@@ -5,12 +5,9 @@
 <div class="item-overview-title">{{ data().getItem().getTitle() }}</div>
 
 <div class="item-overview-price-and-discount">
-	@let discount = data().getDiscount();
-	@let price = data().getItem().getPrice();
-	@if (discount === undefined) {
-		{{ (price / 100).toFixed(2) }} EUR
+	@if (discountedPrice() === undefined) {
+		{{ price() }} EUR
 	} @else {
-		@let discountedPrice = price * (1 - discount);
-		{{ (math.round(discountedPrice) / 100).toFixed(2) }} EUR -({{ discount * 100 }}%)
+		{{ discountedPrice() }} EUR -({{ discountInPercent() }}%)
 	}
 </div>
