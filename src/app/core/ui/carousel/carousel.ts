@@ -69,6 +69,9 @@ export class CarouselComponent {
 	private readonly carouselContent: Signal<ElementRef<HTMLDivElement>> = viewChild.required<ElementRef<HTMLDivElement>>('carouselContent');
 
 	protected readonly scrollButtonsVisible: WritableSignal<boolean> = signal(false);
+	protected readonly disableBackwardButton: WritableSignal<boolean> = signal(true);
+	protected readonly disableForwardButton: WritableSignal<boolean> = signal(false);
+
 	readonly #destroyRef: DestroyRef = inject(DestroyRef);
 
 	protected readonly ScrollDirection = ScrollDirection;
@@ -84,11 +87,39 @@ export class CarouselComponent {
 			read: () => {
 				const element: HTMLDivElement = this.carouselContent().nativeElement;
 
-				const observer: ResizeObserver = new ResizeObserver(() => this.#updateScrollButtonsVisible());
+				const observer: ResizeObserver = new ResizeObserver(() => {
+					this.#updateScrollButtonsVisible();
+					this.#updateButtonDisabledStates();
+				});
 				this.#destroyRef.onDestroy(() => observer.disconnect());
 				observer.observe(element);
+
+				const scrollListener = () => this.#updateButtonDisabledStates();
+				element.addEventListener('scroll', scrollListener);
+				this.#destroyRef.onDestroy(() => element.removeEventListener('scroll', scrollListener));
+
+				// If the element is too small to scroll, the forward button would stay enabled per default. Calling
+				// the update method here to prevent that.
+				this.#updateButtonDisabledStates();
 			}
 		});
+	}
+
+	// Forward: Using a 1px buffer to account for subpixel/zoom floating calculations
+	#updateButtonDisabledStates(): void {
+		const element: HTMLDivElement = this.carouselContent().nativeElement;
+
+		if (this.scrollHorizontally()) {
+			this.disableBackwardButton.set(element.scrollLeft <= 0);
+
+			const maxScrollLeft: number = element.scrollWidth - element.clientWidth;
+			this.disableForwardButton.set(element.scrollLeft >= maxScrollLeft - 1);
+		} else {
+			this.disableBackwardButton.set(element.scrollTop <= 0);
+
+			const maxScrollTop: number = element.scrollHeight - element.clientHeight;
+			this.disableForwardButton.set(element.scrollTop >= maxScrollTop - 1);
+		}
 	}
 
 	#validateScrollStepInPx(value: number | undefined): number | undefined {

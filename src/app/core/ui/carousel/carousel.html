@@ -5,6 +5,7 @@
 	@if (scrollButtonsVisible()) {
 		@if (scrollHorizontally()) {
 			<button class="carousel-left" matFab
+					[disabled]="disableBackwardButton()"
 					(mousedown)="startScrolling(ScrollDirection.BACKWARD)"
 					(mouseenter)="onMouseEnter(ScrollDirection.BACKWARD)"
 					(mouseleave)="onMouseLeave()">
@@ -12,6 +13,7 @@
 			</button>
 		} @else {
 			<button class="carousel-up" matFab
+					[disabled]="disableBackwardButton()"
 					(mousedown)="startScrolling(ScrollDirection.BACKWARD)"
 					(mouseenter)="onMouseEnter(ScrollDirection.BACKWARD)"
 					(mouseleave)="onMouseLeave()">
@@ -28,6 +30,7 @@
 	@if (scrollButtonsVisible()) {
 		@if (scrollHorizontally()) {
 			<button class="carousel-right" matFab
+					[disabled]="disableForwardButton()"
 					(mousedown)="startScrolling(ScrollDirection.FORWARD)"
 					(mouseenter)="onMouseEnter(ScrollDirection.FORWARD)"
 					(mouseleave)="onMouseLeave()">
@@ -35,6 +38,7 @@
 			</button>
 		} @else {
 			<button class="carousel-down" matFab
+					[disabled]="disableForwardButton()"
 					(mousedown)="startScrolling(ScrollDirection.FORWARD)"
 					(mouseenter)="onMouseEnter(ScrollDirection.FORWARD)"
 					(mouseleave)="onMouseLeave()">
