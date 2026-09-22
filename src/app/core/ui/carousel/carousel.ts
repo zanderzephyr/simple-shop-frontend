@@ -26,43 +26,43 @@ import { ScrollDirection } from './scroll-direction';
 	styleUrl: './carousel.scss'
 })
 export class CarouselComponent {
-	public scrollHorizontally: InputSignal<boolean> = input(true);
+	public readonly scrollHorizontally: InputSignal<boolean> = input(true);
 
-	#defaultScrollStepInPx: number | undefined = undefined;
+	readonly #DEFAULT_SCROLL_STEP_IN_PX: number | undefined = undefined;
 	/**
 	 * Scroll step in pixels. If undefined, the viewport height or width is used.
 	 */
 		// First generic type param of input is the type left of =. The second generic type param is the type of the
 		// value parameter of the transform function. input returns an InputSignalWithTransform<TARGET_TYPE,
 		// SOURCE_TYPE> and InputSignal extends InputSignalWithTransform<T,T>.
-	public scrollStepInPx: InputSignal<number | undefined> = input<number | undefined, number | undefined>(this.#defaultScrollStepInPx, {
-		transform: this.#validateScrollStepInPx
+	public readonly scrollStepInPx: InputSignal<number | undefined> = input<number | undefined, number | undefined>(this.#DEFAULT_SCROLL_STEP_IN_PX, {
+		transform: this.#validateScrollStepInPx.bind(this)
 	});
 
-	#defaultInitialScrollDelayInMs: number = 400;
+	readonly #DEFAULT_INITIAL_SCROLL_DELAY_IN_MS: number = 400;
 	/**
 	 * Delay in milliseconds before continuous scrolling starts. Defaults to 400ms.
 	 */
-	public initialScrollDelayInMs: InputSignal<number> = input(this.#defaultInitialScrollDelayInMs, {
-		transform: this.#validateInitialScrollDelayInMs
+	public readonly initialScrollDelayInMs: InputSignal<number> = input(this.#DEFAULT_INITIAL_SCROLL_DELAY_IN_MS, {
+		transform: this.#validateInitialScrollDelayInMs.bind(this)
 	});
 
-	#defaultContinuousScrollStepInPercent: number = 0.15;
+	readonly #DEFAULT_CONTINUOUS_SCROLL_STEP_IN_PERCENT: number = 0.15;
 	/**
 	 * Scroll step for continuous scrolling via keeping the scroll buttons pressed down. The number is interpreted as
 	 * a percentage of the scrollStep parameter. Defaults to 0.15 (i.e. 15% of the scrollStep).
 	 */
-	public continuousScrollStepInPercent: InputSignal<number> = input(this.#defaultContinuousScrollStepInPercent, {
-		transform: this.#validateContinuousScrollStepInPercent
+	public readonly continuousScrollStepInPercent: InputSignal<number> = input(this.#DEFAULT_CONTINUOUS_SCROLL_STEP_IN_PERCENT, {
+		transform: this.#validateContinuousScrollStepInPercent.bind(this)
 	});
 
-	#defaultContinuousScrollSpeedInMs: number = 40;
+	readonly #DEFAULT_CONTINUOUS_SCROLL_SPEED_IN_MS: number = 40;
 	/**
 	 * Scroll speed for continuous scrolling via keeping the scroll buttons pressed down in milliseconds. Defaults to
 	 * 40ms (which looks nearly fluid).
 	 */
-	public continuousScrollSpeedInMs: InputSignal<number> = input(this.#defaultContinuousScrollSpeedInMs, {
-		transform: this.#validateContinuousScrollSpeedInMs
+	public readonly continuousScrollSpeedInMs: InputSignal<number> = input(this.#DEFAULT_CONTINUOUS_SCROLL_SPEED_IN_MS, {
+		transform: this.#validateContinuousScrollSpeedInMs.bind(this)
 	});
 
 	// using TS private instead of JS private due to Angular restrictions.
@@ -71,7 +71,7 @@ export class CarouselComponent {
 	protected readonly scrollButtonsVisible: WritableSignal<boolean> = signal(false);
 	readonly #destroyRef: DestroyRef = inject(DestroyRef);
 
-	protected ScrollDirection = ScrollDirection;
+	protected readonly ScrollDirection = ScrollDirection;
 
 	#continuousScrollingHandle: number | undefined = undefined;
 	#initialScrollDelayHandle: number | undefined = undefined;
@@ -95,8 +95,8 @@ export class CarouselComponent {
 		let valueToUse: number | undefined = value;
 
 		if (value !== undefined && value <= 0) {
-			console.warn('Scroll step in pixel has to be >0. Falling back to ' + this.#defaultScrollStepInPx + '.');
-			valueToUse = this.#defaultScrollStepInPx;
+			console.warn('Scroll step in pixel has to be >0. Falling back to ' + this.#DEFAULT_SCROLL_STEP_IN_PX + '.');
+			valueToUse = this.#DEFAULT_SCROLL_STEP_IN_PX;
 		}
 
 		return valueToUse;
@@ -106,8 +106,8 @@ export class CarouselComponent {
 		let valueToUse: number = value;
 
 		if (value < 0) {
-			console.warn('Initial scroll delay in ms has to be >=0. Falling back to ' + this.#defaultInitialScrollDelayInMs + '.');
-			valueToUse = this.#defaultInitialScrollDelayInMs;
+			console.warn('Initial scroll delay in ms has to be >=0. Falling back to ' + this.#DEFAULT_INITIAL_SCROLL_DELAY_IN_MS + '.');
+			valueToUse = this.#DEFAULT_INITIAL_SCROLL_DELAY_IN_MS;
 		}
 
 		return valueToUse;
@@ -117,8 +117,8 @@ export class CarouselComponent {
 		let valueToUse: number = value;
 
 		if (value <= 0) {
-			console.warn('Continuous scroll step in percent has to be >0. Falling back to ' + this.#defaultContinuousScrollStepInPercent + '.');
-			valueToUse = this.#defaultContinuousScrollStepInPercent;
+			console.warn('Continuous scroll step in percent has to be >0. Falling back to ' + this.#DEFAULT_CONTINUOUS_SCROLL_STEP_IN_PERCENT + '.');
+			valueToUse = this.#DEFAULT_CONTINUOUS_SCROLL_STEP_IN_PERCENT;
 		}
 
 		return valueToUse;
@@ -128,8 +128,8 @@ export class CarouselComponent {
 		let valueToUse: number = value;
 
 		if (value <= 0) {
-			console.warn('Continuous scroll speed in ms has to be >0. Falling back to ' + this.#defaultContinuousScrollSpeedInMs + '.');
-			valueToUse = this.#defaultContinuousScrollSpeedInMs;
+			console.warn('Continuous scroll speed in ms has to be >0. Falling back to ' + this.#DEFAULT_CONTINUOUS_SCROLL_SPEED_IN_MS + '.');
+			valueToUse = this.#DEFAULT_CONTINUOUS_SCROLL_SPEED_IN_MS;
 		}
 
 		return valueToUse;
