@@ -6,7 +6,7 @@
 >
 	<mat-form-field class="item-form-title" appearance="outline">
 		<mat-label>{{ titleText() }}</mat-label>
-		<input matInput type="text" formControlName="title" />
+		<input matInput type="text" formControlName="title" maxlength="400" />
 		<mat-error>{{ titleErrorText() }}</mat-error>
 	</mat-form-field>
 
@@ -22,19 +22,21 @@
 
 	<mat-form-field class="item-form-stock" appearance="outline">
 		<mat-label>{{ stockText() }}</mat-label>
-		<input matInput type="number" formControlName="stock" />
+		<input matInput type="number" step="1" min="0" max="{{MAX_NUMBER_VALUE}}" appPositiveIntegersOnly
+		       formControlName="stock" />
 		<mat-error>{{ stockErrorText() }}</mat-error>
 	</mat-form-field>
 
 	<mat-form-field class="item-form-price" appearance="outline">
 		<mat-label>{{ priceText() }}</mat-label>
-		<input matInput type="number" formControlName="price" />
+		<input matInput type="number" step="1" min="0" max="{{MAX_NUMBER_VALUE}}" appPositiveIntegersOnly
+			   formControlName="price" />
 		<mat-error>{{ priceErrorText() }}</mat-error>
 	</mat-form-field>
 
-	<mat-form-field class="item-form-image-url" appearance="outline">
-		<mat-label>{{ imageUrlText() }}</mat-label>
-		<input matInput type="text" formControlName="imageUrl" />
-		<mat-error>{{ imageUrlErrorText() }}</mat-error>
+	<mat-form-field class="item-form-description" appearance="outline">
+		<mat-label>{{ descriptionText() }}</mat-label>
+		<textarea matInput rows="4" formControlName="description" maxlength="4000"></textarea>
+		<mat-error>{{ descriptionErrorText() }}</mat-error>
 	</mat-form-field>
 </form>

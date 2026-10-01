@@ -18,7 +18,7 @@ export class ItemSerializer {
 			mediaType: item.getMediaType().id,
 			stock: item.getStock(),
 			price: item.getPrice(),
-			imageUrl: item.getImageUrl(),
+			description: item.getDescription(),
 			lastChange: lastChange ? localDateTimeToString(lastChange, dateTimeFormatter) : undefined,
 			lastChangedBy: item.getLastChangedBy()?.toString(),
 			version: item.getVersion()?.toString()

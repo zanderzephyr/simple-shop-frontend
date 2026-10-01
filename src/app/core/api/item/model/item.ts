@@ -20,7 +20,7 @@ interface ItemData {
 	mediaType: MediaType;
 	stock: number;
 	price: number;
-	imageUrl: string;
+	description: string;
 	lastChange?: LocalDateTime;
 	lastChangedBy?: bigint;
 	version?: bigint;
@@ -32,7 +32,7 @@ export class Item {
 	readonly #mediaType: MediaType;
 	readonly #stock: number;
 	readonly #price: number;
-	readonly #imageUrl: string;
+	readonly #description: string;
 	readonly #lastChange?: LocalDateTime;
 	readonly #lastChangedBy?: bigint;
 	readonly #version?: bigint;
@@ -43,7 +43,7 @@ export class Item {
 		this.#mediaType = itemData.mediaType;
 		this.#stock = itemData.stock;
 		this.#price = itemData.price;
-		this.#imageUrl = itemData.imageUrl;
+		this.#description = itemData.description;
 		this.#lastChange = itemData.lastChange;
 		this.#lastChangedBy = itemData.lastChangedBy;
 		this.#version = itemData.version;
@@ -71,8 +71,8 @@ export class Item {
 		return this.#price;
 	}
 
-	public getImageUrl(): string {
-		return this.#imageUrl;
+	public getDescription(): string {
+		return this.#description;
 	}
 
 	public getLastChange(): LocalDateTime | undefined {
@@ -97,7 +97,7 @@ export class ItemBuilder {
 	#mediaType?: MediaType;
 	#stock?: number;
 	#price?: number;
-	#imageUrl?: string;
+	#description?: string;
 	/**
 	 * Is only to be set by the item service.
 	 */
@@ -160,12 +160,12 @@ export class ItemBuilder {
 		return this;
 	}
 
-	public getImageUrl(): string | undefined {
-		return this.#imageUrl;
+	public getDescription(): string | undefined {
+		return this.#description;
 	}
 
-	public setImageUrl(imageUrl: string | undefined): this {
-		this.#imageUrl = imageUrl;
+	public setDescription(description: string | undefined): this {
+		this.#description = description;
 		return this;
 	}
 
@@ -207,7 +207,7 @@ export class ItemBuilder {
 			mediaType: this.#mediaType!,
 			stock: this.#stock!,
 			price: this.#price!,
-			imageUrl: this.#imageUrl!,
+			description: this.#description!,
 			lastChange: this.#lastChange,
 			lastChangedBy: this.#lastChangedBy,
 			version: this.#version
@@ -231,8 +231,8 @@ export class ItemBuilder {
 			throw new IllegalStateError('No item price!');
 		}
 
-		if (this.#imageUrl === undefined || isBlank(this.#imageUrl)) {
-			throw new IllegalStateError('No item image URL!');
+		if (this.#description === undefined || isBlank(this.#description)) {
+			throw new IllegalStateError('No description!');
 		}
 
 		if (this.#lastChangedBy !== undefined && this.#lastChangedBy < 0n) {
@@ -257,7 +257,7 @@ export function zodItem(): ZodType<Item> {
 			.setMediaType(convertStringToEnum(dto.mediaType, MediaType)!)
 			.setStock(dto.stock)
 			.setPrice(dto.price)
-			.setImageUrl(dto.imageUrl)
+			.setDescription(dto.description)
 			.setLastChange(parseLocalDateTime(dto.lastChange!, dateTimeFormatter))
 			.setLastChangedBy(BigInt(dto.lastChangedBy!))
 			.setVersion(BigInt(dto.version!))

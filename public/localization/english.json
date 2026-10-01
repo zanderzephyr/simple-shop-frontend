@@ -7,16 +7,16 @@
 					"createItem": "Create Item",
 					"dialog": {
 						"field": {
-							"imageUrl": "Image URL",
-							"imageUrlError": "Required! Must be under 2048 characters!",
+							"description": "Description",
+							"descriptionError": "Required!",
 							"mediaType": "Media Type",
 							"mediaTypeError": "Required!",
-							"price": "Price",
-							"priceError": "Required! Must be under 2147483647!",
+							"price": "Price (in cents)",
+							"priceError": "Required!",
 							"stock": "Stock",
-							"stockError": "Required! Must be under 2147483647!",
+							"stockError": "Required!",
 							"title": "Title",
-							"titleError": "Required! Must be under 400 characters!"
+							"titleError": "Required!"
 						},
 						"titleCreate": "Create Item",
 						"titleModify": "Modify Item"

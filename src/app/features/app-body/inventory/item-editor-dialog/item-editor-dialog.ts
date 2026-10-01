@@ -9,6 +9,7 @@ import { LocalizationService } from '@core/localization/localization-service';
 import { JAVA_MAX_INT_VALUE } from '@core/utils/data-type-utils';
 import { LocalizedObject } from '@core/utils/localization-utils';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
+import { PositiveIntegersOnlyDirective } from '@ui/input/positive-integers-only-directive';
 import { ItemEditorDialogData } from './item-editor-dialog-data';
 import * as Keys from './item-editor-dialog-utils';
 
@@ -17,12 +18,12 @@ interface ItemShape {
 	mediaType: MediaType | null;
 	stock: number | null;
 	price: number | null;
-	imageUrl: string | null;
+	description: string | null;
 }
 
 @Component({
 	selector: 'app-item-editor-dialog',
-	imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule],
+	imports: [MatFormFieldModule, MatInputModule, ReactiveFormsModule, MatSelectModule, PositiveIntegersOnlyDirective],
 	templateUrl: './item-editor-dialog.html',
 	styleUrl: './item-editor-dialog.scss'
 })
@@ -31,8 +32,8 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 	Item
 > {
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
-	protected readonly imageUrlText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.IMAGE_URL_KEY));
-	protected readonly imageUrlErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.IMAGE_URL_ERROR_KEY));
+	protected readonly descriptionText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.DESCRIPTION_KEY));
+	protected readonly descriptionErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.DESCRIPTION_ERROR_KEY));
 	protected readonly mediaTypeText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MEDIA_TYPE_KEY));
 	protected readonly mediaTypeErrorText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MEDIA_TYPE_ERROR_KEY));
 	protected readonly priceText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.PRICE_KEY));
@@ -72,11 +73,13 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 			this.#initialItem?.getPrice() ?? null,
 			[Validators.required, Validators.min(0), Validators.max(JAVA_MAX_INT_VALUE)]
 		],
-		imageUrl: [
-			this.#initialItem?.getImageUrl() ?? null,
-			[Validators.required, Validators.maxLength(2048)]
+		description: [
+			this.#initialItem?.getDescription() ?? null,
+			[Validators.required, Validators.maxLength(4000)]
 		]
 	});
+
+	protected readonly MAX_NUMBER_VALUE: number = JAVA_MAX_INT_VALUE;
 
 	protected readonly isSubmitted: WritableSignal<boolean> = signal(false);
 
@@ -95,7 +98,7 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 			mediaType: this.#initialItem?.getMediaType() ?? null,
 			stock: this.#initialItem?.getStock() ?? null,
 			price: this.#initialItem?.getPrice() ?? null,
-			imageUrl: this.#initialItem?.getImageUrl() ?? null
+			description: this.#initialItem?.getDescription() ?? null
 		});
 	}
 
@@ -117,7 +120,7 @@ export class ItemEditorDialogComponent extends GeneralDialogContentComponent<
 			.setMediaType(itemShape.mediaType!) //
 			.setStock(itemShape.stock!) //
 			.setPrice(itemShape.price!) //
-			.setImageUrl(itemShape.imageUrl!.trim());
+			.setDescription(itemShape.description!.trim());
 
 		if (this.#initialItem) {
 			itemBuilder.setId(this.#initialItem.getId()!);

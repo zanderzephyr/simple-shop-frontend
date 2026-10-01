@@ -5,8 +5,8 @@ const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
 
 const DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'dialog';
 const DIALOG_FIELD_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'field';
-export const IMAGE_URL_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'imageUrl';
-export const IMAGE_URL_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'imageUrlError';
+export const DESCRIPTION_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'description';
+export const DESCRIPTION_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'descriptionError';
 export const MEDIA_TYPE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'mediaType';
 export const MEDIA_TYPE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'mediaTypeError';
 export const PRICE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'price';

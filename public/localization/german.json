@@ -7,16 +7,16 @@
 					"createItem": "Item anlegen",
 					"dialog": {
 						"field": {
-							"imageUrl": "URL Titelbild",
-							"imageUrlError": "Pflichtfeld! Muss unter 2048 Zeichen sein!",
+							"description": "Beschreibung",
+							"descriptionError": "Pflichtfeld!",
 							"mediaType": "Medienart",
 							"mediaTypeError": "Pflichtfeld!",
-							"price": "Preis",
-							"priceError": "Pflichtfeld! Muss unter 2147483647 sein!",
+							"price": "Preis (in Cent)",
+							"priceError": "Pflichtfeld!",
 							"stock": "Auf Lager",
-							"stockError": "Pflichtfeld! Muss unter 2147483647 sein!",
+							"stockError": "Pflichtfeld!",
 							"title": "Titel",
-							"titleError": "Pflichtfeld! Muss unter 400 Zeichen sein!"
+							"titleError": "Pflichtfeld!"
 						},
 						"titleCreate": "Item Anlegen",
 						"titleModify": "Item Ändern"

@@ -14,7 +14,7 @@ export interface ItemDto {
 	mediaType: string;
 	stock: number;
 	price: number;
-	imageUrl: string;
+	description: string;
 	/**
 	 * Can be missing to the backend, never from the backend.
 	 */
@@ -36,7 +36,7 @@ export function zodItemDto(): ZodType<ItemDto> {
 		mediaType: z.string(),
 		stock: z.number(),
 		price: z.number(),
-		imageUrl: z.string(),
+		description: z.string(),
 		lastChange: z.string().optional(),
 		lastChangedBy: z.string().optional(),
 		version: z.string().optional()

@@ -2,11 +2,6 @@ import { Item } from '@api/item/model/item';
 import { Consumer, Function, zodConsumer } from '@core/utils/functional-interfaces';
 import { NumberEditorComponent } from '@ui/editor/number-editor/number-editor';
 import { StringEditorComponent } from '@ui/editor/string-editor/string-editor';
-import { ImageRendererComponent } from '@ui/renderer/image-renderer/image-renderer';
-import {
-	ImageRendererConfiguration,
-	zodImageRendererConfiguration
-} from '@ui/renderer/image-renderer/image-renderer-configuration';
 import { NumberRendererComponent } from '@ui/renderer/number-renderer/number-renderer';
 import { StringRendererComponent } from '@ui/renderer/string-renderer/string-renderer';
 import { TableCellContext } from '@ui/table/interface/table-cell-context';
@@ -55,15 +50,6 @@ export const PRICE: TableColumnDescription<number> = new TableColumnDescriptionB
 	.setEditorType(NumberEditorComponent) //
 	.build();
 
-export const COVER: TableColumnDescription<ImageRendererConfiguration> =
-	new TableColumnDescriptionBuilder<ImageRendererConfiguration>() //
-		.setModelIndex(modelIndex++) //
-		.setTitle(Keys.COVER_TABLE_HEADER_TITLE_KEY) //
-		.setTypeSchema(zodImageRendererConfiguration()) //
-		.setRendererType(ImageRendererComponent) //
-		.setEditorType(undefined) //
-		.build();
-
 export const ACTIONS: TableColumnDescription<
 	Map<InventoryTableAction, Consumer<TableCellContext>>
 > = new TableColumnDescriptionBuilder<Map<InventoryTableAction, Consumer<TableCellContext>>>() //
@@ -84,7 +70,6 @@ function createColumnDescriptions(): readonly TableColumnDescription<unknown>[] 
 	columnDescriptions.push(MEDIA_TYPE);
 	columnDescriptions.push(STOCK);
 	columnDescriptions.push(PRICE);
-	columnDescriptions.push(COVER);
 	columnDescriptions.push(ACTIONS);
 	return Object.freeze(columnDescriptions);
 }
@@ -103,7 +88,6 @@ function createColumnDescriptionToItemValueExtractorMap(): Map<
 		Function<Item, unknown>
 	>();
 
-	map.set(COVER, (item) => new ImageRendererConfiguration(item.getImageUrl()));
 	map.set(MEDIA_TYPE, (item) => Keys.MEDIA_TYPE_ENUM_KEY + item.getMediaType().id.toLowerCase());
 	map.set(PRICE, (item) => item.getPrice());
 	map.set(STOCK, (item) => item.getStock());

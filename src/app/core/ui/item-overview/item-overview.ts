@@ -13,7 +13,8 @@ import { ImageRendererConfiguration } from '@ui/renderer/image-renderer/image-re
 })
 export class ItemOverviewComponent {
 	public readonly data: InputSignal<ItemOverviewData> = input.required<ItemOverviewData>();
-	protected readonly urlImageRendererConfiguration: Signal<ImageRendererConfiguration> = computed(() => new ImageRendererConfiguration(this.data().getItem().getImageUrl()));
+	// TODO Use item image service to get the thumbnail
+	protected readonly urlImageRendererConfiguration: Signal<ImageRendererConfiguration> = computed(() => new ImageRendererConfiguration('give me a url!'));
 
 	protected readonly price: Signal<string> = computed(() => {
 		const price: number = this.data().getItem().getPrice();
