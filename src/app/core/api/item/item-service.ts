@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { forwardRef, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { ItemDto } from '@api/item/dto/item-dto';
 import { Item, zodItem } from '@api/item/model/item';
 import { executeApiCall, ObjectNotFoundError } from '@core/utils/api-errors';
@@ -9,10 +9,7 @@ import { PageConfig } from '@core/utils/page/page-config';
 import { Observable } from 'rxjs';
 import { ItemSerializer } from './item-serializer';
 
-@Injectable({
-	providedIn: 'root',
-	useClass: forwardRef(() => ApiItemService)
-})
+@Injectable()
 export abstract class ItemService {
 	protected constructor() {
 	}
@@ -61,7 +58,7 @@ export abstract class ItemService {
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
-class ApiItemService extends ItemService {
+export class ApiItemService extends ItemService {
 	readonly #url = '/api/items/v1/regular';
 
 	readonly #httpClient = inject(HttpClient);

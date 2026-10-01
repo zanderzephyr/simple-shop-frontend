@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { forwardRef, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { executeApiCall, UnauthorizedError } from '@core/utils/api-errors';
 import { Observable } from 'rxjs';
 import { LoginRequestSerializer } from './auth-serializer';
@@ -9,10 +9,7 @@ import { CurrentUser, zodCurrentUser } from './model/current-user';
 import { LoginRequest } from './model/login-request';
 import { LoginResponse, zodLoginResponse } from './model/login-response';
 
-@Injectable({
-	providedIn: 'root',
-	useClass: forwardRef(() => ApiAuthService)
-})
+@Injectable()
 export abstract class AuthService {
 	protected constructor() {
 	}
@@ -39,7 +36,7 @@ export abstract class AuthService {
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
-class ApiAuthService extends AuthService {
+export class ApiAuthService extends AuthService {
 	readonly #url = '/api/auth/v1/user';
 
 	readonly #httpClient = inject(HttpClient);

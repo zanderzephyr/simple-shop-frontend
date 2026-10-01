@@ -1,5 +1,5 @@
-import { computed, forwardRef, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
-import { AuthService } from '@api/auth/auth.service';
+import { computed, inject, Injectable, Signal, signal, WritableSignal } from '@angular/core';
+import { AuthService } from '@api/auth/auth-service';
 import { CurrentUser } from '@api/auth/model/current-user';
 import { LoginRequest } from '@api/auth/model/login-request';
 import { LoginResponse } from '@api/auth/model/login-response';
@@ -8,10 +8,7 @@ import { UserService } from '@api/user/user-service';
 import { ObjectNotFoundError } from '@core/utils/api-errors';
 import { SessionData, SessionDataBuilder } from './session-data';
 
-@Injectable({
-	providedIn: 'root',
-	useClass: forwardRef(() => CoreSessionService)
-})
+@Injectable()
 export abstract class SessionService {
 	protected constructor() {
 	}
@@ -37,7 +34,7 @@ export abstract class SessionService {
 }
 
 @Injectable()
-class CoreSessionService extends SessionService {
+export class CoreSessionService extends SessionService {
 	readonly #authService = inject(AuthService);
 
 	readonly #userService = inject(UserService);

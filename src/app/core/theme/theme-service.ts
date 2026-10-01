@@ -1,24 +1,11 @@
 import { DOCUMENT, isPlatformBrowser } from '@angular/common';
-import {
-	DestroyRef,
-	effect,
-	forwardRef,
-	inject,
-	Injectable,
-	PLATFORM_ID,
-	signal,
-	Signal,
-	WritableSignal
-} from '@angular/core';
+import { DestroyRef, effect, inject, Injectable, PLATFORM_ID, signal, Signal, WritableSignal } from '@angular/core';
 import { IllegalArgumentError } from '@core/utils/common-errors';
 import { convertStringToEnum } from '@core/utils/data-type-utils';
 import { Consumer } from '@core/utils/functional-interfaces';
 import { Theme } from './theme';
 
-@Injectable({
-	providedIn: 'root',
-	useClass: forwardRef(() => CoreThemeService)
-})
+@Injectable()
 export abstract class ThemeService {
 	protected constructor() {
 		// Nothing to do so far
@@ -33,7 +20,7 @@ const themeKey: string = 'theme';
 const defaultTheme: Theme = Theme.LIGHT;
 
 @Injectable()
-class CoreThemeService extends ThemeService {
+export class CoreThemeService extends ThemeService {
 	readonly #document: Document = inject(DOCUMENT);
 	readonly #platformId: Object = inject(PLATFORM_ID);
 	readonly #destroyRef: DestroyRef = inject(DestroyRef);

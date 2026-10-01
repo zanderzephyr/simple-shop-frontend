@@ -4,7 +4,6 @@ import {
 	computed,
 	DestroyRef,
 	effect,
-	forwardRef,
 	inject,
 	Injectable,
 	PLATFORM_ID,
@@ -19,10 +18,7 @@ import { firstValueFrom } from 'rxjs';
 import { Localization } from './localization';
 import { MISSING_PLACEHOLDER_KEY } from './localization-utils';
 
-@Injectable({
-	providedIn: 'root',
-	useClass: forwardRef(() => CoreLocalizationService)
-})
+@Injectable()
 export abstract class LocalizationService {
 	protected constructor() {
 		// Nothing to do so far
@@ -48,9 +44,8 @@ export abstract class LocalizationService {
 const localizationKey: string = 'localization';
 const defaultLocalization: Localization = Localization.ENGLISH;
 
-// TODO Does ng mat theming need to be updated?
 @Injectable()
-class CoreLocalizationService extends LocalizationService {
+export class CoreLocalizationService extends LocalizationService {
 	readonly #document: Document = inject(DOCUMENT);
 	readonly #platformId: Object = inject(PLATFORM_ID);
 	readonly #destroyRef: DestroyRef = inject(DestroyRef);

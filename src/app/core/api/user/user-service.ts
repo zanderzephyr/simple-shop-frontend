@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { forwardRef, inject, Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { User, zodUser } from '@api/user/model/user';
 import { UserDto } from '@app/core/api/user/dto/user-dto';
 import { executeApiCall, ObjectNotFoundError } from '@core/utils/api-errors';
@@ -11,10 +11,7 @@ import { Observable } from 'rxjs';
 import { UserType } from './model/user-type';
 import { UserSerializer } from './user-serializer';
 
-@Injectable({
-	providedIn: 'root',
-	useClass: forwardRef(() => ApiUserService)
-})
+@Injectable()
 export abstract class UserService {
 	protected constructor() {
 	}
@@ -80,7 +77,7 @@ export abstract class UserService {
 }
 
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
-class ApiUserService extends UserService {
+export class ApiUserService extends UserService {
 	readonly #url = '/api/users/v1/regular';
 
 	readonly #httpClient = inject(HttpClient);
