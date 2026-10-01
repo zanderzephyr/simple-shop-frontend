@@ -9,7 +9,7 @@ import { Page, PageDto, zodPage } from '@core/utils/page/page';
 import { PageConfig } from '@core/utils/page/page-config';
 import { Observable } from 'rxjs';
 import { UserType } from './model/user-type';
-import { UserSerializer } from './user-serializer';
+import { UserSerializer } from './serializer/user-serializer';
 
 @Injectable()
 export abstract class UserService {

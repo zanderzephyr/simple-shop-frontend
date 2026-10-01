@@ -1,8 +1,8 @@
 import { UnsupportedOperationError } from '@core/utils/common-errors';
 import { localDateTimeToString } from '@core/utils/data-type-utils';
 import { LocalDateTime } from '@js-joda/core';
-import { dateTimeFormatter, UserDto } from './dto/user-dto';
-import { User } from './model/user';
+import { dateTimeFormatter, UserDto } from '../dto/user-dto';
+import { User } from '../model/user';
 
 export class UserSerializer {
 	constructor() {

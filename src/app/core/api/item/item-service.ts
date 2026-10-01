@@ -7,7 +7,7 @@ import { IllegalArgumentError } from '@core/utils/common-errors';
 import { Page, PageDto, zodPage } from '@core/utils/page/page';
 import { PageConfig } from '@core/utils/page/page-config';
 import { Observable } from 'rxjs';
-import { ItemSerializer } from './item-serializer';
+import { ItemSerializer } from './serializer/item-serializer';
 
 @Injectable()
 export abstract class ItemService {
