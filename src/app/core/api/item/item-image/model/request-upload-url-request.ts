@@ -43,12 +43,26 @@ export class RequestUploadUrlRequest {
 }
 
 export class RequestUploadUrlRequestBuilder {
+	static readonly #ALLOWED_FILE_TYPES: Set<string> = RequestUploadUrlRequestBuilder.#createAllowedFileTypes();
+	static readonly #MIN_FILE_SIZE_IN_BYTES: bigint = 1n;
+	static readonly #MAX_FILE_SIZE_IN_BYTES: bigint = 5000000n;
+
 	#fileType?: string;
 	#imageType?: ImageType;
 	#fileSizeInBytes?: bigint;
 
 	public constructor() {
 		// Nothing to do so far
+	}
+
+	static #createAllowedFileTypes(): Set<string> {
+		const allowedFileTypes: Set<string> = new Set();
+
+		allowedFileTypes.add('jpeg');
+		allowedFileTypes.add('jpg');
+		allowedFileTypes.add('webp');
+
+		return allowedFileTypes;
 	}
 
 	public getFileType(): string | undefined {
@@ -91,7 +105,9 @@ export class RequestUploadUrlRequestBuilder {
 	}
 
 	#validate(): void {
-		if (this.#fileType === undefined || isBlank(this.#fileType)) {
+		if (this.#fileType === undefined || isBlank(this.#fileType) ||
+			!RequestUploadUrlRequestBuilder.#ALLOWED_FILE_TYPES.has(this.#fileType.toLowerCase())) {
+
 			throw new IllegalStateError('Invalid file type!');
 		}
 
@@ -99,7 +115,10 @@ export class RequestUploadUrlRequestBuilder {
 			throw new IllegalStateError('No image type!');
 		}
 
-		if (this.#fileSizeInBytes === undefined || this.#fileSizeInBytes < 0n) {
+		if (this.#fileSizeInBytes === undefined ||
+			this.#fileSizeInBytes < RequestUploadUrlRequestBuilder.#MIN_FILE_SIZE_IN_BYTES ||
+			this.#fileSizeInBytes > RequestUploadUrlRequestBuilder.#MAX_FILE_SIZE_IN_BYTES) {
+
 			throw new IllegalStateError('Invalid file size in bytes!');
 		}
 	}

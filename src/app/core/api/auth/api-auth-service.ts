@@ -10,6 +10,7 @@ import { LoginRequestSerializer } from '@api/auth/serializer/login-request-seria
 import { executeApiCall, UnauthorizedError } from '@core/utils/api-errors';
 import { Observable } from 'rxjs';
 
+// TODO Deal with errors when communicating with the backend.
 @Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
 export class ApiAuthService extends AuthService {
 	readonly #url = '/api/auth/v1/user';
