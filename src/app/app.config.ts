@@ -8,6 +8,8 @@ import {
 } from '@angular/core';
 import { MatPaginatorIntl } from '@angular/material/paginator';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
+import { ApiItemImageService } from '@api/item/item-image/api-item-image-service';
+import { ItemImageService } from '@api/item/item-image/item-image-service';
 import { routes } from '@app/app.routes';
 import { ApiAuthService } from '@core/api/auth/api-auth-service';
 import { AuthService } from '@core/api/auth/auth-service';
@@ -35,6 +37,7 @@ export const appConfig: ApplicationConfig = {
 		{ provide: AuthService, useClass: ApiAuthService },
 		{ provide: DialogService, useClass: NgMatDialogService },
 		{ provide: ItemService, useClass: ApiItemService },
+		{ provide: ItemImageService, useClass: ApiItemImageService },
 		{ provide: LocalizationService, useClass: CoreLocalizationService },
 		{ provide: SessionService, useClass: CoreSessionService },
 		{ provide: ThemeService, useClass: CoreThemeService },
