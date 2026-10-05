@@ -42,8 +42,19 @@ export class RequestUploadUrlRequest {
 	}
 }
 
+// Defined here to prevent hoisting issues within the builder class. Sad JS problem, but effective solution.
+function createAllowedFileTypes(): Set<string> {
+	const allowedFileTypes: Set<string> = new Set();
+
+	allowedFileTypes.add('jpeg');
+	allowedFileTypes.add('jpg');
+	allowedFileTypes.add('webp');
+
+	return allowedFileTypes;
+}
+
 export class RequestUploadUrlRequestBuilder {
-	static readonly #ALLOWED_FILE_TYPES: Set<string> = RequestUploadUrlRequestBuilder.#createAllowedFileTypes();
+	static readonly #ALLOWED_FILE_TYPES: Set<string> = createAllowedFileTypes();
 	static readonly #MIN_FILE_SIZE_IN_BYTES: bigint = 1n;
 	static readonly #MAX_FILE_SIZE_IN_BYTES: bigint = 5000000n;
 
@@ -53,16 +64,6 @@ export class RequestUploadUrlRequestBuilder {
 
 	public constructor() {
 		// Nothing to do so far
-	}
-
-	static #createAllowedFileTypes(): Set<string> {
-		const allowedFileTypes: Set<string> = new Set();
-
-		allowedFileTypes.add('jpeg');
-		allowedFileTypes.add('jpg');
-		allowedFileTypes.add('webp');
-
-		return allowedFileTypes;
 	}
 
 	public getFileType(): string | undefined {
