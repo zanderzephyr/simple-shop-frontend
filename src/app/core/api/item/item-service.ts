@@ -6,6 +6,7 @@ import { PageConfig } from '@core/utils/page/page-config';
 @Injectable()
 export abstract class ItemService {
 	protected constructor() {
+		// Nothing to do so far
 	}
 
 	/**

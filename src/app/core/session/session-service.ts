@@ -5,6 +5,7 @@ import { SessionData } from './session-data';
 @Injectable()
 export abstract class SessionService {
 	protected constructor() {
+		// Nothing to do so far
 	}
 
 	/**

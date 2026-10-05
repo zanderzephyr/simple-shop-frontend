@@ -7,6 +7,7 @@ import { UserType } from './model/user-type';
 @Injectable()
 export abstract class UserService {
 	protected constructor() {
+		// Nothing to do so far
 	}
 
 	/**

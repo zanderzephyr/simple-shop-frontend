@@ -6,6 +6,7 @@ import { LoginResponse } from './model/login-response';
 @Injectable()
 export abstract class AuthService {
 	protected constructor() {
+		// Nothing to do so far
 	}
 
 	/**
