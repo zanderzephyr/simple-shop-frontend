@@ -1,11 +1,11 @@
 import { z, ZodType } from 'zod';
 
-export interface RequestResourceResponseDto {
+export interface RequestResourcesResponseDto {
 	thumbnailImageStorageKey?: string;
 	galleryImageStorageKeys?: string[];
 }
 
-export function zodRequestResourceResponseDto(): ZodType<RequestResourceResponseDto> {
+export function zodRequestResourcesResponseDto(): ZodType<RequestResourcesResponseDto> {
 	return z.object({
 		thumbnailImageStorageKey: z.string().optional(),
 		galleryImageStorageKeys: z.array(z.string()).optional()

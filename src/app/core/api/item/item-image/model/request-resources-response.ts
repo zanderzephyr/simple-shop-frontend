@@ -1,7 +1,7 @@
 import {
-	RequestResourceResponseDto,
-	zodRequestResourceResponseDto
-} from '@api/item/item-image/dto/request-resource-response-dto';
+	RequestResourcesResponseDto,
+	zodRequestResourcesResponseDto
+} from '@api/item/item-image/dto/request-resources-response-dto';
 import { IllegalStateError } from '@core/utils/common-errors';
 import { isBlank } from '@core/utils/string-utils';
 import { ZodType } from 'zod';
@@ -13,19 +13,19 @@ const secretKey: symbol = Symbol('secretKey');
  Nobody can call the constructor without this interface
  being exported.
  */
-interface RequestResourceResponseData {
+interface RequestResourcesResponseData {
 	[secretKey]: true; // Marker to prevent external construction
 	thumbnailImageStorageKey?: string;
 	galleryImageStorageKeys?: readonly string[];
 }
 
-export class RequestResourceResponse {
+export class RequestResourcesResponse {
 	readonly #thumbnailImageStorageKey?: string;
 	readonly #galleryImageStorageKeys?: readonly string[];
 
-	public constructor(requestResourceResponseData: RequestResourceResponseData) {
-		this.#thumbnailImageStorageKey = requestResourceResponseData.thumbnailImageStorageKey;
-		this.#galleryImageStorageKeys = requestResourceResponseData.galleryImageStorageKeys;
+	public constructor(requestResourcesResponseData: RequestResourcesResponseData) {
+		this.#thumbnailImageStorageKey = requestResourcesResponseData.thumbnailImageStorageKey;
+		this.#galleryImageStorageKeys = requestResourcesResponseData.galleryImageStorageKeys;
 
 		Object.freeze(this);
 	}
@@ -39,7 +39,7 @@ export class RequestResourceResponse {
 	}
 }
 
-export class RequestResourceResponseBuilder {
+export class RequestResourcesResponseBuilder {
 	#thumbnailImageStorageKey?: string;
 	#galleryImageStorageKeys?: readonly string[];
 
@@ -65,7 +65,7 @@ export class RequestResourceResponseBuilder {
 		return this;
 	}
 
-	#createRequestResourceResponseData(): RequestResourceResponseData {
+	#createRequestResourcesResponseData(): RequestResourcesResponseData {
 		this.#validate();
 
 		// Existence of fields relies on the validation above.
@@ -90,14 +90,14 @@ export class RequestResourceResponseBuilder {
 		}
 	}
 
-	public build(): RequestResourceResponse {
-		return new RequestResourceResponse(this.#createRequestResourceResponseData());
+	public build(): RequestResourcesResponse {
+		return new RequestResourcesResponse(this.#createRequestResourcesResponseData());
 	}
 }
 
-export function zodRequestResourceResponse(): ZodType<RequestResourceResponse> {
-	return zodRequestResourceResponseDto().transform((dto: RequestResourceResponseDto): RequestResourceResponse => {
-		return new RequestResourceResponseBuilder()
+export function zodRequestResourcesResponse(): ZodType<RequestResourcesResponse> {
+	return zodRequestResourcesResponseDto().transform((dto: RequestResourcesResponseDto): RequestResourcesResponse => {
+		return new RequestResourcesResponseBuilder()
 			.setThumbnailImageStorageKey(dto.thumbnailImageStorageKey)
 			.setGalleryImageStorageKeys(dto.galleryImageStorageKeys)
 			.build();
