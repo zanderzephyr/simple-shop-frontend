@@ -1,0 +1,20 @@
+@use "layout-utils" as layout-utils;
+
+:host {
+	@include layout-utils.fill-grid-slot;
+
+	container-type: size; // To make cqh and cqw work
+	place-items: center;
+	position: relative; // To prevent the image from taking over the screen.
+
+	.placeholder-icon {
+		--app-size: min(100cqw, 100cqh);
+		font-size: var(--app-size);
+		width: var(--app-size);
+		height: var(--app-size);
+	}
+
+	.image {
+		object-fit: contain;
+	}
+}
