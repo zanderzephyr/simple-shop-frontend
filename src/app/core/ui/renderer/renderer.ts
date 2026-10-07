@@ -1,5 +1,5 @@
 // Just for type safety of the generic type of Editor.
-const RENDERER_TYPE_SYMBOL = Symbol('RendererTypeSymbol');
+const RENDERER_TYPE_SYMBOL: unique symbol = Symbol('RendererTypeSymbol');
 
 export interface Renderer<TYPE> {
 	readonly interfaceTag: 'renderer';
