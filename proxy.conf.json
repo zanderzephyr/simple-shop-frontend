@@ -2,6 +2,15 @@
 	"/api": {
 		"target": "http://localhost:8080",
 		"secure": false,
-		"changeOrigin": true
+		"changeOrigin": true,
+		"logLevel": "debug"
+	},
+	"/item-image-resizer": {
+		"target": "http://localhost:8334",
+		"secure": false,
+		"pathRewrite": {
+			"^/item-image-resizer": ""
+		},
+		"logLevel": "debug"
 	}
 }
