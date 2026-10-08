@@ -16,9 +16,9 @@ import { isBlank } from '@core/utils/string-utils';
 @Injectable({
 	providedIn: 'root'
 })
-export class ImgproxyS3StorageKeyToUrlFormatter implements ImageS3StorageKeyToUrlFormatter {
+export class ImgproxyS3StorageKeyToUrlFormatter extends ImageS3StorageKeyToUrlFormatter {
 	public constructor() {
-		// Nothing to do so far
+		super();
 	}
 
 	/**
