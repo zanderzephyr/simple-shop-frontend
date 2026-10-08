@@ -11,7 +11,7 @@ import {
 	WritableSignal
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { Function, Supplier } from '@core/utils/functional-interfaces';
+import { ImageManagementService } from '@ui/image-management/image-management-service';
 
 // TODO Let this component be a general resource management component, so that it can deal with all kinds of data types?
 @Component({
@@ -23,24 +23,16 @@ import { Function, Supplier } from '@core/utils/functional-interfaces';
 export class ImageManagementComponent {
 	readonly #platformId: Object = inject(PLATFORM_ID);
 
-	public readonly allowedFileTypes: InputSignal<string[]> = input.required();
+	public readonly imageManagementService: InputSignal<ImageManagementService> = input.required();
 
-	public readonly imageUploader: InputSignal<Function<File, Promise<string>>> = input.required();
-	public readonly imageRemover: InputSignal<Supplier<Promise<void>>> = input.required();
-	public readonly maxWidth: InputSignal<number> = input.required();
-	public readonly maxHeight: InputSignal<number> = input.required();
-	// TODO Adapt from string input parameter to some container that holds all necessary aspects (width, height, image
-	// format)
-	public readonly imageUrlPreprocessor: InputSignal<Function<string, string>> = input.required();
-
-	public readonly imageUrl: InputSignal<string | undefined> = input<string | undefined>(undefined);
-	readonly #modifiableImageUrl: WritableSignal<string | undefined> = signal(undefined);
-	protected readonly imageUrlToDisplay: Signal<string | undefined> = computed(() => {
-		const imageUrl: string | undefined = this.imageUrl();
-		const imageUrlToModify: string | undefined = this.#modifiableImageUrl();
-		const urlToUse: string | undefined = imageUrlToModify === undefined ? imageUrl : imageUrlToModify;
-		if (urlToUse !== undefined) {
-			return this.imageUrlPreprocessor()(urlToUse);
+	public readonly imageStorageKey: InputSignal<string | undefined> = input<string | undefined>(undefined);
+	readonly #modifiableImageStorageKey: WritableSignal<string | undefined> = signal(undefined);
+	protected readonly imageUrl: Signal<string | undefined> = computed(() => {
+		const imageStorageKey: string | undefined = this.imageStorageKey();
+		const modifiableImageStorageKey: string | undefined = this.#modifiableImageStorageKey();
+		const storageKeyToUse: string | undefined = modifiableImageStorageKey !== undefined ? modifiableImageStorageKey : imageStorageKey;
+		if (storageKeyToUse !== undefined) {
+			return this.imageManagementService().createDownloadUrl(storageKeyToUse);
 		}
 		return undefined;
 	});
@@ -65,7 +57,7 @@ export class ImageManagementComponent {
 			const hiddenInput: HTMLInputElement = document.createElement('input');
 			hiddenInput.type = 'file';
 
-			hiddenInput.accept = this.allowedFileTypes()
+			hiddenInput.accept = this.imageManagementService().getAllowedFileTypes()
 				.map(fileType => fileType.toLowerCase())
 				.map(fileType => fileType === 'jpg' ? 'image/jpeg' : ('image/' + fileType))
 				.join(',');
@@ -89,14 +81,17 @@ export class ImageManagementComponent {
 
 	async #doSetImage(file: File | undefined): Promise<void> {
 		if (file !== undefined) {
-			const newImageUrl: string = await this.imageUploader()(file);
-			this.#modifiableImageUrl.set(newImageUrl);
+			const storageKey: string = await this.imageManagementService().uploadImage(file);
+			this.#modifiableImageStorageKey.set(storageKey);
 		}
 	}
 
 	protected async onDeleteImage(): Promise<void> {
-		await this.imageRemover()();
-		this.#modifiableImageUrl.set(undefined);
+		const imageStorageKey: string | undefined = this.#modifiableImageStorageKey();
+		if (imageStorageKey !== undefined) {
+			await this.imageManagementService().removeImage(imageStorageKey);
+			this.#modifiableImageStorageKey.set(undefined);
+		}
 	}
 
 	protected async onModifyImage(): Promise<void> {
