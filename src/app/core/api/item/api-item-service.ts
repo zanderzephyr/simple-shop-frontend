@@ -11,9 +11,7 @@ import { PageConfig } from '@core/utils/page/page-config';
 import { Observable } from 'rxjs';
 
 // TODO Deal with errors when communicating with the backend.
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class ApiItemService extends ItemService {
 	readonly #url = '/api/items/v1/regular';
 

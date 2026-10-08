@@ -22,9 +22,7 @@ import { firstValueFrom } from 'rxjs';
 const localizationKey: string = 'localization';
 const defaultLocalization: Localization = Localization.ENGLISH;
 
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class CoreLocalizationService extends LocalizationService {
 	readonly #platformId: Object = inject(PLATFORM_ID);
 	readonly #destroyRef: DestroyRef = inject(DestroyRef);

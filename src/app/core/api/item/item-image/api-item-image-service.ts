@@ -29,9 +29,7 @@ import { determineFileType } from '@core/utils/file-utils';
 import { Observable } from 'rxjs';
 
 // TODO Deal with errors when communicating with the backend.
-@Injectable({
-	providedIn: 'root'
-})
+@Injectable()
 export class ApiItemImageService extends ItemImageService {
 	readonly #url = '/api/items/v1/images';
 
