@@ -8,6 +8,7 @@ import { LocalizationService } from '@core/localization/localization-service';
 import { Consumer } from '@core/utils/functional-interfaces';
 import { Page } from '@core/utils/page/page';
 import { PageConfig } from '@core/utils/page/page-config';
+import { ItemImageDialogData } from '@features/app-body/inventory/item-image-dialog/item-image-dialog-data';
 import { GeneralDialogComponent } from '@ui/dialog/general-dialog/general-dialog';
 import { DialogConfig } from '@ui/dialog/interface/dialog-config';
 import { DialogReference } from '@ui/dialog/interface/dialog-reference';
@@ -96,6 +97,9 @@ export class InventoryComponent {
 		map.set(InventoryTableAction.DELETE, (tableCellContext) =>
 			this.#delete(tableCellContext, item)
 		);
+		map.set(InventoryTableAction.MANAGE_IMAGES, (tableCellContext) =>
+			this.#manageImages(tableCellContext, item)
+		);
 
 		return map;
 	}
@@ -106,13 +110,13 @@ export class InventoryComponent {
 	}
 
 	protected async add(): Promise<void> {
-		const itemToCreate: Item | undefined = await this.#showDialog(Keys.CREATE_ITEM_TITLE_KEY, undefined);
+		const itemToCreate: Item | undefined = await this.#showItemEditorDialog(Keys.CREATE_ITEM_TITLE_KEY, undefined);
 		if (itemToCreate) {
 			this.#itemService.createItem(itemToCreate).then((createdItem: Item) => this.refresh());
 		}
 	}
 
-	async #showDialog(title: string, item: Item | undefined): Promise<Item | undefined> {
+	async #showItemEditorDialog(title: string, item: Item | undefined): Promise<Item | undefined> {
 		const dialogData: ItemEditorDialogData = new ItemEditorDialogData(item, title);
 		const dialogConfiguration: DialogConfig<ItemEditorDialogData, Item> = new DialogConfig<
 			ItemEditorDialogData,
@@ -124,7 +128,7 @@ export class InventoryComponent {
 	}
 
 	async #modify(tableCellContext: TableCellContext, item: Item): Promise<void> {
-		const itemToModify: Item | undefined = await this.#showDialog(Keys.MODIFY_ITEM_TITLE_KEY, item);
+		const itemToModify: Item | undefined = await this.#showItemEditorDialog(Keys.MODIFY_ITEM_TITLE_KEY, item);
 		if (itemToModify) {
 			// TODO Performance: Simply use the resulting item and update the table instead of reloading the whole page.
 			this.#itemService.modifyItem(itemToModify).then((modifiedItem: Item) => this.refresh());
@@ -140,6 +144,21 @@ export class InventoryComponent {
 		if (result === MessageDialogResult.CONFIRM) {
 			this.#itemService.deleteItem(item).then(() => this.refresh());
 		}
+	}
+
+	async #manageImages(tableCellContext: TableCellContext, item: Item): Promise<void> {
+		await this.#showItemImageDialog(Keys.IMAGE_MANAGEMENT_DIALOG_TITLE_KEY, item);
+	}
+
+	async #showItemImageDialog(title: string, item: Item): Promise<void> {
+		const dialogData: ItemImageDialogData = new ItemImageDialogData(item, title);
+		const dialogConfiguration: DialogConfig<ItemImageDialogData, void> = new DialogConfig<
+			ItemImageDialogData,
+			void
+		>(dialogData, GeneralDialogComponent);
+		const dialogReference: DialogReference<void> = this.#dialogService.open(dialogConfiguration);
+
+		return await dialogReference.getResult();
 	}
 
 	protected onPageChange(event: PageEvent): void {

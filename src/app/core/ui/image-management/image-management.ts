@@ -81,7 +81,7 @@ export class ImageManagementComponent {
 
 	async #doSetImage(file: File | undefined): Promise<void> {
 		if (file !== undefined) {
-			const storageKey: string = await this.imageManagementService().uploadImage(file);
+			const storageKey: string | undefined = await this.imageManagementService().uploadImage(file);
 			this.#modifiableImageStorageKey.set(storageKey);
 		}
 	}

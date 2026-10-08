@@ -16,6 +16,9 @@ export abstract class GeneralDialogContentComponent<DATA, RESULT> extends Dialog
 	readonly #cancelButtonConfiguration: ButtonConfiguration =
 		this.#createCancelButtonConfiguration();
 
+	readonly #closeButtonConfiguration: ButtonConfiguration =
+		this.#createCloseButtonConfiguration();
+
 	readonly #buttonConfigurations: ButtonConfiguration[] = this.createButtonConfigurations();
 
 	#result: RESULT | undefined;
@@ -39,6 +42,17 @@ export abstract class GeneralDialogContentComponent<DATA, RESULT> extends Dialog
 		const actionCallbackSignal: Signal<() => void> = signal(this.onCancel.bind(this));
 		const enabledSignal: Signal<boolean> = signal(true);
 		const textSignal: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CANCEL_BUTTON_KEY));
+		return {
+			getActionCallback: () => actionCallbackSignal,
+			getEnabled: () => enabledSignal,
+			getText: () => textSignal
+		};
+	}
+
+	#createCloseButtonConfiguration(): ButtonConfiguration {
+		const actionCallbackSignal: Signal<() => void> = signal(this.onCancel.bind(this));
+		const enabledSignal: Signal<boolean> = signal(true);
+		const textSignal: Signal<string> = computed(() => this.#localizationService.getValue(Keys.CLOSE_BUTTON_KEY));
 		return {
 			getActionCallback: () => actionCallbackSignal,
 			getEnabled: () => enabledSignal,
@@ -71,6 +85,10 @@ export abstract class GeneralDialogContentComponent<DATA, RESULT> extends Dialog
 
 	protected getCancelButtonConfiguration(): ButtonConfiguration {
 		return this.#cancelButtonConfiguration;
+	}
+
+	protected getCloseButtonConfiguration(): ButtonConfiguration {
+		return this.#closeButtonConfiguration;
 	}
 
 	public override getResult(): RESULT | undefined {

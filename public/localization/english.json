@@ -5,7 +5,7 @@
 				"inventory": {
 					"refresh": "Refresh",
 					"createItem": "Create Item",
-					"dialog": {
+					"editItemDialog": {
 						"field": {
 							"description": "Description",
 							"descriptionError": "Required!",
@@ -20,6 +20,9 @@
 						},
 						"titleCreate": "Create Item",
 						"titleModify": "Modify Item"
+					},
+					"imageManagementDialog": {
+						"title": "Manage Item Images"
 					},
 					"table": {
 						"header": {
@@ -148,6 +151,7 @@
 			"dialog": {
 				"button": {
 					"cancel": "Cancel",
+					"close": "Close",
 					"ok": "OK"
 				},
 				"messageDialog": {

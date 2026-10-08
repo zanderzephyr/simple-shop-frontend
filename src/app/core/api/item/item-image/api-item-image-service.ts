@@ -4,6 +4,7 @@ import { RequestResourcesResponseDto } from '@api/item/item-image/dto/request-re
 import { RequestUploadUrlResponseDto } from '@api/item/item-image/dto/request-upload-url-response-dto';
 import { ItemImageService } from '@api/item/item-image/item-image-service';
 import { ConfirmUploadRequest, ConfirmUploadRequestBuilder } from '@api/item/item-image/model/confirm-upload-request';
+import { ConfirmUploadResponse, zodConfirmUploadResponse } from '@api/item/item-image/model/confirm-upload-response';
 import { DeleteResourceRequest } from '@api/item/item-image/model/delete-resource-request';
 import { ImageType } from '@api/item/item-image/model/image-type';
 import {
@@ -40,6 +41,11 @@ import { Observable } from 'rxjs';
 // TODO Deal with errors when communicating with the backend.
 @Injectable()
 export class ApiItemImageService extends ItemImageService {
+	// When accessing images, it's always through the resizer
+	private static readonly BASE_URL: string = '/item-image-resizer';
+
+	private static readonly BUCKET_NAME: string = 'item-images';
+
 	readonly #url = '/api/items/v1/images';
 
 	readonly #httpClient = inject(HttpClient);
@@ -59,14 +65,15 @@ export class ApiItemImageService extends ItemImageService {
 		return zodRequestUploadUrlResponse().parse(dtoIn);
 	}
 
-	public override async confirmUpload(itemId: bigint, requestModel: ConfirmUploadRequest): Promise<void> {
+	public override async confirmUpload(itemId: bigint, requestModel: ConfirmUploadRequest): Promise<ConfirmUploadResponse> {
 		const url: string = this.#url + '/confirm-upload/' + itemId.toString();
 		const body: string = ConfirmUploadRequestSerializer.serialize(requestModel);
 		const headers: HttpHeaders = this.#createHeaders();
 		const options = { headers };
 
-		const dtoInStream$: Observable<unknown> = this.#httpClient.post(url, body, options);
-		await executeApiCall(dtoInStream$);
+		const dtoInStream$: Observable<ConfirmUploadResponse> = this.#httpClient.post<ConfirmUploadResponse>(url, body, options);
+		const dtoIn: ConfirmUploadResponse = await executeApiCall(dtoInStream$);
+		return zodConfirmUploadResponse().parse(dtoIn);
 	}
 
 	public override async deleteImage(itemId: bigint, requestModel: DeleteResourceRequest): Promise<void> {
@@ -101,12 +108,12 @@ export class ApiItemImageService extends ItemImageService {
 		await executeApiCall(uploadStream$);
 	}
 
-	public override async uploadImage(itemId: bigint, imageType: ImageType, file: File): Promise<void> {
+	public override async uploadImage(itemId: bigint, imageType: ImageType, file: File): Promise<ConfirmUploadResponse> {
 		const requestUploadUrlResponse: RequestUploadUrlResponse = await this.#requestUploadUrl(itemId, imageType, file);
 
 		await this.uploadImageToUrl(requestUploadUrlResponse.getUploadUrl(), file);
 
-		await this.#confirmUpload(itemId, requestUploadUrlResponse.getStorageKey());
+		return this.#confirmUpload(itemId, requestUploadUrlResponse.getStorageKey());
 	}
 
 	#requestUploadUrl(itemId: bigint, imageType: ImageType, file: File): Promise<RequestUploadUrlResponse> {
@@ -123,7 +130,7 @@ export class ApiItemImageService extends ItemImageService {
 		return this.requestImageUrl(itemId, requestUploadUrlRequest);
 	}
 
-	#confirmUpload(itemId: bigint, storageKey: string): Promise<void> {
+	#confirmUpload(itemId: bigint, storageKey: string): Promise<ConfirmUploadResponse> {
 		const confirmUploadRequest: ConfirmUploadRequest = new ConfirmUploadRequestBuilder()//
 			.setStorageKey(storageKey)//
 			.build();
@@ -133,5 +140,13 @@ export class ApiItemImageService extends ItemImageService {
 	public override createImageUrl(storageKey: string, options: ImageS3StorageKeyToUrlFormatterOptions): string {
 		const formatter: ImageS3StorageKeyToUrlFormatter = new ImgproxyS3StorageKeyToUrlFormatter();
 		return formatter.format(storageKey, options);
+	}
+
+	override getBaseUrl(): string {
+		return ApiItemImageService.BASE_URL;
+	}
+
+	override getBucketName(): string {
+		return ApiItemImageService.BUCKET_NAME;
 	}
 }

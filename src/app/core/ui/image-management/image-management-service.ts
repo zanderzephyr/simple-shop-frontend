@@ -1,15 +1,19 @@
-export interface ImageManagementService {
-	getAllowedFileTypes(): readonly string[];
+export abstract class ImageManagementService {
+	protected constructor() {
+		// Nothing to do so far
+	}
+
+	public abstract getAllowedFileTypes(): readonly string[];
 
 	/**
-	 * Uploads an image and returns a promise for the resulting storage key.
+	 * Uploads an image and returns a promise for the resulting storage key or for undefined in case of an error.
 	 *
 	 * @param file
 	 */
-	uploadImage(file: File): Promise<string>;
+	public abstract uploadImage(file: File): Promise<string | undefined>;
 
-	removeImage(storageKey: string): Promise<void>;
+	public abstract removeImage(storageKey: string): Promise<void>;
 
 	// Creates the formatted url internally and decides over all the download url parameters.
-	createDownloadUrl(storageKey: string): string;
+	public abstract createDownloadUrl(storageKey: string): string;
 }

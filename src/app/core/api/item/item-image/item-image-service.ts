@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { ConfirmUploadRequest } from '@api/item/item-image/model/confirm-upload-request';
+import { ConfirmUploadResponse } from '@api/item/item-image/model/confirm-upload-response';
 import { DeleteResourceRequest } from '@api/item/item-image/model/delete-resource-request';
 import { ImageType } from '@api/item/item-image/model/image-type';
 import { RequestResourcesResponse } from '@api/item/item-image/model/request-resources-response';
@@ -35,7 +36,7 @@ export abstract class ItemImageService {
 	 * @param itemId The ID of the item for which the upload was performed.
 	 * @param requestModel The request.
 	 */
-	public abstract confirmUpload(itemId: bigint, requestModel: ConfirmUploadRequest): Promise<void>;
+	public abstract confirmUpload(itemId: bigint, requestModel: ConfirmUploadRequest): Promise<ConfirmUploadResponse>;
 
 	/**
 	 * Deletes an item image file.
@@ -77,7 +78,7 @@ export abstract class ItemImageService {
 	 * @param imageType The type of the image.
 	 * @param file The image file to upload.
 	 */
-	public abstract uploadImage(itemId: bigint, imageType: ImageType, file: File): Promise<void>;
+	public abstract uploadImage(itemId: bigint, imageType: ImageType, file: File): Promise<ConfirmUploadResponse>;
 
 	/**
 	 * Creates a URL to download an image stored with storageKey, using the given options.
@@ -86,4 +87,8 @@ export abstract class ItemImageService {
 	 * @param options The image url formatting options.
 	 */
 	public abstract createImageUrl(storageKey: string, options: ImageS3StorageKeyToUrlFormatterOptions): string;
+
+	public abstract getBaseUrl(): string;
+
+	public abstract getBucketName(): string;
 }
