@@ -7,7 +7,9 @@ import { DialogService } from '@ui/dialog/interface/dialog-service';
 import { DIALOG_CONTENT_DATA } from '@ui/dialog/interface/dialog-tokens';
 import { mapToNgMatConfig as mapToNgMatDialogConfig } from './ng-mat-dialog-config-mapper';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class NgMatDialogService extends DialogService {
 	readonly #matDialog: MatDialog = inject(MatDialog);
 

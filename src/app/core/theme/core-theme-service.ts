@@ -19,7 +19,9 @@ import { Consumer } from '@core/utils/functional-interfaces';
 const themeKey: string = 'theme';
 const defaultTheme: Theme = Theme.LIGHT;
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class CoreThemeService extends ThemeService {
 	readonly #document: Document = inject(DOCUMENT);
 	readonly #platformId: Object = inject(PLATFORM_ID);

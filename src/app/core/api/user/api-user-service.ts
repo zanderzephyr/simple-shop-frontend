@@ -13,7 +13,9 @@ import { PageConfig } from '@core/utils/page/page-config';
 import { Observable } from 'rxjs';
 
 // TODO Deal with errors when communicating with the backend.
-@Injectable() // Necessary for future dependency injection, even if this class is never directly injected.
+@Injectable({
+	providedIn: 'root'
+})
 export class ApiUserService extends UserService {
 	readonly #url = '/api/users/v1/regular';
 

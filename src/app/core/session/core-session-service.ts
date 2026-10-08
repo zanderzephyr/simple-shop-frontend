@@ -9,7 +9,9 @@ import { SessionData, SessionDataBuilder } from '@core/session/session-data';
 import { SessionService } from '@core/session/session-service';
 import { ObjectNotFoundError } from '@core/utils/api-errors';
 
-@Injectable()
+@Injectable({
+	providedIn: 'root'
+})
 export class CoreSessionService extends SessionService {
 	readonly #authService = inject(AuthService);
 
