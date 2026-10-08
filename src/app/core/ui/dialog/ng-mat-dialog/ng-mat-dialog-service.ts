@@ -63,8 +63,6 @@ export class NgMatDialogService extends DialogService {
 }
 
 class NgMatDialogReference<DATA, RESULT> implements DialogReference<RESULT> {
-	public readonly interfaceTag: 'dialogReference' = 'dialogReference';
-
 	/*
 		  According to ECMAScript standard, only the first settling of a promise is actually performed.
 		  Therefore, we have not flags to prevent redundant resolves.

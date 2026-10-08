@@ -1,3 +1,4 @@
+import { Injectable } from '@angular/core';
 import { IllegalArgumentError } from '@core/utils/common-errors';
 import {
 	ImageS3StorageKeyToUrlFormatter
@@ -12,9 +13,10 @@ import { isBlank } from '@core/utils/string-utils';
  *
  * https://github.com/imgproxy/imgproxy/
  */
+@Injectable({
+	providedIn: 'root'
+})
 export class ImgproxyS3StorageKeyToUrlFormatter implements ImageS3StorageKeyToUrlFormatter {
-	readonly interfaceTag: 's3StorageKeyToUrlFormatter' = 's3StorageKeyToUrlFormatter';
-
 	public constructor() {
 		// Nothing to do so far
 	}

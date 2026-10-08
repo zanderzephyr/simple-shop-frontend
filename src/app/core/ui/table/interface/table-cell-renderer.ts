@@ -3,9 +3,7 @@ import { Renderer } from '@ui/renderer/renderer';
 import { TableCellContext } from './table-cell-context';
 
 @Directive()
-export abstract class TableCellRendererComponent<TYPE> implements Renderer<TYPE> {
-	readonly interfaceTag: 'renderer' = 'renderer';
-
+export abstract class TableCellRendererComponent<TYPE> extends Renderer<TYPE> {
 	public readonly context: InputSignal<TableCellContext> = input.required<TableCellContext>();
 
 	protected readonly value: Signal<TYPE> = computed(
@@ -19,6 +17,6 @@ export abstract class TableCellRendererComponent<TYPE> implements Renderer<TYPE>
 	);
 
 	protected constructor() {
-		// Nothing to do so far
+		super();
 	}
 }

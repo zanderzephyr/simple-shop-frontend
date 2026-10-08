@@ -1,6 +1,4 @@
 export interface DialogReference<RESULT> {
-	readonly interfaceTag: 'dialogReference';
-
 	/**
 	 * Retrieves a promise to the result of the dialog. This promise
 	 * is resolved when the dialog closes via any possible scenario.
