@@ -5,10 +5,9 @@ import { ImageType } from '@api/item/item-image/model/image-type';
 import { RequestResourcesResponse } from '@api/item/item-image/model/request-resources-response';
 import { RequestUploadUrlRequest } from '@api/item/item-image/model/request-upload-url-request';
 import { RequestUploadUrlResponse } from '@api/item/item-image/model/request-upload-url-response';
-import { S3StorageKeyToUrlFormatter } from '@core/utils/s3-storage-key-formatter/s3-storage-key-to-url-formatter';
 import {
-	S3StorageKeyToUrlFormatterOptions
-} from '@core/utils/s3-storage-key-formatter/s3-storage-key-to-url-formatter-options';
+	ImageS3StorageKeyToUrlFormatterOptions
+} from '@core/utils/s3-storage-key-formatter/image-s3-storage-key-to-url-formatter-options';
 
 @Injectable()
 export abstract class ItemImageService {
@@ -80,9 +79,11 @@ export abstract class ItemImageService {
 	 */
 	public abstract uploadImage(itemId: bigint, imageType: ImageType, file: File): Promise<void>;
 
-	public createImageUrl<OPTIONS extends S3StorageKeyToUrlFormatterOptions>(
-		storageKey: string, formatter: S3StorageKeyToUrlFormatter<OPTIONS>, options: OPTIONS):
-		string {
-		return formatter.format({ storageKey: storageKey, formatterOptions: options });
-	}
+	/**
+	 * Creates a URL to download an image stored with storageKey, using the given options.
+	 *
+	 * @param storageKey The storage key.
+	 * @param options The image url formatting options.
+	 */
+	public abstract createImageUrl(storageKey: string, options: ImageS3StorageKeyToUrlFormatterOptions): string;
 }

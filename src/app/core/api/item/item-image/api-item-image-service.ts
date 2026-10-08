@@ -26,6 +26,15 @@ import {
 import { executeApiCall } from '@core/utils/api-errors';
 import { IllegalArgumentError } from '@core/utils/common-errors';
 import { determineFileType } from '@core/utils/file-utils';
+import {
+	ImageS3StorageKeyToUrlFormatter
+} from '@core/utils/s3-storage-key-formatter/image-s3-storage-key-to-url-formatter';
+import {
+	ImageS3StorageKeyToUrlFormatterOptions
+} from '@core/utils/s3-storage-key-formatter/image-s3-storage-key-to-url-formatter-options';
+import {
+	ImgproxyS3StorageKeyToUrlFormatter
+} from '@core/utils/s3-storage-key-formatter/imgproxy/imgproxy-s3-storage-key-to-url-formatter';
 import { Observable } from 'rxjs';
 
 // TODO Deal with errors when communicating with the backend.
@@ -119,5 +128,10 @@ export class ApiItemImageService extends ItemImageService {
 			.setStorageKey(storageKey)//
 			.build();
 		return this.confirmUpload(itemId, confirmUploadRequest);
+	}
+
+	public override createImageUrl(storageKey: string, options: ImageS3StorageKeyToUrlFormatterOptions): string {
+		const formatter: ImageS3StorageKeyToUrlFormatter = new ImgproxyS3StorageKeyToUrlFormatter();
+		return formatter.format(storageKey, options);
 	}
 }
