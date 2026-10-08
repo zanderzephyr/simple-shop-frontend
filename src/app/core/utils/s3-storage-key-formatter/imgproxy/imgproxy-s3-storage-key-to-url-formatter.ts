@@ -20,8 +20,7 @@ export class ImgproxyS3StorageKeyToUrlFormatter implements ImageS3StorageKeyToUr
 	}
 
 	/**
-	 * https://docs.imgproxy.net/usage/processing
-	 * Layout: {baseUrl}/unsafe/{resizing_type}/{width}/{height}/{extend}/{enlarge}/plain/s3://storageKey
+	 * https://docs.imgproxy.net/usage/processing / https://docs.imgproxy.net/image_formats_support
 	 *
 	 * @param storageKey
 	 * @param options
@@ -31,20 +30,19 @@ export class ImgproxyS3StorageKeyToUrlFormatter implements ImageS3StorageKeyToUr
 			throw new IllegalArgumentError(`Storage key is empty!`);
 		}
 
-		// 0 tells imgproxy to calculate the missing dimension proportionally
-		const width: number = options.getWidth() ?? 0;
-		const height: number = options.getHeight() ?? 0;
-		const fileType: string | undefined = options.getFileType()?.toLowerCase();
-
+		// defaults to resizing_type:fit, which keeps the image ratio intact and fits into the dimensions
 		const processingOptionsSegments: string[] = [];
-		processingOptionsSegments.push('fit'); // keeps the image ratio intact and fits into the dimensions
-		processingOptionsSegments.push(width.toString());
-		processingOptionsSegments.push(height.toString());
-		// do not add "padding" to the image / keep it as big as it is when a
-		// dimensions doesn't fully fill.
-		processingOptionsSegments.push('0');
-		// do not stretch the image into bigger dimensions
-		processingOptionsSegments.push('0');
+		// defaults to 0 in imgproxy
+		const width: number | undefined = options.getWidth();
+		if (width !== undefined) {
+			processingOptionsSegments.push('width:' + width.toString());
+		}
+
+		// defaults to 0 in imgproxy
+		const height: number | undefined = options.getHeight();
+		if (height !== undefined) {
+			processingOptionsSegments.push('height:' + height.toString());
+		}
 		const processingOptions: string = processingOptionsSegments.join('/');
 
 		const urlSegments: string[] = [];
@@ -55,8 +53,9 @@ export class ImgproxyS3StorageKeyToUrlFormatter implements ImageS3StorageKeyToUr
 		urlSegments.push('plain');
 		urlSegments.push('s3:/');
 		urlSegments.push(storageKey);
+		const fileType: string | undefined = options.getFileType();
 		if (fileType !== undefined) {
-			urlSegments.push('@' + fileType);
+			urlSegments.push('@' + fileType.toLowerCase());
 		}
 
 		return urlSegments.join('/');
