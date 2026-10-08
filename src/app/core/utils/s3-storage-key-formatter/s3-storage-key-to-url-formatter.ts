@@ -5,5 +5,10 @@ import {
 
 @Injectable()
 export abstract class S3StorageKeyToUrlFormatter<OPTIONS extends S3StorageKeyToUrlFormatterOptions> {
-	public abstract format(storageKey: string, formatterOptions: OPTIONS): string;
+	public abstract format(params: FormatterParameters<OPTIONS>): string;
+}
+
+export interface FormatterParameters<OPTIONS extends S3StorageKeyToUrlFormatterOptions> {
+	storageKey: string;
+	formatterOptions: OPTIONS;
 }

@@ -83,6 +83,6 @@ export abstract class ItemImageService {
 	public createImageUrl<OPTIONS extends S3StorageKeyToUrlFormatterOptions>(
 		storageKey: string, formatter: S3StorageKeyToUrlFormatter<OPTIONS>, options: OPTIONS):
 		string {
-		return formatter.format(storageKey, options);
+		return formatter.format({ storageKey: storageKey, formatterOptions: options });
 	}
 }
