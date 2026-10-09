@@ -51,6 +51,7 @@ export class ImgproxyS3StorageKeyToUrlFormatter extends ImageS3StorageKeyToUrlFo
 		urlSegments.push(processingOptions);
 		urlSegments.push('plain');
 		urlSegments.push('s3:/');
+		urlSegments.push(formatterOptions.getBucketName());
 		const fileType: string | undefined = formatterOptions.getFileType();
 		if (fileType === undefined) {
 			urlSegments.push(storageKey);
