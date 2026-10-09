@@ -51,10 +51,11 @@ export class ImgproxyS3StorageKeyToUrlFormatter extends ImageS3StorageKeyToUrlFo
 		urlSegments.push(processingOptions);
 		urlSegments.push('plain');
 		urlSegments.push('s3:/');
-		urlSegments.push(storageKey);
 		const fileType: string | undefined = formatterOptions.getFileType();
-		if (fileType !== undefined) {
-			urlSegments.push('@' + fileType.toLowerCase());
+		if (fileType === undefined) {
+			urlSegments.push(storageKey);
+		} else {
+			urlSegments.push(storageKey + '@' + fileType.toLowerCase());
 		}
 
 		return urlSegments.join('/');
