@@ -3,17 +3,17 @@ import { BODY_KEY } from '@features/app-body/app-body-utils';
 
 const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
 
-const DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'dialog';
-const DIALOG_FIELD_KEY: string = DIALOG_KEY + KEY_SEPARATOR + 'field';
-export const DESCRIPTION_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'description';
-export const DESCRIPTION_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'descriptionError';
-export const MEDIA_TYPE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'mediaType';
-export const MEDIA_TYPE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'mediaTypeError';
-export const PRICE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'price';
-export const PRICE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'priceError';
-export const STOCK_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'stock';
-export const STOCK_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'stockError';
-export const TITLE_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'title';
-export const TITLE_ERROR_KEY: string = DIALOG_FIELD_KEY + KEY_SEPARATOR + 'titleError';
+const EDIT_ITEM_DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'editItemDialog';
+const EDIT_ITEM_DIALOG_FIELD_KEY: string = EDIT_ITEM_DIALOG_KEY + KEY_SEPARATOR + 'field';
+export const DESCRIPTION_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'description';
+export const DESCRIPTION_ERROR_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'descriptionError';
+export const MEDIA_TYPE_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'mediaType';
+export const MEDIA_TYPE_ERROR_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'mediaTypeError';
+export const PRICE_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'price';
+export const PRICE_ERROR_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'priceError';
+export const STOCK_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'stock';
+export const STOCK_ERROR_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'stockError';
+export const TITLE_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'title';
+export const TITLE_ERROR_KEY: string = EDIT_ITEM_DIALOG_FIELD_KEY + KEY_SEPARATOR + 'titleError';
 
 export const MEDIA_TYPE_ENUM_KEY: string = ENUM_KEY + KEY_SEPARATOR + 'mediaType' + KEY_SEPARATOR;
