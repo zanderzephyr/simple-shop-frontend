@@ -22,6 +22,7 @@
 						"titleModify": "Modify Item"
 					},
 					"imageManagementDialog": {
+						"thumbnailTitle": "Thumbnail",
 						"title": "Manage Item Images"
 					},
 					"table": {
@@ -184,6 +185,9 @@
 					"admin": "Admin",
 					"customer": "Customer"
 				}
+			},
+			"imageManagement": {
+				"uploadImage": "Upload image"
 			},
 			"paginator": {
 				"itemsPerPage": "Entries per page",

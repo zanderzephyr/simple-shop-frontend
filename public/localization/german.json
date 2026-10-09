@@ -22,6 +22,7 @@
 						"titleModify": "Item Ändern"
 					},
 					"imageManagementDialog": {
+						"thumbnailTitle": "Thumbnail",
 						"title": "Item-Bilder verwalten"
 					},
 					"table": {
@@ -184,6 +185,9 @@
 					"admin": "Admin",
 					"customer": "Kunde"
 				}
+			},
+			"imageManagement": {
+				"uploadImage": "Bild hochladen"
 			},
 			"paginator": {
 				"itemsPerPage": "Einträge pro Seite",

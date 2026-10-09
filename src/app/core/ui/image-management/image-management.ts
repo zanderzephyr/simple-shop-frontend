@@ -11,7 +11,9 @@ import {
 	WritableSignal
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { LocalizationService } from '@core/localization/localization-service';
 import { ImageManagementConfig } from '@ui/image-management/image-management-config';
+import * as Keys from './image-management-utils';
 
 // TODO Let this component be a general resource management component, so that it can deal with all kinds of data types?
 @Component({
@@ -22,6 +24,9 @@ import { ImageManagementConfig } from '@ui/image-management/image-management-con
 })
 export class ImageManagementComponent {
 	readonly #platformId: Object = inject(PLATFORM_ID);
+
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly uploadImageText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.UPLOAD_IMAGE_KEY));
 
 	public readonly imageManagementConfig: InputSignal<ImageManagementConfig> = input.required();
 

@@ -1,7 +1,7 @@
 import { ENUM_KEY, KEY_SEPARATOR } from '@core/utils/localization-utils';
 import { BODY_KEY } from '@features/app-body/app-body-utils';
 
-const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
+export const INVENTORY_KEY: string = BODY_KEY + KEY_SEPARATOR + 'inventory';
 export const REFRESH_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'refresh';
 export const CREATE_ITEM_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'createItem';
 
@@ -9,7 +9,7 @@ const EDIT_ITEM_DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'editItemDi
 export const CREATE_ITEM_TITLE_KEY: string = EDIT_ITEM_DIALOG_KEY + KEY_SEPARATOR + 'titleCreate';
 export const MODIFY_ITEM_TITLE_KEY: string = EDIT_ITEM_DIALOG_KEY + KEY_SEPARATOR + 'titleModify';
 
-const IMAGE_MANAGEMENT_DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'imageManagementDialog';
+export const IMAGE_MANAGEMENT_DIALOG_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'imageManagementDialog';
 export const IMAGE_MANAGEMENT_DIALOG_TITLE_KEY: string = IMAGE_MANAGEMENT_DIALOG_KEY + KEY_SEPARATOR + 'title';
 
 const TABLE_KEY: string = INVENTORY_KEY + KEY_SEPARATOR + 'table';

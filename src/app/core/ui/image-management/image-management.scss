@@ -3,6 +3,8 @@
 :host {
 	@include layout-utils.fill-grid-slot;
 
+	position: relative; // To prevent the image from taking over the screen.
+
 	.placeholder-icon {
 		grid-column: 1;
 		grid-row: 1;
@@ -11,5 +13,7 @@
 	.image {
 		grid-column: 1;
 		grid-row: 1;
+
+		object-fit: contain;
 	}
 }

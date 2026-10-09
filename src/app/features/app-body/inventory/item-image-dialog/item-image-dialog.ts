@@ -1,11 +1,13 @@
-import { Component, inject, signal, WritableSignal } from '@angular/core';
+import { Component, computed, inject, Signal, signal, WritableSignal } from '@angular/core';
 import { ItemImageService } from '@api/item/item-image/item-image-service';
 import { ImageType } from '@api/item/item-image/model/image-type';
+import { LocalizationService } from '@core/localization/localization-service';
 import { ItemImageManagementConfig } from '@features/app-body/inventory/item-image-dialog/item-image-management-config';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { ImageManagementComponent } from '@ui/image-management/image-management';
 import { ItemImageDialogData } from './item-image-dialog-data';
+import * as Keys from './item-image-dialog-utils';
 
 // TODO
 // Dialog with possibility to manage item images.
@@ -27,6 +29,9 @@ export class ItemImageDialogComponent extends GeneralDialogContentComponent<
 > {
 	private static readonly THUMBNAIL_HEIGHT_IN_PX: number = 200;
 	private static readonly THUMBNAIL_WIDTH_IN_PX: number = 200;
+
+	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected thumbnailTitleText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.THUMBNAIL_TITLE_KEY));
 
 	readonly #itemImageService: ItemImageService = inject(ItemImageService);
 
