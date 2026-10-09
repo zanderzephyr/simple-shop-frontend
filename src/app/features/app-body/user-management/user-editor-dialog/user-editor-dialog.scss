@@ -1,7 +1,18 @@
-.user-form-container {
-	display: flex;
-	flex-direction: column;
-	gap: 20px;
-	width: 100%;
-	padding: 0 0 20px 0;
+@use "layout-utils" as layout-utils;
+
+:host {
+	@include layout-utils.fill-grid-slot;
+
+	.user-form-container {
+		grid-column: 1;
+		grid-row: 1;
+
+		display: flex;
+		flex-direction: column;
+		gap: var(--app-small-padding);
+		width: 500px;
+
+		// top right bottom left
+		padding: var(--app-large-padding) 0 0 0;
+	}
 }
