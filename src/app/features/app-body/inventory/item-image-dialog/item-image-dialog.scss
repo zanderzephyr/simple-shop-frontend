@@ -1,5 +1,13 @@
-:host {
-	.thumbnail-management-container {
+@use "layout-utils" as layout-utils;
 
+:host {
+	@include layout-utils.fill-grid-slot;
+
+	height: 500px;
+	width: 500px;
+
+	.thumbnail-management-container {
+		grid-column: 1;
+		grid-row: 1;
 	}
 }
