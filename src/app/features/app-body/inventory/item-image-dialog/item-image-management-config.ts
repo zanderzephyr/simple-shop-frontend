@@ -10,9 +10,9 @@ import { Item } from '@api/item/model/item';
 import {
 	ImageS3StorageKeyToUrlFormatterOptions
 } from '@core/utils/s3-storage-key-formatter/image-s3-storage-key-to-url-formatter-options';
-import { ImageManagementService } from '@ui/image-management/image-management-service';
+import { ImageManagementConfig } from '@ui/image-management/image-management-config';
 
-export class ItemImageManagementService extends ImageManagementService {
+export class ItemImageManagementConfig extends ImageManagementConfig {
 	readonly #itemImageService: ItemImageService = inject(ItemImageService);
 
 	readonly #item: Item;

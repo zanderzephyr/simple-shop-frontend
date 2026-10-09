@@ -11,7 +11,7 @@ import {
 	WritableSignal
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
-import { ImageManagementService } from '@ui/image-management/image-management-service';
+import { ImageManagementConfig } from '@ui/image-management/image-management-config';
 
 // TODO Let this component be a general resource management component, so that it can deal with all kinds of data types?
 @Component({
@@ -23,7 +23,7 @@ import { ImageManagementService } from '@ui/image-management/image-management-se
 export class ImageManagementComponent {
 	readonly #platformId: Object = inject(PLATFORM_ID);
 
-	public readonly imageManagementService: InputSignal<ImageManagementService> = input.required();
+	public readonly imageManagementConfig: InputSignal<ImageManagementConfig> = input.required();
 
 	public readonly imageStorageKey: InputSignal<string | undefined> = input<string | undefined>(undefined);
 	readonly #modifiableImageStorageKey: WritableSignal<string | undefined> = signal(undefined);
@@ -32,7 +32,7 @@ export class ImageManagementComponent {
 		const modifiableImageStorageKey: string | undefined = this.#modifiableImageStorageKey();
 		const storageKeyToUse: string | undefined = modifiableImageStorageKey !== undefined ? modifiableImageStorageKey : imageStorageKey;
 		if (storageKeyToUse !== undefined) {
-			return this.imageManagementService().createDownloadUrl(storageKeyToUse);
+			return this.imageManagementConfig().createDownloadUrl(storageKeyToUse);
 		}
 		return undefined;
 	});
@@ -57,7 +57,7 @@ export class ImageManagementComponent {
 			const hiddenInput: HTMLInputElement = document.createElement('input');
 			hiddenInput.type = 'file';
 
-			hiddenInput.accept = this.imageManagementService().getAllowedFileTypes()
+			hiddenInput.accept = this.imageManagementConfig().getAllowedFileTypes()
 				.map(fileType => fileType.toLowerCase())
 				.map(fileType => fileType === 'jpg' ? 'image/jpeg' : ('image/' + fileType))
 				.join(',');
@@ -81,7 +81,7 @@ export class ImageManagementComponent {
 
 	async #doSetImage(file: File | undefined): Promise<void> {
 		if (file !== undefined) {
-			const storageKey: string | undefined = await this.imageManagementService().uploadImage(file);
+			const storageKey: string | undefined = await this.imageManagementConfig().uploadImage(file);
 			this.#modifiableImageStorageKey.set(storageKey);
 		}
 	}
@@ -89,7 +89,7 @@ export class ImageManagementComponent {
 	protected async onDeleteImage(): Promise<void> {
 		const imageStorageKey: string | undefined = this.#modifiableImageStorageKey();
 		if (imageStorageKey !== undefined) {
-			await this.imageManagementService().removeImage(imageStorageKey);
+			await this.imageManagementConfig().removeImage(imageStorageKey);
 			this.#modifiableImageStorageKey.set(undefined);
 		}
 	}

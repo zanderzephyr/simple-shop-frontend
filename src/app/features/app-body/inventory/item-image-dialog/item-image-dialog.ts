@@ -1,9 +1,7 @@
 import { Component, inject, signal, WritableSignal } from '@angular/core';
 import { ItemImageService } from '@api/item/item-image/item-image-service';
 import { ImageType } from '@api/item/item-image/model/image-type';
-import {
-	ItemImageManagementService
-} from '@features/app-body/inventory/item-image-dialog/item-image-management-service';
+import { ItemImageManagementConfig } from '@features/app-body/inventory/item-image-dialog/item-image-management-config';
 import { ButtonConfiguration } from '@ui/button/button-configuration';
 import { GeneralDialogContentComponent } from '@ui/dialog/general-dialog/general-dialog-content';
 import { ImageManagementComponent } from '@ui/image-management/image-management';
@@ -34,7 +32,7 @@ export class ItemImageDialogComponent extends GeneralDialogContentComponent<
 
 	protected readonly initialThumbnailStorageKey: WritableSignal<string | undefined> = signal(undefined);
 
-	protected readonly thumbnailImageManagementService: ItemImageManagementService = new ItemImageManagementService({
+	protected readonly thumbnailImageManagementConfig: ItemImageManagementConfig = new ItemImageManagementConfig({
 		item: this.getDialogData().getItem(),
 		imageType: ImageType.THUMBNAIL,
 		width: ItemImageDialogComponent.THUMBNAIL_WIDTH_IN_PX,

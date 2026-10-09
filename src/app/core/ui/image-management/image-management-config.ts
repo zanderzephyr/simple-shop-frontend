@@ -1,4 +1,4 @@
-export abstract class ImageManagementService {
+export abstract class ImageManagementConfig {
 	protected constructor() {
 		// Nothing to do so far
 	}
