@@ -33,16 +33,19 @@ export class ImageManagementComponent {
 
 	public readonly imageManagementConfig: InputSignal<ImageManagementConfig> = input.required();
 
+	// This input is only used initially. As soon as the user modifies the initial image, that new image is used.
 	public readonly imageStorageKey: InputSignal<string | undefined> = input<string | undefined>(undefined);
-	readonly #modifiableImageStorageKey: WritableSignal<string | undefined> = signal(undefined);
-	protected readonly imageUrl: Signal<string | undefined> = computed(() => {
+	readonly #modifiableImageStorageKey: WritableSignal<string | undefined> = signal(undefined, { equal: () => false });
+	#imageModified: boolean = false;
+	readonly #effectiveStorageKey: Signal<string | undefined> = computed(() => {
 		const imageStorageKey: string | undefined = this.imageStorageKey();
 		const modifiableImageStorageKey: string | undefined = this.#modifiableImageStorageKey();
-		const storageKeyToUse: string | undefined = modifiableImageStorageKey !== undefined ? modifiableImageStorageKey : imageStorageKey;
-		if (storageKeyToUse !== undefined) {
-			return this.imageManagementConfig().createDownloadUrl(storageKeyToUse);
-		}
-		return undefined;
+		return this.#imageModified ? modifiableImageStorageKey : imageStorageKey;
+	});
+
+	protected readonly imageUrl: Signal<string | undefined> = computed(() => {
+		const storageKeyToUse: string | undefined = this.#effectiveStorageKey();
+		return storageKeyToUse === undefined ? undefined : this.imageManagementConfig().createDownloadUrl(storageKeyToUse);
 	});
 
 	public constructor() {
@@ -90,15 +93,24 @@ export class ImageManagementComponent {
 	async #doSetImage(file: File | undefined): Promise<void> {
 		if (file !== undefined) {
 			const storageKey: string | undefined = await this.imageManagementConfig().uploadImage(file);
-			this.#modifiableImageStorageKey.set(storageKey);
+			if (storageKey !== undefined) {
+				this.#imageModified = true;
+				this.#modifiableImageStorageKey.set(storageKey);
+			}
 		}
 	}
 
 	protected async onDeleteImage(): Promise<void> {
-		const imageStorageKey: string | undefined = this.#modifiableImageStorageKey();
-		if (imageStorageKey !== undefined) {
-			await this.imageManagementConfig().removeImage(imageStorageKey);
+		let storageKey: string | undefined = this.#effectiveStorageKey();
+
+		// TODO Currently, we set the image as delete in the frontend first and then remove it in the backend to make
+		// sure a delete image doesn't cause bad access issues. This might cause problems if the image managed by this
+		// component has a context, that declares it illegal to have multiple pictures, because this component allows
+		// the user to immediately upload another picture.
+		if (storageKey !== undefined) {
+			this.#imageModified = true;
 			this.#modifiableImageStorageKey.set(undefined);
+			await this.imageManagementConfig().removeImage(storageKey);
 		}
 	}
 
