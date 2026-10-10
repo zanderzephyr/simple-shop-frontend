@@ -11,6 +11,7 @@ import {
 	WritableSignal
 } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 import { LocalizationService } from '@core/localization/localization-service';
 import { ImageManagementConfig } from '@ui/image-management/image-management-config';
 import * as Keys from './image-management-utils';
@@ -18,7 +19,7 @@ import * as Keys from './image-management-utils';
 // TODO Let this component be a general resource management component, so that it can deal with all kinds of data types?
 @Component({
 	selector: 'app-image-management',
-	imports: [MatIconModule, NgOptimizedImage],
+	imports: [MatIconModule, NgOptimizedImage, MatMenuModule],
 	templateUrl: './image-management.html',
 	styleUrl: './image-management.scss'
 })
@@ -26,6 +27,8 @@ export class ImageManagementComponent {
 	readonly #platformId: Object = inject(PLATFORM_ID);
 
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
+	protected readonly deleteImageText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.DELETE_IMAGE_KEY));
+	protected readonly modifyImageText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.MODIFY_IMAGE_KEY));
 	protected readonly uploadImageText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.UPLOAD_IMAGE_KEY));
 
 	public readonly imageManagementConfig: InputSignal<ImageManagementConfig> = input.required();

@@ -187,6 +187,8 @@
 				}
 			},
 			"imageManagement": {
+				"deleteImage": "Delete image",
+				"modifyImage": "Change image",
 				"uploadImage": "Upload image"
 			},
 			"paginator": {

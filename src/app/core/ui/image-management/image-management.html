@@ -1,5 +1,18 @@
 @if (imageUrl(); as url) {
-	<img class="image" [ngSrc]="url" fill alt="">
+	<img class="image" [ngSrc]="url" fill alt="" [matMenuTriggerFor]="imageMenu">
+
+	<mat-menu #imageMenu="matMenu">
+
+		<button type="button" class="remove-image-button" (click)="onDeleteImage()" mat-menu-item>
+			<span class="placeholder-label">{{ deleteImageText() }}</span>
+		</button>
+
+		<button type="button" class="modify-image-button" (click)="onModifyImage()" mat-menu-item>
+			<span class="placeholder-label">{{ modifyImageText() }}</span>
+		</button>
+
+	</mat-menu>
+
 } @else {
 	<button type="button" class="placeholder-container" (click)="onSetImage()">
 		<mat-icon class="placeholder-icon">add_photo_alternate</mat-icon>
