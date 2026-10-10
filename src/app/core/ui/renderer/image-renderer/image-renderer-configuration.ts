@@ -1,13 +1,13 @@
 import { z, ZodType } from 'zod';
 
 export class ImageRendererConfiguration {
-	readonly #url: string;
+	readonly #url: string | undefined;
 
-	constructor(url: string) {
+	constructor(url: string | undefined) {
 		this.#url = url;
 	}
 
-	public getUrl(): string {
+	public getUrl(): string | undefined {
 		return this.#url;
 	}
 }

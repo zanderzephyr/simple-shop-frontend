@@ -3,9 +3,15 @@
 :host {
 	@include layout-utils.fill-grid-slot;
 
-	.image-renderer-text-placeholder {
+	position: relative; // To prevent the image from taking over the screen.
+
+	.placeholder-container, .image {
 		grid-column: 1;
 		grid-row: 1;
 		place-self: center;
+	}
+
+	.image {
+		object-fit: contain;
 	}
 }

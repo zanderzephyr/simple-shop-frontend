@@ -1,3 +1,7 @@
-<div class="image-renderer-text-placeholder">
-	Cool picture!!
-</div>
+@if (imageUrl(); as url) {
+	<img class="image" [src]="url" alt="" loading="eager">
+} @else {
+	<div class="placeholder-container">
+		<mat-icon class="placeholder-icon">broken_image</mat-icon>
+	</div>
+}
