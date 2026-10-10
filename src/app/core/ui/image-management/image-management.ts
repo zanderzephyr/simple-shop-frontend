@@ -13,6 +13,9 @@ import {
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { LocalizationService } from '@core/localization/localization-service';
+import { DialogReference } from '@ui/dialog/interface/dialog-reference';
+import { DialogService, openErrorDialog } from '@ui/dialog/interface/dialog-service';
+import { MessageDialogResult } from '@ui/dialog/message-dialog/message-dialog-result';
 import { ImageManagementConfig } from '@ui/image-management/image-management-config';
 import * as Keys from './image-management-utils';
 
@@ -25,6 +28,8 @@ import * as Keys from './image-management-utils';
 })
 export class ImageManagementComponent {
 	readonly #platformId: Object = inject(PLATFORM_ID);
+
+	readonly #dialogService: DialogService = inject(DialogService);
 
 	readonly #localizationService: LocalizationService = inject(LocalizationService);
 	protected readonly deleteImageText: Signal<string> = computed(() => this.#localizationService.getValue(Keys.DELETE_IMAGE_KEY));
@@ -92,10 +97,22 @@ export class ImageManagementComponent {
 
 	async #doSetImage(file: File | undefined): Promise<void> {
 		if (file !== undefined) {
-			const storageKey: string | undefined = await this.imageManagementConfig().uploadImage(file);
-			if (storageKey !== undefined) {
-				this.#imageModified = true;
-				this.#modifiableImageStorageKey.set(storageKey);
+			try {
+				const storageKey: string | undefined = await this.imageManagementConfig().uploadImage(file);
+				if (storageKey !== undefined) {
+					this.#imageModified = true;
+					this.#modifiableImageStorageKey.set(storageKey);
+				}
+			} catch (e) {
+				const dialogReference: DialogReference<MessageDialogResult> = openErrorDialog(
+					this.#dialogService,
+					// TODO Consider a good error message chain, that starts in the backend. Error to localized error
+					// message or at least to error message localization keys could be done in the specific service
+					// representations of the frontend.
+					'Error during image upload. Images must only be at max 5MB!',
+					(config) => config.setDisableClose(true)
+				);
+				const dialogResult = await dialogReference.getResult();
 			}
 		}
 	}
